@@ -106,6 +106,17 @@ class GridGraph {
       for rod in rods {
         let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convertPoint(node.position, fromNode: node.parent!))
         scene.physicsWorld.addJoint(fixJoint)
+        rod.physicsBody?.dynamic = true
+      }
+    }
+  }
+  
+  // Like the method like above
+  func setAllRelatedRodsDynamicWithRotationNode(node: RotationPointNode) {
+    if let index = indexOfNode(node) {
+      let rods = vertexs[index].rods
+      for rod in rods {
+        rod.physicsBody?.dynamic = false
       }
     }
   }

@@ -47,6 +47,8 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   func didMoveToScene() {
     physicsBody = SKPhysicsBody(rectangleOfSize: size)
     physicsBody?.affectedByGravity = false
+    physicsBody?.dynamic = false
+//    physicsBody?.usesPreciseCollisionDetection = true
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -166,7 +168,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
 //            self.updateRelatedPointNodeState()
             })
           ])
-        rotatingNode.runAction(SKAction.afterDelay(0.3, performAction: action))
+        rotatingNode.runAction(SKAction.afterDelay(0.1, performAction: action))
       }
     }
     
@@ -206,7 +208,8 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
       }
     }
     rotatingNode.state.enterState(Checking)
-    self.rotatingNode = nil
+    // In the game scene file didSimulatePhysics I set the rotatingNode to nil
+//    self.rotatingNode = nil
   }
   
   

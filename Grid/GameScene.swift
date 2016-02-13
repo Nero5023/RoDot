@@ -19,6 +19,7 @@ class GameScene: SKScene {
   
   var gridGraph = GridGraph()
   var isFinishRotation = false
+  var rotatingRodNode: RodNode?
   
   override func didMoveToView(view: SKView) {
     
@@ -44,6 +45,7 @@ class GameScene: SKScene {
     if let rodNode = notification.object as? RodNode {
       isFinishRotation = true
       rodNode.updateRelatedPointNodeState()
+      rotatingRodNode = rodNode
     }
   }
   
@@ -177,6 +179,10 @@ class GameScene: SKScene {
   
   override func didSimulatePhysics() {
     if isFinishRotation {
+      if let rotatingPointNode = rotatingRodNode?.rotatingNode {
+        gridGraph.setAllRelatedRodsDynamicWithRotationNode(rotatingPointNode)
+        rotatingRodNode?.rotatingNode = nil
+      }
       physicsWorld.removeAllJoints()
       isFinishRotation = false
     }
