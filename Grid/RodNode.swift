@@ -9,11 +9,12 @@
 import SpriteKit
 import GameplayKit
 
+let kDidFinshRotationgNotification = "kDidFinshRotationgNotification"
 
 
 class RodNode: SKSpriteNode, CustomNodeEvents {
 
-  let MIN_MOVE_DISTANCE: CGFloat = 20
+  let MIN_MOVE_DISTANCE: CGFloat = 0
   
   
   enum Direction {
@@ -98,20 +99,23 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         // bug 要弄周围的几个rodnode也要变成dynamic
         // may be a lot of bugs
         lastTouchPoint = firstTouchPoint
+        if let node = upOrLeftNode {
+          if node.state.currentState! is Rotating {
+            rotatingNode = node
+          }
+        }
+        // may have to be changed
+        if let node = downOrRightNode {
+          if node.state.currentState! is Rotating {
+            rotatingNode = node
+          }
+        }
       }
     }else {
       //rotating
 //      let pointNode = upOrLeftNode?.state.currentState == Rotating ? upOrLeftNode : downOrRightNode
 
-      if let node = upOrLeftNode {
-        if node.state.currentState! is Rotating {
-          rotatingNode = node
-        }
-      }else if let node = downOrRightNode {
-        if node.state.currentState! is Rotating {
-          rotatingNode = node
-        }
-      }
+
       
       if let pointNode = rotatingNode {
         let touchPosition = touches.first!.locationInNode(parent!)
@@ -146,15 +150,21 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
       if abs(angle) <  π/4.0{
         let action = SKAction.sequence([SKAction.rotateByAngle(-angle, duration: 0.2),
           SKAction.runBlock({ [unowned self] in
-            rotatingNode.scene?.physicsWorld.removeAllJoints()
-            self.updateRelatedPointNodeState()})
+            print(rotatingNode.zRotation.radiansToDegrees())
+//            rotatingNode.scene?.physicsWorld.removeAllJoints()
+            NSNotificationCenter.defaultCenter().postNotificationName(kDidFinshRotationgNotification, object: self)
+//            self.updateRelatedPointNodeState()
+            })
           ])
         rotatingNode.runAction(SKAction.afterDelay(0.3, performAction: action))
       }else{
         let action = SKAction.sequence([SKAction.rotateByAngle((π/2-abs(angle))*angle.sign(), duration: 0.2),
           SKAction.runBlock({ [unowned self] in
-            rotatingNode.scene?.physicsWorld.removeAllJoints()
-            self.updateRelatedPointNodeState()})
+            print(rotatingNode.zRotation.radiansToDegrees())
+//            rotatingNode.scene?.physicsWorld.removeAllJoints()
+            NSNotificationCenter.defaultCenter().postNotificationName(kDidFinshRotationgNotification, object: self)
+//            self.updateRelatedPointNodeState()
+            })
           ])
         rotatingNode.runAction(SKAction.afterDelay(0.3, performAction: action))
       }
@@ -165,7 +175,13 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   }
   
   
+  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    
+  }
   
+  override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
+    
+  }
 
   
   
@@ -192,5 +208,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     rotatingNode.state.enterState(Checking)
     self.rotatingNode = nil
   }
+  
+  
   
 }

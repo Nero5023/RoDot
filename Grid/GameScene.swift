@@ -18,6 +18,7 @@ class GameScene: SKScene {
   var compound: SKSpriteNode!
   
   var gridGraph = GridGraph()
+  var isFinishRotation = false
   
   override func didMoveToView(view: SKView) {
     
@@ -34,9 +35,16 @@ class GameScene: SKScene {
         customNode.didMoveToScene()
       }
     })
-    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "finshRotation:", name: kDidFinshRotationgNotification, object: nil)
 //    setUp()
    
+  }
+  
+  func finshRotation(notification: NSNotification) {
+    if let rodNode = notification.object as? RodNode {
+      isFinishRotation = true
+      rodNode.updateRelatedPointNodeState()
+    }
   }
   
 //  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -168,7 +176,10 @@ class GameScene: SKScene {
   }
   
   override func didSimulatePhysics() {
-    
+    if isFinishRotation {
+      physicsWorld.removeAllJoints()
+      isFinishRotation = false
+    }
   }
   
   
@@ -218,6 +229,11 @@ class GameScene: SKScene {
     }
     
   }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: kDidFinshRotationgNotification, object: nil)
+  }
+  
 }
 
 
