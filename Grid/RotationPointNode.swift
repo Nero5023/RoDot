@@ -19,7 +19,6 @@ class RotationPointNode: SKSpriteNode, CustomNodeEvents {
   
   func didMoveToScene() {
     state.enterState(Checking)
-//    physicsBody = SKPhysicsBody(rectangleOfSize: self.size)
     physicsBody = SKPhysicsBody(circleOfRadius: size.width/4)
     physicsBody?.affectedByGravity = false
     physicsBody?.dynamic = false

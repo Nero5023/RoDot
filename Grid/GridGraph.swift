@@ -17,18 +17,6 @@ struct Vertex {
 class GridGraph {
   var vertexs: [Vertex]
   
-//  init?(points: [RotationPointNode], rods: [[RodNode]]) {
-//    guard points.count == rods.count else {
-//      return nil
-//    }
-//    self.vertexs = [Vertex]()
-//    for (i, point) in points.enumerate() {
-//      let vertex = Vertex(point: point, rods: Set(rods[i]))
-//      self.vertexs.append(vertex)
-//    }
-//    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("checkPoint:"), name: kPointNodeCheckNotification, object: nil)
-//  }
-  
   init() {
     self.vertexs = [Vertex]()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("checkPoint:"), name: kPointNodeCheckNotification, object: nil)
@@ -84,7 +72,7 @@ class GridGraph {
     }
   }
   
-  
+  //According to the index, append the rods around the pointNode
   func updateVertexRodsWithIndex(index: Int) {
     guard vertexs[index].rods.count == 0  && index >= 0 && index < vertexs.count else { return }
     let tags = [(1, 0), (0, 1), (0, -1), (-1, 0)]
@@ -99,27 +87,33 @@ class GridGraph {
     }
   }
   
-  //Attach the fixed joint to the rods and point
-  func attachJointFixToPointNode(node: RotationPointNode, atScene scene: SKScene) {
-    if let index = indexOfNode(node) {
+  // Traverse the rods around the rotationPointNode
+  func traverseRelatedRodsWithRotationNode(rotationPointNode: RotationPointNode, block: RodNode -> Void) {
+    if let index = indexOfNode(rotationPointNode) {
       let rods = vertexs[index].rods
       for rod in rods {
-        let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convertPoint(node.position, fromNode: node.parent!))
-        scene.physicsWorld.addJoint(fixJoint)
-        rod.physicsBody?.dynamic = true
+        block(rod)
       }
     }
   }
   
+  //Attach the fixed joint to the rods and point
+  func attachJointFixToPointNode(node: RotationPointNode, atScene scene: SKScene) {
+    traverseRelatedRodsWithRotationNode(node, block: { rod in
+      let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convertPoint(node.position, fromNode: node.parent!))
+      scene.physicsWorld.addJoint(fixJoint)
+      rod.physicsBody?.dynamic = true
+    })
+  }
+  
   // Like the method like above
   func setAllRelatedRodsDynamicWithRotationNode(node: RotationPointNode) {
-    if let index = indexOfNode(node) {
-      let rods = vertexs[index].rods
-      for rod in rods {
-        rod.physicsBody?.dynamic = false
-      }
-    }
+    traverseRelatedRodsWithRotationNode(node, block: { rod in
+      rod.physicsBody?.dynamic = false
+    })
   }
+  
+
   
   deinit {
     NSNotificationCenter.defaultCenter().removeObserver(self, name: kPointNodeCheckNotification, object: nil)

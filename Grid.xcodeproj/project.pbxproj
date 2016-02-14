@@ -14,7 +14,6 @@
 		CE66F6861C6BA4AF00E08955 /* Locked.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F6851C6BA4AF00E08955 /* Locked.swift */; };
 		CE66F6881C6BA51F00E08955 /* Unlocked.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F6871C6BA51F00E08955 /* Unlocked.swift */; };
 		CE66F68A1C6BA6DC00E08955 /* Rotating.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F6891C6BA6DC00E08955 /* Rotating.swift */; };
-		CE6C04901C699C0F0082068B /* GridLineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C048F1C699C0F0082068B /* GridLineNode.swift */; };
 		CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */; };
 		CE7DB7D01C68B64400AA358C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DB7CF1C68B64400AA358C /* AppDelegate.swift */; };
 		CE7DB7D21C68B64400AA358C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7DB7D11C68B64400AA358C /* GameScene.sks */; };
@@ -64,7 +63,6 @@
 		CE66F6851C6BA4AF00E08955 /* Locked.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locked.swift; sourceTree = "<group>"; };
 		CE66F6871C6BA51F00E08955 /* Unlocked.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unlocked.swift; sourceTree = "<group>"; };
 		CE66F6891C6BA6DC00E08955 /* Rotating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rotating.swift; sourceTree = "<group>"; };
-		CE6C048F1C699C0F0082068B /* GridLineNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLineNode.swift; sourceTree = "<group>"; };
 		CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolAndCommon.swift; sourceTree = "<group>"; };
 		CE7DB7CC1C68B64400AA358C /* Grid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7DB7CF1C68B64400AA358C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				CE66F67C1C6B83B200E08955 /* RodNode.swift */,
 				CE66F67E1C6B8E0700E08955 /* RotationPointNode.swift */,
 				CE66F6821C6B956C00E08955 /* PointNodeState */,
-				CE6C048F1C699C0F0082068B /* GridLineNode.swift */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -351,7 +348,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7DB7D41C68B64400AA358C /* GameScene.swift in Sources */,
-				CE6C04901C699C0F0082068B /* GridLineNode.swift in Sources */,
 				CE66F6811C6B8E3900E08955 /* GridGraph.swift in Sources */,
 				CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */,
 				CE7DB80F1C68D74C00AA358C /* CGPoint+Extensions.swift in Sources */,
