@@ -29,15 +29,22 @@ class GridGraph {
     if let index = indexOfNode(pointNode) { //If the vertexs has already had the vertex which contain pointNode
       // Double Check
       if vertexs[index].point != pointNode { return }
+      let previousRods = vertexs[index].rods
       vertexs[index].rods.removeAll()
       
       updateVertexRodsWithIndex(index)
+      let presentRods = vertexs[index].rods
+      let sameRods = presentRods.intersect(previousRods)
+      let changedRods = previousRods.subtract(sameRods)
+      if changedRods.count == 1 {
+        changedRods.first!.pointNodes = Set(changedRods.first!.pointNodes.filter({$0 != pointNode}))
+      }
       changePointNodeStateWithRods(vertexs[index].rods, node: pointNode)
     }else { // if pointNode not in the vertexs
       let vertex = Vertex(point: pointNode, rods: [])
       self.vertexs.append(vertex)
-      
       updateVertexRodsWithIndex(self.vertexs.count-1)
+      
       changePointNodeStateWithRods(vertexs.last!.rods, node: pointNode)
     }
 
@@ -62,12 +69,12 @@ class GridGraph {
     if rods.count == 4 {
       node.state.enterState(Locked)
       for rod in rods {
-        rod.pointNodes.removeAll()
+        rod.pointNodes = Set(rod.pointNodes.filter({ $0 != node }))
       }
     }else {
       node.state.enterState(Unlocked)
       for rod in rods {
-        rod.pointNodes.append(node)
+        rod.pointNodes.insert(node)
       }
     }
   }

@@ -23,7 +23,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     case horizontal
   }
   
-  var pointNodes = [RotationPointNode]() {
+  var pointNodes = Set<RotationPointNode>() {
     didSet {
       if pointNodes.count == 0 {
         userInteractionEnabled = false
@@ -55,6 +55,8 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   
 //MARK:  Touch events
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    print(pointNodes.count)
+    print(pointNodes)
     guard pointNodes.count != 0 && touches.count == 1 else { return }
     
     firstTouchPoint = touches.first!.locationInNode(self.parent!)
@@ -119,6 +121,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         let angle = angleWith(CGVector(point: lastTouchPoint! - pointNode.position), vector: CGVector(point: touchPosition - pointNode.position))
 //        pointNode.runAction(SKAction.rotateByAngle(angle, duration: 0.2))
         pointNode.zRotation += angle
+//        physicsBody?.applyImpulse(CGVector(dx: 1000, dy: 1000))
         lastTouchPoint = touchPosition
       }
     }
@@ -159,7 +162,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
             NSNotificationCenter.defaultCenter().postNotificationName(kDidFinshRotationgNotification, object: self)
             })
           ])
-        rotatingNode.runAction(SKAction.afterDelay(0.3, performAction: action))
+        rotatingNode.runAction(SKAction.afterDelay(0.1, performAction: action))
       }else{
         let action = SKAction.sequence([SKAction.rotateByAngle((π/2-abs(angle))*angle.sign(), duration: 0.2),
           SKAction.runBlock({ [unowned self] in

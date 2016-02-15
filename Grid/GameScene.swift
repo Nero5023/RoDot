@@ -37,7 +37,6 @@ class GameScene: SKScene {
       }
     })
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "finshRotation:", name: kDidFinshRotationgNotification, object: nil)
-//    setUp()
    
   }
   
@@ -68,6 +67,9 @@ class GameScene: SKScene {
     }
   }
   
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+  }
   
   
   
