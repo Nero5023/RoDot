@@ -120,6 +120,21 @@ class GridGraph {
     })
   }
   
+  func makeCompoundNode(withPointNode pointNode: RotationPointNode) -> SKSpriteNode? {
+    guard let index = indexOfNode(pointNode) else { return nil }
+    let compound = SKSpriteNode()
+    vertexs[index].point.removeFromParent()
+    compound.addChild(vertexs[index].point)
+    for rod in vertexs[index].rods {
+      rod.removeFromParent()
+      compound.addChild(rod)
+    }
+    var bodies = vertexs[index].rods.map { $0.physicsBody! }
+    bodies.append(vertexs[index].point.physicsBody!)
+    compound.physicsBody = SKPhysicsBody(bodies: bodies)
+    
+    return compound
+  }
 
   
   deinit {

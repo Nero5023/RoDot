@@ -22,8 +22,6 @@ class RotationPointNode: SKSpriteNode, CustomNodeEvents {
     physicsBody = SKPhysicsBody(circleOfRadius: size.width/4)
     physicsBody?.affectedByGravity = false
     physicsBody?.dynamic = false
-    
-    
   }
   
   

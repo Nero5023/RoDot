@@ -56,7 +56,10 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
 //MARK:  Touch events
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     print(pointNodes.count)
-    print(pointNodes)
+    print("self:\(position)")
+    for node in pointNodes {
+      print(node.position)
+    }
     guard pointNodes.count != 0 && touches.count == 1 else { return }
     
     firstTouchPoint = touches.first!.locationInNode(self.parent!)
@@ -120,8 +123,8 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         let touchPosition = touches.first!.locationInNode(parent!)
         let angle = angleWith(CGVector(point: lastTouchPoint! - pointNode.position), vector: CGVector(point: touchPosition - pointNode.position))
 //        pointNode.runAction(SKAction.rotateByAngle(angle, duration: 0.2))
-        pointNode.zRotation += angle
-//        physicsBody?.applyImpulse(CGVector(dx: 1000, dy: 1000))
+//        pointNode.zRotation += angle
+        physicsBody?.applyImpulse(CGVector(dx: 100, dy: 100))
         lastTouchPoint = touchPosition
       }
     }
@@ -201,7 +204,5 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     // In the game scene file didSimulatePhysics I set the rotatingNode to nil
     //self.rotatingNode = nil
   }
-  
-  
   
 }
