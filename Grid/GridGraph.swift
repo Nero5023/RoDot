@@ -124,17 +124,36 @@ class GridGraph {
     guard let index = indexOfNode(pointNode) else { return nil }
     let compound = SKSpriteNode()
     vertexs[index].point.removeFromParent()
+    vertexs[index].point.physicsBody = nil
+    let centerPosition = vertexs[index].point.position
     compound.addChild(vertexs[index].point)
     for rod in vertexs[index].rods {
       rod.removeFromParent()
+      rod.physicsBody = nil
       compound.addChild(rod)
     }
-    var bodies = vertexs[index].rods.map { $0.physicsBody! }
-    bodies.append(vertexs[index].point.physicsBody!)
+//    var bodies = vertexs[index].rods.map { $0.physicsBody! }
+    var bodies = [SKPhysicsBody]()
+    for rod in vertexs[index].rods {
+//      rod.physicsBody = nil
+//      bodies.append(rod.physicsBody!.copy() as! SKPhysicsBody)
+      if abs(rod.zRotation) < 0.1 || abs(abs(rod.zRotation) - π) < 0.1 {
+        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: rod.size.width, height: rod.size.height-8), center: rod.position))
+      }else {
+        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: rod.size.height-8, height: rod.size.width), center: rod.position))
+      }
+      
+      
+    }
+//    bodies.append(vertexs[index].point.physicsBody!.copy() as! SKPhysicsBody)
+//    vertexs[index].point.physicsBody = nil
+    bodies.append(SKPhysicsBody(circleOfRadius: vertexs[index].point.size.width/4, center: vertexs[index].point.position))
     compound.physicsBody = SKPhysicsBody(bodies: bodies)
-    
+//    compound.physicsBody?.dynamic = false
     return compound
   }
+  
+  
 
   
   deinit {

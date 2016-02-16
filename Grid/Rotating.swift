@@ -19,8 +19,7 @@ class Rotating: GKState {
   
   override func didEnterWithPreviousState(previousState: GKState?) {
     if let scene = node.scene as? GameScene {
-//      scene.gridGraph.attachJointFixToPointNode(node, )
-      scene.gridGraph.attachJointFixToPointNode(node, atScene: scene)
+//      scene.gridGraph.attachJointFixToPointNode(node, atScene: scene)
     }
   }
   
