@@ -72,7 +72,7 @@ class GameScene: SKScene {
 //    }
     
     
-  }x`
+  }
   
   func angleWith(lastVector: CGPoint, vector: CGPoint) -> CGFloat {
     let oldAngle = atan2(lastVector.y, lastVector.x) - π/2
