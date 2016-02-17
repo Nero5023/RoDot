@@ -9,7 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-let kDidFinshRotationgNotification = "kDidFinshRotationgNotification"
 
 
 class RodNode: SKSpriteNode, CustomNodeEvents {
@@ -53,44 +52,22 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   }
   
   
-//MARK:  Touch events
+//MARK:  Touch events (Useless now)
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//    for node in pointNodes {
-//      print(node.position)
-//    }
-//    guard pointNodes.count != 0 && touches.count == 1 else { return }
-//    
-//    firstTouchPoint = touches.first!.locationInNode(self.parent!)
-//    if abs(position.x - pointNodes.first!.position.x) < pointNodes.first!.size.width {
-//      direction = Direction.vertical
-//      for node in pointNodes {
-//        if node.position.y > position.y {
-//          upOrLeftNode = node
-//        }else {
-//          downOrRightNode = node
-//        }
-//      }
-//    }else {
-//      direction = Direction.horizontal
-//      for node in pointNodes {
-//        if node.position.x < position.x {
-//          upOrLeftNode = node
-//        }else {
-//          downOrRightNode = node
-//        }
-//      }
-//    }
+
     setUpRotation(touches, withEvent: event)
   }
   
-  func setUpRotation(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  // Set up rotation 
+  // Return if has set up rotation
+  func setUpRotation(touches: Set<UITouch>, withEvent event: UIEvent?) -> Bool {
     print("Touched RodNode's pointNodes count \(pointNodes.count)")
-//    for node in pointNodes {
-//      print(node.position)
-//    }
-    guard pointNodes.count != 0 && touches.count == 1 else { return }
+    
+    guard pointNodes.count != 0 && touches.count == 1 else { return false }
     
     firstTouchPoint = touches.first!.locationInNode(self.parent!)
+    // Judge the direction of pointNode reference to the rodNode
+    // The jude the location of pointNode according to the rodNode
     if abs(position.x - pointNodes.first!.position.x) < pointNodes.first!.size.width {
       direction = Direction.vertical
       for node in pointNodes {
@@ -110,6 +87,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         }
       }
     }
+    return true
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -145,16 +123,6 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
           }
         }
         
-//        if let scene = self.scene as? GameScene{
-//          let centerPosition = rotatingNode!.position
-//          let compound = scene.gridGraph.makeCompoundNode(withPointNode: rotatingNode!)
-//          print(compound)
-//          scene.addChild(compound!)
-//          let pinJoint = SKPhysicsJointPin.jointWithBodyA(compound!.physicsBody!, bodyB: scene.physicsBody!, anchor: centerPosition)
-//          scene.physicsWorld.addJoint(pinJoint)
-//          compound?.physicsBody?.applyAngularImpulse(100000)
-//        }
-      
       }
     }else {
       //rotating
@@ -169,6 +137,8 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     }
   }
   
+  // Touch move event
+  // Check which rotating direction of the node
   func checkRotation(touches: Set<UITouch>, withEvent event: UIEvent?) {
     guard let firstTouchPoint = firstTouchPoint, direction = direction else { return }
     if !isRotating {
@@ -218,42 +188,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     
   }
 
-  func resetRotation() {
-    lastTouchPoint = nil
-    firstTouchPoint = nil
-    upOrLeftNode = nil
-    downOrRightNode = nil
-    isRotating = false
-    
-    // Make sure the rotating the 90
-    // May have a bug here
-    if let rotatingNode = rotatingNode {
-      let angle = rotatingNode.zRotation % (π/2.0)
-      if abs(angle) <  π/4.0{
-        let action = SKAction.sequence([SKAction.rotateByAngle(-angle, duration: 0.2),
-          SKAction.runBlock({ [unowned self] in
-            print("RotatingNode.zRotation:\(rotatingNode.zRotation.radiansToDegrees())")
-            //            The next two methods will do in the do in the observer
-            //            rotatingNode.scene?.physicsWorld.removeAllJoints()
-            //            self.updateRelatedPointNodeState()
-            NSNotificationCenter.defaultCenter().postNotificationName(kDidFinshRotationgNotification, object: self)
-            })
-          ])
-        rotatingNode.runAction(SKAction.afterDelay(0.1, performAction: action))
-      }else{
-        let action = SKAction.sequence([SKAction.rotateByAngle((π/2-abs(angle))*angle.sign(), duration: 0.2),
-          SKAction.runBlock({ [unowned self] in
-            print("RotatingNode.zRotation:\(rotatingNode.zRotation.radiansToDegrees())")
-            //            rotatingNode.scene?.physicsWorld.removeAllJoints()
-            //            self.updateRelatedPointNodeState()
-            NSNotificationCenter.defaultCenter().postNotificationName(kDidFinshRotationgNotification, object: self)
-            })
-          ])
-        rotatingNode.runAction(SKAction.afterDelay(0.1, performAction: action))
-      }
-    }
-  }
-  
+
   func rest() {
     lastTouchPoint = nil
     firstTouchPoint = nil
