@@ -45,10 +45,13 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   
 //  MARK:CustomNodeEvents methods
   func didMoveToScene() {
-    physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: size.width, height: size.height-8))
-    physicsBody?.affectedByGravity = false
-    physicsBody?.dynamic = false
-//    physicsBody?.usesPreciseCollisionDetection = true
+    physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 22, height: size.height-8))
+    physicsBody!.affectedByGravity = false
+    physicsBody!.dynamic = false
+    isRotating = false
+    
+    physicsBody!.categoryBitMask = PhysicsCategory.Rod
+    physicsBody!.collisionBitMask = PhysicsCategory.Ball
   }
   
   
@@ -91,50 +94,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    guard let firstTouchPoint = firstTouchPoint, direction = direction else { return }
     
-    if !isRotating {
-      let vector = touches.first!.locationInNode(self.parent!) - firstTouchPoint
-      if abs(vector.x) > MIN_MOVE_DISTANCE && abs(vector.y) > MIN_MOVE_DISTANCE {
-        if direction == .vertical {
-          if vector.y > 0 {
-            upOrLeftNode?.state.enterState(Rotating)
-          }else {
-            downOrRightNode?.state.enterState(Rotating)
-          }
-        }else {
-          if vector.x < 0 {
-            upOrLeftNode?.state.enterState(Rotating)
-          }else {
-            downOrRightNode?.state.enterState(Rotating)
-          }
-        }
-        isRotating = true
-        lastTouchPoint = firstTouchPoint
-        if let node = upOrLeftNode {
-          if node.state.currentState! is Rotating {
-            rotatingNode = node
-          }
-        }
-        // may have to be changed
-        if let node = downOrRightNode {
-          if node.state.currentState! is Rotating {
-            rotatingNode = node
-          }
-        }
-        
-      }
-    }else {
-      //rotating
-      if let pointNode = rotatingNode {
-        let touchPosition = touches.first!.locationInNode(parent!)
-        let angle = angleWith(CGVector(point: lastTouchPoint! - pointNode.position), vector: CGVector(point: touchPosition - pointNode.position))
-//        pointNode.runAction(SKAction.rotateByAngle(angle, duration: 0.2))
-        pointNode.zRotation += angle
-//        physicsBody?.applyImpulse(CGVector(dx: 100, dy: 100))
-        lastTouchPoint = touchPosition
-      }
-    }
   }
   
   // Touch move event
@@ -217,7 +177,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         pointNode.state.enterState(Checking)
       }
     }
-    rotatingNode.state.enterState(Checking)
+    rotatingNode.state.enterState(Unlocked)
     // In the game scene file didSimulatePhysics I set the rotatingNode to nil
     //self.rotatingNode = nil
   }

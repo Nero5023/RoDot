@@ -24,7 +24,7 @@ class Rotating: GKState {
   }
   
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    return stateClass is Checking.Type
+    return stateClass is Checking.Type || stateClass is Unlocked.Type
   }
   
   

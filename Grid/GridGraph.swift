@@ -97,8 +97,7 @@ class GridGraph {
   // Traverse the rods around the rotationPointNode
   func traverseRelatedRodsWithRotationNode(rotationPointNode: RotationPointNode, block: RodNode -> Void) {
     if let index = indexOfNode(rotationPointNode) {
-      let rods = vertexs[index].rods
-      for rod in rods {
+      for rod in vertexs[index].rods {
         block(rod)
       }
     }
@@ -106,10 +105,12 @@ class GridGraph {
   
   //Attach the fixed joint to the rods and point
   func attachJointFixToPointNode(node: RotationPointNode, atScene scene: SKScene) {
+    guard let index = indexOfNode(node) else { return }
+    print("vertexs[index].rods.count:\(vertexs[index].rods.count)")
     traverseRelatedRodsWithRotationNode(node, block: { rod in
       let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convertPoint(node.position, fromNode: node.parent!))
+      rod.physicsBody!.dynamic = true
       scene.physicsWorld.addJoint(fixJoint)
-      rod.physicsBody?.dynamic = true
     })
   }
   
@@ -136,9 +137,9 @@ class GridGraph {
     var bodies = [SKPhysicsBody]()
     for rod in vertexs[index].rods {
       if abs(rod.zRotation) < 0.1 || abs(abs(rod.zRotation) - π) < 0.1 {
-        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: rod.size.width, height: rod.size.height-8), center: rod.position))
+        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: 22, height: rod.size.height-8), center: rod.position))
       }else {
-        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: rod.size.height-8, height: rod.size.width), center: rod.position))
+        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: rod.size.height-8, height: 22), center: rod.position))
       }
     }
     

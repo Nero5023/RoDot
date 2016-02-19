@@ -18,22 +18,21 @@ class GameScene: SKScene {
   
   var gridGraph = GridGraph()
   var isFinishRotation = false
+  var isResting = false
   var rotatingRodNode: RodNode?
   
   var compound: SKSpriteNode?
   
   var targetZRotation: CGFloat = 0.0
   
+  var bgNode = SKNode()
+  var spritesNode = SKNode()
+  var hudNode = SKNode()
+  var overlayNode = SKNode()
   
   override func didMoveToView(view: SKView) {
-    
-    let maxAspectRatio: CGFloat = 16.0/9.0
-    let maxAspectRatioWidth = size.height / maxAspectRatio
-    
-    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
-    let playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
-    physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
-    
+    setUpScene()
+    setUpNode()
     
     enumerateChildNodesWithName("//*", usingBlock: {node, _ in
       if let customNode = node as? CustomNodeEvents {
@@ -43,13 +42,32 @@ class GameScene: SKScene {
     
   }
   
+  //Set up nodes
+  func setUpNode() {
+    bgNode = childNodeWithName("Background")!
+    spritesNode = childNodeWithName("Sprites")!
+    hudNode = childNodeWithName("HUD")!
+    overlayNode = childNodeWithName("Overlay")!
+    
+  }
+  
+  func setUpScene() {
+    let maxAspectRatio: CGFloat = 16.0/9.0
+    let maxAspectRatioWidth = size.height / maxAspectRatio
+    
+    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
+    let playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
+    physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
+    physicsBody!.categoryBitMask = PhysicsCategory.Edge
+    physicsBody!.collisionBitMask = PhysicsCategory.Ball
+  }
   
 
   // MARK: Update
   override func update(currentTime: CFTimeInterval) {
     if let compound = compound, lastTouchedPosition = lastTouchedPosition {
-      let angle = angleWith(compound.convertPoint(rotatingRodNode!.position, toNode: self) - compound.convertPoint(rotatingRodNode!.rotatingNode!.position, toNode: self),
-        vector: lastTouchedPosition - compound.convertPoint(rotatingRodNode!.rotatingNode!.position, toNode: self))
+      let angle = angleWith(compound.convertPoint(rotatingRodNode!.position, toNode: spritesNode) - compound.convertPoint(rotatingRodNode!.rotatingNode!.position, toNode: spritesNode),
+        vector: lastTouchedPosition - compound.convertPoint(rotatingRodNode!.rotatingNode!.position, toNode: spritesNode))
       compound.physicsBody?.angularVelocity = angle * 10
     }
   }
@@ -69,31 +87,35 @@ class GameScene: SKScene {
         rotatingRodNode = nil
       }
       physicsWorld.removeAllJoints()
+      isResting = false
       isFinishRotation = false
     }
   }
   
   //MARK: Touch event
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    let touchLocation = touches.first!.locationInNode(self)
+    guard isResting == false else { return }
+    let touchLocation = touches.first!.locationInNode(spritesNode)
     if let rodNode = nodeAtPoint(touchLocation) as? RodNode {
       // Only rodNode have the pointNodes can rotate
       if rodNode.pointNodes.count != 0 {
         // 
         if rodNode.setUpRotation(touches, withEvent: event) {
           rotatingRodNode = rodNode
+          rodNode.isRotating = false
         }
       }
     }
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    guard isResting == false else { return }
     // Check the if already reference to the rotatingRodNode
     guard let rotatingRodNode = rotatingRodNode else { return }
     
     // Check if compound the nodes
     if let _ = compound {
-      lastTouchedPosition = touches.first?.locationInNode(self)
+      lastTouchedPosition = touches.first?.locationInNode(spritesNode)
     }else {
       rotatingRodNode.checkRotation(touches, withEvent: event)
       if rotatingRodNode.isRotating {
@@ -103,6 +125,9 @@ class GameScene: SKScene {
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    guard isResting == false else { return }
+    // May can put it in the restRotation
+//    isResting = true
     restRotation()
   }
   
@@ -112,9 +137,7 @@ class GameScene: SKScene {
       else { return }
     let centerPosition = rotationPointNode.position
     if let compound = gridGraph.makeCompoundNode(withPointNode: rotationPointNode) {
-      //TODO:
-      //Need to change self.physicsBody?
-      addChild(compound)
+      spritesNode.addChild(compound)
       let pinJoint = SKPhysicsJointPin.jointWithBodyA(compound.physicsBody!, bodyB: physicsBody!, anchor: centerPosition)
       pinJoint.frictionTorque = 1
       pinJoint.rotationSpeed = 0.01
@@ -128,18 +151,22 @@ class GameScene: SKScene {
     guard let compound = compound else { return }
     physicsWorld.removeAllJoints()
     let compoundZRotation = compound.zRotation
+    var nodes = [SKNode]()
+    print(compound.children.count)
     for node in compound.children {
       if let node = node as? SKSpriteNode {
         node.removeFromParent()
         // Convert the node position to the self(may be changed to the overlay)
-        node.position = compound.convertPoint(node.position, toNode: self)
+        node.position = compound.convertPoint(node.position, toNode: spritesNode)
         //Don't know why it doesn't work
-        node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: node.size.width, height: node.size.height-8), center: node.position)
+        node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 22, height: node.size.height-8), center: node.position)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = false
-        addChild(node)
+        spritesNode.addChild(node)
         node.zRotation += compoundZRotation
         compound.physicsBody = nil
+        
+        nodes.append(node)
       }
     }
     
@@ -148,15 +175,34 @@ class GameScene: SKScene {
         node.didMoveToScene()
       }
     }
+//    for node in nodes {
+//      if let node = node as? CustomNodeEvents {
+//        node.didMoveToScene()
+//      }
+//    }
+    
+    for node in nodes {
+      if let rod = node as? RodNode {
+        let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: rotatingRodNode!.rotatingNode!.physicsBody!,
+          anchor: self.convertPoint(rotatingRodNode!.rotatingNode!.position, fromNode: rod.parent!))
+        rod.physicsBody!.dynamic = true
+        physicsWorld.addJoint(fixJoint)
+      }
+//      let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convertPoint(node.position, fromNode: node.parent!))
+//      rod.physicsBody!.dynamic = true
+//      scene.physicsWorld.addJoint(fixJoint)
+    }
+    
   }
   
   func restRotation() {
-    guard let rotatingRodNode = rotatingRodNode, _ = compound else { return }
+    guard let rotatingRodNode = rotatingRodNode,  _ = compound else { return }
     if let rotatingPointNode = rotatingRodNode.rotatingNode {
       decompound()
-      gridGraph.attachJointFixToPointNode(rotatingPointNode, atScene: self)
+//      gridGraph.attachJointFixToPointNode(rotatingPointNode, atScene: self)
       //Rest the nodes position
       let angle = rotatingPointNode.zRotation % (π/2.0)
+      isResting = true
       if abs(angle) <  π/4.0 {
         let action = SKAction.sequence([SKAction.rotateByAngle(-angle, duration: 0.4),
           SKAction.runBlock({ [unowned self] in
@@ -183,6 +229,7 @@ class GameScene: SKScene {
       isFinishRotation = true
       rodNode.updateRelatedPointNodeState()
       compound = nil
+      lastTouchedPosition = nil
     }
   }
   
