@@ -52,6 +52,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     
     physicsBody!.categoryBitMask = PhysicsCategory.Rod
     physicsBody!.collisionBitMask = PhysicsCategory.Ball
+
   }
   
   
@@ -177,7 +178,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         pointNode.state.enterState(Checking)
       }
     }
-    rotatingNode.state.enterState(Unlocked)
+    rotatingNode.state.enterState(Checking)
     // In the game scene file didSimulatePhysics I set the rotatingNode to nil
     //self.rotatingNode = nil
   }

@@ -145,6 +145,8 @@ class GridGraph {
     
     bodies.append(SKPhysicsBody(circleOfRadius: vertexs[index].point.size.width/4, center: vertexs[index].point.position))
     compound.physicsBody = SKPhysicsBody(bodies: bodies)
+    compound.physicsBody!.categoryBitMask = PhysicsCategory.Rod
+    compound.physicsBody!.collisionBitMask = PhysicsCategory.Ball
     return compound
   }
   

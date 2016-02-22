@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B1E141C76F244000FDE5E /* BallNode.swift */; };
 		CE1B1E181C770964000FDE5E /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level1.sks */; };
+		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE66F67D1C6B83B200E08955 /* RodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F67C1C6B83B200E08955 /* RodNode.swift */; };
 		CE66F67F1C6B8E0700E08955 /* RotationPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F67E1C6B8E0700E08955 /* RotationPointNode.swift */; };
 		CE66F6811C6B8E3900E08955 /* GridGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F6801C6B8E3900E08955 /* GridGraph.swift */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		CE1B1E141C76F244000FDE5E /* BallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallNode.swift; sourceTree = "<group>"; };
 		CE1B1E171C770964000FDE5E /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE66F67C1C6B83B200E08955 /* RodNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RodNode.swift; sourceTree = "<group>"; };
 		CE66F67E1C6B8E0700E08955 /* RotationPointNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationPointNode.swift; sourceTree = "<group>"; };
 		CE66F6801C6B8E3900E08955 /* GridGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridGraph.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				CE66F67C1C6B83B200E08955 /* RodNode.swift */,
 				CE66F67E1C6B8E0700E08955 /* RotationPointNode.swift */,
 				CE1B1E141C76F244000FDE5E /* BallNode.swift */,
+				CE6576121C7A056700EA2348 /* TransferNode.swift */,
 				CE66F6821C6B956C00E08955 /* PointNodeState */,
 			);
 			name = Nodes;
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7DB7D41C68B64400AA358C /* GameScene.swift in Sources */,
+				CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */,
 				CE66F6811C6B8E3900E08955 /* GridGraph.swift in Sources */,
 				CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */,
 				CE7DB80F1C68D74C00AA358C /* CGPoint+Extensions.swift in Sources */,

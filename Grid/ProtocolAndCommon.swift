@@ -14,6 +14,7 @@ struct PhysicsCategory {
   static let PointNode: UInt32 = 1 << 1
   static let Edge:      UInt32 = 1 << 2
   static let Ball:      UInt32 = 1 << 3
+  static let Transfer:  UInt32 = 1 << 4
 }
 
 protocol CustomNodeEvents {

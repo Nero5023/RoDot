@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
   
   // MARK: Property
   var gridLines = [SKSpriteNode]()
@@ -33,6 +33,8 @@ class GameScene: SKScene {
   override func didMoveToView(view: SKView) {
     setUpScene()
     setUpNode()
+    
+    physicsWorld.contactDelegate = self
     
     enumerateChildNodesWithName("//*", usingBlock: {node, _ in
       if let customNode = node as? CustomNodeEvents {
@@ -152,7 +154,6 @@ class GameScene: SKScene {
     physicsWorld.removeAllJoints()
     let compoundZRotation = compound.zRotation
     var nodes = [SKNode]()
-    print(compound.children.count)
     for node in compound.children {
       if let node = node as? SKSpriteNode {
         node.removeFromParent()
@@ -230,6 +231,31 @@ class GameScene: SKScene {
       rodNode.updateRelatedPointNodeState()
       compound = nil
       lastTouchedPosition = nil
+    }
+  }
+  
+  
+  // MARK: Physics Contact Delegate
+  
+  func didBeginContact(contact: SKPhysicsContact) {
+    let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+    
+    if collision == PhysicsCategory.Ball | PhysicsCategory.Transfer {
+      let transfer = contact.bodyA.categoryBitMask == PhysicsCategory.Transfer ? contact.bodyA.node : contact.bodyB.node
+      let ball = contact.bodyA.categoryBitMask == PhysicsCategory.Ball ? contact.bodyA.node : contact.bodyB.node
+      ball!.removeFromParent()
+      enumerateChildNodesWithName("//\(transfer!.name!)") { [unowned self] transferNode, _ in
+        if transferNode != transfer {
+          ball!.position = transferNode.position
+          transferNode.parent!.addChild(ball!)
+          ball!.physicsBody!.categoryBitMask = PhysicsCategory.None
+          transferNode.physicsBody!.categoryBitMask = PhysicsCategory.None
+          self.afterDelay(1.5, runBlock: {
+            ball!.physicsBody!.categoryBitMask = PhysicsCategory.Ball
+            transferNode.physicsBody!.categoryBitMask = PhysicsCategory.Transfer
+          })
+        }
+      }
     }
   }
   
