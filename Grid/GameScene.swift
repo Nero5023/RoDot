@@ -16,7 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   var lastTouchedPosition: CGPoint?
   var anchorNode: SKSpriteNode!
   
-  var gridGraph = GridGraph()
+  var gridGraph = GridGraph.sharedInstance
   var isFinishRotation = false
   var isResting = false
   var rotatingRodNode: RodNode?
@@ -50,7 +50,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     spritesNode = childNodeWithName("Sprites")!
     hudNode = childNodeWithName("HUD")!
     overlayNode = childNodeWithName("Overlay")!
-    
   }
   
   func setUpScene() {
@@ -70,6 +69,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     if let compound = compound, lastTouchedPosition = lastTouchedPosition {
       let angle = angleWith(compound.convertPoint(rotatingRodNode!.position, toNode: spritesNode) - compound.convertPoint(rotatingRodNode!.rotatingNode!.position, toNode: spritesNode),
         vector: lastTouchedPosition - compound.convertPoint(rotatingRodNode!.rotatingNode!.position, toNode: spritesNode))
+      
+      
       compound.physicsBody?.angularVelocity = angle * 10
     }
   }

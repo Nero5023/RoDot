@@ -17,10 +17,10 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   let MIN_MOVE_DISTANCE: CGFloat = 0
   
   // The direction of the rodNode, vertical, horizontal
-  enum Direction {
-    case vertical
-    case horizontal
-  }
+//  enum Direction {
+//    case vertical
+//    case horizontal
+//  }
   
   var pointNodes = Set<RotationPointNode>() {
     didSet {
@@ -36,7 +36,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   var lastTouchPoint: CGPoint?
   var rotatingNode: RotationPointNode?
   
-  var direction: Direction?
+  var direction: HVDirection?
   
   var isRotating = false
   
@@ -73,7 +73,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     // Judge the direction of pointNode reference to the rodNode
     // The jude the location of pointNode according to the rodNode
     if abs(position.x - pointNodes.first!.position.x) < pointNodes.first!.size.width {
-      direction = Direction.vertical
+      direction = HVDirection.vertical
       for node in pointNodes {
         if node.position.y > position.y {
           upOrLeftNode = node
@@ -82,7 +82,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
         }
       }
     }else {
-      direction = Direction.horizontal
+      direction = HVDirection.horizontal
       for node in pointNodes {
         if node.position.x < position.x {
           upOrLeftNode = node

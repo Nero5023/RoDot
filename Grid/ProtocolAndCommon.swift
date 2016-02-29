@@ -21,3 +21,9 @@ protocol CustomNodeEvents {
   func didMoveToScene()
 }
 
+func detectNode(centerNode: SKNode, inDirection direction: MoveDirection, detectDistance:CGFloat) -> SKNode? {
+  let targetPosition = CGPoint(
+    x: centerNode.position.x + CGFloat(direction.tag.0)*detectDistance,
+    y: centerNode.position.y + CGFloat(direction.tag.1)*detectDistance)
+  return centerNode.parent?.nodeAtPoint(targetPosition)
+}

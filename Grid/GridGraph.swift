@@ -17,7 +17,9 @@ struct Vertex {
 class GridGraph {
   var vertexs: [Vertex]
   
-  init() {
+  static let sharedInstance = GridGraph()
+  
+  private init() {
     self.vertexs = [Vertex]()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("checkPoint:"), name: kPointNodeCheckNotification, object: nil)
   }
