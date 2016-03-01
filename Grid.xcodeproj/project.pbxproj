@@ -158,9 +158,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE12AE0D1C85BF8E00E876FF /* SceneState */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SceneState;
+			sourceTree = "<group>";
+		};
 		CE1B1E161C770908000FDE5E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CE12AE0D1C85BF8E00E876FF /* SceneState */,
 				CE6665B61C8349F90079F1C0 /* LevelScene.swift */,
 				CE1B1E171C770964000FDE5E /* Level1.sks */,
 			);

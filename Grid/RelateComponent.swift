@@ -29,23 +29,9 @@ class RelateComponent: GKComponent {
   
   func updateRelatedNodes() {
     relateNodes.removeAll()
-//    let tags = [(1, 0), (0, 1), (0, -1), (-1, 0)]
     let renderNode = renderComponent.node
     let detectDistance = GameplayConfiguration.Rod.height/2.0 + GameplayConfiguration.RotationPoint.radius
     let allDirections = MoveDirection.allDirections
-    
-    
-//    for tag in tags {
-//      let targetPosition = CGPoint(
-//        x: renderNode.position.x + CGFloat(tag.0)*detectDistance,
-//        y: renderNode.position.y + CGFloat(tag.1)*detectDistance)
-//      if let relateNode = renderNode.parent!.nodeAtPoint(targetPosition) as? EntityNode {
-//        if relateNode.entity.componentForClass(RelateComponent.self) != nil {
-//          relateNodes.insert(relateNode)
-//        }
-//      }
-//    }
-    
     for direction in allDirections {
       if let relateNode = detectNode(renderNode, inDirection: direction, detectDistance: detectDistance) as? EntityNode {
         if relateNode.entity.componentForClass(RelateComponent.self) != nil {
@@ -83,7 +69,7 @@ class RelateComponent: GKComponent {
     bodies.append(SKPhysicsBody(circleOfRadius: centerNode.size.width/2, center: centerNode.position))
     compound.physicsBody = SKPhysicsBody(bodies: bodies)
     compound.physicsBody!.categoryBitMask = PhysicsCategory.Rod
-    compound.physicsBody!.categoryBitMask = PhysicsCategory.Ball
+    compound.physicsBody!.collisionBitMask = PhysicsCategory.Ball
     spritesLayer.addChild(compound)
     
     let pinJoint = SKPhysicsJointPin.jointWithBodyA(compound.physicsBody!, bodyB: compound.scene!.physicsBody!, anchor: centerPosition)
@@ -110,6 +96,7 @@ class RelateComponent: GKComponent {
       }
     }
     compound.removeFromParent()
+    self.compound = nil
     renderComponent.node.physicsBody = entity?.componentForClass(PhysicsComponent.self)?.physicsBody
     for node in relateNodes {
       node.physicsBody = node.entity.componentForClass(PhysicsComponent.self)?.physicsBody

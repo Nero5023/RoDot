@@ -27,9 +27,15 @@ class LevelScene: SKScene {
     return [moveSystem]
   }()
   
-  var moveableComponent: InputComponent?
+  var moveableInputComponent: InputComponent?
+  
+  // In the didSimulatePhysics do the block
+  var restRotatingCompletionBlock: (()->())?
+
+  var isResting: Bool = false
   
   // MARK: Scene Life Cycle
+  
   override func didMoveToView(view: SKView) {
     setUpScene()
     setUpNode()
@@ -83,20 +89,23 @@ class LevelScene: SKScene {
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     guard let firstTouchPosition = touches.first?.locationInNode(spritesNode) else { return }
+    guard isResting == false else { return }
     if let entityNode = spritesNode.nodeAtPoint(firstTouchPosition) as? EntityNode,
         let inputComponent = entityNode.entity.componentForClass(InputComponent.self) {
-          moveableComponent = inputComponent
-      inputComponent.touchesBegan(touches, withEvent: event)
+          moveableInputComponent = inputComponent
+        inputComponent.touchesBegan(touches, withEvent: event)
     }
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    moveableComponent?.touchesMoved(touches, withEvent: event)
+    guard isResting == false else { return }
+    moveableInputComponent?.touchesMoved(touches, withEvent: event)
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    moveableComponent?.touchesEnded(touches, withEvent: event)
-    moveableComponent = nil
+    guard isResting == false else { return }
+    moveableInputComponent?.touchesEnded(touches, withEvent: event)
+    moveableInputComponent = nil
   }
   
   // Mark: Update
@@ -116,7 +125,12 @@ class LevelScene: SKScene {
       componentSystem.updateWithDeltaTime(deltaTime)
     }
     
+    physicsWorld
+    
+    
   }
+  
+  
   
   // MARK: Convenience Methods
   
@@ -143,7 +157,11 @@ class LevelScene: SKScene {
   }
   
   override func didSimulatePhysics() {
-    
+    if let restRotatingCompletionBlock = restRotatingCompletionBlock {
+      restRotatingCompletionBlock()
+      self.restRotatingCompletionBlock = nil
+      isResting = false
+    }
   }
   
 }

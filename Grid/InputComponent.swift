@@ -70,7 +70,7 @@ class InputComponent: GKComponent {
   }
   
   func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    guard firstTouchPosition != nil else { return }
+    guard firstTouchPosition != nil && moveableDirections != nil else { return }
     setUpInputStateWith(touches.first!.locationInNode(spritesLayer))
   }
   
@@ -108,6 +108,7 @@ class InputComponent: GKComponent {
 //    }
     inputState = InputState.initialSate
     centerNode.entity.componentForClass(RelateComponent.self)?.decompound()
+    //FIXME: Maybe maybe right ....
     centerNode.entity.componentForClass(MoveComponent.self)?.restRotation({ [unowned self] in
       self.moveableDirections = nil
       self.centerNode = nil

@@ -30,12 +30,7 @@ class MoveComponent: GKComponent {
   
   let restAngularVelocity: CGFloat
   
-  // use shared instance to make compound
   
-  
-  
-  
-  // TODO: Add rest angular speed and rest liner speed
   
   // MARK: Initializers
   
@@ -51,8 +46,8 @@ class MoveComponent: GKComponent {
       let spritesLayer = moveNode.parent!
       let rodNode = renderComponent.node
       let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!, vector: lastTouchPosition! - centerPosition!)
-      
       moveNode.physicsBody?.angularVelocity = angle * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
+      
       
     }
   }
@@ -60,6 +55,7 @@ class MoveComponent: GKComponent {
   
   // For Point Entity
   func restRotation(completion: () -> ()) {
+    (renderComponent.node.scene as? LevelScene)?.isResting = true
     let angle = renderComponent.node.zRotation % (π/2.0)
     let angleToRotate: CGFloat
     if abs(angle) < π/4.0 {
@@ -68,11 +64,16 @@ class MoveComponent: GKComponent {
       angleToRotate = (π/2-abs(angle))*angle.sign()
     }
     let action = SKAction.sequence([
-      SKAction.rotateByAngle(angleToRotate, duration: NSTimeInterval(angleToRotate/restAngularVelocity)),
+      SKAction.rotateByAngle(angleToRotate, duration: NSTimeInterval(abs(angleToRotate)/restAngularVelocity)),
       SKAction.runBlock({ [unowned self] in
-        self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
-        self.renderComponent.node.scene?.physicsWorld.removeAllJoints()
+        // In the didSimulatePhysics will do do the block below
+        (self.renderComponent.node.scene as! LevelScene).restRotatingCompletionBlock = {
+          [unowned self] in
+            self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
+            self.renderComponent.node.scene?.physicsWorld.removeAllJoints()
+        }
         completion()
+        
         })
       ])
     renderComponent.node.runAction(SKAction.afterDelay(0.1, performAction: action))
