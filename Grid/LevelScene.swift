@@ -47,10 +47,17 @@ class LevelScene: SKScene {
         self.addEntity(entity)
       }
       if let node = node as? RotationPointNode  {
-        let entity = RotationPoint(renderNode: node)
-        node.removeFromParent()
-        self.addEntity(entity)
+        if node.name == "static" {
+          let entity = StaticPoint(renderNode: node)
+          node.removeFromParent()
+          self.addEntity(entity)
+        }else {
+          let entity = RotationPoint(renderNode: node)
+          node.removeFromParent()
+          self.addEntity(entity)
+        }
       }
+      
       if let ballNode = node as? BallNode {
         ballNode.didMoveToScene()
       }
@@ -68,9 +75,13 @@ class LevelScene: SKScene {
   
   func setUpNode() {
     bgNode = childNodeWithName("Background")!
+    bgNode.zPosition = -1
     spritesNode = childNodeWithName("Sprites")!
+    spritesNode.zPosition = 50
     hudNode = childNodeWithName("HUD")!
+    hudNode.zPosition = 100
     overlayNode = childNodeWithName("Overlay")!
+    overlayNode.zPosition = 150
   }
   
   func setUpScene() {

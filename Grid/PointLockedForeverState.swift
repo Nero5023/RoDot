@@ -1,15 +1,15 @@
 //
-//  PointUnlockedState.swift
+//  PointLockedForeverState.swift
 //  Grid
 //
-//  Created by Nero Zuo on 16/2/27.
+//  Created by Nero Zuo on 16/3/1.
 //  Copyright © 2016年 Nero. All rights reserved.
 //
 
 import SpriteKit
 import GameplayKit
 
-class PointUnlockedState: GKState {
+class PointLockedForeverState: GKState {
   
   // MARK: Properties
   
@@ -20,10 +20,8 @@ class PointUnlockedState: GKState {
   required init(entity: BasePointEntity) {
     self.entity = entity
   }
-  
-  // MARK: GKState Life Cycle
-  
+
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    return stateClass is PointCheckingState.Type || stateClass is PointRotatingState.Type
+    return false
   }
 }

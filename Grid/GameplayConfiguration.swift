@@ -20,6 +20,8 @@ struct GameplayConfiguration {
       contactTestBitMask: PhysicsCategory.None)
     
     static let height: CGFloat = 210
+    
+    static let zPosition: CGFloat = 60
   }
   
   struct RotationPoint {
@@ -29,7 +31,9 @@ struct GameplayConfiguration {
       contactTestBitMask: PhysicsCategory.None)
     
     //Need to change
-    static let radius: CGFloat = 11
+    static let radius: CGFloat = 22
+    
+    static let zPositon: CGFloat = 70
   }
   
   struct PhysicsFactors {

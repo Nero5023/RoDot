@@ -13,11 +13,11 @@ class PointRotatingState: GKState {
   
   // MARK: Properties
   
-  unowned var entity: RotationPoint
+  unowned var entity: BasePointEntity
   
   // Initializers
   
-  required init(entity: RotationPoint) {
+  required init(entity: BasePointEntity) {
     self.entity = entity
   }
   

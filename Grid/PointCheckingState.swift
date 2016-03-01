@@ -13,7 +13,7 @@ class PointCheckingState: GKState {
   
   // MARK: Properties
   
-  unowned var entity: RotationPoint
+  unowned var entity: BasePointEntity
   
   var relateComponent: RelateComponent {
     guard let relateComponent = entity.componentForClass(RelateComponent.self) else {
@@ -24,7 +24,7 @@ class PointCheckingState: GKState {
   
   // Initializers
   
-  required init(entity: RotationPoint) {
+  required init(entity: BasePointEntity) {
     self.entity = entity
   }
   

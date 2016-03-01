@@ -30,6 +30,7 @@ class Rod: GKEntity {
     addComponent(physicsComponent)
     
     renderComponent.node.physicsBody = physicsComponent.physicsBody
+    renderComponent.node.zPosition = GameplayConfiguration.Rod.zPosition
     
     let orientationComponent = OrientationComponent()
     orientationComponent.zRotation = renderComponent.node.zRotation

@@ -1,18 +1,15 @@
 //
-//  RotationPoint.swift
+//  StaticPoint.swift
 //  Grid
 //
-//  Created by Nero Zuo on 16/2/24.
+//  Created by Nero Zuo on 16/3/1.
 //  Copyright © 2016年 Nero. All rights reserved.
 //
 
 import SpriteKit
 import GameplayKit
 
-class RotationPoint: BasePointEntity {
-  // Mark: properties
-  
-  // Mark: Initializers
+class StaticPoint: BasePointEntity {
   
   override init(renderNode: SKSpriteNode) {
     super.init(renderNode: renderNode)
@@ -28,23 +25,12 @@ class RotationPoint: BasePointEntity {
 //    
 //    renderComponent.node.physicsBody = physicsComponent.physicsBody
 //    renderComponent.node.zPosition = GameplayConfiguration.RotationPoint.zPositon
-//    
-    let relateComponent = RelateComponent()
-    addComponent(relateComponent)
     
-    let intelligenceComponent = IntelligenceComponent(states: [
-      PointCheckingState(entity: self),
-      PointUnlockedState(entity: self),
-      PointLockedState(entity: self),
-      PointRotatingState(entity: self)
-    ])
-    addComponent(intelligenceComponent)
+    let intelligenceComponent = IntelligenceComponent(states: [PointLockedForeverState(entity: self)])
     
-    let detectComponent = DetectComponent()
-    addComponent(detectComponent)
-    
-    let moveComponent = MoveComponent()
-    addComponent(moveComponent)
     
   }
+  
+  
+
 }
