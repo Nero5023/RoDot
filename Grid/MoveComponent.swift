@@ -38,6 +38,7 @@ class MoveComponent: GKComponent {
     restAngularVelocity = GameplayConfiguration.PhysicsFactors.restAngularVelocity
   }
   
+  // MARK: GKComponent Life Cycle
   
   override func updateWithDeltaTime(seconds: NSTimeInterval) {
     super.updateWithDeltaTime(seconds)
@@ -53,7 +54,8 @@ class MoveComponent: GKComponent {
   }
   
   
-  // For Point Entity
+  // This method is for the point node
+  // After the rotating, rest the state of the relating nodes
   func restRotation(completion: () -> ()) {
     (renderComponent.node.scene as? LevelScene)?.isResting = true
     let angle = renderComponent.node.zRotation % (π/2.0)

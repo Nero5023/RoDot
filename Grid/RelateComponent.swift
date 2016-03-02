@@ -26,6 +26,7 @@ class RelateComponent: GKComponent {
     return renderComponent
   }
   
+  // MARK: Actions
   
   func updateRelatedNodes() {
     relateNodes.removeAll()
@@ -39,11 +40,31 @@ class RelateComponent: GKComponent {
         }
       }
     }
-    
   }
   
-  // for point entity
+  // This is for point node, Convenience method
+  // According to the center node to check state around it
+  func updateStateSurroundCenter() {
+    let detectDistance = GameplayConfiguration.Rod.height + GameplayConfiguration.RotationPoint.radius*2.0
+    let allDirections = MoveDirection.allDirections
+    for direction in allDirections {
+      if let relateNode = detectNode(renderComponent.node, inDirection: direction, detectDistance: detectDistance) as? EntityNode {
+        if  let stateMachine = relateNode.entity.componentForClass(IntelligenceComponent.self)?.stateMachine {
+          stateMachine.enterState(PointCheckingState)
+        }
+      }
+    }
+    for entityNode in relateNodes {
+      entityNode.entity.componentForClass(RelateComponent.self)?.updateRelatedNodes()
+      entityNode.entity.componentForClass(OrientationComponent.self)?.zRotation = entityNode.zRotation
+      entityNode.physicsBody!.dynamic = false
+    }
+    entity?.componentForClass(IntelligenceComponent.self)?.stateMachine.enterState(PointUnlockedState)
+    renderComponent.node.scene!.physicsWorld.removeAllJoints()
+  }
   
+  // This method is for Point entity
+  // Used to make compound
   func makeCompoundNode() -> (SKSpriteNode, CGPoint) {
     let centerNode = renderComponent.node
     let centerPosition = centerNode.position
@@ -66,6 +87,7 @@ class RelateComponent: GKComponent {
       }
     }
     
+    
     bodies.append(SKPhysicsBody(circleOfRadius: centerNode.size.width/2, center: centerNode.position))
     compound.physicsBody = SKPhysicsBody(bodies: bodies)
     compound.physicsBody!.categoryBitMask = PhysicsCategory.Rod
@@ -81,6 +103,9 @@ class RelateComponent: GKComponent {
     return (compound, centerPosition)
    
   }
+  
+  // This method is for Point entity
+  // Used to decompound
   
   func decompound() {
     guard let compound = compound else { return }
@@ -106,24 +131,8 @@ class RelateComponent: GKComponent {
     }
   }
   
-  func updateStateSurroundCenter() {
-    let detectDistance = GameplayConfiguration.Rod.height + GameplayConfiguration.RotationPoint.radius*2.0
-    let allDirections = MoveDirection.allDirections
-    for direction in allDirections {
-      if let relateNode = detectNode(renderComponent.node, inDirection: direction, detectDistance: detectDistance) as? EntityNode {
-        if  let stateMachine = relateNode.entity.componentForClass(IntelligenceComponent.self)?.stateMachine {
-          stateMachine.enterState(PointCheckingState)
-        }
-      }
-    }
-    for entityNode in relateNodes {
-      entityNode.entity.componentForClass(RelateComponent.self)?.updateRelatedNodes()
-      entityNode.entity.componentForClass(OrientationComponent.self)?.zRotation = entityNode.zRotation
-      entityNode.physicsBody!.dynamic = false
-    }
-    entity?.componentForClass(IntelligenceComponent.self)?.stateMachine.enterState(PointUnlockedState)
-    renderComponent.node.scene!.physicsWorld.removeAllJoints()
-  }
+  
+
   
   
 }

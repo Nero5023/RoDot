@@ -11,7 +11,6 @@ import CoreGraphics
 
 struct GameplayConfiguration {
   struct Rod {
-//    static let physizeBodySize: CGSize = CGSize(width: 22, height: <#T##CGFloat#>))
     static let physizeBodyWidth: CGFloat = 22
     
     static let collider: ColliderType = ColliderType(
@@ -30,12 +29,12 @@ struct GameplayConfiguration {
       collisionBitMask: PhysicsCategory.Ball,
       contactTestBitMask: PhysicsCategory.None)
     
-    //Need to change
     static let radius: CGFloat = 22
     
     static let zPositon: CGFloat = 70
   }
   
+  // The physics factors in the game
   struct PhysicsFactors {
     static let compoundangularVelocityFactor: CGFloat = 10
     static let pinJointFrictionTorque: CGFloat = 1

@@ -58,7 +58,9 @@ class DetectComponent: GKComponent {
     return renderComponent
   }
   
+  // MARK: Actons
   
+  //This method is for rod node to decide which direction can be rotate
   func moveableDirections() -> [MoveDirection] {
     var results: [MoveDirection] = []
     let orientation = orientationComponent.direction

@@ -59,6 +59,8 @@ class InputComponent: GKComponent {
   
   var centerNode: EntityNode?
   
+  // MARK: Touch event
+  
   func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     //need to check is rotating
     // mat be can when rotating the moveableDirections return empty
@@ -77,6 +79,8 @@ class InputComponent: GKComponent {
   func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     restInputState()
   }
+  
+  // MARK: Convenience Methods
   
   func setUpInputStateWith(movePosition: CGPoint) {
     if inputState.isRotating == false {
@@ -103,12 +107,8 @@ class InputComponent: GKComponent {
   
   func restInputState() {
     guard let centerNode = centerNode else { return }
-//    if let relateComponent = centerNode.entity.componentForClass(RelateComponent.self) {
-//      relateComponent.decompound()
-//    }
     inputState = InputState.initialSate
     centerNode.entity.componentForClass(RelateComponent.self)?.decompound()
-    //FIXME: Maybe maybe right ....
     centerNode.entity.componentForClass(MoveComponent.self)?.restRotation({ [unowned self] in
       self.moveableDirections = nil
       self.centerNode = nil

@@ -16,10 +16,14 @@ class IntelligenceComponent: GKComponent {
   let stateMachine: GKStateMachine
   let initialStateClass: AnyClass
   
+  // MARK: Initializers
+  
   init(states: [GKState]) {
     stateMachine = GKStateMachine(states: states)
     initialStateClass = states.first!.dynamicType
   }
+  
+  // MARK: GKComponent Life Cycle
   
   override func updateWithDeltaTime(seconds: NSTimeInterval) {
     super.updateWithDeltaTime(seconds)

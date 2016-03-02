@@ -20,7 +20,9 @@ class PointLockedForeverState: GKState {
   required init(entity: BasePointEntity) {
     self.entity = entity
   }
-
+  
+  // MARK: GKState Life Cycle
+  
   override func isValidNextState(stateClass: AnyClass) -> Bool {
     return false
   }

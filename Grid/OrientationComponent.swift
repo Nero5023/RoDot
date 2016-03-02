@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+// According to the render zRoation to decide vertical or horizontal for node
 enum HVDirection: Int {
   case horizontal = 0, vertical, otherDirection
   

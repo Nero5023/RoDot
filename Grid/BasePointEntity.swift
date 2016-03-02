@@ -9,7 +9,14 @@
 import SpriteKit
 import GameplayKit
 
+/**
+    This is the Bas entity for the Point Entity
+*/
+
 class BasePointEntity: GKEntity {
+  
+  // MARK: Initializers
+  
   init(renderNode: SKSpriteNode) {
     super.init()
     

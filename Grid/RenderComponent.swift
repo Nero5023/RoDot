@@ -23,6 +23,7 @@ class RenderComponent: GKComponent {
   
   init(entity: GKEntity, renderNode: SKSpriteNode) {
     node.entity = entity
+    // Copy the properties for the entityNode
     node.texture = renderNode.texture
     node.name = renderNode.name
     node.size = renderNode.size

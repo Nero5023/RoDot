@@ -119,8 +119,9 @@ class LevelScene: SKScene {
     moveableInputComponent = nil
   }
   
-  // Mark: Update
+  // Mark: Scene Life Cycle
   
+  // Update
   override func update(currentTime: NSTimeInterval) {
     super.update(currentTime)
     
@@ -136,11 +137,15 @@ class LevelScene: SKScene {
       componentSystem.updateWithDeltaTime(deltaTime)
     }
     
-    physicsWorld
-    
-    
   }
   
+  override func didSimulatePhysics() {
+    if let restRotatingCompletionBlock = restRotatingCompletionBlock {
+      restRotatingCompletionBlock()
+      self.restRotatingCompletionBlock = nil
+      isResting = false
+    }
+  }
   
   
   // MARK: Convenience Methods
@@ -167,12 +172,6 @@ class LevelScene: SKScene {
     layerNode.addChild(node)
   }
   
-  override func didSimulatePhysics() {
-    if let restRotatingCompletionBlock = restRotatingCompletionBlock {
-      restRotatingCompletionBlock()
-      self.restRotatingCompletionBlock = nil
-      isResting = false
-    }
-  }
+
   
 }
