@@ -53,6 +53,8 @@
 		CE7DB8181C68D74C00AA358C /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DB80C1C68D74C00AA358C /* SKTTimingFunctions.swift */; };
 		CE7DB8191C68D74C00AA358C /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DB80D1C68D74C00AA358C /* Vector3.swift */; };
 		CE8A0BCF1C80BC95000ABFEA /* DetectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */; };
+		CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */; };
+		CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */; };
 		CEDC061A1C7DC5E4000F9C52 /* RenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06191C7DC5E4000F9C52 /* RenderComponent.swift */; };
 		CEDC061C1C7DC6C1000F9C52 /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC061B1C7DC6C1000F9C52 /* PhysicsComponent.swift */; };
 		CEDC061F1C7DC9EF000F9C52 /* GameplayConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */; };
@@ -131,6 +133,8 @@
 		CE7DB80C1C68D74C00AA358C /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		CE7DB80D1C68D74C00AA358C /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
 		CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectComponent.swift; sourceTree = "<group>"; };
+		CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictedRotationPoint.swift; sourceTree = "<group>"; };
+		CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatableRodCountComponent.swift; sourceTree = "<group>"; };
 		CEDC06191C7DC5E4000F9C52 /* RenderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponent.swift; sourceTree = "<group>"; };
 		CEDC061B1C7DC6C1000F9C52 /* PhysicsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayConfiguration.swift; sourceTree = "<group>"; };
@@ -306,6 +310,7 @@
 				CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */,
 				CE6643BE1C819E9500A6F0D4 /* IntelligenceComponent.swift */,
 				CE6643C91C81FEC900A6F0D4 /* InputComponent.swift */,
+				CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */,
 				CE6643C21C81A12500A6F0D4 /* PointState */,
 			);
 			name = Components;
@@ -317,6 +322,7 @@
 				CEDC06231C7DE4E7000F9C52 /* Rod.swift */,
 				CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */,
 				CEDC06251C7DEC11000F9C52 /* RotationPoint.swift */,
+				CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */,
 				CE12AE141C85D76D00E876FF /* StaticPoint.swift */,
 				CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */,
 			);
@@ -472,6 +478,7 @@
 				CE6643C41C81A14F00A6F0D4 /* PointLockedState.swift in Sources */,
 				CE6643BF1C819E9500A6F0D4 /* IntelligenceComponent.swift in Sources */,
 				CEDC061C1C7DC6C1000F9C52 /* PhysicsComponent.swift in Sources */,
+				CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */,
 				CE164FC91C7F32C0005BD8EB /* OrientationComponent.swift in Sources */,
 				CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */,
 				CE7DB80F1C68D74C00AA358C /* CGPoint+Extensions.swift in Sources */,
@@ -501,6 +508,7 @@
 				CE66F6881C6BA51F00E08955 /* Unlocked.swift in Sources */,
 				CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */,
 				CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */,
+				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,
 				CE6643C11C81A05700A6F0D4 /* PointCheckingState.swift in Sources */,
 				CE7DB8161C68D74C00AA358C /* SKTAudio.swift in Sources */,

@@ -47,16 +47,31 @@ class LevelScene: SKScene {
         self.addEntity(entity)
       }
       if let node = node as? RotationPointNode  {
-        if node.name == "static" {
-          let entity = StaticPoint(renderNode: node)
-          node.removeFromParent()
-          self.addEntity(entity)
-        }else {
-          let entity = RotationPoint(renderNode: node)
-          node.removeFromParent()
-          self.addEntity(entity)
+//        if node.name == "static" {
+//          let entity = StaticPoint(renderNode: node)
+//          node.removeFromParent()
+//          self.addEntity(entity)
+//        }else {
+//          let entity = RotationPoint(renderNode: node)
+//          node.removeFromParent()
+//          self.addEntity(entity)
+//        }
+        
+        var entity: BasePointEntity
+        let nodeType = PointNodeType(nodeName: node.name)
+        switch nodeType {
+        case .normalNode:
+          entity = RotationPoint(renderNode: node)
+        case .restrictedNode1, .restrictedNode2, .restrictedNode3, .restrictedNode4:
+          entity = RestrictedRotationPoint(renderNode: node, rotatableRodCount: nodeType.rawValue)
+        case .staticNode:
+          entity = StaticPoint(renderNode: node)
         }
+        node.removeFromParent()
+        self.addEntity(entity)
+        
       }
+      
       
       if let ballNode = node as? BallNode {
         ballNode.didMoveToScene()

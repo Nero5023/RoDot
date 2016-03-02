@@ -9,6 +9,35 @@
 import SpriteKit
 import GameplayKit
 
+
+enum PointNodeType: Int {
+  case staticNode = 0, restrictedNode1, restrictedNode2, restrictedNode3, restrictedNode4, normalNode
+  
+  // MARK: Initializers
+  
+  init(nodeName: String?) {
+    guard let nodeName = nodeName else {
+      fatalError("The point node doesn't have a name")
+    }
+    switch nodeName {
+      case "static":
+        self = .staticNode
+      case "1":
+        self = .restrictedNode1
+      case "2":
+        self = .restrictedNode2
+      case "3":
+        self = .restrictedNode3
+      case "4":
+        self = .restrictedNode4
+      case "normal":
+        self = .normalNode
+      default:
+        fatalError("Unknown pointNodeName: \(nodeName)")
+    }
+  }
+}
+
 /**
     This is the Bas entity for the Point Entity
 */

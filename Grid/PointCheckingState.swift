@@ -33,10 +33,18 @@ class PointCheckingState: GKState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     super.didEnterWithPreviousState(previousState)
     relateComponent.updateRelatedNodes()
-    if relateComponent.relateNodes.count == 4 {
-      stateMachine?.enterState(PointLockedState)
+    if let rotatableRodCount = entity.componentForClass(RotatableRodCountComponent.self)?.rotatableRodCount {
+      if relateComponent.relateNodes.count == rotatableRodCount {
+        stateMachine?.enterState(PointUnlockedState)
+      }else {
+        stateMachine?.enterState(PointLockedState)
+      }
     }else {
-      stateMachine?.enterState(PointUnlockedState)
+      if relateComponent.relateNodes.count == 4 {
+        stateMachine?.enterState(PointLockedState)
+      }else {
+        stateMachine?.enterState(PointUnlockedState)
+      }
     }
   }
   

@@ -14,7 +14,7 @@ class BallNode: SKSpriteNode, CustomNodeEvents {
     physicsBody = SKPhysicsBody(circleOfRadius: size.width/2)
     
     physicsBody!.categoryBitMask = PhysicsCategory.Ball
-    physicsBody!.collisionBitMask = PhysicsCategory.Rod | PhysicsCategory.PointNode | PhysicsCategory.Edge
+    physicsBody!.collisionBitMask = PhysicsCategory.Rod | PhysicsCategory.PointNode | PhysicsCategory.Edge | PhysicsCategory.Ball
     physicsBody!.contactTestBitMask = PhysicsCategory.Transfer
     physicsBody!.mass = 0.015
     
