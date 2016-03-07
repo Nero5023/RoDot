@@ -66,6 +66,8 @@ class LevelScene: SKScene {
           entity = RestrictedRotationPoint(renderNode: node, rotatableRodCount: nodeType.rawValue)
         case .staticNode:
           entity = StaticPoint(renderNode: node)
+        case .translationNode:
+          entity = TranslationPoint(renderNode: node)
         }
         node.removeFromParent()
         self.addEntity(entity)
@@ -157,6 +159,7 @@ class LevelScene: SKScene {
   override func didSimulatePhysics() {
     if let restRotatingCompletionBlock = restRotatingCompletionBlock {
       restRotatingCompletionBlock()
+      physicsWorld.removeAllJoints()
       self.restRotatingCompletionBlock = nil
       isResting = false
     }

@@ -22,6 +22,8 @@ class MoveComponent: GKComponent {
   
   var isRotating = false
   
+  var isTranslating = false
+  
   var moveNode: SKSpriteNode?
   
   var lastTouchPosition: CGPoint?
@@ -29,13 +31,14 @@ class MoveComponent: GKComponent {
   var centerPosition: CGPoint?
   
   let restAngularVelocity: CGFloat
-  
+  let restLinverVelocity: CGFloat
   
   
   // MARK: Initializers
   
   override init() {
     restAngularVelocity = GameplayConfiguration.PhysicsFactors.restAngularVelocity
+    restLinverVelocity = GameplayConfiguration.PhysicsFactors.restLinerVelocity
   }
   
   // MARK: GKComponent Life Cycle
@@ -48,8 +51,22 @@ class MoveComponent: GKComponent {
       let rodNode = renderComponent.node
       let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!, vector: lastTouchPosition! - centerPosition!)
       moveNode.physicsBody?.angularVelocity = angle * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
-      
-      
+    }
+    if isTranslating == true && centerPosition != nil && lastTouchPosition != nil {
+      if let orientationComponent = entity?.componentForClass(OrientationComponent.self) {
+        var tag: CGPoint
+        if orientationComponent.direction == HVDirection.horizontal {
+          tag = CGPoint(x: 1, y: 0)
+        }else {
+          tag = CGPoint(x: 0, y: 1)
+        }
+        let lTargetPositon = centerPosition! + CGPoint(x: 22 + 105, y: 22 + 105)
+        let sTargetPositon = centerPosition! + CGPoint(x: -22 - 105, y: -22 - 105)
+        lastTouchPosition = CGPoint(x: max(min(lastTouchPosition!.x, lTargetPositon.x), sTargetPositon.x),
+                              y: max(min(lastTouchPosition!.y, lTargetPositon.y), sTargetPositon.y))
+        moveNode.physicsBody?.dynamic = true
+        moveNode.physicsBody?.velocity = CGVector(point: (lastTouchPosition! - moveNode.position) * tag * 10 )
+      }
     }
   }
   
@@ -81,6 +98,26 @@ class MoveComponent: GKComponent {
     renderComponent.node.runAction(SKAction.afterDelay(0.1, performAction: action))
   }
   
+  func restTranslation(completion: () -> ()) {
+    (renderComponent.node.scene as? LevelScene)?.isResting = true
+    let targetPositon = getRestTargetPosition()
+    renderComponent.node.physicsBody?.velocity = CGVector.zero
+    guard let centerNode = renderComponent.node.parent?.nodeAtPoint(centerPosition!) as? EntityNode else {
+      fatalError("The node at centerPositon is EntityNode")
+    }
+    let distanceToMove = targetPositon.distanceTo(renderComponent.node.position)
+    let action = SKAction.sequence([
+      SKAction.moveTo(targetPositon, duration: NSTimeInterval(distanceToMove/restLinverVelocity)),
+      SKAction.runBlock({ [unowned self] in
+        self.renderComponent.node.physicsBody?.dynamic = false
+        (self.renderComponent.node.scene as? LevelScene)?.isResting = false
+        centerNode.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
+        completion()
+        })
+      ])
+    renderComponent.node.runAction(action)    
+  }
+  
   // MARK: Convenience Methods
   
   func angleWith(lastVector: CGPoint, vector: CGPoint) -> CGFloat {
@@ -89,5 +126,27 @@ class MoveComponent: GKComponent {
     return shortestAngleBetween(oldAngle, angle2: newAngle)
   }
   
-  
+  func getRestTargetPosition() -> CGPoint {
+    let distanceToTarget = GameplayConfiguration.Rod.height/2 + GameplayConfiguration.RotationPoint.radius
+    guard let orientationComponent = entity?.componentForClass(OrientationComponent.self) else {
+      fatalError("The node to rest translation must have a OrientationComponent.")
+    }
+    var targetPositon: CGPoint
+    if orientationComponent.direction == HVDirection.horizontal {
+      if renderComponent.node.position.x < centerPosition!.x {
+        targetPositon = centerPosition! + CGPoint(x: -distanceToTarget , y: 0)
+      }else {
+        targetPositon = centerPosition! + CGPoint(x: distanceToTarget, y: 0)
+      }
+    }else {
+      if renderComponent.node.position.y < centerPosition!.y {
+        targetPositon = centerPosition! + CGPoint(x: 0, y: -distanceToTarget)
+      }else {
+        targetPositon = centerPosition! + CGPoint(x: 0, y: distanceToTarget)
+      }
+    }
+    return targetPositon
+  }
+
+
 }

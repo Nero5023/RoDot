@@ -15,7 +15,7 @@ struct GameplayConfiguration {
     
     static let collider: ColliderType = ColliderType(
       categoryBitMask: PhysicsCategory.Rod,
-      collisionBitMask: PhysicsCategory.Ball,
+      collisionBitMask: PhysicsCategory.Ball | PhysicsCategory.Rod,
       contactTestBitMask: PhysicsCategory.None)
     
     static let height: CGFloat = 210
@@ -40,5 +40,6 @@ struct GameplayConfiguration {
     static let pinJointFrictionTorque: CGFloat = 1
     static let pinJointRotationSpeed: CGFloat = 0.01
     static let restAngularVelocity: CGFloat = (π/4.0)/0.3
+    static let restLinerVelocity: CGFloat = 105 / 0.3
   }
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F01C8BD4C3002CBF23 /* LevelSceneActiveState.swift */; };
+		CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F21C8BD4ED002CBF23 /* LevelSceneFailState.swift */; };
+		CE0C76F51C8BD54A002CBF23 /* LevelSceneSuccessState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F41C8BD54A002CBF23 /* LevelSceneSuccessState.swift */; };
+		CE0C76F71C8C0E5A002CBF23 /* TranslationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F61C8C0E5A002CBF23 /* TranslationPoint.swift */; };
+		CE0C76F91C8C0EAE002CBF23 /* PointTranslatingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F81C8C0EAE002CBF23 /* PointTranslatingState.swift */; };
 		CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE141C85D76D00E876FF /* StaticPoint.swift */; };
 		CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */; };
 		CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */; };
@@ -81,6 +86,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE0C76F01C8BD4C3002CBF23 /* LevelSceneActiveState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneActiveState.swift; sourceTree = "<group>"; };
+		CE0C76F21C8BD4ED002CBF23 /* LevelSceneFailState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneFailState.swift; sourceTree = "<group>"; };
+		CE0C76F41C8BD54A002CBF23 /* LevelSceneSuccessState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneSuccessState.swift; sourceTree = "<group>"; };
+		CE0C76F61C8C0E5A002CBF23 /* TranslationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationPoint.swift; sourceTree = "<group>"; };
+		CE0C76F81C8C0EAE002CBF23 /* PointTranslatingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointTranslatingState.swift; sourceTree = "<group>"; };
 		CE12AE141C85D76D00E876FF /* StaticPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticPoint.swift; sourceTree = "<group>"; };
 		CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointLockedForeverState.swift; sourceTree = "<group>"; };
 		CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePointEntity.swift; sourceTree = "<group>"; };
@@ -171,6 +181,9 @@
 		CE12AE0D1C85BF8E00E876FF /* SceneState */ = {
 			isa = PBXGroup;
 			children = (
+				CE0C76F01C8BD4C3002CBF23 /* LevelSceneActiveState.swift */,
+				CE0C76F21C8BD4ED002CBF23 /* LevelSceneFailState.swift */,
+				CE0C76F41C8BD54A002CBF23 /* LevelSceneSuccessState.swift */,
 			);
 			name = SceneState;
 			sourceTree = "<group>";
@@ -192,6 +205,7 @@
 				CE6643C31C81A14F00A6F0D4 /* PointLockedState.swift */,
 				CE6643C51C81A17300A6F0D4 /* PointUnlockedState.swift */,
 				CE6643C71C81A27700A6F0D4 /* PointRotatingState.swift */,
+				CE0C76F81C8C0EAE002CBF23 /* PointTranslatingState.swift */,
 				CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */,
 			);
 			name = PointState;
@@ -322,6 +336,7 @@
 				CEDC06231C7DE4E7000F9C52 /* Rod.swift */,
 				CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */,
 				CEDC06251C7DEC11000F9C52 /* RotationPoint.swift */,
+				CE0C76F61C8C0E5A002CBF23 /* TranslationPoint.swift */,
 				CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */,
 				CE12AE141C85D76D00E876FF /* StaticPoint.swift */,
 				CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */,
@@ -491,18 +506,23 @@
 				CEDC06261C7DEC11000F9C52 /* RotationPoint.swift in Sources */,
 				CE66F67F1C6B8E0700E08955 /* RotationPointNode.swift in Sources */,
 				CE6643CA1C81FEC900A6F0D4 /* InputComponent.swift in Sources */,
+				CE0C76F91C8C0EAE002CBF23 /* PointTranslatingState.swift in Sources */,
 				CEDC06241C7DE4E7000F9C52 /* Rod.swift in Sources */,
 				CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */,
 				CE66F68A1C6BA6DC00E08955 /* Rotating.swift in Sources */,
 				CE7DB8131C68D74C00AA358C /* SKAction+SpecialEffects.swift in Sources */,
 				CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */,
+				CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */,
+				CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */,
 				CE7DB8101C68D74C00AA358C /* CGVector+Extensions.swift in Sources */,
 				CE7DB8121C68D74C00AA358C /* SKAction+Extensions.swift in Sources */,
 				CE7DB8141C68D74C00AA358C /* SKColor+Extensions.swift in Sources */,
 				CE7DB7D61C68B64400AA358C /* GameViewController.swift in Sources */,
 				CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */,
 				CE7DB8111C68D74C00AA358C /* Int+Extensions.swift in Sources */,
+				CE0C76F51C8BD54A002CBF23 /* LevelSceneSuccessState.swift in Sources */,
 				CE66F6861C6BA4AF00E08955 /* Locked.swift in Sources */,
+				CE0C76F71C8C0E5A002CBF23 /* TranslationPoint.swift in Sources */,
 				CE7DB8151C68D74C00AA358C /* SKNode+Extensions.swift in Sources */,
 				CE164FC71C7F2759005BD8EB /* MoveComponent.swift in Sources */,
 				CE66F6881C6BA51F00E08955 /* Unlocked.swift in Sources */,

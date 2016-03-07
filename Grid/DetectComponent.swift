@@ -27,6 +27,10 @@ enum MoveDirection {
     }
   }
   
+  var tagPoint: CGPoint {
+    return CGPoint(x: self.tag.0, y: self.tag.1)
+  }
+  
   func targetDistance(vector: CGPoint) -> CGFloat {
     return CGFloat(self.tag.0)*vector.x + CGFloat(self.tag.1)*vector.y
   }

@@ -11,7 +11,7 @@ import GameplayKit
 
 
 enum PointNodeType: Int {
-  case staticNode = 0, restrictedNode1, restrictedNode2, restrictedNode3, restrictedNode4, normalNode
+  case staticNode = 0, restrictedNode1, restrictedNode2, restrictedNode3, restrictedNode4, normalNode, translationNode
   
   // MARK: Initializers
   
@@ -32,6 +32,8 @@ enum PointNodeType: Int {
         self = .restrictedNode4
       case "normal":
         self = .normalNode
+      case "translation":
+        self = .translationNode
       default:
         fatalError("Unknown pointNodeName: \(nodeName)")
     }

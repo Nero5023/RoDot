@@ -17,6 +17,26 @@ class InputComponent: GKComponent {
     var moveNode: SKSpriteNode?
     
     var isRotating = false
+    var isTranslation = false
+    
+    init() { }
+    
+    init(touchPosition: CGPoint, centerPosition: CGPoint, moveNode: SKSpriteNode, isRotating: Bool) {
+      self.touchPosition = touchPosition
+      self.centerPosition = centerPosition
+      self.moveNode = moveNode
+      self.isRotating = isRotating
+      self.isTranslation = false
+    }
+    
+    init(touchPosition: CGPoint, centerPosition: CGPoint, moveNode: SKSpriteNode, isTranslation: Bool) {
+      self.touchPosition = touchPosition
+      self.centerPosition = centerPosition
+      self.moveNode = moveNode
+      self.isTranslation = isTranslation
+      self.isRotating = false
+    }
+    
     static let initialSate = InputState()
   }
   
@@ -83,7 +103,7 @@ class InputComponent: GKComponent {
   // MARK: Convenience Methods
   
   func setUpInputStateWith(movePosition: CGPoint) {
-    if inputState.isRotating == false {
+    if inputState.isRotating == false && inputState.isTranslation == false{
       let vector = movePosition - firstTouchPosition!
       for direction in moveableDirections! {
         if direction.targetDistance(vector) > MIN_MOVE_DISTANCE {
@@ -91,10 +111,23 @@ class InputComponent: GKComponent {
           if let pointNode = detectNode(renderComponent.node, inDirection: direction, detectDistance: detectDistance) as? EntityNode {
             if let relateComponent = pointNode.entity.componentForClass(RelateComponent.self), stateMatchine = pointNode.entity.componentForClass(IntelligenceComponent.self)?.stateMachine where centerNode == nil {
               //TODO: May need to update
-              stateMatchine.enterState(PointRotatingState)
               centerNode = pointNode
-              let info = relateComponent.makeCompoundNode()
-              inputState = InputState(touchPosition: movePosition, centerPosition: info.1, moveNode: info.0, isRotating: true)
+              if stateMatchine.stateForClass(PointRotatingState.self) != nil {
+                stateMatchine.enterState(PointRotatingState)
+                let info = relateComponent.makeCompoundNode()
+                inputState = InputState(touchPosition: movePosition, centerPosition: info.1, moveNode: info.0, isRotating: true)
+              }
+              if stateMatchine.stateForClass(PointTranslatingState.self) != nil {
+                
+                let targetDistance = GameplayConfiguration.Rod.height + GameplayConfiguration.RotationPoint.radius*2
+                // If the node at the targetDistance is not EntityNode, then do nothing
+                if let _ = detectNode(renderComponent.node, inDirection: direction, detectDistance: targetDistance) as? EntityNode {
+                  return
+                }else {
+                  stateMatchine.enterState(PointTranslatingState)
+                  inputState = InputState(touchPosition: movePosition, centerPosition: pointNode.position, moveNode: renderComponent.node, isTranslation: true)
+                }
+              }
             }
           }
           break
@@ -107,20 +140,31 @@ class InputComponent: GKComponent {
   
   func restInputState() {
     guard let centerNode = centerNode else { return }
-    inputState = InputState.initialSate
-    centerNode.entity.componentForClass(RelateComponent.self)?.decompound()
-    centerNode.entity.componentForClass(MoveComponent.self)?.restRotation({ [unowned self] in
-      self.moveableDirections = nil
-      self.centerNode = nil
-    })
+    if inputState.isRotating == true {
+      inputState = InputState.initialSate
+      centerNode.entity.componentForClass(RelateComponent.self)?.decompound()
+      centerNode.entity.componentForClass(MoveComponent.self)?.restRotation({ [unowned self] in
+        self.moveableDirections = nil
+        self.centerNode = nil
+        })
+    }
+    if inputState.isTranslation == true {
+      inputState.isTranslation = false
+      entity?.componentForClass(MoveComponent.self)?.restTranslation({ [unowned self] in
+        self.moveableDirections = nil
+        self.centerNode = nil
+        self.inputState = InputState.initialSate
+      })
+    }
   }
   
   func applyInputState(state: InputState) {
     if let moveComponent = entity?.componentForClass(MoveComponent.self) {
-        moveComponent.isRotating = state.isRotating
-        moveComponent.moveNode = state.moveNode
-        moveComponent.lastTouchPosition = state.touchPosition
-        moveComponent.centerPosition = state.centerPosition
+      moveComponent.isRotating = state.isRotating
+      moveComponent.moveNode = state.moveNode
+      moveComponent.lastTouchPosition = state.touchPosition
+      moveComponent.centerPosition = state.centerPosition
+      moveComponent.isTranslating = state.isTranslation
     }
   }
   

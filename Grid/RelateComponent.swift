@@ -60,7 +60,6 @@ class RelateComponent: GKComponent {
       entityNode.physicsBody!.dynamic = false
     }
     entity?.componentForClass(IntelligenceComponent.self)?.stateMachine.enterState(PointUnlockedState)
-    renderComponent.node.scene!.physicsWorld.removeAllJoints()
   }
   
   // This method is for Point entity
