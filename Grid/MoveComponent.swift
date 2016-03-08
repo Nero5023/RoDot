@@ -65,6 +65,9 @@ class MoveComponent: GKComponent {
         lastTouchPosition = CGPoint(x: max(min(lastTouchPosition!.x, lTargetPositon.x), sTargetPositon.x),
                               y: max(min(lastTouchPosition!.y, lTargetPositon.y), sTargetPositon.y))
         moveNode.physicsBody?.dynamic = true
+//        moveNode.physicsBody?.angularVelocity = 0
+        moveNode.physicsBody?.allowsRotation = false
+
         moveNode.physicsBody?.velocity = CGVector(point: (lastTouchPosition! - moveNode.position) * tag * 10 )
       }
     }
@@ -110,6 +113,7 @@ class MoveComponent: GKComponent {
       SKAction.moveTo(targetPositon, duration: NSTimeInterval(distanceToMove/restLinverVelocity)),
       SKAction.runBlock({ [unowned self] in
         self.renderComponent.node.physicsBody?.dynamic = false
+        self.renderComponent.node.physicsBody?.allowsRotation = true
         (self.renderComponent.node.scene as? LevelScene)?.isResting = false
         centerNode.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
         completion()
