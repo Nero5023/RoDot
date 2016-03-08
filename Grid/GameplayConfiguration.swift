@@ -42,4 +42,17 @@ struct GameplayConfiguration {
     static let restAngularVelocity: CGFloat = (π/4.0)/0.3
     static let restLinerVelocity: CGFloat = 105 / 0.3
   }
+  
+  struct Transfer {
+    static let collider: ColliderType = ColliderType(
+      categoryBitMask: PhysicsCategory.Transfer,
+      collisionBitMask: PhysicsCategory.None,
+      contactTestBitMask: PhysicsCategory.Ball)
+    
+    static let phybodyRadius: CGFloat = 50
+    
+     static let zPosition: CGFloat = 50
+  }
+  
+  static let transferTargetNames: [String: String] = ["transfer0": "transfer1", "transfer1": "transfer0"]
 }

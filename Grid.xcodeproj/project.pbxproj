@@ -19,6 +19,8 @@
 		CE164FC91C7F32C0005BD8EB /* OrientationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE164FC81C7F32C0005BD8EB /* OrientationComponent.swift */; };
 		CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B1E141C76F244000FDE5E /* BallNode.swift */; };
 		CE1B1E181C770964000FDE5E /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level1.sks */; };
+		CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */; };
+		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */; };
 		CE6643BF1C819E9500A6F0D4 /* IntelligenceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BE1C819E9500A6F0D4 /* IntelligenceComponent.swift */; };
@@ -98,6 +100,8 @@
 		CE164FC81C7F32C0005BD8EB /* OrientationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationComponent.swift; sourceTree = "<group>"; };
 		CE1B1E141C76F244000FDE5E /* BallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallNode.swift; sourceTree = "<group>"; };
 		CE1B1E171C770964000FDE5E /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferComponent.swift; sourceTree = "<group>"; };
+		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelateComponent.swift; sourceTree = "<group>"; };
 		CE6643BE1C819E9500A6F0D4 /* IntelligenceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntelligenceComponent.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 				CE6643BE1C819E9500A6F0D4 /* IntelligenceComponent.swift */,
 				CE6643C91C81FEC900A6F0D4 /* InputComponent.swift */,
 				CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */,
+				CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */,
 				CE6643C21C81A12500A6F0D4 /* PointState */,
 			);
 			name = Components;
@@ -339,6 +344,7 @@
 				CE0C76F61C8C0E5A002CBF23 /* TranslationPoint.swift */,
 				CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */,
 				CE12AE141C85D76D00E876FF /* StaticPoint.swift */,
+				CE637FF71C8EEEDF005FB30D /* Transfer.swift */,
 				CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */,
 			);
 			name = Entities;
@@ -529,6 +535,7 @@
 				CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */,
 				CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */,
 				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
+				CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,
 				CE6643C11C81A05700A6F0D4 /* PointCheckingState.swift in Sources */,
 				CE7DB8161C68D74C00AA358C /* SKTAudio.swift in Sources */,
@@ -537,6 +544,7 @@
 				CE7DB80E1C68D74C00AA358C /* CGFloat+Extensions.swift in Sources */,
 				CE7DB8191C68D74C00AA358C /* Vector3.swift in Sources */,
 				CE6643C81C81A27700A6F0D4 /* PointRotatingState.swift in Sources */,
+				CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */,
 				CE7DB7D01C68B64400AA358C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

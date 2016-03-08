@@ -40,6 +40,8 @@ class LevelScene: SKScene {
     setUpScene()
     setUpNode()
     
+    physicsWorld.contactDelegate = self
+    
     enumerateChildNodesWithName("//*", usingBlock: { [unowned self] node, _  in
       if let node = node as? RodNode {
        let entity =  Rod(renderNode: node)
@@ -71,13 +73,20 @@ class LevelScene: SKScene {
         }
         node.removeFromParent()
         self.addEntity(entity)
-        
       }
       
       
       if let ballNode = node as? BallNode {
         ballNode.didMoveToScene()
       }
+      
+      if let nodeName = node.name, node = node as? TransferNode {
+        if nodeName.hasPrefix("transfer") {
+          let entity = Transfer(renderNode: node)
+          self.addEntity(entity)
+        }
+      }
+      
     })
     
     for entity in entities {
@@ -165,7 +174,6 @@ class LevelScene: SKScene {
     }
   }
   
-  
   // MARK: Convenience Methods
   
   func addEntity(entity: GKEntity) {
@@ -190,6 +198,31 @@ class LevelScene: SKScene {
     layerNode.addChild(node)
   }
   
-
   
+}
+
+// MARK: Contect
+
+extension LevelScene: SKPhysicsContactDelegate {
+  
+  func didBeginContact(contact: SKPhysicsContact) {
+    let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+    if collision == PhysicsCategory.Ball | PhysicsCategory.Transfer {
+      let transfer = contact.bodyA.categoryBitMask == PhysicsCategory.Transfer ? contact.bodyA.node : contact.bodyB.node
+      let ball = contact.bodyA.categoryBitMask == PhysicsCategory.Ball ? contact.bodyA.node : contact.bodyB.node
+      if let transfer = transfer as? EntityNode, ball = ball as? SKSpriteNode {
+        transfer.entity.componentForClass(TransferComponent.self)?.transferNode(ball)
+      }
+    }
+  }
+  
+  func didEndContact(contact: SKPhysicsContact) {
+    let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+    if collision == PhysicsCategory.Ball | PhysicsCategory.Transfer {
+      let transfer = contact.bodyA.categoryBitMask == PhysicsCategory.Transfer ? contact.bodyA.node : contact.bodyB.node
+      if let transfer = transfer as? EntityNode {
+        transfer.entity.componentForClass(TransferComponent.self)?.endTransfer()
+      }
+    }
+  }
 }
