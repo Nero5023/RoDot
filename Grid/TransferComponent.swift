@@ -34,6 +34,8 @@ class TransferComponent: GKComponent {
     }
   }
   
+  var isContacting: Bool = false
+  
   // MARK: Initializers
   init(renderNodeName: String) {
     guard let targetNodeName = GameplayConfiguration.transferTargetNames[renderNodeName] else {
@@ -46,7 +48,9 @@ class TransferComponent: GKComponent {
   // MARK: Action
   
   func transferNode(node: SKSpriteNode) {
+    isContacting = true
     if allowTransfer {
+      isContacting = false
       relatedNode.entity.componentForClass(TransferComponent.self)?.getTransferNode(node)
     }
   }
@@ -56,10 +60,14 @@ class TransferComponent: GKComponent {
     node.position = renderComponent.node.position
     renderComponent.node.parent?.addChild(node)
     allowTransfer = false
+    isContacting = true
   }
   
   func endTransfer() {
-    allowTransfer = true
+    isContacting = false
+    if !isContacting && !relatedNode.entity.componentForClass(TransferComponent.self)!.isContacting {
+      allowTransfer = true
+    }
   }
   
 
