@@ -33,6 +33,7 @@ class MoveComponent: GKComponent {
   let restAngularVelocity: CGFloat
   let restLinverVelocity: CGFloat
   
+  var lastAngle: CGFloat = 0
   
   // MARK: Initializers
   
@@ -50,7 +51,17 @@ class MoveComponent: GKComponent {
       let spritesLayer = moveNode.parent!
       let rodNode = renderComponent.node
       let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!, vector: lastTouchPosition! - centerPosition!)
-      moveNode.physicsBody?.angularVelocity = angle * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
+      var angularVelocity: CGFloat = angle
+      
+      if let centerNode = moveNode.parent?.nodeAtPoint(centerPosition!) as? EntityNode {
+        if let clockwiseComponent = centerNode.entity.componentForClass(ClockwiseComponent.self) {
+          angularVelocity = clockwiseComponent.calculateAngularVelocity(angularVelocity)
+        }
+      }
+      
+      
+      moveNode.physicsBody?.angularVelocity = angularVelocity * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
+      lastAngle = angle
     }
     if isTranslating == true && centerPosition != nil && lastTouchPosition != nil {
       if let orientationComponent = entity?.componentForClass(OrientationComponent.self) {
@@ -91,8 +102,8 @@ class MoveComponent: GKComponent {
         // In the didSimulatePhysics will do do the block below
         (self.renderComponent.node.scene as! LevelScene).restRotatingCompletionBlock = {
           [unowned self] in
-            self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
             self.renderComponent.node.scene?.physicsWorld.removeAllJoints()
+          self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
         }
         completion()
         

@@ -25,5 +25,11 @@ func detectNode(centerNode: SKNode, inDirection direction: MoveDirection, detect
   let targetPosition = CGPoint(
     x: centerNode.position.x + CGFloat(direction.tag.0)*detectDistance,
     y: centerNode.position.y + CGFloat(direction.tag.1)*detectDistance)
+  for node in centerNode.parent!.nodesAtPoint(targetPosition) {
+    if let node = node as? EntityNode {
+      return node
+    }
+  }
+  // Maybe wrong
   return centerNode.parent?.nodeAtPoint(targetPosition)
 }

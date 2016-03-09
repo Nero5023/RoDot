@@ -13,7 +13,7 @@ class RestrictedRotationPoint: RotationPoint {
   
   // Mark: Initializers
   
-  required init(renderNode: SKSpriteNode, rotatableRodCount: Int) {
+  init(renderNode: SKSpriteNode, rotatableRodCount: Int) {
     super.init(renderNode: renderNode)
     
     let rotatableRodCountComponent = RotatableRodCountComponent(rotatableRodCount: rotatableRodCount)

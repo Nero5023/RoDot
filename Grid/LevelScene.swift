@@ -65,11 +65,19 @@ class LevelScene: SKScene {
         case .normalNode:
           entity = RotationPoint(renderNode: node)
         case .restrictedNode1, .restrictedNode2, .restrictedNode3, .restrictedNode4:
-          entity = RestrictedRotationPoint(renderNode: node, rotatableRodCount: nodeType.rawValue)
+          entity = RestrictedRotationPoint(renderNode: node, rotatableRodCount: nodeType.tag)
         case .staticNode:
           entity = StaticPoint(renderNode: node)
         case .translationNode:
           entity = TranslationPoint(renderNode: node)
+        case .cNormalNode:
+          entity = ClockwiseRotationPoint(renderNode: node, isClockwise: true)
+        case .acNormalNode:
+          entity = ClockwiseRotationPoint(renderNode: node, isClockwise: false)
+        case .cRestrictedNode1, .cRestrictedNode2, .cRestrictedNode3, .cRestrictedNode4:
+          entity = ClockwiseRescritedRPoint(renderNode: node, rotatableRodCount: nodeType.tag, isClockwise: true)
+        case .acRestrictedNode1, .acRestrictedNode2, .acRestrictedNode3, .acRestrictedNode4:
+          entity = ClockwiseRescritedRPoint(renderNode: node, rotatableRodCount: nodeType.tag, isClockwise: false)
         }
         node.removeFromParent()
         self.addEntity(entity)
