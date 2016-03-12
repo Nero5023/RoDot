@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class Transfer: GKEntity {
+class Transfer: GKEntity, FreezableProtocol {
   // MARK: Properties
   
   
@@ -33,6 +33,9 @@ class Transfer: GKEntity {
     
     let transferComponent = TransferComponent(renderNodeName: renderComponent.node.name!)
     addComponent(transferComponent)
+    
+    let freezableComponent = FreezableComponent()
+    addComponent(freezableComponent)
     
   }
 }

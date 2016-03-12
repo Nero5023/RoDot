@@ -49,6 +49,7 @@ class TransferComponent: GKComponent {
   
   func transferNode(node: SKSpriteNode) {
     isContacting = true
+    if entity?.componentForClass(FreezableComponent.self)?.isFreezd == true { return }
     if allowTransfer {
       isContacting = false
       relatedNode.entity.componentForClass(TransferComponent.self)?.getTransferNode(node)
@@ -65,6 +66,7 @@ class TransferComponent: GKComponent {
   
   func endTransfer() {
     isContacting = false
+    if entity?.componentForClass(FreezableComponent.self)?.isFreezd == true { return }
     if !isContacting && !relatedNode.entity.componentForClass(TransferComponent.self)!.isContacting {
       allowTransfer = true
     }

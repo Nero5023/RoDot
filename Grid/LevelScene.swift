@@ -87,6 +87,9 @@ class LevelScene: SKScene {
       if let ballNode = node as? BallNode {
         ballNode.didMoveToScene()
       }
+      if let iceball = node as? IceBallNode {
+        iceball.didMoveToScene()
+      }
       
       if let nodeName = node.name, node = node as? TransferNode {
         if nodeName.hasPrefix("transfer") {
@@ -222,6 +225,14 @@ extension LevelScene: SKPhysicsContactDelegate {
         transfer.entity.componentForClass(TransferComponent.self)?.transferNode(ball)
       }
     }
+    // 可以用 collision & PhysicsCategory.Transfer 看看是不是 Transfer 
+    if collision == PhysicsCategory.IceBall | PhysicsCategory.Transfer {
+      let transfer = contact.bodyA.categoryBitMask == PhysicsCategory.Transfer ? contact.bodyA.node : contact.bodyB.node
+      if let transfer = transfer as? EntityNode {
+        (transfer.entity as! FreezableProtocol).setNodeIsFreezed(true)
+      }
+    }
+    
   }
   
   func didEndContact(contact: SKPhysicsContact) {

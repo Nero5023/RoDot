@@ -23,6 +23,9 @@
 		CE2776751C8FF68700B5FA7F /* ClockwiseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */; };
 		CE2776771C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776761C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift */; };
 		CE27767B1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27767A1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift */; };
+		CE27767D1C90597900B5FA7F /* FreezableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27767C1C90597900B5FA7F /* FreezableComponent.swift */; };
+		CE27767F1C90625200B5FA7F /* IceBallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27767E1C90625200B5FA7F /* IceBallNode.swift */; };
+		CE2776811C9065CE00B5FA7F /* FreezableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776801C9065CE00B5FA7F /* FreezableProtocol.swift */; };
 		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */; };
@@ -107,6 +110,9 @@
 		CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseComponent.swift; sourceTree = "<group>"; };
 		CE2776761C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseRotationPoint.swift; sourceTree = "<group>"; };
 		CE27767A1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseRescritedRPoint.swift; sourceTree = "<group>"; };
+		CE27767C1C90597900B5FA7F /* FreezableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreezableComponent.swift; sourceTree = "<group>"; };
+		CE27767E1C90625200B5FA7F /* IceBallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceBallNode.swift; sourceTree = "<group>"; };
+		CE2776801C9065CE00B5FA7F /* FreezableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreezableProtocol.swift; sourceTree = "<group>"; };
 		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelateComponent.swift; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 				CE66F67C1C6B83B200E08955 /* RodNode.swift */,
 				CE66F67E1C6B8E0700E08955 /* RotationPointNode.swift */,
 				CE1B1E141C76F244000FDE5E /* BallNode.swift */,
+				CE27767E1C90625200B5FA7F /* IceBallNode.swift */,
 				CE6576121C7A056700EA2348 /* TransferNode.swift */,
 				CE66F6821C6B956C00E08955 /* PointNodeState */,
 			);
@@ -337,6 +344,8 @@
 				CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */,
 				CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */,
 				CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */,
+				CE27767C1C90597900B5FA7F /* FreezableComponent.swift */,
+				CE2776801C9065CE00B5FA7F /* FreezableProtocol.swift */,
 				CE6643C21C81A12500A6F0D4 /* PointState */,
 			);
 			name = Components;
@@ -505,6 +514,7 @@
 				CEDC061A1C7DC5E4000F9C52 /* RenderComponent.swift in Sources */,
 				CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */,
 				CE66F6811C6B8E3900E08955 /* GridGraph.swift in Sources */,
+				CE27767D1C90597900B5FA7F /* FreezableComponent.swift in Sources */,
 				CE6643C41C81A14F00A6F0D4 /* PointLockedState.swift in Sources */,
 				CE6643BF1C819E9500A6F0D4 /* IntelligenceComponent.swift in Sources */,
 				CEDC061C1C7DC6C1000F9C52 /* PhysicsComponent.swift in Sources */,
@@ -524,6 +534,7 @@
 				CE0C76F91C8C0EAE002CBF23 /* PointTranslatingState.swift in Sources */,
 				CEDC06241C7DE4E7000F9C52 /* Rod.swift in Sources */,
 				CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */,
+				CE2776811C9065CE00B5FA7F /* FreezableProtocol.swift in Sources */,
 				CE66F68A1C6BA6DC00E08955 /* Rotating.swift in Sources */,
 				CE7DB8131C68D74C00AA358C /* SKAction+SpecialEffects.swift in Sources */,
 				CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */,
@@ -548,6 +559,7 @@
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,
 				CE27767B1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift in Sources */,
 				CE2776751C8FF68700B5FA7F /* ClockwiseComponent.swift in Sources */,
+				CE27767F1C90625200B5FA7F /* IceBallNode.swift in Sources */,
 				CE6643C11C81A05700A6F0D4 /* PointCheckingState.swift in Sources */,
 				CE7DB8161C68D74C00AA358C /* SKTAudio.swift in Sources */,
 				CE66F6841C6B975900E08955 /* Checking.swift in Sources */,

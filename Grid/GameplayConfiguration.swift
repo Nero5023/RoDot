@@ -47,7 +47,7 @@ struct GameplayConfiguration {
     static let collider: ColliderType = ColliderType(
       categoryBitMask: PhysicsCategory.Transfer,
       collisionBitMask: PhysicsCategory.None,
-      contactTestBitMask: PhysicsCategory.Ball)
+      contactTestBitMask: PhysicsCategory.Ball | PhysicsCategory.IceBall)
     
     static let phybodyRadius: CGFloat = 50
     
