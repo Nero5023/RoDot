@@ -22,7 +22,7 @@ class LevelScene: SKScene {
   var lastUpdateTimeInterval: NSTimeInterval = 0
   
   lazy var componentSystems: [GKComponentSystem] = {
-    let moveSystem = GKComponentSystem(componentClass: MoveComponent.self)
+  let moveSystem = GKComponentSystem(componentClass: MoveComponent.self)
     
     return [moveSystem]
   }()
@@ -33,6 +33,19 @@ class LevelScene: SKScene {
   var restRotatingCompletionBlock: (()->())?
 
   var isResting: Bool = false
+  
+  var currentLevel: Int = 0
+  
+  var playable: Bool = true
+  
+  // Class Methods:
+  
+  class func level(levelNum: Int) -> LevelScene? {
+    let scene = LevelScene(fileNamed: "Level\(levelNum)")!
+    scene.currentLevel = levelNum
+    scene.scaleMode = .AspectFill
+    return scene
+  }
   
   // MARK: Scene Life Cycle
   
@@ -89,6 +102,9 @@ class LevelScene: SKScene {
       }
       if let iceball = node as? IceBallNode {
         iceball.didMoveToScene()
+      }
+      if let destination = node as? DestinationNode {
+        destination.didMoveToScene()
       }
       
       if let nodeName = node.name, node = node as? TransferNode {
@@ -209,7 +225,26 @@ class LevelScene: SKScene {
     layerNode.addChild(node)
   }
   
+  // MARK: Game Life Cycle
   
+  func newGame() {
+    let scene = LevelScene.level(currentLevel)
+    scene!.scaleMode = scaleMode
+    view!.presentScene(scene)
+  }
+  
+  func lose() {
+    playable = false
+    performSelector("newGame", withObject: nil, afterDelay: 2)
+  }
+  
+  func win() {
+    playable = false
+    if currentLevel < 5 {
+      currentLevel++
+    }
+    performSelector("newGame", withObject: nil, afterDelay: 2)
+  }
 }
 
 // MARK: Contect
@@ -231,6 +266,20 @@ extension LevelScene: SKPhysicsContactDelegate {
       if let transfer = transfer as? EntityNode {
         (transfer.entity as! FreezableProtocol).setNodeIsFreezed(true)
       }
+    }
+    
+    
+    
+    if !playable { return }
+    
+    if collision == PhysicsCategory.Ball | PhysicsCategory.Distance {
+      print("win")
+      win()
+    }
+    
+    if collision == PhysicsCategory.Ball | PhysicsCategory.Edge {
+      print("Lose")
+      lose()
     }
     
   }
