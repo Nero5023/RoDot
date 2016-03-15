@@ -22,7 +22,7 @@
 		CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B1E141C76F244000FDE5E /* BallNode.swift */; };
 		CE1B1E181C770964000FDE5E /* Level.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level.sks */; };
 		CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */; };
-		CE21F2631C95B20D00C39D58 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE21F2621C95B20D00C39D58 /* Level5.sks */; };
+		CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE21F2621C95B20D00C39D58 /* Level7.sks */; };
 		CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */; };
 		CE2776751C8FF68700B5FA7F /* ClockwiseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */; };
 		CE2776771C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776761C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift */; };
@@ -33,6 +33,7 @@
 		CE4BEA031C95670D004DCDB5 /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE4BEA021C95670D004DCDB5 /* Level2.sks */; };
 		CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE4BEA041C95886B004DCDB5 /* Level3.sks */; };
 		CE4BEA071C958DE5004DCDB5 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE4BEA061C958DE5004DCDB5 /* Level4.sks */; };
+		CE5203F61C97D06B000EA721 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE5203F51C97D06B000EA721 /* Level5.sks */; };
 		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */; };
@@ -118,7 +119,7 @@
 		CE1B1E141C76F244000FDE5E /* BallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallNode.swift; sourceTree = "<group>"; };
 		CE1B1E171C770964000FDE5E /* Level.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level.sks; sourceTree = "<group>"; };
 		CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferComponent.swift; sourceTree = "<group>"; };
-		CE21F2621C95B20D00C39D58 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
+		CE21F2621C95B20D00C39D58 /* Level7.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level7.sks; sourceTree = "<group>"; };
 		CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateCountComponent.swift; sourceTree = "<group>"; };
 		CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseComponent.swift; sourceTree = "<group>"; };
 		CE2776761C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseRotationPoint.swift; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		CE4BEA021C95670D004DCDB5 /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
 		CE4BEA041C95886B004DCDB5 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		CE4BEA061C958DE5004DCDB5 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
+		CE5203F51C97D06B000EA721 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
 		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelateComponent.swift; sourceTree = "<group>"; };
@@ -233,8 +235,9 @@
 				CE4BEA021C95670D004DCDB5 /* Level2.sks */,
 				CE4BEA041C95886B004DCDB5 /* Level3.sks */,
 				CE4BEA061C958DE5004DCDB5 /* Level4.sks */,
-				CE21F2621C95B20D00C39D58 /* Level5.sks */,
+				CE5203F51C97D06B000EA721 /* Level5.sks */,
 				CE0B730B1C96C5B900009B6B /* Level6.sks */,
+				CE21F2621C95B20D00C39D58 /* Level7.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -512,10 +515,11 @@
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
 				CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
-				CE21F2631C95B20D00C39D58 /* Level5.sks in Resources */,
+				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
 				CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */,
 				CE0B730C1C96C5B900009B6B /* Level6.sks in Resources */,
 				CE7DB7D91C68B64400AA358C /* Main.storyboard in Resources */,
+				CE5203F61C97D06B000EA721 /* Level5.sks in Resources */,
 				CE4BEA031C95670D004DCDB5 /* Level2.sks in Resources */,
 				CE1B1E181C770964000FDE5E /* Level.sks in Resources */,
 				CE4BEA071C958DE5004DCDB5 /* Level4.sks in Resources */,

@@ -15,7 +15,7 @@ struct GameplayConfiguration {
     
     static let collider: ColliderType = ColliderType(
       categoryBitMask: PhysicsCategory.Rod,
-      collisionBitMask: PhysicsCategory.Ball | PhysicsCategory.Rod,
+      collisionBitMask: PhysicsCategory.Ball | PhysicsCategory.Rod ,
       contactTestBitMask: PhysicsCategory.None)
     
     static let height: CGFloat = 210

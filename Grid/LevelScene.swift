@@ -36,7 +36,7 @@ class LevelScene: SKScene {
   
   var currentLevel: Int = 0
   
-  var playable: Bool = true
+  var playable: Bool = false
   
   // Class Methods:
   
@@ -96,8 +96,49 @@ class LevelScene: SKScene {
         entity.componentForClass(RelateComponent.self)?.updateRelatedNodes()
       }
     }
+    initializeAnimation()
   }
   
+  func initializeAnimation() {
+    for entity in entities {
+      if let entity = entity as? BasePointEntity {
+        let node = entity.componentForClass(RenderComponent.self)!.node
+        node.setScale(0.01)
+        let action0 = SKAction.scaleTo(1.15, duration: 1)
+        let action1 = SKAction.scaleTo(0.85, duration: 0.5)
+        let action2 = SKAction.scaleTo(1, duration: 0.5)
+        action0.timingMode = SKActionTimingMode.EaseInEaseOut
+        action1.timingMode = SKActionTimingMode.EaseInEaseOut
+        action2.timingMode = SKActionTimingMode.EaseInEaseOut
+        node.runAction(SKAction.sequence([action0, action1, action2]))
+      }
+      if let entity = entity as? Rod {
+        let node = entity.componentForClass(RenderComponent.self)!.node
+        let originalPosition = node.position
+        let originalZRotation = node.zRotation
+        node.position = CGPoint(x: CGFloat.random(min: 105, max: 1536-105), y: CGFloat.random(min: -200, max: -105))
+        node.zRotation = CGFloat.random(min: 0, max: 360).degreesToRadians()
+        
+        let duration = NSTimeInterval(CGFloat.random(min: 0.8, max: 1.7))
+        
+        let action0 = SKAction.rotateToAngle(originalZRotation, duration: duration)
+        let action1 = SKAction.moveTo(originalPosition, duration: duration)
+        action0.timingMode = SKActionTimingMode.EaseInEaseOut
+        action1.timingMode = SKActionTimingMode.EaseInEaseOut
+        node.runAction(SKAction.group([action0, action1]))
+      }
+    }
+    let ball = spritesNode.childNodeWithName("ball")!
+    ball.setScale(0.01)
+    ball.physicsBody?.affectedByGravity = false
+    let action = SKAction.sequence([SKAction.waitForDuration(1.4),
+      SKAction.scaleTo(1, duration: 0.3),
+      SKAction.runBlock({ [unowned self] in
+      ball.physicsBody?.affectedByGravity = true
+      self.playable = true
+    })])
+    ball.runAction(action)
+  }
   
   func setUpNode() {
     bgNode = childNodeWithName("Background")!
@@ -127,6 +168,7 @@ class LevelScene: SKScene {
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     guard let firstTouchPosition = touches.first?.locationInNode(spritesNode) else { return }
     guard isResting == false else { return }
+    guard playable else { return }
     if let entityNode = spritesNode.nodeAtPoint(firstTouchPosition) as? EntityNode,
         let inputComponent = entityNode.entity.componentForClass(InputComponent.self) {
           moveableInputComponent = inputComponent
@@ -136,6 +178,7 @@ class LevelScene: SKScene {
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     guard isResting == false else { return }
+    guard playable else { return }
     moveableInputComponent?.touchesMoved(touches, withEvent: event)
   }
   
@@ -208,15 +251,25 @@ class LevelScene: SKScene {
   
   func lose() {
     playable = false
-    performSelector("newGame", withObject: nil, afterDelay: 2)
+    performSelector("newGame", withObject: nil, afterDelay: 1)
   }
   
   func win() {
     playable = false
-    if currentLevel < 6 {
+    physicsWorld.gravity = CGVectorMake(0, -15)
+    for entity in entities {
+      if let entity = entity as? Rod {
+        entity.componentForClass(RenderComponent.self)!.node.physicsBody?.affectedByGravity = true
+        entity.componentForClass(RenderComponent.self)!.node.physicsBody?.dynamic = true
+      }
+      if let entity = entity as? BasePointEntity {
+        entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
+      }
+    }
+    if currentLevel < 7 {
       currentLevel++
     }
-    performSelector("newGame", withObject: nil, afterDelay: 2)
+    performSelector("newGame", withObject: nil, afterDelay: 1)
   }
 }
 
@@ -247,7 +300,16 @@ extension LevelScene: SKPhysicsContactDelegate {
     
     if collision == PhysicsCategory.Ball | PhysicsCategory.Distance {
       print("win")
-      win()
+      let ball = contact.bodyA.categoryBitMask == PhysicsCategory.Ball ? contact.bodyA.node : contact.bodyB.node
+      let distance = contact.bodyA.categoryBitMask == PhysicsCategory.Distance ? contact.bodyA.node : contact.bodyB.node
+      ball!.physicsBody = nil
+      ball!.runAction(SKAction.group([SKAction.moveTo(distance!.position, duration: 0.8), SKAction.scaleTo(0.01, duration: 0.8)]))
+      
+      playable = false
+      touchesEnded([], withEvent: nil)
+      afterDelay(0.5, runBlock: {
+        self.win()
+      })
     }
     
     if collision == PhysicsCategory.Ball | PhysicsCategory.Edge {
