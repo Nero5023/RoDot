@@ -59,7 +59,7 @@ class PointCheckingState: GKState {
   
   
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    return stateClass is PointLockedState.Type || stateClass is PointUnlockedState.Type
+    return stateClass is PointLockedState.Type || stateClass is PointUnlockedState.Type || stateClass is PointLockedForeverState.Type
   }
   
 }

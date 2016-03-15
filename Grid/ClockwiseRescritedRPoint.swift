@@ -14,8 +14,8 @@ class ClockwiseRescritedRPoint: RestrictedRotationPoint {
   
   // Mark: Initializers
   
-  init(renderNode: SKSpriteNode, rotatableRodCount: Int, isClockwise: Bool) {
-    super.init(renderNode: renderNode, rotatableRodCount: rotatableRodCount)
+  init(renderNode: SKSpriteNode, rotatableRodCount: Int, isClockwise: Bool, rotateCount: Int?) {
+    super.init(renderNode: renderNode, rotatableRodCount: rotatableRodCount, rotateCount: rotateCount)
     
     let clockwiseComponent = ClockwiseComponent(isClockwise: isClockwise)
     addComponent(clockwiseComponent)

@@ -14,8 +14,8 @@ class ClockwiseRotationPoint: RotationPoint {
   
   // Mark: Initializers
   
-  init(renderNode: SKSpriteNode, isClockwise: Bool) {
-    super.init(renderNode: renderNode)
+  init(renderNode: SKSpriteNode, isClockwise: Bool, rotateCount: Int?) {
+    super.init(renderNode: renderNode, rotateCount: rotateCount)
     
     let clockwiseComponent = ClockwiseComponent(isClockwise: isClockwise)
     addComponent(clockwiseComponent)

@@ -14,19 +14,33 @@ class RotationPoint: BasePointEntity {
   
   // Mark: Initializers
   
-  override init(renderNode: SKSpriteNode) {
+  init(renderNode: SKSpriteNode, rotateCount: Int?) {
     super.init(renderNode: renderNode)
     
     let relateComponent = RelateComponent()
     addComponent(relateComponent)
     
-    let intelligenceComponent = IntelligenceComponent(states: [
-      PointCheckingState(entity: self),
-      PointUnlockedState(entity: self),
-      PointLockedState(entity: self),
-      PointRotatingState(entity: self)
-    ])
-    addComponent(intelligenceComponent)
+    if let rotateCount = rotateCount {
+      let intelligenceComponent = IntelligenceComponent(states: [
+        PointCheckingState(entity: self),
+        PointUnlockedState(entity: self),
+        PointLockedState(entity: self),
+        PointRotatingState(entity: self),
+        PointLockedForeverState(entity: self)
+        ])
+      addComponent(intelligenceComponent)
+      let rotateCountComponent = RotateCountComponent(rotateCount: rotateCount)
+      addComponent(rotateCountComponent)
+    }else {
+      let intelligenceComponent = IntelligenceComponent(states: [
+        PointCheckingState(entity: self),
+        PointUnlockedState(entity: self),
+        PointLockedState(entity: self),
+        PointRotatingState(entity: self)
+        ])
+      addComponent(intelligenceComponent)
+    }
+    
     
     let detectComponent = DetectComponent()
     addComponent(detectComponent)
