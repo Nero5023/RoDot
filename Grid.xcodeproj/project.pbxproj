@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0B730C1C96C5B900009B6B /* Level6.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE0B730B1C96C5B900009B6B /* Level6.sks */; };
+		CE0B730E1C96E44A00009B6B /* PointNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0B730D1C96E44A00009B6B /* PointNodeType.swift */; };
 		CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F01C8BD4C3002CBF23 /* LevelSceneActiveState.swift */; };
 		CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F21C8BD4ED002CBF23 /* LevelSceneFailState.swift */; };
 		CE0C76F51C8BD54A002CBF23 /* LevelSceneSuccessState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C76F41C8BD54A002CBF23 /* LevelSceneSuccessState.swift */; };
@@ -21,6 +23,7 @@
 		CE1B1E181C770964000FDE5E /* Level.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level.sks */; };
 		CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */; };
 		CE21F2631C95B20D00C39D58 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE21F2621C95B20D00C39D58 /* Level5.sks */; };
+		CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */; };
 		CE2776751C8FF68700B5FA7F /* ClockwiseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */; };
 		CE2776771C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2776761C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift */; };
 		CE27767B1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27767A1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift */; };
@@ -100,6 +103,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE0B730B1C96C5B900009B6B /* Level6.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6.sks; sourceTree = "<group>"; };
+		CE0B730D1C96E44A00009B6B /* PointNodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointNodeType.swift; sourceTree = "<group>"; };
 		CE0C76F01C8BD4C3002CBF23 /* LevelSceneActiveState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneActiveState.swift; sourceTree = "<group>"; };
 		CE0C76F21C8BD4ED002CBF23 /* LevelSceneFailState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneFailState.swift; sourceTree = "<group>"; };
 		CE0C76F41C8BD54A002CBF23 /* LevelSceneSuccessState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneSuccessState.swift; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 		CE1B1E171C770964000FDE5E /* Level.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level.sks; sourceTree = "<group>"; };
 		CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferComponent.swift; sourceTree = "<group>"; };
 		CE21F2621C95B20D00C39D58 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
+		CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateCountComponent.swift; sourceTree = "<group>"; };
 		CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseComponent.swift; sourceTree = "<group>"; };
 		CE2776761C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseRotationPoint.swift; sourceTree = "<group>"; };
 		CE27767A1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockwiseRescritedRPoint.swift; sourceTree = "<group>"; };
@@ -221,12 +227,14 @@
 			children = (
 				CE12AE0D1C85BF8E00E876FF /* SceneState */,
 				CE6665B61C8349F90079F1C0 /* LevelScene.swift */,
+				CE0B730D1C96E44A00009B6B /* PointNodeType.swift */,
 				CE1B1E171C770964000FDE5E /* Level.sks */,
 				CE8378E91C94621B00E7CD88 /* Level1.sks */,
 				CE4BEA021C95670D004DCDB5 /* Level2.sks */,
 				CE4BEA041C95886B004DCDB5 /* Level3.sks */,
 				CE4BEA061C958DE5004DCDB5 /* Level4.sks */,
 				CE21F2621C95B20D00C39D58 /* Level5.sks */,
+				CE0B730B1C96C5B900009B6B /* Level6.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 				CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */,
 				CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */,
 				CE2776741C8FF68700B5FA7F /* ClockwiseComponent.swift */,
+				CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */,
 				CE27767C1C90597900B5FA7F /* FreezableComponent.swift */,
 				CE2776801C9065CE00B5FA7F /* FreezableProtocol.swift */,
 				CE6643C21C81A12500A6F0D4 /* PointState */,
@@ -505,6 +514,7 @@
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level5.sks in Resources */,
 				CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */,
+				CE0B730C1C96C5B900009B6B /* Level6.sks in Resources */,
 				CE7DB7D91C68B64400AA358C /* Main.storyboard in Resources */,
 				CE4BEA031C95670D004DCDB5 /* Level2.sks in Resources */,
 				CE1B1E181C770964000FDE5E /* Level.sks in Resources */,
@@ -573,11 +583,13 @@
 				CE66F6861C6BA4AF00E08955 /* Locked.swift in Sources */,
 				CE0C76F71C8C0E5A002CBF23 /* TranslationPoint.swift in Sources */,
 				CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */,
+				CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */,
 				CE7DB8151C68D74C00AA358C /* SKNode+Extensions.swift in Sources */,
 				CE164FC71C7F2759005BD8EB /* MoveComponent.swift in Sources */,
 				CE66F6881C6BA51F00E08955 /* Unlocked.swift in Sources */,
 				CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */,
 				CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */,
+				CE0B730E1C96E44A00009B6B /* PointNodeType.swift in Sources */,
 				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
 				CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,

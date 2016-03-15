@@ -240,7 +240,7 @@ class LevelScene: SKScene {
   
   func win() {
     playable = false
-    if currentLevel < 5 {
+    if currentLevel < 6 {
       currentLevel++
     }
     performSelector("newGame", withObject: nil, afterDelay: 2)
