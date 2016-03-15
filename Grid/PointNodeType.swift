@@ -37,6 +37,7 @@ enum PointNodeType {
   case translationNode
   case restrictedNode(Int?, Bool?, Int?) //rotatanleRodCount, isClockwise, RotateCount
   
+  // MARK: Initializers
   
   init(nodeName: String?) {
     guard let nodeName = nodeName else {
