@@ -166,7 +166,9 @@ class LevelScene: SKScene {
   // MARK: Touch Event
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    guard touches.count == 1 else { return }
     guard let firstTouchPosition = touches.first?.locationInNode(spritesNode) else { return }
+    guard moveableInputComponent == nil else { return }
     guard isResting == false else { return }
     guard playable else { return }
     if let entityNode = spritesNode.nodeAtPoint(firstTouchPosition) as? EntityNode,
@@ -177,12 +179,23 @@ class LevelScene: SKScene {
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    guard touches.count == 1 else { return }
+    guard let firstTouchPosition = touches.first?.locationInNode(spritesNode) else { return }
     guard isResting == false else { return }
     guard playable else { return }
-    moveableInputComponent?.touchesMoved(touches, withEvent: event)
+    if let moveableInputComponent = moveableInputComponent {
+      moveableInputComponent.touchesMoved(touches, withEvent: event)
+    }else {
+      if let entityNode = spritesNode.nodeAtPoint(firstTouchPosition) as? EntityNode,
+        let inputComponent = entityNode.entity.componentForClass(InputComponent.self) {
+          moveableInputComponent = inputComponent
+          inputComponent.touchesBegan(touches, withEvent: event)
+      }
+    }
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    guard touches.count == 1 else { return }
     guard isResting == false else { return }
     moveableInputComponent?.touchesEnded(touches, withEvent: event)
     moveableInputComponent = nil
@@ -259,8 +272,10 @@ class LevelScene: SKScene {
     physicsWorld.gravity = CGVectorMake(0, -15)
     for entity in entities {
       if let entity = entity as? Rod {
-        entity.componentForClass(RenderComponent.self)!.node.physicsBody?.affectedByGravity = true
-        entity.componentForClass(RenderComponent.self)!.node.physicsBody?.dynamic = true
+        afterDelay(NSTimeInterval(CGFloat.random(min: 0, max: 0.5)), runBlock: {
+          entity.componentForClass(RenderComponent.self)!.node.physicsBody?.affectedByGravity = true
+          entity.componentForClass(RenderComponent.self)!.node.physicsBody?.dynamic = true
+        })
       }
       if let entity = entity as? BasePointEntity {
         entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
