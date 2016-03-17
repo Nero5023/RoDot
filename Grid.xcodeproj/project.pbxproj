@@ -76,6 +76,8 @@
 		CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8378E51C9457E400E7CD88 /* DestinationNode.swift */; };
 		CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE8378E91C94621B00E7CD88 /* Level1.sks */; };
 		CE8A0BCF1C80BC95000ABFEA /* DetectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */; };
+		CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEA8BC071C9AF74500C0133C /* LevelEditor.sks */; };
+		CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */; };
 		CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */; };
 		CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */; };
 		CEDC061A1C7DC5E4000F9C52 /* RenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06191C7DC5E4000F9C52 /* RenderComponent.swift */; };
@@ -179,6 +181,8 @@
 		CE8378E51C9457E400E7CD88 /* DestinationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationNode.swift; sourceTree = "<group>"; };
 		CE8378E91C94621B00E7CD88 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectComponent.swift; sourceTree = "<group>"; };
+		CEA8BC071C9AF74500C0133C /* LevelEditor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEditor.sks; sourceTree = "<group>"; };
+		CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
 		CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictedRotationPoint.swift; sourceTree = "<group>"; };
 		CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatableRodCountComponent.swift; sourceTree = "<group>"; };
 		CEDC06191C7DC5E4000F9C52 /* RenderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponent.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 				CE5203F51C97D06B000EA721 /* Level5.sks */,
 				CE0B730B1C96C5B900009B6B /* Level6.sks */,
 				CE21F2621C95B20D00C39D58 /* Level7.sks */,
+				CEA8BC071C9AF74500C0133C /* LevelEditor.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				CE27767E1C90625200B5FA7F /* IceBallNode.swift */,
 				CE6576121C7A056700EA2348 /* TransferNode.swift */,
 				CE8378E51C9457E400E7CD88 /* DestinationNode.swift */,
+				CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */,
 				CE66F6821C6B956C00E08955 /* PointNodeState */,
 			);
 			name = Nodes;
@@ -514,6 +520,7 @@
 				CE7DB7D21C68B64400AA358C /* GameScene.sks in Resources */,
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
 				CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */,
+				CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
 				CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */,
@@ -560,6 +567,7 @@
 				CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */,
 				CE7DB80F1C68D74C00AA358C /* CGPoint+Extensions.swift in Sources */,
 				CE7DB8181C68D74C00AA358C /* SKTTimingFunctions.swift in Sources */,
+				CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */,
 				CE66F67D1C6B83B200E08955 /* RodNode.swift in Sources */,
 				CE6643C61C81A17300A6F0D4 /* PointUnlockedState.swift in Sources */,
 				CE7DB8171C68D74C00AA358C /* SKTEffects.swift in Sources */,

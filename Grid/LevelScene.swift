@@ -131,10 +131,11 @@ class LevelScene: SKScene {
     let ball = spritesNode.childNodeWithName("ball")!
     ball.setScale(0.01)
     ball.physicsBody?.affectedByGravity = false
+    ball.physicsBody = nil
     let action = SKAction.sequence([SKAction.waitForDuration(1.4),
       SKAction.scaleTo(1, duration: 0.3),
       SKAction.runBlock({ [unowned self] in
-      ball.physicsBody?.affectedByGravity = true
+      (ball as? BallNode)?.didMoveToScene()
       self.playable = true
     })])
     ball.runAction(action)
@@ -195,7 +196,6 @@ class LevelScene: SKScene {
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    guard touches.count == 1 else { return }
     guard isResting == false else { return }
     moveableInputComponent?.touchesEnded(touches, withEvent: event)
     moveableInputComponent = nil
@@ -273,8 +273,18 @@ class LevelScene: SKScene {
     for entity in entities {
       if let entity = entity as? Rod {
         afterDelay(NSTimeInterval(CGFloat.random(min: 0, max: 0.5)), runBlock: {
-          entity.componentForClass(RenderComponent.self)!.node.physicsBody?.affectedByGravity = true
-          entity.componentForClass(RenderComponent.self)!.node.physicsBody?.dynamic = true
+          let node = entity.componentForClass(RenderComponent.self)!.node
+          node.physicsBody?.dynamic = true
+          let targetPositon = CGPoint(x: CGFloat.random(min: 105, max: 1536-105), y: CGFloat.random(min: -200, max: -105))
+          let targetZRotation = CGFloat.random(min: 0, max: 360).degreesToRadians()
+          
+          let duration = NSTimeInterval(CGFloat.random(min: 0.55, max: 1.3))
+          
+          let action0 = SKAction.rotateToAngle(targetZRotation, duration: duration)
+          let action1 = SKAction.moveTo(targetPositon, duration: duration)
+          action0.timingMode = SKActionTimingMode.EaseInEaseOut
+          action1.timingMode = SKActionTimingMode.EaseInEaseOut
+          node.runAction(SKAction.group([action0, action1]))
         })
       }
       if let entity = entity as? BasePointEntity {
