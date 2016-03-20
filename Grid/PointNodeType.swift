@@ -33,6 +33,7 @@ func =~<T: RegularExpressionMatchable>(left: T, right: String) -> Bool {
 // MARK: PointNodeType
 
 enum PointNodeType {
+  
   case staticNode
   case translationNode
   case restrictedNode(Int?, Bool?, Int?) //rotatanleRodCount, isClockwise, RotateCount
@@ -124,3 +125,4 @@ enum PointNodeType {
     }
   }
 }
+

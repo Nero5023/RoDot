@@ -43,13 +43,13 @@ class SKButtonNode: SKSpriteNode {
   // MARK: Initializers
   
   
-  init(textureNormal normal: SKTexture?, selected: SKTexture?, disabled: SKTexture?) {
+  required init(textureNormal normal: SKTexture?, selected: SKTexture?, disabled: SKTexture?) {
     self.title = SKLabelNode(fontNamed: "Arial")
     self.title.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
     self.title.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
     super.init(texture: normal, color: UIColor.whiteColor(), size: normal != nil ? normal!.size() : CGSize(width: 40, height: 40))
-    self.normalTexture = normal
-    self.normalSKTexture = selected
+    self.normalSKTexture = normal
+    self.selectedTexture = selected
     self.disabledTexture = disabled
     addChild(title)
     self.userInteractionEnabled = true
@@ -78,10 +78,7 @@ class SKButtonNode: SKSpriteNode {
   convenience init(imageNameNormal normal: String?, selected: String?) {
     self.init(imageNameNormal: normal, selected: selected, disabled: nil)
   }
-//
-//  override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-//    
-//  }
+
 
   required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
@@ -92,6 +89,9 @@ class SKButtonNode: SKSpriteNode {
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     if let actionTouchDown = actionTouchDown where isEnabled {
       actionTouchDown()
+    }
+    if isEnabled {
+      isSelected = true
     }
   }
   

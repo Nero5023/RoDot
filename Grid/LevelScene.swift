@@ -38,6 +38,8 @@ class LevelScene: SKScene {
   
   var playable: Bool = false
   
+  var editScene: LevelScene?
+  
   // Class Methods:
   
   class func level(levelNum: Int) -> LevelScene? {
@@ -47,6 +49,36 @@ class LevelScene: SKScene {
     return scene
   }
   
+  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelScene? {
+    let scene = LevelScene(fileNamed: "LevelEmpty")
+    for rod in rods {
+      if rod.name == "rod" {
+
+        let rodNode = copyNode(rod, toType: RodNode.self)
+        scene?.addChild(rodNode)
+      }
+    }
+    for point in points {
+      if point.type != nil {
+
+        let pointNode = copyNode(point, toType: RotationPointNode.self)
+        scene?.addChild(pointNode)
+      }
+    }
+
+    let ballNode = copyNode(ball, toType: BallNode.self)
+    scene?.childNodeWithName("Sprites")?.addChild(ballNode)
+    
+    let destinationNode = copyNode(destination, toType: DestinationNode.self)
+    scene?.childNodeWithName("Sprites")?.addChild(destinationNode)
+    
+    scene?.editScene = scene?.copy() as? LevelScene
+    
+    return scene
+  }
+  
+ 
+
   // MARK: Scene Life Cycle
   
   override func didMoveToView(view: SKView) {
@@ -257,9 +289,15 @@ class LevelScene: SKScene {
   // MARK: Game Life Cycle
   
   func newGame() {
-    let scene = LevelScene.level(currentLevel)
-    scene!.scaleMode = scaleMode
-    view!.presentScene(scene)
+    var newScene: LevelScene?
+    if let scene = editScene {
+      newScene = scene
+      newScene?.editScene = editScene?.copy() as? LevelScene
+    }else {
+      newScene = LevelScene.level(currentLevel)
+    }
+    newScene!.scaleMode = scaleMode
+    view!.presentScene(newScene)
   }
   
   func lose() {
@@ -269,22 +307,13 @@ class LevelScene: SKScene {
   
   func win() {
     playable = false
-    physicsWorld.gravity = CGVectorMake(0, -15)
     for entity in entities {
       if let entity = entity as? Rod {
-        afterDelay(NSTimeInterval(CGFloat.random(min: 0, max: 0.5)), runBlock: {
+        afterDelay(NSTimeInterval(0), runBlock: {
           let node = entity.componentForClass(RenderComponent.self)!.node
-          node.physicsBody?.dynamic = true
-          let targetPositon = CGPoint(x: CGFloat.random(min: 105, max: 1536-105), y: CGFloat.random(min: -200, max: -105))
-          let targetZRotation = CGFloat.random(min: 0, max: 360).degreesToRadians()
-          
-          let duration = NSTimeInterval(CGFloat.random(min: 0.55, max: 1.3))
-          
-          let action0 = SKAction.rotateToAngle(targetZRotation, duration: duration)
-          let action1 = SKAction.moveTo(targetPositon, duration: duration)
-          action0.timingMode = SKActionTimingMode.EaseInEaseOut
-          action1.timingMode = SKActionTimingMode.EaseInEaseOut
-          node.runAction(SKAction.group([action0, action1]))
+          let action = SKAction.scaleTo(0, duration: 0.5)
+          action.timingMode = SKActionTimingMode.EaseInEaseOut
+          node.runAction(action)
         })
       }
       if let entity = entity as? BasePointEntity {
@@ -353,4 +382,13 @@ extension LevelScene: SKPhysicsContactDelegate {
       }
     }
   }
+}
+
+private func copyNode(node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSpriteNode {
+  let copyNode = Type.init(texture: node.texture)
+  copyNode.size = node.size
+  copyNode.position = node.position
+  copyNode.name = node.name
+  copyNode.zRotation = node.zRotation
+  return copyNode
 }

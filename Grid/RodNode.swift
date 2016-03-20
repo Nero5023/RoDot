@@ -43,6 +43,8 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   private var upOrLeftNode: RotationPointNode?
   private var downOrRightNode: RotationPointNode?
   
+
+  
 //  MARK:CustomNodeEvents methods
   func didMoveToScene() {
     physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 22, height: size.height-8))
