@@ -38,7 +38,6 @@ class LevelScene: SKScene {
   
   var playable: Bool = false
   
-  var editScene: LevelScene?
   
   // Class Methods:
   
@@ -49,34 +48,7 @@ class LevelScene: SKScene {
     return scene
   }
   
-  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelScene? {
-    let scene = LevelScene(fileNamed: "LevelEmpty")
-    for rod in rods {
-      if rod.name == "rod" {
 
-        let rodNode = copyNode(rod, toType: RodNode.self)
-        scene?.addChild(rodNode)
-      }
-    }
-    for point in points {
-      if point.type != nil {
-
-        let pointNode = copyNode(point, toType: RotationPointNode.self)
-        scene?.addChild(pointNode)
-      }
-    }
-
-    let ballNode = copyNode(ball, toType: BallNode.self)
-    scene?.childNodeWithName("Sprites")?.addChild(ballNode)
-    
-    let destinationNode = copyNode(destination, toType: DestinationNode.self)
-    scene?.childNodeWithName("Sprites")?.addChild(destinationNode)
-    
-    scene?.editScene = scene?.copy() as? LevelScene
-    
-    return scene
-  }
-  
  
 
   // MARK: Scene Life Cycle
@@ -289,15 +261,18 @@ class LevelScene: SKScene {
   // MARK: Game Life Cycle
   
   func newGame() {
-    var newScene: LevelScene?
-    if let scene = editScene {
-      newScene = scene
-      newScene?.editScene = editScene?.copy() as? LevelScene
-    }else {
-      newScene = LevelScene.level(currentLevel)
-    }
-    newScene!.scaleMode = scaleMode
-    view!.presentScene(newScene)
+//    var newScene: LevelScene?
+//    if let scene = editScene {
+//      newScene = scene
+//      newScene?.editScene = editScene?.copy() as? LevelScene
+//    }else {
+//      newScene = LevelScene.level(currentLevel)
+//    }
+//    newScene!.scaleMode = scaleMode
+//    view!.presentScene(newScene)
+    let scene = LevelScene.level(currentLevel)
+    scene!.scaleMode = scaleMode
+    view!.presentScene(scene)
   }
   
   func lose() {
@@ -384,11 +359,4 @@ extension LevelScene: SKPhysicsContactDelegate {
   }
 }
 
-private func copyNode(node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSpriteNode {
-  let copyNode = Type.init(texture: node.texture)
-  copyNode.size = node.size
-  copyNode.position = node.position
-  copyNode.name = node.name
-  copyNode.zRotation = node.zRotation
-  return copyNode
-}
+

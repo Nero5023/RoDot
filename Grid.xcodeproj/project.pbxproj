@@ -34,6 +34,7 @@
 		CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE4BEA041C95886B004DCDB5 /* Level3.sks */; };
 		CE4BEA071C958DE5004DCDB5 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE4BEA061C958DE5004DCDB5 /* Level4.sks */; };
 		CE5203F61C97D06B000EA721 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE5203F51C97D06B000EA721 /* Level5.sks */; };
+		CE5244CF1CA00B16000DADF5 /* LevelEditPlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */; };
 		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */; };
@@ -137,6 +138,7 @@
 		CE4BEA041C95886B004DCDB5 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		CE4BEA061C958DE5004DCDB5 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		CE5203F51C97D06B000EA721 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
+		CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditPlayScene.swift; sourceTree = "<group>"; };
 		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelateComponent.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				CE12AE0D1C85BF8E00E876FF /* SceneState */,
 				CE6665B61C8349F90079F1C0 /* LevelScene.swift */,
+				CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */,
 				CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */,
 				CE0B730D1C96E44A00009B6B /* PointNodeType.swift */,
 				CE1B1E171C770964000FDE5E /* Level.sks */,
@@ -632,6 +635,7 @@
 				CE7DB80E1C68D74C00AA358C /* CGFloat+Extensions.swift in Sources */,
 				CE7DB8191C68D74C00AA358C /* Vector3.swift in Sources */,
 				CE6643C81C81A27700A6F0D4 /* PointRotatingState.swift in Sources */,
+				CE5244CF1CA00B16000DADF5 /* LevelEditPlayScene.swift in Sources */,
 				CE2776771C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift in Sources */,
 				CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */,
 				CE7DB7D01C68B64400AA358C /* AppDelegate.swift in Sources */,

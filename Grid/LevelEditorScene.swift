@@ -202,7 +202,7 @@ class LevelEditorScene: SKScene {
   
   
   func generateNewScene() {
-    let scene = LevelScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNodeWithName("ball")! as! SKSpriteNode, destination: self.spritesNode.childNodeWithName("destination")! as! SKSpriteNode)
+    let scene = LevelEditPlayScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNodeWithName("ball")! as! SKSpriteNode, destination: self.spritesNode.childNodeWithName("destination")! as! SKSpriteNode)
     scene?.scaleMode = self.scaleMode
     self.view?.presentScene(scene)
   }
@@ -231,7 +231,7 @@ class LevelEditorScene: SKScene {
       }
     }
     touchPosition = touches.first!.locationInNode(overlayNode)
-    if overlayNode.nodeAtPoint(touchPosition) == overlayNode {
+    if overlayNode.nodeAtPoint(touchPosition) == overlayNode && overlayNode.hidden == false {
       for button in pointButtons {
         let rotatableCount = self.rotatableCount == nil ? "" : self.rotatableCount!
         let clockwise = self.clockwise == nil ? "normal" : self.clockwise!
