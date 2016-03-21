@@ -101,6 +101,17 @@ class LevelScene: SKScene {
       }
     }
     initializeAnimation()
+    addTopRootRectangle()
+  }
+  
+  func addTopRootRectangle() {
+    let upRectangle = SKSpriteNode(texture: nil, color: UIColor(red: 0, green: 0, blue: 0, alpha: 0), size: CGSize(width: self.size.width, height: 10))
+    upRectangle.physicsBody = SKPhysicsBody(rectangleOfSize: upRectangle.size)
+    upRectangle.physicsBody?.categoryBitMask = PhysicsCategory.Rod
+    upRectangle.physicsBody?.collisionBitMask = PhysicsCategory.Ball
+    upRectangle.physicsBody!.dynamic = false
+    upRectangle.position = CGPoint(x: self.size.width/2, y: self.size.height+2)
+    childNodeWithName("Sprites")?.addChild(upRectangle)
   }
   
   func initializeAnimation() {

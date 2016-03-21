@@ -121,6 +121,7 @@ class LevelEditorScene: SKScene {
       let pointButton = copyNode(pointNode, toButtonType: PointButton.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil) as! PointButton
       pointNode.removeFromParent()
       pointButton.type = nil
+      pointButton.nextNodeName = "static"
       pointButton.actionTouchUpInside = {
 //        let texture = pointButton.selectedTexture
 //        pointButton.selectedTexture = pointButton.normalSKTexture
