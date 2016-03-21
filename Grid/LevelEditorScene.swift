@@ -66,7 +66,11 @@ class LevelEditorScene: SKScene {
     }
   }
   
+  var isFirstTime: Bool = true
+  
   override func didMoveToView(view: SKView) {
+    guard isFirstTime else { return }
+    isFirstTime = false
     var pointNodes = [RotationPointNode]()
     var rods = [RodNode]()
     enumerateChildNodesWithName("//*", usingBlock: { [unowned self] (node, _) -> () in
@@ -78,7 +82,7 @@ class LevelEditorScene: SKScene {
       }
       if let node = node as? SKSpriteNode where node.name == "componentButton" {
         
-        let componentButton = self.copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
+        let componentButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
         node.removeFromParent()
         self.spritesNode.addChild(componentButton)
         componentButton.actionTouchUpInside = { [unowned self] in
@@ -92,7 +96,7 @@ class LevelEditorScene: SKScene {
       }
       
       if let node = node as? SKSpriteNode where node.name == "runButton" {
-        let runButton = self.copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
+        let runButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
         node.removeFromParent()
         self.spritesNode.addChild(runButton)
         runButton.actionTouchUpInside = self.generateNewScene
@@ -155,7 +159,7 @@ class LevelEditorScene: SKScene {
 //        button.size = node.size
 //        button.position = node.position
 //        button.name = node.name
-        let button = self.copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil)
+        let button = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil)
         node.parent?.addChild(button)
         node.removeFromParent()
       }
@@ -196,19 +200,11 @@ class LevelEditorScene: SKScene {
     
   }
   
-  func copyNode(node: SKSpriteNode, toButtonType ButtonType: SKButtonNode.Type, selectedTextue: SKTexture?, disabledTextue: SKTexture?) -> SKButtonNode {
-    let button = ButtonType.init(textureNormal: node.texture, selected: selectedTextue, disabled: disabledTextue)
-    button.size = node.size
-    button.name = node.name
-    button.position = node.position
-    button.zRotation = node.zRotation
-    return button
-  }
-  
   
   func generateNewScene() {
     let scene = LevelEditPlayScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNodeWithName("ball")! as! SKSpriteNode, destination: self.spritesNode.childNodeWithName("destination")! as! SKSpriteNode)
     scene?.scaleMode = self.scaleMode
+    scene?.editScene = self
     self.view?.presentScene(scene)
   }
   
@@ -251,5 +247,13 @@ class LevelEditorScene: SKScene {
     }
   }
 
-  
+}
+
+func copyNode(node: SKSpriteNode, toButtonType ButtonType: SKButtonNode.Type, selectedTextue: SKTexture?, disabledTextue: SKTexture?) -> SKButtonNode {
+  let button = ButtonType.init(textureNormal: node.texture, selected: selectedTextue, disabled: disabledTextue)
+  button.size = node.size
+  button.name = node.name
+  button.position = node.position
+  button.zRotation = node.zRotation
+  return button
 }

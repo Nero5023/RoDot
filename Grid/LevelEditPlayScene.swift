@@ -11,9 +11,10 @@ import GameplayKit
 
 class LevelEditPlayScene: LevelScene {
   
-  var editScene: LevelEditPlayScene?
+  var editPlayScene: LevelEditPlayScene?
+  var editScene: LevelEditorScene?
   
-  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelScene? {
+  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
     for rod in rods {
       if rod.name == "rod" {
@@ -36,17 +37,25 @@ class LevelEditPlayScene: LevelScene {
     let destinationNode = copyNode(destination, toType: DestinationNode.self)
     scene?.childNodeWithName("Sprites")?.addChild(destinationNode)
     
-    scene?.editScene = scene?.copy() as? LevelEditPlayScene
+    scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
+    
+    let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode
+    let editButton = copyNode(editNode!, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
+    editNode!.removeFromParent()
+    editButton.actionTouchUpInside = {
+      scene?.view!.presentScene(scene?.editScene)
+    }
+    scene?.childNodeWithName("Overlay")?.addChild(editButton)
     
     return scene
   }
   
   override func newGame() {
-    guard let editScene = editScene else {
+    guard let editScene = editPlayScene else {
       fatalError("The LevelEditPlayScene must have a editScene")
     }
     let newScene = editScene
-    newScene.editScene = newScene.copy() as? LevelEditPlayScene
+    newScene.editPlayScene = newScene.copy() as? LevelEditPlayScene
     newScene.scaleMode = self.scaleMode
     view!.presentScene(newScene)
   }
