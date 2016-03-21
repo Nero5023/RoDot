@@ -55,6 +55,17 @@ class LevelEditorScene: SKScene {
   var pointButtons = [PointButton]()
   var rodButtons = [SKButtonNode]()
   
+  var isAddBall: Bool = false {
+    didSet {
+      (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
+    }
+  }
+  var isAddDestination: Bool = false {
+    didSet {
+      (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
+    }
+  }
+  
   override func didMoveToView(view: SKView) {
     var pointNodes = [RotationPointNode]()
     var rods = [RodNode]()
@@ -85,6 +96,7 @@ class LevelEditorScene: SKScene {
         node.removeFromParent()
         self.spritesNode.addChild(runButton)
         runButton.actionTouchUpInside = self.generateNewScene
+        runButton.isEnabled = false
       }
       
     })
@@ -202,13 +214,19 @@ class LevelEditorScene: SKScene {
     if spritesNode.nodeAtPoint(touchPosition) == spritesNode {
       if let nodeType = nodeType {
         if nodeType != "point" && nodeType != "translation" && nodeType != "static" {
+          if nodeType == "ball" && isAddBall == true { return }
+          if nodeType == "destination" && isAddDestination == true { return }
           let button = SKButtonNode(textureNormal: SKTexture(imageNamed: nodeType), selected: nil)
           button.position = touchPosition
           button.name = nodeType
-          button.actionTouchUpInside = {
+          button.actionTouchUpInside = { [unowned self] in
+            if nodeType == "ball" { self.isAddBall = false }
+            if nodeType == "destination" { self.isAddDestination = false }
             button.removeFromParent()
           }
           spritesNode.addChild(button)
+          if nodeType == "ball" { isAddBall = true }
+          if nodeType == "destination" { isAddDestination = true }
         }
       }
     }
