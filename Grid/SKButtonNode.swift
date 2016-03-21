@@ -80,8 +80,8 @@ class SKButtonNode: SKSpriteNode {
   }
 
 
-  required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+  convenience required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   // MARK: TouchEvent

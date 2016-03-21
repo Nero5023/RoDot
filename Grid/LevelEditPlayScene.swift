@@ -16,20 +16,38 @@ class LevelEditPlayScene: LevelScene {
   
   class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
+    var maxX: CGFloat = 0
+    var minX: CGFloat = 10000
+    var maxY: CGFloat = 0
+    var minY: CGFloat = 10000
     for rod in rods {
       if rod.name == "rod" {
         
         let rodNode = copyNode(rod, toType: RodNode.self)
-        scene?.addChild(rodNode)
+        scene?.childNodeWithName("Sprites")?.addChild(rodNode)
+        
+        maxX = max(maxX, rodNode.position.x)
+        minX = min(minX, rodNode.position.x)
+        
+        maxY = max(maxY, rodNode.position.y)
+        minY = min(minY, rodNode.position.y)
       }
     }
     for point in points {
       if point.type != nil {
         
         let pointNode = copyNode(point, toType: RotationPointNode.self)
-        scene?.addChild(pointNode)
+        scene?.childNodeWithName("Sprites")?.addChild(pointNode)
+        
+        maxX = max(maxX, pointNode.position.x)
+        minX = min(minX, pointNode.position.x)
+        
+        maxY = max(maxY, pointNode.position.y)
+        minY = min(minY, pointNode.position.y)
       }
     }
+    
+    
     
     let ballNode = copyNode(ball, toType: BallNode.self)
     scene?.childNodeWithName("Sprites")?.addChild(ballNode)
@@ -37,27 +55,39 @@ class LevelEditPlayScene: LevelScene {
     let destinationNode = copyNode(destination, toType: DestinationNode.self)
     scene?.childNodeWithName("Sprites")?.addChild(destinationNode)
     
-    scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
     
+    let centerPosition = CGPoint(x: (minX + maxX)/2, y: (minY + maxY)/2)
+    
+    let vector = CGPoint(x: scene!.size.width/2, y: scene!.size.height/2) - centerPosition
+    for node in scene!.childNodeWithName("Sprites")!.children {
+      node.position += vector
+    }
+    
+    scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
+    return scene
+  }
+  
+  override func didMoveToView(view: SKView) {
+    super.didMoveToView(view)
     let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode
     let editButton = copyNode(editNode!, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
     editNode!.removeFromParent()
     editButton.actionTouchUpInside = {
-      scene?.view!.presentScene(scene?.editScene)
+      self.view!.presentScene(self.editScene)
     }
-    scene?.childNodeWithName("Overlay")?.addChild(editButton)
-    
-    return scene
+    childNodeWithName("Overlay")?.addChild(editButton)
   }
   
+  // TODO: Bug: when win or lose, touch the edit button, the bug happened
   override func newGame() {
-    guard let editScene = editPlayScene else {
+    guard let editPlayScene = editPlayScene else {
       fatalError("The LevelEditPlayScene must have a editScene")
     }
-    let newScene = editScene
+    let newScene = editPlayScene
     newScene.editPlayScene = newScene.copy() as? LevelEditPlayScene
+    newScene.editScene = self.editScene
     newScene.scaleMode = self.scaleMode
-    view!.presentScene(newScene)
+    view?.presentScene(newScene)
   }
   
   
