@@ -86,7 +86,7 @@ class InputComponent: GKComponent {
     // mat be can when rotating the moveableDirections return empty
     moveableDirections = detectComponent.moveableDirections()
     guard moveableDirections != nil  && moveableDirections!.count != 0 && touches.first != nil else { return }
-    
+    self.centerNode = nil
     spritesLayer = renderComponent.node.parent!
     firstTouchPosition = touches.first!.locationInNode(spritesLayer)
   }

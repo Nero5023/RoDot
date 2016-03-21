@@ -122,15 +122,19 @@ class LevelEditorScene: SKScene {
       pointNode.removeFromParent()
       pointButton.type = nil
       pointButton.actionTouchUpInside = {
-        let texture = pointButton.selectedTexture
-        pointButton.selectedTexture = pointButton.normalSKTexture
-        pointButton.normalSKTexture = texture
+//        let texture = pointButton.selectedTexture
+//        pointButton.selectedTexture = pointButton.normalSKTexture
+//        pointButton.normalSKTexture = texture
         if pointButton.type == nil {
           pointButton.name = pointButton.nextNodeName
-          pointButton.type = PointNodeType(nodeName: pointNode.name)
+          pointButton.type = PointNodeType(nodeName: pointButton.name)
+          pointButton.normalSKTexture = SKTexture(imageNamed: pointButton.name!)
+          pointButton.selectedTexture = SKTexture(imageNamed: "point_unchecked")
         }else {
           pointButton.type = nil
           pointButton.name = nil
+          pointButton.normalSKTexture = SKTexture(imageNamed: "point_unchecked")
+          pointButton.selectedTexture = SKTexture(imageNamed: pointButton.nextNodeName!)
         }
 
       }
