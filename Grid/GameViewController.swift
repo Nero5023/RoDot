@@ -13,8 +13,8 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if let scene = LevelEditorScene(fileNamed:"LevelEditor") {
-      if let scene = LevelScene.level(1) {
+        if let scene = LevelEditorScene(fileNamed:"LevelEditor") {
+//      if let scene = LevelScene.level(1) {
             // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = true

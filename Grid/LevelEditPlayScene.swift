@@ -55,6 +55,18 @@ class LevelEditPlayScene: LevelScene {
     let destinationNode = copyNode(destination, toType: DestinationNode.self)
     scene?.childNodeWithName("Sprites")?.addChild(destinationNode)
     
+    maxX = max(maxX, ballNode.position.x)
+    minX = min(minX, ballNode.position.x)
+    
+    maxY = max(maxY, ballNode.position.y)
+    minY = min(minY, ballNode.position.y)
+    
+    maxX = max(maxX, destinationNode.position.x)
+    minX = min(minX, destinationNode.position.x)
+    
+    maxY = max(maxY, destinationNode.position.y)
+    minY = min(minY, destinationNode.position.y)
+
     
     let centerPosition = CGPoint(x: (minX + maxX)/2, y: (minY + maxY)/2)
     
