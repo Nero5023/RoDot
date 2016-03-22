@@ -306,7 +306,7 @@ class LevelScene: SKScene {
         entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
       }
     }
-    if currentLevel < 7 {
+    if currentLevel < 20 {
       currentLevel++
     }
     performSelector("newGame", withObject: nil, afterDelay: 1)

@@ -153,7 +153,7 @@ class LevelEditorScene: SKScene {
   func configureOverlay() {
     let overlayScece = SKScene(fileNamed: "ComponentChoose")!
     addChild(overlayScece.childNodeWithName("Overlay")!.copy() as! SKNode)
-    enumerateChildNodesWithName("/Overlay//*", usingBlock: { [unowned self] (node, _) -> () in
+    enumerateChildNodesWithName("/Overlay//*", usingBlock: { (node, _) -> () in
       if let node = node as? SKSpriteNode {
 //        let button = SKButtonNode(textureNormal: node.texture, selected: SKTexture(imageNamed: "pointnode0"))
 //        button.size = node.size

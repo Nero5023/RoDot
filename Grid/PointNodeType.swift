@@ -89,7 +89,7 @@ enum PointNodeType {
     }else if nodeName =~ "normal"{
       isClockwise = nil
     }else {
-      fatalError("The nodeName didn't much the pattern")
+      fatalError("The nodeName: \(nodeName) didn't much the pattern")
     }
     
     return (rotatableRodCount, isClockwise, rotateCount)
