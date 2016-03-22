@@ -11,73 +11,63 @@ import GameplayKit
 
 class LevelEditPlayScene: LevelScene {
   
+  // MARK: Properties
   var editPlayScene: LevelEditPlayScene?
   var editScene: LevelEditorScene?
   
+  
+  // MARK: Class Methods
   class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
-    var maxX: CGFloat = 0
-    var minX: CGFloat = 10000
-    var maxY: CGFloat = 0
-    var minY: CGFloat = 10000
+    
+    guard let sprites = scene?.childNodeWithName("Sprites") else {
+      fatalError("The LevelEditPlayScene must have a node named Sprites")
+    }
+
+    var minPoint = CGPoint(x: 10000, y: 10000)
+    var maxPoint = CGPoint(x: 0, y: 0)
     for rod in rods {
       if rod.name == "rod" {
         
         let rodNode = copyNode(rod, toType: RodNode.self)
-        scene?.childNodeWithName("Sprites")?.addChild(rodNode)
+        sprites.addChild(rodNode)
         
-        maxX = max(maxX, rodNode.position.x)
-        minX = min(minX, rodNode.position.x)
-        
-        maxY = max(maxY, rodNode.position.y)
-        minY = min(minY, rodNode.position.y)
+        calculate(&minPoint, maxPoint: &maxPoint, withNode: rodNode)
       }
     }
     for point in points {
       if point.type != nil {
         
         let pointNode = copyNode(point, toType: RotationPointNode.self)
-        scene?.childNodeWithName("Sprites")?.addChild(pointNode)
+        sprites.addChild(pointNode)
         
-        maxX = max(maxX, pointNode.position.x)
-        minX = min(minX, pointNode.position.x)
-        
-        maxY = max(maxY, pointNode.position.y)
-        minY = min(minY, pointNode.position.y)
+        calculate(&minPoint, maxPoint: &maxPoint, withNode: pointNode)
       }
     }
     
     
     
     let ballNode = copyNode(ball, toType: BallNode.self)
-    scene?.childNodeWithName("Sprites")?.addChild(ballNode)
+    sprites.addChild(ballNode)
     
     let destinationNode = copyNode(destination, toType: DestinationNode.self)
-    scene?.childNodeWithName("Sprites")?.addChild(destinationNode)
+    sprites.addChild(destinationNode)
     
-    maxX = max(maxX, ballNode.position.x)
-    minX = min(minX, ballNode.position.x)
-    
-    maxY = max(maxY, ballNode.position.y)
-    minY = min(minY, ballNode.position.y)
-    
-    maxX = max(maxX, destinationNode.position.x)
-    minX = min(minX, destinationNode.position.x)
-    
-    maxY = max(maxY, destinationNode.position.y)
-    minY = min(minY, destinationNode.position.y)
+    calculate(&minPoint, maxPoint: &maxPoint, withNode: ballNode)
+    calculate(&minPoint, maxPoint: &maxPoint, withNode: destinationNode)
 
-    
-    let centerPosition = CGPoint(x: (minX + maxX)/2, y: (minY + maxY)/2)
+    let centerPosition = (minPoint + maxPoint)/2
     
     let vector = CGPoint(x: scene!.size.width/2, y: scene!.size.height/2) - centerPosition
-    for node in scene!.childNodeWithName("Sprites")!.children {
+    for node in sprites.children {
       node.position += vector
     }
     
     scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
     return scene
   }
+  
+  // MARK: Scene Life Cycle
   
   override func didMoveToView(view: SKView) {
     super.didMoveToView(view)
@@ -90,7 +80,6 @@ class LevelEditPlayScene: LevelScene {
     childNodeWithName("Overlay")?.addChild(editButton)
   }
   
-  // TODO: Bug: when win or lose, touch the edit button, the bug happened
   override func newGame() {
     guard let editPlayScene = editPlayScene else {
       fatalError("The LevelEditPlayScene must have a editScene")
@@ -100,11 +89,14 @@ class LevelEditPlayScene: LevelScene {
     newScene.editScene = self.editScene
     newScene.scaleMode = self.scaleMode
     view?.presentScene(newScene)
+    print(view)
   }
   
   
 }
 
+
+// MARK: Help Functions
 
 private func copyNode(node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSpriteNode {
   let copyNode = Type.init(texture: node.texture)
@@ -113,4 +105,11 @@ private func copyNode(node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSp
   copyNode.name = node.name
   copyNode.zRotation = node.zRotation
   return copyNode
+}
+
+private func calculate(inout minPoint: CGPoint, inout maxPoint: CGPoint, withNode node: SKSpriteNode) {
+  minPoint.x = min(minPoint.x, node.position.x)
+  minPoint.y = min(minPoint.y, node.position.y)
+  maxPoint.x = max(maxPoint.x, node.position.x)
+  maxPoint.y = max(maxPoint.y, node.position.y)
 }

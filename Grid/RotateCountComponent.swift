@@ -29,7 +29,7 @@ class RotateCountComponent: GKComponent {
   }
   
   func endRotating() {
-    rotateCount--
+    rotateCount -= 1
     if rotateCount == 0 {
       intelligenceComponent.stateMachine.enterState(PointLockedForeverState.self)
     }

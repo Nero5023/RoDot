@@ -288,7 +288,7 @@ class LevelScene: SKScene {
   
   func lose() {
     playable = false
-    performSelector("newGame", withObject: nil, afterDelay: 1)
+    performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
   }
   
   func win() {
@@ -307,9 +307,9 @@ class LevelScene: SKScene {
       }
     }
     if currentLevel < 20 {
-      currentLevel++
+      currentLevel += 1
     }
-    performSelector("newGame", withObject: nil, afterDelay: 1)
+    performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
   }
 }
 

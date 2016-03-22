@@ -66,6 +66,7 @@ class LevelEditorScene: SKScene {
     }
   }
   
+  // This property is for EditButton, to prevent execute didMoveToView twice
   var isFirstTime: Bool = true
   
   override func didMoveToView(view: SKView) {
@@ -85,6 +86,9 @@ class LevelEditorScene: SKScene {
         let componentButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
         node.removeFromParent()
         self.spritesNode.addChild(componentButton)
+        
+        // ComponentButton Action
+        
         componentButton.actionTouchUpInside = { [unowned self] in
           self.spritesNode.hidden = true
           self.overlayNode.hidden = false
@@ -108,6 +112,9 @@ class LevelEditorScene: SKScene {
       let rodButton = copyNode(rod, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "rod0"), disabledTextue: nil)
       rodButton.name = nil
       rod.removeFromParent()
+      
+      //RodButton Action
+      
       rodButton.actionTouchUpInside = {
         let normal = rodButton.normalSKTexture
         rodButton.normalSKTexture = rodButton.selectedTexture
@@ -127,9 +134,6 @@ class LevelEditorScene: SKScene {
       pointButton.type = nil
       pointButton.nextNodeName = "static"
       pointButton.actionTouchUpInside = {
-//        let texture = pointButton.selectedTexture
-//        pointButton.selectedTexture = pointButton.normalSKTexture
-//        pointButton.normalSKTexture = texture
         if pointButton.type == nil {
           pointButton.name = pointButton.nextNodeName
           pointButton.type = PointNodeType(nodeName: pointButton.name)
@@ -155,10 +159,6 @@ class LevelEditorScene: SKScene {
     addChild(overlayScece.childNodeWithName("Overlay")!.copy() as! SKNode)
     enumerateChildNodesWithName("/Overlay//*", usingBlock: { (node, _) -> () in
       if let node = node as? SKSpriteNode {
-//        let button = SKButtonNode(textureNormal: node.texture, selected: SKTexture(imageNamed: "pointnode0"))
-//        button.size = node.size
-//        button.position = node.position
-//        button.name = node.name
         let button = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil)
         node.parent?.addChild(button)
         node.removeFromParent()
@@ -208,18 +208,25 @@ class LevelEditorScene: SKScene {
     self.view?.presentScene(scene)
   }
   
+  
+  
   // MARK: Touch Event
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    // In spritesNode action
     var touchPosition = touches.first!.locationInNode(spritesNode)
-    if spritesNode.nodeAtPoint(touchPosition) == spritesNode {
+    if spritesNode.nodeAtPoint(touchPosition) == spritesNode && overlayNode.hidden == false {
       if let nodeType = nodeType {
+        // Make sure it's not the point node
         if nodeType != "point" && nodeType != "translation" && nodeType != "static" {
+          
           if nodeType == "ball" && isAddBall == true { return }
           if nodeType == "destination" && isAddDestination == true { return }
+          
           let button = SKButtonNode(textureNormal: SKTexture(imageNamed: nodeType), selected: nil)
           button.position = touchPosition
           button.name = nodeType
+          // Ball or destination action
           button.actionTouchUpInside = { [unowned self] in
             if nodeType == "ball" { self.isAddBall = false }
             if nodeType == "destination" { self.isAddDestination = false }
@@ -231,6 +238,7 @@ class LevelEditorScene: SKScene {
         }
       }
     }
+    // In overlayNode action
     touchPosition = touches.first!.locationInNode(overlayNode)
     if overlayNode.nodeAtPoint(touchPosition) == overlayNode && overlayNode.hidden == false {
       for button in pointButtons {

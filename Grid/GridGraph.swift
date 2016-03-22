@@ -21,7 +21,7 @@ class GridGraph {
   
   private init() {
     self.vertexs = [Vertex]()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("checkPoint:"), name: kPointNodeCheckNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GridGraph.checkPoint(_:)), name: kPointNodeCheckNotification, object: nil)
   }
   
   //NSNotification selector check the point node
