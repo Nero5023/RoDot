@@ -9,6 +9,10 @@
 import SpriteKit
 import GameplayKit
 
+protocol LevelSceneDelegate: class {
+  func didSelectBackButton(scene: LevelScene)
+}
+
 class LevelScene: SKScene {
   
   // MARK: Properties
@@ -38,6 +42,7 @@ class LevelScene: SKScene {
   
   var playable: Bool = false
   
+  weak var levelSceneDelegate: LevelSceneDelegate?
   
   // Class Methods:
   
@@ -102,6 +107,8 @@ class LevelScene: SKScene {
     }
     initializeAnimation()
     addTopRootRectangle()
+    addBackButton()
+    addRestartButton()
   }
   
   func addTopRootRectangle() {
@@ -112,6 +119,24 @@ class LevelScene: SKScene {
     upRectangle.physicsBody!.dynamic = false
     upRectangle.position = CGPoint(x: self.size.width/2, y: self.size.height)
     childNodeWithName("Sprites")?.addChild(upRectangle)
+  }
+  
+  func addBackButton() {
+    let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
+    backButton.position = CGPoint(x: 300, y: 1900)
+    backButton.actionTouchUpInside = { [unowned self] in
+      self.levelSceneDelegate?.didSelectBackButton(self)
+    }
+    overlayNode.addChild(backButton)
+  }
+  
+  func addRestartButton() {
+    let restartButton = SKButtonNode(imageNameNormal: "restart", selected: nil)
+    restartButton.position = CGPoint(x: 1536-300, y: 1900)
+    restartButton.actionTouchUpInside = { [unowned self] in
+      self.newGame()
+    }
+    overlayNode.addChild(restartButton)
   }
   
   func initializeAnimation() {
@@ -272,17 +297,9 @@ class LevelScene: SKScene {
   // MARK: Game Life Cycle
   
   func newGame() {
-//    var newScene: LevelScene?
-//    if let scene = editScene {
-//      newScene = scene
-//      newScene?.editScene = editScene?.copy() as? LevelScene
-//    }else {
-//      newScene = LevelScene.level(currentLevel)
-//    }
-//    newScene!.scaleMode = scaleMode
-//    view!.presentScene(newScene)
     let scene = LevelScene.level(currentLevel)
     scene!.scaleMode = scaleMode
+    scene?.levelSceneDelegate = self.levelSceneDelegate
     view!.presentScene(scene)
   }
   
@@ -369,5 +386,4 @@ extension LevelScene: SKPhysicsContactDelegate {
     }
   }
 }
-
 

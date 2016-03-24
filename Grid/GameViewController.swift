@@ -13,9 +13,11 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let scene = LevelEditorScene(fileNamed:"LevelEditor") {
+      if let scene = StartScene(fileNamed: "StartScene") {
+//        if let scene = LevelEditorScene(fileNamed:"LevelEditor") {
 //      if let scene = LevelScene.level(1) {
             // Configure the view.
+        scene.startSceneDelegate = self
             let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
@@ -51,4 +53,17 @@ class GameViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+}
+
+extension GameViewController: StartSceneDelegate {
+  func didSelectLevelSelectButton(scene: StartScene, level: Int) {
+    
+    performSegueWithIdentifier("showlevel", sender: level)
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if let levelVC = segue.destinationViewController as? LevelViewController, level = sender as? Int {
+      levelVC.level = level
+    }
+  }
 }

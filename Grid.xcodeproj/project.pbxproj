@@ -21,6 +21,9 @@
 		CE164FC91C7F32C0005BD8EB /* OrientationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE164FC81C7F32C0005BD8EB /* OrientationComponent.swift */; };
 		CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B1E141C76F244000FDE5E /* BallNode.swift */; };
 		CE1B1E181C770964000FDE5E /* Level.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level.sks */; };
+		CE1E7A411CA29F0600BFD61B /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E7A401CA29F0600BFD61B /* StartScene.swift */; };
+		CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1E7A421CA2A00B00BFD61B /* StartScene.sks */; };
+		CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */; };
 		CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */; };
 		CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE21F2621C95B20D00C39D58 /* Level7.sks */; };
 		CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */; };
@@ -35,6 +38,8 @@
 		CE4BEA071C958DE5004DCDB5 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE4BEA061C958DE5004DCDB5 /* Level4.sks */; };
 		CE5203F61C97D06B000EA721 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE5203F51C97D06B000EA721 /* Level5.sks */; };
 		CE5244CF1CA00B16000DADF5 /* LevelEditPlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */; };
+		CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE63145C1CA4075D00624822 /* ball_scaleDown.sks */; };
+		CE63145F1CA427BB00624822 /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63145E1CA427BB00624822 /* LevelViewController.swift */; };
 		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */; };
@@ -89,6 +94,9 @@
 		CE7DB8171C68D74C00AA358C /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DB80B1C68D74C00AA358C /* SKTEffects.swift */; };
 		CE7DB8181C68D74C00AA358C /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DB80C1C68D74C00AA358C /* SKTTimingFunctions.swift */; };
 		CE7DB8191C68D74C00AA358C /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DB80D1C68D74C00AA358C /* Vector3.swift */; };
+		CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */; };
+		CE7FDBDE1CA2FF1C008616D4 /* ball_scaleUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */; };
+		CE7FDBE01CA30244008616D4 /* ball_small.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7FDBDF1CA30244008616D4 /* ball_small.png */; };
 		CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8378E51C9457E400E7CD88 /* DestinationNode.swift */; };
 		CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE8378E91C94621B00E7CD88 /* Level1.sks */; };
 		CE885BE61C9D6190005E1A15 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE885BE51C9D6190005E1A15 /* PointButton.swift */; };
@@ -138,6 +146,9 @@
 		CE164FC81C7F32C0005BD8EB /* OrientationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationComponent.swift; sourceTree = "<group>"; };
 		CE1B1E141C76F244000FDE5E /* BallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallNode.swift; sourceTree = "<group>"; };
 		CE1B1E171C770964000FDE5E /* Level.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level.sks; sourceTree = "<group>"; };
+		CE1E7A401CA29F0600BFD61B /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		CE1E7A421CA2A00B00BFD61B /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
+		CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartBallNode.swift; sourceTree = "<group>"; };
 		CE1E9AF81C8E85580012F3F8 /* TransferComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferComponent.swift; sourceTree = "<group>"; };
 		CE21F2621C95B20D00C39D58 /* Level7.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level7.sks; sourceTree = "<group>"; };
 		CE21F2641C95CEBE00C39D58 /* RotateCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateCountComponent.swift; sourceTree = "<group>"; };
@@ -152,6 +163,8 @@
 		CE4BEA061C958DE5004DCDB5 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		CE5203F51C97D06B000EA721 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
 		CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditPlayScene.swift; sourceTree = "<group>"; };
+		CE63145C1CA4075D00624822 /* ball_scaleDown.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ball_scaleDown.sks; sourceTree = "<group>"; };
+		CE63145E1CA427BB00624822 /* LevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
 		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelateComponent.swift; sourceTree = "<group>"; };
@@ -212,6 +225,9 @@
 		CE7DB80B1C68D74C00AA358C /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTEffects.swift; sourceTree = "<group>"; };
 		CE7DB80C1C68D74C00AA358C /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		CE7DB80D1C68D74C00AA358C /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
+		CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ThemeTitles.sks; sourceTree = "<group>"; };
+		CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ball_scaleUp.sks; sourceTree = "<group>"; };
+		CE7FDBDF1CA30244008616D4 /* ball_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball_small.png; sourceTree = "<group>"; };
 		CE8378E51C9457E400E7CD88 /* DestinationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationNode.swift; sourceTree = "<group>"; };
 		CE8378E91C94621B00E7CD88 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		CE885BE51C9D6190005E1A15 /* PointButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
@@ -267,32 +283,19 @@
 		CE1B1E161C770908000FDE5E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CE7FDBD81CA2FA14008616D4 /* Levels */,
 				CE12AE0D1C85BF8E00E876FF /* SceneState */,
 				CE6665B61C8349F90079F1C0 /* LevelScene.swift */,
 				CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */,
 				CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */,
+				CE1E7A401CA29F0600BFD61B /* StartScene.swift */,
+				CE1E7A421CA2A00B00BFD61B /* StartScene.sks */,
+				CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */,
+				CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */,
+				CE63145C1CA4075D00624822 /* ball_scaleDown.sks */,
+				CE7FDBDF1CA30244008616D4 /* ball_small.png */,
 				CE0B730D1C96E44A00009B6B /* PointNodeType.swift */,
 				CE1B1E171C770964000FDE5E /* Level.sks */,
-				CE8378E91C94621B00E7CD88 /* Level1.sks */,
-				CE4BEA021C95670D004DCDB5 /* Level2.sks */,
-				CE4BEA041C95886B004DCDB5 /* Level3.sks */,
-				CE4BEA061C958DE5004DCDB5 /* Level4.sks */,
-				CE5203F51C97D06B000EA721 /* Level5.sks */,
-				CE0B730B1C96C5B900009B6B /* Level6.sks */,
-				CE21F2621C95B20D00C39D58 /* Level7.sks */,
-				CE787F7F1CA0D0FD0026807B /* Level8.sks */,
-				CE787F831CA0DCE20026807B /* Level9.sks */,
-				CE787F811CA0D5BC0026807B /* Level10.sks */,
-				CE787F851CA0E1910026807B /* Level11.sks */,
-				CE787F871CA0E4DB0026807B /* Level12.sks */,
-				CE787F891CA0EADA0026807B /* Level13.sks */,
-				CE787F8D1CA0EFE90026807B /* Level14.sks */,
-				CE787F8F1CA0F4450026807B /* Level15.sks */,
-				CE787F911CA105A10026807B /* Level16.sks */,
-				CE787F931CA107990026807B /* Level17.sks */,
-				CE787F951CA10D270026807B /* Level18.sks */,
-				CE787F971CA10D960026807B /* Level19.sks */,
-				CE787F8B1CA0EEA70026807B /* Level20.sks */,
 				CEA8BC071C9AF74500C0133C /* LevelEditor.sks */,
 				CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */,
 				CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */,
@@ -316,6 +319,7 @@
 		CE66F67B1C6B839E00E08955 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */,
 				CE66F67C1C6B83B200E08955 /* RodNode.swift */,
 				CE66F67E1C6B8E0700E08955 /* RotationPointNode.swift */,
 				CE1B1E141C76F244000FDE5E /* BallNode.swift */,
@@ -373,6 +377,7 @@
 				CE7DB7D11C68B64400AA358C /* GameScene.sks */,
 				CE7DB7D31C68B64400AA358C /* GameScene.swift */,
 				CE7DB7D51C68B64400AA358C /* GameViewController.swift */,
+				CE63145E1CA427BB00624822 /* LevelViewController.swift */,
 				CE7DB7D71C68B64400AA358C /* Main.storyboard */,
 				CE7DB7DA1C68B64400AA358C /* Assets.xcassets */,
 				CE7DB7DC1C68B64400AA358C /* LaunchScreen.storyboard */,
@@ -417,6 +422,33 @@
 				CE7DB80D1C68D74C00AA358C /* Vector3.swift */,
 			);
 			path = SKTUtils;
+			sourceTree = "<group>";
+		};
+		CE7FDBD81CA2FA14008616D4 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				CE8378E91C94621B00E7CD88 /* Level1.sks */,
+				CE4BEA021C95670D004DCDB5 /* Level2.sks */,
+				CE4BEA041C95886B004DCDB5 /* Level3.sks */,
+				CE4BEA061C958DE5004DCDB5 /* Level4.sks */,
+				CE5203F51C97D06B000EA721 /* Level5.sks */,
+				CE0B730B1C96C5B900009B6B /* Level6.sks */,
+				CE21F2621C95B20D00C39D58 /* Level7.sks */,
+				CE787F7F1CA0D0FD0026807B /* Level8.sks */,
+				CE787F831CA0DCE20026807B /* Level9.sks */,
+				CE787F811CA0D5BC0026807B /* Level10.sks */,
+				CE787F851CA0E1910026807B /* Level11.sks */,
+				CE787F871CA0E4DB0026807B /* Level12.sks */,
+				CE787F891CA0EADA0026807B /* Level13.sks */,
+				CE787F8D1CA0EFE90026807B /* Level14.sks */,
+				CE787F8F1CA0F4450026807B /* Level15.sks */,
+				CE787F911CA105A10026807B /* Level16.sks */,
+				CE787F931CA107990026807B /* Level17.sks */,
+				CE787F951CA10D270026807B /* Level18.sks */,
+				CE787F971CA10D960026807B /* Level19.sks */,
+				CE787F8B1CA0EEA70026807B /* Level20.sks */,
+			);
+			name = Levels;
 			sourceTree = "<group>";
 		};
 		CEDC06181C7DC5A6000F9C52 /* Components */ = {
@@ -581,16 +613,21 @@
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
 				CE787F821CA0D5BC0026807B /* Level10.sks in Resources */,
 				CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */,
+				CE7FDBDE1CA2FF1C008616D4 /* ball_scaleUp.sks in Resources */,
 				CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */,
 				CE787F841CA0DCE20026807B /* Level9.sks in Resources */,
+				CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */,
 				CE787F8E1CA0EFE90026807B /* Level14.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
+				CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */,
 				CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */,
 				CE787F8C1CA0EEA70026807B /* Level20.sks in Resources */,
 				CE787F941CA107990026807B /* Level17.sks in Resources */,
 				CE0B730C1C96C5B900009B6B /* Level6.sks in Resources */,
+				CE7FDBE01CA30244008616D4 /* ball_small.png in Resources */,
 				CE787F801CA0D0FD0026807B /* Level8.sks in Resources */,
+				CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */,
 				CE7DB7D91C68B64400AA358C /* Main.storyboard in Resources */,
 				CE787F861CA0E1910026807B /* Level11.sks in Resources */,
 				CE787F921CA105A10026807B /* Level16.sks in Resources */,
@@ -655,10 +692,12 @@
 				CE7DB8131C68D74C00AA358C /* SKAction+SpecialEffects.swift in Sources */,
 				CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */,
 				CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */,
+				CE63145F1CA427BB00624822 /* LevelViewController.swift in Sources */,
 				CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */,
 				CE7DB8101C68D74C00AA358C /* CGVector+Extensions.swift in Sources */,
 				CE7DB8121C68D74C00AA358C /* SKAction+Extensions.swift in Sources */,
 				CE7DB8141C68D74C00AA358C /* SKColor+Extensions.swift in Sources */,
+				CE1E7A411CA29F0600BFD61B /* StartScene.swift in Sources */,
 				CE7DB7D61C68B64400AA358C /* GameViewController.swift in Sources */,
 				CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */,
 				CE7DB8111C68D74C00AA358C /* Int+Extensions.swift in Sources */,
@@ -674,6 +713,7 @@
 				CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */,
 				CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */,
 				CE0B730E1C96E44A00009B6B /* PointNodeType.swift in Sources */,
+				CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */,
 				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
 				CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,

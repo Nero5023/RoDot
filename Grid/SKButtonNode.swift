@@ -47,7 +47,7 @@ class SKButtonNode: SKSpriteNode {
     self.title = SKLabelNode(fontNamed: "Arial")
     self.title.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
     self.title.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
-    super.init(texture: normal, color: UIColor.whiteColor(), size: normal != nil ? normal!.size() : CGSize(width: 40, height: 40))
+    super.init(texture: normal, color: UIColor.clearColor(), size: normal != nil ? normal!.size() : CGSize(width: 40, height: 40))
     self.normalSKTexture = normal
     self.selectedTexture = selected
     self.disabledTexture = disabled
