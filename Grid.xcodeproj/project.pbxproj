@@ -59,6 +59,7 @@
 		CE66F68A1C6BA6DC00E08955 /* Rotating.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F6891C6BA6DC00E08955 /* Rotating.swift */; };
 		CE68B3F11C9E7E4100AA18A7 /* ComponentChoose.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */; };
 		CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */; };
+		CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */; };
 		CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */; };
 		CE787F801CA0D0FD0026807B /* Level8.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F7F1CA0D0FD0026807B /* Level8.sks */; };
 		CE787F821CA0D5BC0026807B /* Level10.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F811CA0D5BC0026807B /* Level10.sks */; };
@@ -67,7 +68,6 @@
 		CE787F881CA0E4DB0026807B /* Level12.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F871CA0E4DB0026807B /* Level12.sks */; };
 		CE787F8A1CA0EADA0026807B /* Level13.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F891CA0EADA0026807B /* Level13.sks */; };
 		CE787F8C1CA0EEA70026807B /* Level20.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F8B1CA0EEA70026807B /* Level20.sks */; };
-		CE787F8E1CA0EFE90026807B /* Level14.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F8D1CA0EFE90026807B /* Level14.sks */; };
 		CE787F901CA0F4450026807B /* Level15.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F8F1CA0F4450026807B /* Level15.sks */; };
 		CE787F921CA105A10026807B /* Level16.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F911CA105A10026807B /* Level16.sks */; };
 		CE787F941CA107990026807B /* Level17.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F931CA107990026807B /* Level17.sks */; };
@@ -97,6 +97,7 @@
 		CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */; };
 		CE7FDBDE1CA2FF1C008616D4 /* ball_scaleUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */; };
 		CE7FDBE01CA30244008616D4 /* ball_small.png in Resources */ = {isa = PBXBuildFile; fileRef = CE7FDBDF1CA30244008616D4 /* ball_small.png */; };
+		CE7FE5441CA5915C00556AD5 /* Level14.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7FE5431CA5915C00556AD5 /* Level14.sks */; };
 		CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8378E51C9457E400E7CD88 /* DestinationNode.swift */; };
 		CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE8378E91C94621B00E7CD88 /* Level1.sks */; };
 		CE885BE61C9D6190005E1A15 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE885BE51C9D6190005E1A15 /* PointButton.swift */; };
@@ -184,6 +185,7 @@
 		CE66F6891C6BA6DC00E08955 /* Rotating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rotating.swift; sourceTree = "<group>"; };
 		CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ComponentChoose.sks; sourceTree = "<group>"; };
 		CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEmpty.sks; sourceTree = "<group>"; };
+		CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLayerProtocol.swift; sourceTree = "<group>"; };
 		CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolAndCommon.swift; sourceTree = "<group>"; };
 		CE787F7F1CA0D0FD0026807B /* Level8.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8.sks; sourceTree = "<group>"; };
 		CE787F811CA0D5BC0026807B /* Level10.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level10.sks; sourceTree = "<group>"; };
@@ -192,7 +194,6 @@
 		CE787F871CA0E4DB0026807B /* Level12.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level12.sks; sourceTree = "<group>"; };
 		CE787F891CA0EADA0026807B /* Level13.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level13.sks; sourceTree = "<group>"; };
 		CE787F8B1CA0EEA70026807B /* Level20.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level20.sks; sourceTree = "<group>"; };
-		CE787F8D1CA0EFE90026807B /* Level14.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level14.sks; sourceTree = "<group>"; };
 		CE787F8F1CA0F4450026807B /* Level15.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level15.sks; sourceTree = "<group>"; };
 		CE787F911CA105A10026807B /* Level16.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level16.sks; sourceTree = "<group>"; };
 		CE787F931CA107990026807B /* Level17.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level17.sks; sourceTree = "<group>"; };
@@ -228,6 +229,7 @@
 		CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ThemeTitles.sks; sourceTree = "<group>"; };
 		CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ball_scaleUp.sks; sourceTree = "<group>"; };
 		CE7FDBDF1CA30244008616D4 /* ball_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball_small.png; sourceTree = "<group>"; };
+		CE7FE5431CA5915C00556AD5 /* Level14.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level14.sks; sourceTree = "<group>"; };
 		CE8378E51C9457E400E7CD88 /* DestinationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationNode.swift; sourceTree = "<group>"; };
 		CE8378E91C94621B00E7CD88 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		CE885BE51C9D6190005E1A15 /* PointButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
@@ -285,20 +287,12 @@
 			children = (
 				CE7FDBD81CA2FA14008616D4 /* Levels */,
 				CE12AE0D1C85BF8E00E876FF /* SceneState */,
+				CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */,
 				CE6665B61C8349F90079F1C0 /* LevelScene.swift */,
-				CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */,
-				CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */,
-				CE1E7A401CA29F0600BFD61B /* StartScene.swift */,
-				CE1E7A421CA2A00B00BFD61B /* StartScene.sks */,
-				CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */,
-				CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */,
-				CE63145C1CA4075D00624822 /* ball_scaleDown.sks */,
-				CE7FDBDF1CA30244008616D4 /* ball_small.png */,
+				CE6943801CA65FB80038CBB4 /* StartScene */,
 				CE0B730D1C96E44A00009B6B /* PointNodeType.swift */,
 				CE1B1E171C770964000FDE5E /* Level.sks */,
-				CEA8BC071C9AF74500C0133C /* LevelEditor.sks */,
-				CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */,
-				CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */,
+				CE6943811CA6600B0038CBB4 /* EditScene */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -342,6 +336,31 @@
 				CE66F6891C6BA6DC00E08955 /* Rotating.swift */,
 			);
 			name = PointNodeState;
+			sourceTree = "<group>";
+		};
+		CE6943801CA65FB80038CBB4 /* StartScene */ = {
+			isa = PBXGroup;
+			children = (
+				CE1E7A401CA29F0600BFD61B /* StartScene.swift */,
+				CE1E7A421CA2A00B00BFD61B /* StartScene.sks */,
+				CE7FDBD91CA2FA5D008616D4 /* ThemeTitles.sks */,
+				CE7FDBDC1CA2FF1C008616D4 /* ball_scaleUp.sks */,
+				CE63145C1CA4075D00624822 /* ball_scaleDown.sks */,
+				CE7FDBDF1CA30244008616D4 /* ball_small.png */,
+			);
+			name = StartScene;
+			sourceTree = "<group>";
+		};
+		CE6943811CA6600B0038CBB4 /* EditScene */ = {
+			isa = PBXGroup;
+			children = (
+				CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */,
+				CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */,
+				CEA8BC071C9AF74500C0133C /* LevelEditor.sks */,
+				CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */,
+				CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */,
+			);
+			name = EditScene;
 			sourceTree = "<group>";
 		};
 		CE7DB7C31C68B64400AA358C = {
@@ -440,7 +459,7 @@
 				CE787F851CA0E1910026807B /* Level11.sks */,
 				CE787F871CA0E4DB0026807B /* Level12.sks */,
 				CE787F891CA0EADA0026807B /* Level13.sks */,
-				CE787F8D1CA0EFE90026807B /* Level14.sks */,
+				CE7FE5431CA5915C00556AD5 /* Level14.sks */,
 				CE787F8F1CA0F4450026807B /* Level15.sks */,
 				CE787F911CA105A10026807B /* Level16.sks */,
 				CE787F931CA107990026807B /* Level17.sks */,
@@ -617,7 +636,6 @@
 				CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */,
 				CE787F841CA0DCE20026807B /* Level9.sks in Resources */,
 				CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */,
-				CE787F8E1CA0EFE90026807B /* Level14.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
 				CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */,
@@ -629,6 +647,7 @@
 				CE787F801CA0D0FD0026807B /* Level8.sks in Resources */,
 				CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */,
 				CE7DB7D91C68B64400AA358C /* Main.storyboard in Resources */,
+				CE7FE5441CA5915C00556AD5 /* Level14.sks in Resources */,
 				CE787F861CA0E1910026807B /* Level11.sks in Resources */,
 				CE787F921CA105A10026807B /* Level16.sks in Resources */,
 				CE5203F61C97D06B000EA721 /* Level5.sks in Resources */,
@@ -683,6 +702,7 @@
 				CEDC06211C7DCCFA000F9C52 /* ColliderType.swift in Sources */,
 				CEDC06261C7DEC11000F9C52 /* RotationPoint.swift in Sources */,
 				CE66F67F1C6B8E0700E08955 /* RotationPointNode.swift in Sources */,
+				CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */,
 				CE6643CA1C81FEC900A6F0D4 /* InputComponent.swift in Sources */,
 				CE0C76F91C8C0EAE002CBF23 /* PointTranslatingState.swift in Sources */,
 				CEDC06241C7DE4E7000F9C52 /* Rod.swift in Sources */,

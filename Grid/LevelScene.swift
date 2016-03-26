@@ -13,13 +13,10 @@ protocol LevelSceneDelegate: class {
   func didSelectBackButton(scene: LevelScene)
 }
 
-class LevelScene: SKScene {
+
+class LevelScene: SKScene, SceneLayerProtocol {
   
   // MARK: Properties
-  var bgNode = SKNode()
-  var spritesNode = SKNode()
-  var hudNode = SKNode()
-  var overlayNode = SKNode()
   
   var entities = Set<GKEntity>()
   
@@ -60,7 +57,6 @@ class LevelScene: SKScene {
   
   override func didMoveToView(view: SKView) {
     setUpScene()
-    setUpNode()
     
     physicsWorld.contactDelegate = self
     
@@ -123,6 +119,7 @@ class LevelScene: SKScene {
   
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
+    backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1900)
     backButton.actionTouchUpInside = { [unowned self] in
       self.levelSceneDelegate?.didSelectBackButton(self)
@@ -133,6 +130,7 @@ class LevelScene: SKScene {
   func addRestartButton() {
     let restartButton = SKButtonNode(imageNameNormal: "restart", selected: nil)
     restartButton.position = CGPoint(x: 1536-300, y: 1900)
+    restartButton.name = "restart"
     restartButton.actionTouchUpInside = { [unowned self] in
       self.newGame()
     }
@@ -179,17 +177,6 @@ class LevelScene: SKScene {
       self.playable = true
     })])
     ball.runAction(action)
-  }
-  
-  func setUpNode() {
-    bgNode = childNodeWithName("Background")!
-    bgNode.zPosition = -1
-    spritesNode = childNodeWithName("Sprites")!
-    spritesNode.zPosition = 50
-    hudNode = childNodeWithName("HUD")!
-    hudNode.zPosition = 100
-    overlayNode = childNodeWithName("Overlay")!
-    overlayNode.zPosition = 150
   }
   
   func setUpScene() {
@@ -386,4 +373,5 @@ extension LevelScene: SKPhysicsContactDelegate {
     }
   }
 }
+
 

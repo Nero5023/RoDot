@@ -9,23 +9,10 @@
 import SpriteKit
 import GameplayKit
 
-class LevelEditorScene: SKScene {
+class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   // MARK: Properties
   
-  var spritesNode: SKNode {
-    guard let spritesNode = childNodeWithName("Sprites") else {
-      fatalError("The LevelEditScene must have the node named Sprites")
-    }
-    return spritesNode
-  }
-  
-  var overlayNode: SKNode {
-    guard let overlayNode = childNodeWithName("Overlay") else {
-      fatalError("The LevelEditScene have Overlay")
-    }
-    return overlayNode
-  }
   
   var rotatableCount: String?
   var clockwise: String?
@@ -215,7 +202,7 @@ class LevelEditorScene: SKScene {
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     // In spritesNode action
     var touchPosition = touches.first!.locationInNode(spritesNode)
-    if spritesNode.nodeAtPoint(touchPosition) == spritesNode && overlayNode.hidden == false {
+    if spritesNode.nodeAtPoint(touchPosition) == spritesNode && overlayNode.hidden == true {
       if let nodeType = nodeType {
         // Make sure it's not the point node
         if nodeType != "point" && nodeType != "translation" && nodeType != "static" {

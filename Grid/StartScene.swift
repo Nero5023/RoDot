@@ -13,7 +13,7 @@ protocol StartSceneDelegate: class {
 }
 
 
-class StartScene: SKScene {
+class StartScene: SKScene, SceneLayerProtocol {
   
   // MARK: Properties
   
@@ -33,7 +33,26 @@ class StartScene: SKScene {
   
   weak var startSceneDelegate: StartSceneDelegate?
   
+  // MARK: Scene Life Cycle
+  
   override func didMoveToView(view: SKView) {
+    
+    setUpNodes()
+    
+    let maxAspectRatio: CGFloat = 16.0/9.0
+    let maxAspectRatioWidth = size.height / maxAspectRatio
+    
+    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
+    playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
+    
+    let titleLabelNode = childNodeWithName("title")!
+    
+    titlePositoin = titleLabelNode.position
+    titleLabelNode.alpha = 0
+    titleLabelNode.runAction(SKAction.fadeAlphaTo(1, duration: 1.5))
+  }
+  
+  func setUpNodes() {
     enumerateChildNodesWithName("//ball", usingBlock: { node, _ in
       let node = node as! StartBallNode
       node.originalPosition = node.position
@@ -41,7 +60,7 @@ class StartScene: SKScene {
       let moveUpaction = SKAction.moveTo(node.originalPosition , duration: NSTimeInterval(CGFloat.random(min: 0.8, max: 1.2)))
       moveUpaction.timingMode = SKActionTimingMode.EaseOut
       let waitAction = SKAction.waitForDuration(NSTimeInterval(CGFloat.random(min: 0, max: 0.33)))
-      let addPhysicsAction = SKAction.runBlock({ 
+      let addPhysicsAction = SKAction.runBlock({
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2)
         node.physicsBody!.allowsRotation = false
         node.physicsBody!.friction = 0
@@ -72,20 +91,9 @@ class StartScene: SKScene {
       node.physicsBody!.collisionBitMask = PhysicsCategory.Ball
       node.alpha = 0
     })
-    
-    let maxAspectRatio: CGFloat = 16.0/9.0
-    let maxAspectRatioWidth = size.height / maxAspectRatio
-    
-    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
-    playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
-    
-    let titleLabelNode = childNodeWithName("title")!
-    
-    titlePositoin = titleLabelNode.position
-    titleLabelNode.alpha = 0
-    titleLabelNode.runAction(SKAction.fadeAlphaTo(1, duration: 1.5))
   }
   
+  // Update
   override func update(currentTime: NSTimeInterval) {
     if paused { return }
     enumerateChildNodesWithName("//ball", usingBlock: { node, _ in
@@ -129,7 +137,6 @@ class StartScene: SKScene {
           node.removeFromParent()
         }
       }
-//      let scaleAction0 = SKAction.scaleTo(0.3, duration: 0.3)
       let scaleAction0 = SKAction.resizeToWidth(20, height: 20, duration: 0.3)
       scaleAction0.timingMode = SKActionTimingMode.EaseOut
       let scaleToWidth = sqrt(playableRect.width/2*playableRect.width/2+maxSizeBallNode.position.y*maxSizeBallNode.position.y)*2 + 100
@@ -141,6 +148,9 @@ class StartScene: SKScene {
   }
   
   
+  // MARK: Actions
+  
+  // theme button
   func addThemeButtons() {
     let theme1 = SKButtonNode(imageNameNormal: "theme1", selected: "theme1_selected")
     theme1.position = CGPoint(x: 768, y: 1800)
@@ -176,7 +186,7 @@ class StartScene: SKScene {
     
   }
   
-  
+  // Level select buttons
   func addLevelSelectButtons() {
 //    var levelSelectButtons = [[SKButtonNode]]()
     for i in 0..<5 {
@@ -191,7 +201,7 @@ class StartScene: SKScene {
     }
   }
   
-  
+  // Level select action
   func levelButtonSelectAction(level: Int) -> (()->()) {
     return {
 
