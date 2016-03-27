@@ -8,10 +8,6 @@
 
 import SpriteKit
 
-protocol StartSceneDelegate: class {
-  func didSelectLevelSelectButton(scene: StartScene, level: Int)
-}
-
 
 class StartScene: SKScene, SceneLayerProtocol {
   
@@ -30,12 +26,14 @@ class StartScene: SKScene, SceneLayerProtocol {
   var maxSizeBallNode: StartBallNode!
   var ballNodes = [StartBallNode]()
   
-  
-  weak var startSceneDelegate: StartSceneDelegate?
+  var isFirstTime: Bool = true
   
   // MARK: Scene Life Cycle
   
   override func didMoveToView(view: SKView) {
+    
+    guard isFirstTime else { return }
+    isFirstTime = false
     
     setUpNodes()
     
@@ -152,10 +150,13 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   // theme button
   func addThemeButtons() {
+    var buttons = [SKButtonNode]()
+    
+    
     let theme1 = SKButtonNode(imageNameNormal: "theme1", selected: "theme1_selected")
     theme1.position = CGPoint(x: 768, y: 1800)
-    theme1.zPosition = 100
-    addChild(theme1)
+    theme1.zPosition = 1100
+    overlayNode.addChild(theme1)
     var positions = [CGPoint]()
     let themeScene = SKScene(fileNamed: "ThemeTitles")!
     for node in themeScene.childNodeWithName("theme1")!.children {
@@ -184,6 +185,19 @@ class StartScene: SKScene, SceneLayerProtocol {
 //      }))
     }
     
+    buttons.append(theme1)
+    
+    let diyButton = SKButtonNode(imageNameNormal: "diy", selected: "diy_selected")
+    diyButton.position = CGPoint(x: 768, y: 500)
+    diyButton.zPosition = 1100
+    overlayNode.addChild(diyButton)
+    diyButton.actionTouchUp = { [unowned self] in
+      let editScene = LevelEditorScene(fileNamed:"LevelEditor")
+      editScene?.scaleMode = self.scaleMode
+      self.view?.presentScene(editScene)
+    }
+    
+    
   }
   
   // Level select buttons
@@ -206,9 +220,9 @@ class StartScene: SKScene, SceneLayerProtocol {
     return {
 
       if level > 20 {
-        self.startSceneDelegate?.didSelectLevelSelectButton(self, level: level-5)
+        SceneManager.sharedInstance.showLevelScene(level-5)
       }else {
-        self.startSceneDelegate?.didSelectLevelSelectButton(self, level: level)
+        SceneManager.sharedInstance.showLevelScene(level)
       }
       
     }

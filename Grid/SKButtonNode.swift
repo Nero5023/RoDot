@@ -30,15 +30,31 @@ class SKButtonNode: SKSpriteNode {
   
   var isSelected: Bool = false {
     didSet {
-      if let _ = selectedTexture where isEnabled {
+      if let _ = selectedTexture where isEnabled && !isHighlight {
         self.texture = isSelected ? selectedTexture : normalSKTexture
+      }else if isHighlight {
+        self.texture = highlightTexture
       }
     }
   }
+  
+  var isHighlight: Bool = false {
+    didSet {
+      if let highlightTexture = highlightTexture {
+        if isHighlight {
+          self.texture = highlightTexture
+        }else {
+          self.texture = normalSKTexture
+        }
+      }
+    }
+  }
+  
   var title: SKLabelNode
   var normalSKTexture: SKTexture?
   var selectedTexture: SKTexture?
   var disabledTexture: SKTexture?
+  var highlightTexture: SKTexture?
   
   // MARK: Initializers
   

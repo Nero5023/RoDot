@@ -22,17 +22,18 @@ class ClockwiseComponent: GKComponent {
     super.init()
   }
   
-  func calculateAngularVelocity(var angularVelocity: CGFloat) -> CGFloat {
+  func calculateAngularVelocity(angularVelocity: CGFloat) -> CGFloat {
+    var aVelocity = angularVelocity
     if isClockwise {
       if angularVelocity > 0 || angularVelocity < -π/6*4{
-        angularVelocity = 0
+        aVelocity = 0
       }
     }else {
       if angularVelocity < 0 || angularVelocity > π/6*4 {
-        angularVelocity = 0
+        aVelocity = 0
       }
     }
-    return angularVelocity
+    return aVelocity
   }
   
 }

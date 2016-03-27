@@ -9,21 +9,28 @@
 import SpriteKit
 import GameplayKit
 
+enum LayerType: String {
+  case nodeTypeLayer = "nodeType"
+  case rotatableCountLayer = "rotatableCount"
+  case clockwiseLayer = "clockwise"
+  case rotateCountLayer = "rotateCount"
+  
+  static var allType: [LayerType] {
+    return [.nodeTypeLayer, .rotatableCountLayer, .clockwiseLayer, .rotateCountLayer]
+  }
+}
+
 class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   // MARK: Properties
   
-  
-  var rotatableCount: String?
-  var clockwise: String?
-  var rotateCount: String?
-  var nodeType: String? {
+  var typeLayerInfo = [LayerType: String]() {
     didSet {
-      if let nodeType = nodeType {
+      if let nodeType = typeLayerInfo[.nodeTypeLayer] {
         if nodeType != "point" {
-          rotateCount = nil
-          rotatableCount = nil
-          clockwise = nil
+          typeLayerInfo[.rotateCountLayer] = nil
+          typeLayerInfo[.rotatableCountLayer] = nil
+          typeLayerInfo[.clockwiseLayer] = nil
           if nodeType == "static" || nodeType == "translation"{
             for button in pointButtons {
               if button.type == nil {
@@ -41,6 +48,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   var pointButtons = [PointButton]()
   var rodButtons = [SKButtonNode]()
+  
   
   var isAddBall: Bool = false {
     didSet {
@@ -79,15 +87,17 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         componentButton.actionTouchUpInside = { [unowned self] in
           self.spritesNode.hidden = true
           self.overlayNode.hidden = false
-          self.rotatableCount = nil
-          self.rotateCount = nil
-          self.clockwise = nil
-          self.nodeType = nil
+          
+          self.typeLayerInfo[.rotatableCountLayer] = nil
+          self.typeLayerInfo[.rotateCountLayer] = nil
+          self.typeLayerInfo[.clockwiseLayer] = nil
+          self.typeLayerInfo[.nodeTypeLayer] = nil
+          self.setAllButtonsNotHighlight()
         }
       }
       
       if let node = node as? SKSpriteNode where node.name == "runButton" {
-        let runButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
+        let runButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: SKTexture(imageNamed: "runButton_disabled"))
         node.removeFromParent()
         self.spritesNode.addChild(runButton)
         runButton.actionTouchUpInside = self.generateNewScene
@@ -95,13 +105,11 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       }
       
     })
-    for rod in rods {
+ 
+    rodButtons = rods.map{ rod in
       let rodButton = copyNode(rod, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "rod0"), disabledTextue: nil)
       rodButton.name = nil
       rod.removeFromParent()
-      
-      //RodButton Action
-      
       rodButton.actionTouchUpInside = {
         let normal = rodButton.normalSKTexture
         rodButton.normalSKTexture = rodButton.selectedTexture
@@ -113,9 +121,10 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         }
       }
       spritesNode.addChild(rodButton)
-      self.rodButtons.append(rodButton)
+      return rodButton
     }
-    for pointNode in pointNodes {
+    
+    pointButtons = pointNodes.map { pointNode in
       let pointButton = copyNode(pointNode, toButtonType: PointButton.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil) as! PointButton
       pointNode.removeFromParent()
       pointButton.type = nil
@@ -132,11 +141,12 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
           pointButton.normalSKTexture = SKTexture(imageNamed: "point_unchecked")
           pointButton.selectedTexture = SKTexture(imageNamed: pointButton.nextNodeName!)
         }
-
+        
       }
       spritesNode.addChild(pointButton)
-      pointButtons.append(pointButton)
+      return pointButton
     }
+    
     spritesNode.hidden = true
     configureOverlay()
   }
@@ -151,40 +161,45 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         node.removeFromParent()
       }
     })
-    
-    for node in overlayNode.childNodeWithName("nodeType")!.children {
+
+    setupAllButtons()
+  }
+  
+  
+  func setupAllButtons() {
+    for layer in LayerType.allType {
+      setUpButtonsInLayer(layer)
+    }
+  }
+  
+  
+  func setUpButtonsInLayer(layer: LayerType) {
+    for node in overlayNode.childNodeWithName(layer.rawValue)!.children {
       if let node = node as? SKButtonNode {
+        
+        // set the highlightTextue other way
+        node.highlightTexture = SKTexture(imageNamed: "pointnode0")
         node.actionTouchUpInside = { [unowned self] in
-          self.nodeType = node.name
+          self.typeLayerInfo[layer] = node.name
+          node.isHighlight = !node.isHighlight
+          for otherNode in self.overlayNode.childNodeWithName(layer.rawValue)!.children {
+            if otherNode != node {
+              (otherNode as? SKButtonNode)?.isHighlight = false
+            }
+          }
         }
       }
     }
-    
-    
-    for node in overlayNode.childNodeWithName("rotatableCount")!.children {
-      if let node = node as? SKButtonNode {
-        node.actionTouchUpInside = { [unowned self] in
-          self.rotatableCount = node.name
+  }
+  
+  func setAllButtonsNotHighlight() {
+    for layer in LayerType.allType {
+      for node in overlayNode.childNodeWithName(layer.rawValue)!.children {
+        if let node = node as? SKButtonNode {
+          node.isHighlight = false
         }
       }
     }
-    
-    for node in overlayNode.childNodeWithName("clockwise")!.children {
-      if let node = node as? SKButtonNode {
-        node.actionTouchUpInside = { [unowned self] in
-          self.clockwise = node.name
-        }
-      }
-    }
-    
-    for node in overlayNode.childNodeWithName("rotateCount")!.children {
-      if let node = node as? SKButtonNode {
-        node.actionTouchUpInside = { [unowned self] in
-          self.rotateCount = node.name
-        }
-      }
-    }
-    
   }
   
   
@@ -203,7 +218,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     // In spritesNode action
     var touchPosition = touches.first!.locationInNode(spritesNode)
     if spritesNode.nodeAtPoint(touchPosition) == spritesNode && overlayNode.hidden == true {
-      if let nodeType = nodeType {
+      if let nodeType = typeLayerInfo[.nodeTypeLayer] {
         // Make sure it's not the point node
         if nodeType != "point" && nodeType != "translation" && nodeType != "static" {
           
@@ -229,9 +244,9 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     touchPosition = touches.first!.locationInNode(overlayNode)
     if overlayNode.nodeAtPoint(touchPosition) == overlayNode && overlayNode.hidden == false {
       for button in pointButtons {
-        let rotatableCount = self.rotatableCount == nil ? "" : self.rotatableCount!
-        let clockwise = self.clockwise == nil ? "normal" : self.clockwise!
-        let rotateCount = self.rotateCount == nil ? "" : self.rotateCount!
+        let rotatableCount = self.typeLayerInfo[.rotatableCountLayer] == nil ? "" : self.typeLayerInfo[.rotatableCountLayer]!
+        let clockwise = self.typeLayerInfo[.clockwiseLayer] == nil ? "normal" : self.typeLayerInfo[.clockwiseLayer]!
+        let rotateCount = self.typeLayerInfo[.rotateCountLayer] == nil ? "" : self.typeLayerInfo[.rotateCountLayer]!
         if button.type == nil {
           button.selectedTexture = SKTexture(imageNamed: rotatableCount + clockwise + rotateCount)
         }
@@ -244,6 +259,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
 
 }
 
+
+// MARK: Help function
 func copyNode(node: SKSpriteNode, toButtonType ButtonType: SKButtonNode.Type, selectedTextue: SKTexture?, disabledTextue: SKTexture?) -> SKButtonNode {
   let button = ButtonType.init(textureNormal: node.texture, selected: selectedTextue, disabled: disabledTextue)
   button.size = node.size

@@ -45,8 +45,6 @@ class LevelEditPlayScene: LevelScene {
       }
     }
     
-    
-    
     let ballNode = copyNode(ball, toType: BallNode.self)
     sprites.addChild(ballNode)
     
@@ -77,7 +75,7 @@ class LevelEditPlayScene: LevelScene {
     editButton.actionTouchUpInside = {
       self.view!.presentScene(self.editScene)
     }
-    childNodeWithName("Overlay")?.addChild(editButton)
+    overlayNode.addChild(editButton)
   }
   
   override func newGame() {
@@ -89,10 +87,7 @@ class LevelEditPlayScene: LevelScene {
     newScene.editScene = self.editScene
     newScene.scaleMode = self.scaleMode
     view?.presentScene(newScene)
-    print(view)
   }
-  
-  
 }
 
 

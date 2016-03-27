@@ -9,10 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-protocol LevelSceneDelegate: class {
-  func didSelectBackButton(scene: LevelScene)
-}
-
 
 class LevelScene: SKScene, SceneLayerProtocol {
   
@@ -39,8 +35,6 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   var playable: Bool = false
   
-  weak var levelSceneDelegate: LevelSceneDelegate?
-  
   // Class Methods:
   
   class func level(levelNum: Int) -> LevelScene? {
@@ -49,9 +43,6 @@ class LevelScene: SKScene, SceneLayerProtocol {
     scene.scaleMode = .AspectFill
     return scene
   }
-  
-
- 
 
   // MARK: Scene Life Cycle
   
@@ -121,8 +112,8 @@ class LevelScene: SKScene, SceneLayerProtocol {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1900)
-    backButton.actionTouchUpInside = { [unowned self] in
-      self.levelSceneDelegate?.didSelectBackButton(self)
+    backButton.actionTouchUpInside = {
+      SceneManager.sharedInstance.backToStartScene()
     }
     overlayNode.addChild(backButton)
   }
@@ -286,7 +277,6 @@ class LevelScene: SKScene, SceneLayerProtocol {
   func newGame() {
     let scene = LevelScene.level(currentLevel)
     scene!.scaleMode = scaleMode
-    scene?.levelSceneDelegate = self.levelSceneDelegate
     view!.presentScene(scene)
   }
   

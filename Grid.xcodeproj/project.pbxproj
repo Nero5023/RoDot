@@ -39,7 +39,6 @@
 		CE5203F61C97D06B000EA721 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE5203F51C97D06B000EA721 /* Level5.sks */; };
 		CE5244CF1CA00B16000DADF5 /* LevelEditPlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */; };
 		CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE63145C1CA4075D00624822 /* ball_scaleDown.sks */; };
-		CE63145F1CA427BB00624822 /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63145E1CA427BB00624822 /* LevelViewController.swift */; };
 		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
 		CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */; };
@@ -60,6 +59,7 @@
 		CE68B3F11C9E7E4100AA18A7 /* ComponentChoose.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */; };
 		CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */; };
 		CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */; };
+		CE6943831CA676DB0038CBB4 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6943821CA676DB0038CBB4 /* SceneManager.swift */; };
 		CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */; };
 		CE787F801CA0D0FD0026807B /* Level8.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F7F1CA0D0FD0026807B /* Level8.sks */; };
 		CE787F821CA0D5BC0026807B /* Level10.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F811CA0D5BC0026807B /* Level10.sks */; };
@@ -165,7 +165,6 @@
 		CE5203F51C97D06B000EA721 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
 		CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditPlayScene.swift; sourceTree = "<group>"; };
 		CE63145C1CA4075D00624822 /* ball_scaleDown.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ball_scaleDown.sks; sourceTree = "<group>"; };
-		CE63145E1CA427BB00624822 /* LevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
 		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
 		CE6643BC1C81889700A6F0D4 /* RelateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelateComponent.swift; sourceTree = "<group>"; };
@@ -186,6 +185,7 @@
 		CE68B3F01C9E7E4100AA18A7 /* ComponentChoose.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ComponentChoose.sks; sourceTree = "<group>"; };
 		CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEmpty.sks; sourceTree = "<group>"; };
 		CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLayerProtocol.swift; sourceTree = "<group>"; };
+		CE6943821CA676DB0038CBB4 /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
 		CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolAndCommon.swift; sourceTree = "<group>"; };
 		CE787F7F1CA0D0FD0026807B /* Level8.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8.sks; sourceTree = "<group>"; };
 		CE787F811CA0D5BC0026807B /* Level10.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level10.sks; sourceTree = "<group>"; };
@@ -293,6 +293,7 @@
 				CE0B730D1C96E44A00009B6B /* PointNodeType.swift */,
 				CE1B1E171C770964000FDE5E /* Level.sks */,
 				CE6943811CA6600B0038CBB4 /* EditScene */,
+				CE6943821CA676DB0038CBB4 /* SceneManager.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -396,7 +397,6 @@
 				CE7DB7D11C68B64400AA358C /* GameScene.sks */,
 				CE7DB7D31C68B64400AA358C /* GameScene.swift */,
 				CE7DB7D51C68B64400AA358C /* GameViewController.swift */,
-				CE63145E1CA427BB00624822 /* LevelViewController.swift */,
 				CE7DB7D71C68B64400AA358C /* Main.storyboard */,
 				CE7DB7DA1C68B64400AA358C /* Assets.xcassets */,
 				CE7DB7DC1C68B64400AA358C /* LaunchScreen.storyboard */,
@@ -702,6 +702,7 @@
 				CEDC06211C7DCCFA000F9C52 /* ColliderType.swift in Sources */,
 				CEDC06261C7DEC11000F9C52 /* RotationPoint.swift in Sources */,
 				CE66F67F1C6B8E0700E08955 /* RotationPointNode.swift in Sources */,
+				CE6943831CA676DB0038CBB4 /* SceneManager.swift in Sources */,
 				CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */,
 				CE6643CA1C81FEC900A6F0D4 /* InputComponent.swift in Sources */,
 				CE0C76F91C8C0EAE002CBF23 /* PointTranslatingState.swift in Sources */,
@@ -712,7 +713,6 @@
 				CE7DB8131C68D74C00AA358C /* SKAction+SpecialEffects.swift in Sources */,
 				CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */,
 				CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */,
-				CE63145F1CA427BB00624822 /* LevelViewController.swift in Sources */,
 				CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */,
 				CE7DB8101C68D74C00AA358C /* CGVector+Extensions.swift in Sources */,
 				CE7DB8121C68D74C00AA358C /* SKAction+Extensions.swift in Sources */,
