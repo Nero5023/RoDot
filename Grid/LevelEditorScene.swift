@@ -346,6 +346,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     transferNodes.insert(button)
     button.actionTouchUp = { [unowned self] in
       button.removeFromParent()
+      self.typeLayerInfo[.nodeTypeLayer] = nodeType
       self.transferNodes.remove(button)
     }
     spritesNode.addChild(button)

@@ -209,7 +209,7 @@ class StartScene: SKScene, SceneLayerProtocol {
         button.position.x = self.size.width/2 + CGFloat(j-2) * (70+button.size.width)
         button.position.y = self.size.height/2 - CGFloat(i-2) * (70+button.size.height)
         button.zPosition = 500
-        button.actionTouchUp = levelButtonSelectAction(i*5 + j + 1)
+        button.actionTouchUpInside = levelButtonSelectAction(i*5 + j + 1)
         addChild(button)
       }
     }
