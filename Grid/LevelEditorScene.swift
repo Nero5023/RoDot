@@ -39,8 +39,11 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
               button.nextNodeName = nodeType
             }
           }
-          spritesNode.hidden = false
-          overlayNode.hidden = true
+          showEditLayer()
+        }else {
+          // select the point node
+          showPointDetailComponent()
+          hiddenOtherNodeType()
         }
       }
     }
@@ -49,6 +52,24 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   var pointButtons = [PointButton]()
   var rodButtons = [SKButtonNode]()
   
+  var transferNodes = Set<SKSpriteNode>() {
+    didSet {
+      let componentButton = spritesNode.childNodeWithName("componentButton") as! SKButtonNode
+      componentButton.isEnabled = transferNodes.count % 2 == 0
+      if transferNodes.count % 2 != 0 {
+        (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = false
+      }else {
+        (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
+      }
+//      for nodeName in transferNodesNames {
+//        if GameplayConfiguration.transferTargetNames[nodeName] == nil {
+//          componentButton.isEnabled = false
+//          return
+//        }
+//      }
+//      componentButton.isEnabled = true
+    }
+  }
   
   var isAddBall: Bool = false {
     didSet {
@@ -78,21 +99,22 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       }
       if let node = node as? SKSpriteNode where node.name == "componentButton" {
         
-        let componentButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
+        let componentButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: SKTexture(imageNamed: "componentButton_disabled"))
         node.removeFromParent()
         self.spritesNode.addChild(componentButton)
         
         // ComponentButton Action
         
         componentButton.actionTouchUpInside = { [unowned self] in
-          self.spritesNode.hidden = true
-          self.overlayNode.hidden = false
-          
+
           self.typeLayerInfo[.rotatableCountLayer] = nil
           self.typeLayerInfo[.rotateCountLayer] = nil
           self.typeLayerInfo[.clockwiseLayer] = nil
           self.typeLayerInfo[.nodeTypeLayer] = nil
+          
           self.setAllButtonsNotHighlight()
+          self.showComponetLayer()
+          
         }
       }
       
@@ -147,8 +169,10 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       return pointButton
     }
     
-    spritesNode.hidden = true
+//    spritesNode.hidden = true
     configureOverlay()
+    
+    showComponetLayer()
   }
   
   func configureOverlay() {
@@ -182,6 +206,14 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         node.actionTouchUpInside = { [unowned self] in
           self.typeLayerInfo[layer] = node.name
           node.isHighlight = !node.isHighlight
+
+          if node.name == "point" {
+            if node.isHighlight == false {
+              self.hiddenPointDetailComponent()
+              self.showOtherNodeType()
+            }
+          }
+          
           for otherNode in self.overlayNode.childNodeWithName(layer.rawValue)!.children {
             if otherNode != node {
               (otherNode as? SKButtonNode)?.isHighlight = false
@@ -204,12 +236,52 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   
   func generateNewScene() {
-    let scene = LevelEditPlayScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNodeWithName("ball")! as! SKSpriteNode, destination: self.spritesNode.childNodeWithName("destination")! as! SKSpriteNode)
+    let scene = LevelEditPlayScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNodeWithName("ball")! as! SKSpriteNode, destination: self.spritesNode.childNodeWithName("destination")! as! SKSpriteNode, transfers: [SKSpriteNode](transferNodes))
     scene?.scaleMode = self.scaleMode
     scene?.editScene = self
     self.view?.presentScene(scene)
   }
   
+  
+  // MARK: Help Methods
+  
+  func showComponetLayer() {
+    self.spritesNode.hidden = true
+    self.overlayNode.hidden = false
+    hiddenPointDetailComponent()
+    showOtherNodeType()
+  }
+  
+  func showEditLayer() {
+    self.spritesNode.hidden = false
+    self.overlayNode.hidden = true
+  }
+  
+  func showPointDetailComponent() {
+    setHiddenForPointDetailComponent(false)
+  }
+  
+  func hiddenPointDetailComponent() {
+    setHiddenForPointDetailComponent(true)
+  }
+  
+  func setHiddenForPointDetailComponent(isHidden: Bool) {
+    for layerType in LayerType.allType where layerType != .nodeTypeLayer {
+      overlayNode.childNodeWithName(layerType.rawValue)?.hidden = isHidden
+    }
+  }
+  
+  func hiddenOtherNodeType() {
+    for node in overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!.children where node.name != "point" && node is SKButtonNode{
+      node.hidden = true
+    }
+  }
+  
+  func showOtherNodeType() {
+    for node in overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!.children where node.name != "point" && node is SKButtonNode{
+      node.hidden = false
+    }
+  }
   
   
   // MARK: Touch Event
@@ -220,7 +292,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     if spritesNode.nodeAtPoint(touchPosition) == spritesNode && overlayNode.hidden == true {
       if let nodeType = typeLayerInfo[.nodeTypeLayer] {
         // Make sure it's not the point node
-        if nodeType != "point" && nodeType != "translation" && nodeType != "static" {
+        if nodeType == "ball" || nodeType == "destination" {
           
           if nodeType == "ball" && isAddBall == true { return }
           if nodeType == "destination" && isAddDestination == true { return }
@@ -238,6 +310,9 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
           if nodeType == "ball" { isAddBall = true }
           if nodeType == "destination" { isAddDestination = true }
         }
+        if nodeType == "transfer" {
+          addTransfer(touchPosition)
+        }
       }
     }
     // In overlayNode action
@@ -252,12 +327,32 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         }
         button.nextNodeName = rotatableCount + clockwise + rotateCount
       }
-      overlayNode.hidden = true
-      spritesNode.hidden = false
+      showEditLayer()
     }
+  }
+  
+  func addTransfer(touchPosition: CGPoint) {
+    let nodeType = "transfer"
+    if transferNodes.count == 2 {
+      return
+    }
+    let button = SKButtonNode(textureNormal: SKTexture(imageNamed: nodeType), selected: nil)
+    button.position = touchPosition
+    if transferNodes.count == 0 {
+      button.name = nodeType + String(transferNodes.count)
+    }else if transferNodes.count == 1 {
+      button.name = GameplayConfiguration.transferTargetNames[transferNodes.first!.name!]
+    }
+    transferNodes.insert(button)
+    button.actionTouchUp = { [unowned self] in
+      button.removeFromParent()
+      self.transferNodes.remove(button)
+    }
+    spritesNode.addChild(button)
   }
 
 }
+
 
 
 // MARK: Help function

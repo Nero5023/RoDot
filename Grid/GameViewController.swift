@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
     if let scene = StartScene(fileNamed: "StartScene") {
       //        if let scene = LevelEditorScene(fileNamed:"LevelEditor") {
       //      if let scene = LevelScene.level(1) {
+//      if let scene = LevelScene(fileNamed: "Level") {
       // Configure the view.
       
       

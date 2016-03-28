@@ -79,6 +79,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
       if let nodeName = node.name, node = node as? TransferNode {
         if nodeName.hasPrefix("transfer") {
           let entity = Transfer(renderNode: node)
+          node.removeFromParent()
           self.addEntity(entity)
         }
       }

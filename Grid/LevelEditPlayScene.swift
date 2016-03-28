@@ -17,7 +17,7 @@ class LevelEditPlayScene: LevelScene {
   
   
   // MARK: Class Methods
-  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode) -> LevelEditPlayScene? {
+  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode, transfers: [SKSpriteNode]) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
     
     guard let sprites = scene?.childNodeWithName("Sprites") else {
@@ -42,6 +42,14 @@ class LevelEditPlayScene: LevelScene {
         sprites.addChild(pointNode)
         
         calculate(&minPoint, maxPoint: &maxPoint, withNode: pointNode)
+      }
+    }
+    
+    for transfer in transfers {
+      if transfer.name!.hasPrefix("transfer") {
+        let transferNode = copyNode(transfer, toType: TransferNode.self)
+        sprites.addChild(transferNode)
+        calculate(&minPoint, maxPoint: &maxPoint, withNode: transferNode)
       }
     }
     
