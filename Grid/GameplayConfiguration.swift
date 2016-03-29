@@ -18,7 +18,7 @@ struct GameplayConfiguration {
       collisionBitMask: PhysicsCategory.Ball ,
       contactTestBitMask: PhysicsCategory.None)
     
-    static let height: CGFloat = 210
+    static let height: CGFloat = 204
     
     static let zPosition: CGFloat = 60
   }
@@ -29,7 +29,7 @@ struct GameplayConfiguration {
       collisionBitMask: PhysicsCategory.Ball,
       contactTestBitMask: PhysicsCategory.None)
     
-    static let radius: CGFloat = 22
+    static let radius: CGFloat = 25
     
     static let zPositon: CGFloat = 70
   }

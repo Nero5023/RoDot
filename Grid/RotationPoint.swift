@@ -31,6 +31,7 @@ class RotationPoint: BasePointEntity {
       addComponent(intelligenceComponent)
       let rotateCountComponent = RotateCountComponent(rotateCount: rotateCount)
       addComponent(rotateCountComponent)
+      rotateCountComponent.addRotateCountNode()
     }else {
       let intelligenceComponent = IntelligenceComponent(states: [
         PointCheckingState(entity: self),

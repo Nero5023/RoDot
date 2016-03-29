@@ -19,5 +19,6 @@ class ClockwiseRescritedRPoint: RestrictedRotationPoint {
     
     let clockwiseComponent = ClockwiseComponent(isClockwise: isClockwise)
     addComponent(clockwiseComponent)
+//    clockwiseComponent.animationBubble()
   }
 }

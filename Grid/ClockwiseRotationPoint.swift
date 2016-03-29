@@ -19,5 +19,6 @@ class ClockwiseRotationPoint: RotationPoint {
     
     let clockwiseComponent = ClockwiseComponent(isClockwise: isClockwise)
     addComponent(clockwiseComponent)
+//    clockwiseComponent.animationBubble()
   }
 }

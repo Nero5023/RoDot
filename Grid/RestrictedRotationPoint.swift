@@ -18,5 +18,6 @@ class RestrictedRotationPoint: RotationPoint {
     
     let rotatableRodCountComponent = RotatableRodCountComponent(rotatableRodCount: rotatableRodCount)
     addComponent(rotatableRodCountComponent)
+//    rotatableRodCountComponent.addBubbles()
   }
 }

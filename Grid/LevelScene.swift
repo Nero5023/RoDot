@@ -97,6 +97,15 @@ class LevelScene: SKScene, SceneLayerProtocol {
     addTopRootRectangle()
     addBackButton()
     addRestartButton()
+    
+    setUpPointInfo()
+  }
+  
+  func setUpPointInfo() {
+    for entity in entities {
+      entity.componentForClass(RotatableRodCountComponent.self)?.addBubbles()
+      entity.componentForClass(ClockwiseComponent.self)?.animationBubble()
+    }
   }
   
   func addTopRootRectangle() {

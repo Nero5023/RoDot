@@ -53,7 +53,7 @@ class MoveComponent: GKComponent {
       let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!, vector: lastTouchPosition! - centerPosition!)
       var angularVelocity: CGFloat = angle
       
-      if let centerNode = moveNode.parent?.nodeAtPoint(centerPosition!) as? EntityNode {
+      if let centerNode = getCenterNode() {
         if let clockwiseComponent = centerNode.entity.componentForClass(ClockwiseComponent.self) {
           angularVelocity = clockwiseComponent.calculateAngularVelocity(angularVelocity)
         }
@@ -82,6 +82,13 @@ class MoveComponent: GKComponent {
         moveNode.physicsBody?.velocity = CGVector(point: (lastTouchPosition! - moveNode.position) * tag * 10 )
       }
     }
+  }
+  
+  func getCenterNode() -> EntityNode? {
+    for node in moveNode!.nodesAtPoint(centerPosition!) where node is EntityNode {
+      return node as? EntityNode
+    }
+    return nil
   }
   
   
