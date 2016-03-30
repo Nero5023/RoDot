@@ -38,16 +38,18 @@ class RotateCountComponent: GKComponent {
   }
   
   func addRotateCountNode() {
-    var zRotation: CGFloat = 90
-    if rotateCount == 2 {
-      zRotation = 180
-    }
-    for i in 0..<rotateCount {
-      let node = SKSpriteNode(imageNamed: "rotatecount")
-      node.zRotation = CGFloat(i) * zRotation.degreesToRadians()
-      rotateCountNodes.append(node)
-      renderComponent.node.addChild(node)
-    }
+//    var zRotation: CGFloat = 90
+//    if rotateCount == 2 {
+//      zRotation = 180
+//    }
+//    for i in 0..<rotateCount {
+//      let node = SKSpriteNode(imageNamed: "rotatecount")
+//      node.name = "rotatecount"
+//      node.zRotation = CGFloat(i) * zRotation.degreesToRadians()
+//      rotateCountNodes.append(node)
+//      renderComponent.node.addChild(node)
+//    }
+    rotateCountNodes = SceneManager.sharedInstance.addRotateCountNodes(renderComponent.node, rotateCount: rotateCount)
   }
   
   func endRotating() {

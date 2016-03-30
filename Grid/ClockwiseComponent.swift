@@ -45,25 +45,26 @@ class ClockwiseComponent: GKComponent {
   }
   
   func animationBubble() {
-    let animationDuration: NSTimeInterval = 1
-    
-    let bubbles = renderComponent.node.children.filter{ $0.name == "bubble" }
-    for (index, bubble) in bubbles.enumerate() {
-//      let path = UIBezierPath(ovalInRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 32, height: 32)))
-      let path = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: GameplayConfiguration.bubbleOrbitRadius, startAngle: CGFloat(0).degreesToRadians(), endAngle: CGFloat(360).degreesToRadians(), clockwise: false)
-//      path.applyTransform(CGAffineTransformMakeRotation(90))
-     
-      // this is the colckwise animation
-      let rotateAction = SKAction.followPath(path.CGPath, asOffset: false, orientToPath: false, duration: animationDuration)
-      var foreverRotation = SKAction.repeatActionForever(rotateAction)
-      if !isClockwise {
-        foreverRotation = SKAction.repeatActionForever(rotateAction.reversedAction())
-      }
-
-      let waitDuration = animationDuration/NSTimeInterval(bubbles.count)*NSTimeInterval(index)
-      let waitAction = SKAction.waitForDuration(waitDuration)
-      bubble.runAction(SKAction.sequence([waitAction, foreverRotation]))
-    }
+//    let animationDuration: NSTimeInterval = 1
+//    
+//    let bubbles = renderComponent.node.children.filter{ $0.name == "bubble" }
+//    for (index, bubble) in bubbles.enumerate() {
+////      let path = UIBezierPath(ovalInRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 32, height: 32)))
+//      let path = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: GameplayConfiguration.bubbleOrbitRadius, startAngle: CGFloat(0).degreesToRadians(), endAngle: CGFloat(360).degreesToRadians(), clockwise: false)
+////      path.applyTransform(CGAffineTransformMakeRotation(90))
+//     
+//      // this is the colckwise animation
+//      let rotateAction = SKAction.followPath(path.CGPath, asOffset: false, orientToPath: false, duration: animationDuration)
+//      var foreverRotation = SKAction.repeatActionForever(rotateAction)
+//      if !isClockwise {
+//        foreverRotation = SKAction.repeatActionForever(rotateAction.reversedAction())
+//      }
+//
+//      let waitDuration = animationDuration/NSTimeInterval(bubbles.count)*NSTimeInterval(index)
+//      let waitAction = SKAction.waitForDuration(waitDuration)
+//      bubble.runAction(SKAction.sequence([waitAction, foreverRotation]))
+//    }
+    SceneManager.sharedInstance.animationBubble(renderComponent.node, isClockwise: isClockwise)
   }
   
 }

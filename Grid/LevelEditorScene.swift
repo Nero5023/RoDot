@@ -85,6 +85,9 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   // This property is for EditButton, to prevent execute didMoveToView twice
   var isFirstTime: Bool = true
   
+  
+  // MARK: Scene Life Cycle
+  
   override func didMoveToView(view: SKView) {
     guard isFirstTime else { return }
     isFirstTime = false
@@ -157,12 +160,14 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
           pointButton.type = PointNodeType(nodeName: pointButton.name)
           pointButton.normalSKTexture = SKTexture(imageNamed: pointButton.type!.textureImageName())
           pointButton.selectedTexture = SKTexture(imageNamed: "point_unchecked")
+          pointButton.addDetail()
         }else { // This will do when touched on the node unchecked
           pointButton.type = nil
           pointButton.name = nil
           let nextType = PointNodeType(nodeName: pointButton.nextNodeName)
           pointButton.normalSKTexture = SKTexture(imageNamed: "point_unchecked")
           pointButton.selectedTexture = SKTexture(imageNamed: nextType.textureImageName())
+          pointButton.removeDetail()
         }
         
       }
@@ -170,7 +175,6 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       return pointButton
     }
     
-//    spritesNode.hidden = true
     configureOverlay()
     
     showComponetLayer()
@@ -207,7 +211,11 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         node.actionTouchUpInside = { [unowned self] in
           self.typeLayerInfo[layer] = node.name
           node.isHighlight = !node.isHighlight
-
+          
+          if !node.isHighlight {
+            self.typeLayerInfo[layer] = nil
+          }
+          
           if node.name == "point" {
             if node.isHighlight == false {
               self.hiddenPointDetailComponent()
