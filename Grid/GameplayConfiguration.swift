@@ -55,4 +55,6 @@ struct GameplayConfiguration {
   }
   
   static let transferTargetNames: [String: String] = ["transfer0": "transfer1", "transfer1": "transfer0"]
+  
+  static let bubbleOrbitRadius: CGFloat = 18
 }

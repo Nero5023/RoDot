@@ -50,7 +50,7 @@ class ClockwiseComponent: GKComponent {
     let bubbles = renderComponent.node.children.filter{ $0.name == "bubble" }
     for (index, bubble) in bubbles.enumerate() {
 //      let path = UIBezierPath(ovalInRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 32, height: 32)))
-      let path = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: 16, startAngle: CGFloat(0).degreesToRadians(), endAngle: CGFloat(360).degreesToRadians(), clockwise: false)
+      let path = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: GameplayConfiguration.bubbleOrbitRadius, startAngle: CGFloat(0).degreesToRadians(), endAngle: CGFloat(360).degreesToRadians(), clockwise: false)
 //      path.applyTransform(CGAffineTransformMakeRotation(90))
      
       // this is the colckwise animation

@@ -33,13 +33,16 @@ class RotatableRodCountComponent: GKComponent {
     if rotatableRodCount == 3 {
       zRotateion = 120
     }
+    print("Point zPosition: \(renderComponent.node.zPosition)")
     
     for i in 0..<rotatableRodCount {
       let bubble = SKSpriteNode(texture: SKTexture(imageNamed: "bubble"))
       let angle = (CGFloat(i) * zRotateion).degreesToRadians()
-      bubble.position = CGPoint(x: sin(angle)*18, y: cos(angle)*18)
+      bubble.position = CGPoint(x: sin(angle)*GameplayConfiguration.bubbleOrbitRadius, y: cos(angle)*GameplayConfiguration.bubbleOrbitRadius)
       bubble.name = "bubble"
+      bubble.zPosition = renderComponent.node.zPosition + 10
       renderComponent.node.addChild(bubble)
+      print("Bubble zPosition: \(bubble.zPosition)")
     }
     
   }
