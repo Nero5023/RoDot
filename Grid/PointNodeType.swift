@@ -124,5 +124,25 @@ enum PointNodeType {
       fatalError("The entity doesn't Initializers")
     }
   }
+  
+  func textureImageName() -> String {
+    switch self {
+    case .staticNode:
+      return "static"
+    case .translationNode:
+      return "translation"
+    case .restrictedNode(let rotateableRodCount, let isClockwise, _):
+      if let rotateableRodCount = rotateableRodCount {
+        return "node" + String(rotateableRodCount)
+      }else {
+        var textuerName = "normal"
+        if let isClockwise = isClockwise {
+          textuerName = isClockwise ? "cw" : "ac"
+        }
+        return textuerName
+      }
+    }
+  }
+  
 }
 

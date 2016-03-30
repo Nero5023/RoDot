@@ -152,16 +152,17 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       pointButton.type = nil
       pointButton.nextNodeName = "static"
       pointButton.actionTouchUpInside = {
-        if pointButton.type == nil {
+        if pointButton.type == nil { // This will do when touched on the node unchecked
           pointButton.name = pointButton.nextNodeName
           pointButton.type = PointNodeType(nodeName: pointButton.name)
-          pointButton.normalSKTexture = SKTexture(imageNamed: pointButton.name!)
+          pointButton.normalSKTexture = SKTexture(imageNamed: pointButton.type!.textureImageName())
           pointButton.selectedTexture = SKTexture(imageNamed: "point_unchecked")
-        }else {
+        }else { // This will do when touched on the node unchecked
           pointButton.type = nil
           pointButton.name = nil
+          let nextType = PointNodeType(nodeName: pointButton.nextNodeName)
           pointButton.normalSKTexture = SKTexture(imageNamed: "point_unchecked")
-          pointButton.selectedTexture = SKTexture(imageNamed: pointButton.nextNodeName!)
+          pointButton.selectedTexture = SKTexture(imageNamed: nextType.textureImageName())
         }
         
       }
@@ -323,7 +324,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         let clockwise = self.typeLayerInfo[.clockwiseLayer] == nil ? "normal" : self.typeLayerInfo[.clockwiseLayer]!
         let rotateCount = self.typeLayerInfo[.rotateCountLayer] == nil ? "" : self.typeLayerInfo[.rotateCountLayer]!
         if button.type == nil {
-          button.selectedTexture = SKTexture(imageNamed: rotatableCount + clockwise + rotateCount)
+          let textureImageName = PointNodeType(nodeName: rotatableCount + clockwise + rotateCount).textureImageName()
+          button.selectedTexture = SKTexture(imageNamed: textureImageName)
         }
         button.nextNodeName = rotatableCount + clockwise + rotateCount
       }
