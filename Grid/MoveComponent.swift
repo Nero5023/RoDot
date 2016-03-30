@@ -56,6 +56,11 @@ class MoveComponent: GKComponent {
       if let centerNode = getCenterNode() {
         if let clockwiseComponent = centerNode.entity.componentForClass(ClockwiseComponent.self) {
           angularVelocity = clockwiseComponent.calculateAngularVelocity(angularVelocity)
+          if angularVelocity == 0 {
+            moveNode.physicsBody?.allowsRotation = false
+          }else {
+            moveNode.physicsBody?.allowsRotation = true
+          }
         }
       }
       
