@@ -8,6 +8,9 @@
 
 import SpriteKit
 
+protocol StartSceneDelegate: class {
+  func didSelectMyDiysButton(scene: StartScene)
+}
 
 class StartScene: SKScene, SceneLayerProtocol {
   
@@ -27,6 +30,8 @@ class StartScene: SKScene, SceneLayerProtocol {
   var ballNodes = [StartBallNode]()
   
   var isFirstTime: Bool = true
+  
+  weak var startSceneDelegate: StartSceneDelegate?
   
   // MARK: Scene Life Cycle
   
@@ -191,12 +196,19 @@ class StartScene: SKScene, SceneLayerProtocol {
     diyButton.position = CGPoint(x: 768, y: 500)
     diyButton.zPosition = 1100
     overlayNode.addChild(diyButton)
-    diyButton.actionTouchUp = { [unowned self] in
+    diyButton.actionTouchUpInside = { [unowned self] in
       let editScene = LevelEditorScene(fileNamed:"LevelEditor")
       editScene?.scaleMode = self.scaleMode
       self.view?.presentScene(editScene)
     }
     
+    let myDiybutton = SKButtonNode(imageNameNormal: "mydiy", selected: "mydiy_selected")
+    myDiybutton.position = CGPoint(x: 768, y: 250)
+    myDiybutton.zPosition = 1100
+    overlayNode.addChild(myDiybutton)
+    myDiybutton.actionTouchUpInside = { [unowned self] in
+      self.startSceneDelegate?.didSelectMyDiysButton(self)
+    }
     
   }
   

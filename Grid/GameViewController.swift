@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
 //      if let scene = LevelScene(fileNamed: "Level") {
       // Configure the view.
       
+      scene.startSceneDelegate = self
       
       let skView = self.view as! SKView
       skView.showsFPS = true
@@ -60,15 +61,9 @@ class GameViewController: UIViewController {
   }
 }
 
-//extension GameViewController: StartSceneDelegate {
-//  func didSelectLevelSelectButton(scene: StartScene, level: Int) {
-//    
-//    performSegueWithIdentifier("showlevel", sender: level)
-//  }
-//  
-//  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//    if let levelVC = segue.destinationViewController as? LevelViewController, level = sender as? Int {
-//      levelVC.level = level
-//    }
-//  }
-//}
+extension GameViewController: StartSceneDelegate {
+  func didSelectMyDiysButton(scene: StartScene) {
+//    print("in view controller")
+    performSegueWithIdentifier("presentdiyviewcontroller", sender: nil)
+  }
+}

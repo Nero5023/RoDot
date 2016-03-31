@@ -132,4 +132,15 @@ final class SceneManager {
     return []
   }
   
+  func fetchAllLevels() -> [Level] {
+    let levelFetch = NSFetchRequest(entityName: "Level")
+    do {
+      let levels = try managedContext.executeFetchRequest(levelFetch) as! [Level]
+      return levels
+    }catch let error as NSError {
+      print("Error: \(error)")
+    }
+    return []
+  }
+  
 }

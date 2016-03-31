@@ -4,6 +4,41 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
+        <!--DIYLevels-->
+        <scene sceneID="qlH-Rl-VP2">
+            <objects>
+                <tableViewController id="8er-vx-Sw7" customClass="DIYLevelsViewController" customModule="Grid" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ydr-xe-UvX">
+                        <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="AW6-od-A1J">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AW6-od-A1J" id="9Ul-zi-ZeK">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8er-vx-Sw7" id="DDP-K6-dU4"/>
+                            <outlet property="delegate" destination="8er-vx-Sw7" id="ohE-5k-whd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="DIYLevels" id="9rg-R1-9jN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="g2O-4H-VY3">
+                            <connections>
+                                <action selector="doneButton:" destination="8er-vx-Sw7" id="PJv-ni-rl0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9FE-zf-CmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="-557"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -19,30 +54,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="dzf-J5-F2H"/>
                     <connections>
-                        <segue destination="Bbr-Iz-jtz" kind="show" identifier="showlevel" animates="NO" id="Omw-cu-zPK"/>
+                        <segue destination="QO2-4Y-xXa" kind="presentation" identifier="presentdiyviewcontroller" id="u8b-2E-Sas"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1054" y="255"/>
-        </scene>
-        <!--Level View Controller-->
-        <scene sceneID="R7J-47-C5S">
-            <objects>
-                <viewController id="Bbr-Iz-jtz" customClass="LevelViewController" customModule="Grid" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="OpA-qM-WCK"/>
-                        <viewControllerLayoutGuide type="bottom" id="eft-LS-82c"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IRO-ZD-Rxt" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XLh-8O-9Jm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1751" y="255"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ww0-ht-VFi">
@@ -61,6 +78,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WnQ-ZU-RqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="149" y="255"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lyx-gW-7BM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QO2-4Y-xXa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Fci-Yi-8Hu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="9TE-97-EmB">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="8er-vx-Sw7" kind="relationship" relationship="rootViewController" id="Svn-PO-zwz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aNK-au-c1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1054" y="-557"/>
         </scene>
     </scenes>
 </document>

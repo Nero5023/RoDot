@@ -15,6 +15,38 @@ class LevelEditPlayScene: LevelScene {
   var editPlayScene: LevelEditPlayScene?
   var editScene: LevelEditorScene?
   
+  var isNeedSave: Bool = true
+  
+  
+  lazy var restartButton: SKButtonNode = {
+    let restartButton = SKButtonNode(imageNameNormal: "restartbutton", selected: nil)
+    restartButton.name = "restartbutton"
+    restartButton.zPosition = self.overlayNode.zPosition
+    restartButton.actionTouchUpInside = self.newGame
+    restartButton.position = CGPoint(x: self.size.width/2, y: 719)
+    return restartButton
+  }()
+  
+  lazy var shareButton: SKButtonNode = {
+    let shareButton = SKButtonNode(imageNameNormal: "sharebutton", selected: nil)
+    shareButton.name = "sharebutton"
+    shareButton.zPosition = self.overlayNode.zPosition
+//    restartButton.actionTouchUpInside = self.newGame
+    shareButton.position = CGPoint(x: 1152-300+192, y: 1200)
+    return shareButton
+  }()
+  
+  lazy var saveButton: SKButtonNode = {
+    let saveButton = SKButtonNode(imageNameNormal: "savebutton", selected: nil)
+    saveButton.name = "savebutton"
+    saveButton.zPosition = self.overlayNode.zPosition
+    saveButton.position = CGPoint(x: 300+192, y: 1200)
+    saveButton.actionTouchUpInside = { [unowned self] in
+      SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: "DIY")
+      SceneManager.sharedInstance.backToStartScene()
+    }
+    return saveButton
+  }()
   
   // MARK: Class Methods
   class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode, transfers: [SKSpriteNode]) -> LevelEditPlayScene? {
@@ -95,6 +127,7 @@ class LevelEditPlayScene: LevelScene {
       node.position = CGPointFromString(nodeData.position!)
       sprites.addChild(node)
     }
+    scene?.isNeedSave = false
     scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
     return scene
     
@@ -125,6 +158,35 @@ class LevelEditPlayScene: LevelScene {
     newScene.scaleMode = self.scaleMode
     view?.presentScene(newScene)
   }
+  
+  override func win() {
+//    super.win()
+    playable = false
+    for entity in entities {
+      if let entity = entity as? Rod {
+        afterDelay(NSTimeInterval(0), runBlock: {
+          let node = entity.componentForClass(RenderComponent.self)!.node
+          let action = SKAction.scaleTo(0, duration: 0.5)
+          action.timingMode = SKActionTimingMode.EaseInEaseOut
+          node.runAction(action)
+        })
+      }
+      if let entity = entity as? BasePointEntity {
+        entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
+      }
+    }
+    afterDelay(1) { [unowned self] in
+      if self.isNeedSave {
+        self.overlayNode.addChild(self.saveButton)
+        self.overlayNode.addChild(self.shareButton)
+      }
+      self.overlayNode.addChild(self.restartButton)
+    }
+//    if isNeedSave {
+//      SceneManager.sharedInstance.saveLevelData(editPlayScene!.spritesNode.children, levelName: "DIY")
+//    }
+  }
+  
 }
 
 

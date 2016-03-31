@@ -348,6 +348,7 @@ extension LevelScene: SKPhysicsContactDelegate {
       let distance = contact.bodyA.categoryBitMask == PhysicsCategory.Distance ? contact.bodyA.node : contact.bodyB.node
       ball!.physicsBody = nil
       ball!.runAction(SKAction.group([SKAction.moveTo(distance!.position, duration: 0.8), SKAction.scaleTo(0.01, duration: 0.8)]))
+      distance?.runAction(SKAction.sequence([SKAction.waitForDuration(0.7), SKAction.scaleBy(0, duration: 0.4)]))
       
       playable = false
       touchesEnded([], withEvent: nil)

@@ -48,7 +48,6 @@ class CoreDataStack {
   
   private lazy var applicationDocumentsDirectory: NSURL = {
     let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-    print(urls[urls.count-1])
     return urls[urls.count-1]
   }()
   
