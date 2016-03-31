@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import CoreData
 
 final class SceneManager {
   
@@ -18,6 +19,8 @@ final class SceneManager {
   var presentingView: SKView!
   
   var startScene: StartScene!
+  
+  var managedContext: NSManagedObjectContext!
   
   // Scene logic method
   
@@ -87,6 +90,46 @@ final class SceneManager {
       let waitAction = SKAction.waitForDuration(waitDuration)
       bubble.runAction(SKAction.sequence([waitAction, foreverRotation]))
     }
+  }
+  
+  func saveLevelData(nodes: [SKNode], levelName: String?) {
+    let nodesSet = NSMutableSet(capacity: nodes.count)
+    let nodeEntity = NSEntityDescription.entityForName("Node", inManagedObjectContext: managedContext)
+    
+    for node in nodes {
+      let nodeData = Node(entity: nodeEntity!, insertIntoManagedObjectContext: managedContext)
+      nodeData.name = node.name
+      nodeData.type = NodeType(nodeName: node.name).rawValue
+      nodeData.position = NSStringFromCGPoint(node.position)
+      nodeData.zRotation = NSNumber(double: Double(node.zRotation))
+      nodesSet.addObject(nodeData)
+    }
+    
+    let levelEntity = NSEntityDescription.entityForName("Level", inManagedObjectContext: managedContext)
+    let levelData = Level(entity: levelEntity!, insertIntoManagedObjectContext: managedContext)
+    levelData.date = NSDate()
+    levelData.name = levelName
+    levelData.nodes = nodesSet
+    
+    do {
+      try managedContext.save()
+    }catch let error as NSError {
+      print("Can't save, error:\(error)")
+    }
+  }
+  
+  func fetchFirstLevel() -> [Node] {
+    let levelFetch = NSFetchRequest(entityName: "Level")
+    do {
+      let levels = try managedContext.executeFetchRequest(levelFetch) as! [Level]
+      let nodes = levels.first!.nodes!.map{
+        $0 as! Node
+      }
+      return nodes
+    }catch let error as NSError {
+      print("Error: \(error)")
+    }
+    return []
   }
   
 }

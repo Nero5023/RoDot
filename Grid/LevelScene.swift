@@ -98,10 +98,10 @@ class LevelScene: SKScene, SceneLayerProtocol {
     addBackButton()
     addRestartButton()
     
-    setUpPointInfo()
+    setUpPointDetail()
   }
   
-  func setUpPointInfo() {
+  func setUpPointDetail() {
     for entity in entities {
       entity.componentForClass(RotatableRodCountComponent.self)?.addBubbles()
       entity.componentForClass(ClockwiseComponent.self)?.animationBubble()

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="Level" representedClassName=".Level" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Node" inverseName="level" inverseEntity="Node" syncable="YES"/>
+    </entity>
+    <entity name="Node" representedClassName=".Node" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zRotation" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="level" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Level" inverseName="nodes" inverseEntity="Level" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Level" positionX="-198" positionY="54" width="128" height="88"/>
+        <element name="Node" positionX="0" positionY="63" width="128" height="118"/>
+    </elements>
+</model>

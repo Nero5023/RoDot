@@ -18,7 +18,7 @@ class LevelEditPlayScene: LevelScene {
   
   // MARK: Class Methods
   class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode, transfers: [SKSpriteNode]) -> LevelEditPlayScene? {
-    let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
+    let scene = LevelEditPlayScene(fileNamed: "LevelEdirorScene")
     
     guard let sprites = scene?.childNodeWithName("Sprites") else {
       fatalError("The LevelEditPlayScene must have a node named Sprites")
@@ -73,13 +73,42 @@ class LevelEditPlayScene: LevelScene {
     return scene
   }
   
+  class func editSceneFromNodesData(nodesData: [Node]) -> LevelEditPlayScene? {
+    let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
+    guard let sprites = scene?.childNodeWithName("Sprites") else {
+      fatalError("The LevelEditPlayScene must have a node named Sprites")
+    }
+    
+    for nodeData in nodesData {
+      let nodeType = NodeType(rawValue: nodeData.type!)!
+      var textureImageName = nodeType.rawValue
+      if nodeType == .pointNode {
+        textureImageName = PointNodeType(nodeName: nodeData.name).textureImageName()
+      }
+      if nodeType == .rod {
+        textureImageName = "rod0"
+      }
+      let TypeClass = NodeType(rawValue: nodeData.type!)!.nodeType()
+      let node = TypeClass.init(imageNamed: textureImageName)
+      node.name = nodeData.name
+      node.zRotation = CGFloat(nodeData.zRotation!.doubleValue)
+      node.position = CGPointFromString(nodeData.position!)
+      sprites.addChild(node)
+    }
+    scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
+    return scene
+    
+  }
+  
   // MARK: Scene Life Cycle
   
   override func didMoveToView(view: SKView) {
     super.didMoveToView(view)
-    let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode
-    let editButton = copyNode(editNode!, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
-    editNode!.removeFromParent()
+    guard let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode else {
+      return
+    }
+    let editButton = copyNode(editNode, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
+    editNode.removeFromParent()
     editButton.actionTouchUpInside = {
       self.view!.presentScene(self.editScene)
     }
