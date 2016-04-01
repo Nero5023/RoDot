@@ -129,6 +129,7 @@ class LevelEditPlayScene: LevelScene {
     }
     scene?.isNeedSave = false
     scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
+    scene?.editPlayScene?.isNeedSave = false
     return scene
     
   }
@@ -154,6 +155,7 @@ class LevelEditPlayScene: LevelScene {
     }
     let newScene = editPlayScene
     newScene.editPlayScene = newScene.copy() as? LevelEditPlayScene
+    newScene.editPlayScene?.isNeedSave = self.isNeedSave
     newScene.editScene = self.editScene
     newScene.scaleMode = self.scaleMode
     view?.presentScene(newScene)
@@ -173,6 +175,9 @@ class LevelEditPlayScene: LevelScene {
       }
       if let entity = entity as? BasePointEntity {
         entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
+      }
+      if let entity = entity as? Transfer {
+        entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0, duration: 0.8))
       }
     }
     afterDelay(1) { [unowned self] in

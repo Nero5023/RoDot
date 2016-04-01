@@ -309,6 +309,9 @@ class LevelScene: SKScene, SceneLayerProtocol {
       if let entity = entity as? BasePointEntity {
         entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
       }
+      if let entity = entity as? Transfer {
+        entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0, duration: 0.8))
+      }
     }
     if currentLevel < 20 {
       currentLevel += 1
