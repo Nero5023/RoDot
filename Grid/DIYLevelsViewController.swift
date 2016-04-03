@@ -33,8 +33,11 @@ class DIYLevelsViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let level = levels[indexPath.row]
-    let nodes = level.nodes!.map{
-      $0 as! Node
+    let nodes: [Dictionary<String, String>] = level.nodes!.map{ node in
+//      $0 as! Node
+      let node = node as! Node
+      return ["name": node.name!, "position": node.position!,
+        "zRotation": String(node.zRotation!), "type": node.type!]
     }
     let scene = LevelEditPlayScene.editSceneFromNodesData(nodes)
     scene!.scaleMode = .AspectFill

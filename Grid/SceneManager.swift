@@ -143,4 +143,68 @@ final class SceneManager {
     return []
   }
   
+  // TODO: Change it
+  
+  func getLevelDate(nodes: [SKNode], levelName: String?) -> Dictionary<String, AnyObject> {
+    let levelName = levelName == nil ? "DIY" : levelName!
+    let nodesInfo: [Dictionary<String, AnyObject>] = nodes.map { node in
+      let dic:Dictionary<String, AnyObject> = ["name": node.name!, "position": NSStringFromCGPoint(node.position), "zRotation": NSNumber(double: Double(node.zRotation)), "nodeType": NodeType(nodeName: node.name).rawValue]
+      return dic
+    }
+    return ["level": ["name": levelName], "nodes": nodesInfo]
+  }
+  
+  func shareLevel(nodes: [SKNode], levelName: String?) {
+    let urlString = "http://localhost:8080/newLevel/"
+    let url = NSURL(string: urlString)
+    let session = NSURLSession.sharedSession()
+    let request = NSMutableURLRequest(URL: url!)
+    request.HTTPMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    //    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    
+    let parmas = getLevelDate(nodes, levelName: levelName)
+    do {
+      
+      request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parmas, options: [])
+    }catch let error as NSError {
+      print("error:\(error)")
+    }
+    
+    let task = session.dataTaskWithRequest(request) { data, response, error in
+      print("123")
+      print("313")
+    }
+    task.resume()
+  }
+  
+  func getLevelFromWebServer(){
+      let urlString = "http://localhost:8080/level/1"
+      let url = NSURL(string: urlString)
+      let session = NSURLSession.sharedSession()
+      let request = NSMutableURLRequest(URL: url!)
+      request.HTTPMethod = "GET"
+      //    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+      request.addValue("application/json", forHTTPHeaderField: "Accept")
+      
+      let task = session.dataTaskWithRequest(request) { data, response, error in
+        
+        let json = JSON(data: data!)
+
+        //      print("reponse:\(response)")
+        //      print("error:\(error)")
+        let nodes = json["nodes"]
+        let nodesData: [Dictionary<String, String>] = nodes.map { node in
+          let nodeInfo = node.1
+          return ["name": nodeInfo["name"].string!, "position": nodeInfo["position"].string!,
+            "zRotation": String(nodeInfo["zRotation"].number!), "type": nodeInfo["type"].string!]
+        }
+//        print(nodesData)
+        let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData)
+        scene?.scaleMode = .AspectFill
+        SceneManager.sharedInstance.presentingView.presentScene(scene)
+      }
+      task.resume()
+  }
+  
 }

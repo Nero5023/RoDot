@@ -70,6 +70,7 @@
 		CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */; };
 		CE6943831CA676DB0038CBB4 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6943821CA676DB0038CBB4 /* SceneManager.swift */; };
 		CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */; };
+		CE7641FE1CB0353B0031080A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7641FD1CB0353B0031080A /* SwiftyJSON.swift */; };
 		CE787F801CA0D0FD0026807B /* Level8.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F7F1CA0D0FD0026807B /* Level8.sks */; };
 		CE787F821CA0D5BC0026807B /* Level10.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F811CA0D5BC0026807B /* Level10.sks */; };
 		CE787F841CA0DCE20026807B /* Level9.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F831CA0DCE20026807B /* Level9.sks */; };
@@ -205,6 +206,7 @@
 		CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLayerProtocol.swift; sourceTree = "<group>"; };
 		CE6943821CA676DB0038CBB4 /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
 		CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolAndCommon.swift; sourceTree = "<group>"; };
+		CE7641FD1CB0353B0031080A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		CE787F7F1CA0D0FD0026807B /* Level8.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8.sks; sourceTree = "<group>"; };
 		CE787F811CA0D5BC0026807B /* Level10.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level10.sks; sourceTree = "<group>"; };
 		CE787F831CA0DCE20026807B /* Level9.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level9.sks; sourceTree = "<group>"; };
@@ -397,6 +399,21 @@
 			name = EditScene;
 			sourceTree = "<group>";
 		};
+		CE6AE3D41CB17CBF00B833C4 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		CE7641FC1CB035290031080A /* ThirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				CE7641FD1CB0353B0031080A /* SwiftyJSON.swift */,
+			);
+			name = ThirdPart;
+			sourceTree = "<group>";
+		};
 		CE7DB7C31C68B64400AA358C = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +437,8 @@
 		CE7DB7CE1C68B64400AA358C /* Grid */ = {
 			isa = PBXGroup;
 			children = (
+				CE6AE3D41CB17CBF00B833C4 /* Clients */,
+				CE7641FC1CB035290031080A /* ThirdPart */,
 				CE16AB951CAC376900A42545 /* CoreData */,
 				CEDC061D1C7DC9CA000F9C52 /* Entities */,
 				CEDC06181C7DC5A6000F9C52 /* Components */,
@@ -759,6 +778,7 @@
 				CE16AB941CAC356000A42545 /* CoreDataStack.swift in Sources */,
 				CE16AB9B1CAC38EA00A42545 /* LevelsData.xcdatamodeld in Sources */,
 				CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */,
+				CE7641FE1CB0353B0031080A /* SwiftyJSON.swift in Sources */,
 				CE7DB8111C68D74C00AA358C /* Int+Extensions.swift in Sources */,
 				CE0C76F51C8BD54A002CBF23 /* LevelSceneSuccessState.swift in Sources */,
 				CE1627CE1CACFAF10059DC89 /* NodeType.swift in Sources */,

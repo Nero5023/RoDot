@@ -32,6 +32,9 @@ class LevelEditPlayScene: LevelScene {
     shareButton.name = "sharebutton"
     shareButton.zPosition = self.overlayNode.zPosition
 //    restartButton.actionTouchUpInside = self.newGame
+    shareButton.actionTouchUpInside = { [unowned self] in
+      SceneManager.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY")
+    }
     shareButton.position = CGPoint(x: 1152-300+192, y: 1200)
     return shareButton
   }()
@@ -105,26 +108,26 @@ class LevelEditPlayScene: LevelScene {
     return scene
   }
   
-  class func editSceneFromNodesData(nodesData: [Node]) -> LevelEditPlayScene? {
+  class func editSceneFromNodesData(nodesData: [Dictionary<String, String>]) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
     guard let sprites = scene?.childNodeWithName("Sprites") else {
       fatalError("The LevelEditPlayScene must have a node named Sprites")
     }
     
     for nodeData in nodesData {
-      let nodeType = NodeType(rawValue: nodeData.type!)!
+      let nodeType = NodeType(rawValue: nodeData["type"]!)!
       var textureImageName = nodeType.rawValue
       if nodeType == .pointNode {
-        textureImageName = PointNodeType(nodeName: nodeData.name).textureImageName()
+        textureImageName = PointNodeType(nodeName: nodeData["name"]).textureImageName()
       }
       if nodeType == .rod {
         textureImageName = "rod0"
       }
-      let TypeClass = NodeType(rawValue: nodeData.type!)!.nodeType()
+      let TypeClass = NodeType(rawValue: nodeData["type"]!)!.nodeType()
       let node = TypeClass.init(imageNamed: textureImageName)
-      node.name = nodeData.name
-      node.zRotation = CGFloat(nodeData.zRotation!.doubleValue)
-      node.position = CGPointFromString(nodeData.position!)
+      node.name = nodeData["name"]
+      node.zRotation = CGFloat(Double(nodeData["zRotation"]!)!)
+      node.position = CGPointFromString(nodeData["position"]!)
       sprites.addChild(node)
     }
     scene?.isNeedSave = false
