@@ -37,6 +37,19 @@ class LevelEditPlayScene: LevelScene {
 //      SceneManager.sharedInstance.getLevelFromWebServer()
       Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
         print(levelid)
+        let shareURLString = "https://rodot.me/level/" + "\(levelid)"
+        let shareURL = NSURL(string: shareURLString)!
+        let str = "This is the game I made by RoDot try this!"
+        let activityViewController = UIActivityViewController(activityItems: [str, shareURLString], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+        activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
+          if isCompleted {
+            print("Complete")
+          }
+        }
+        dispatch_async(dispatch_get_main_queue()) {
+          SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+        }
       }
     }
     shareButton.position = CGPoint(x: 1152-300+192, y: 1200)

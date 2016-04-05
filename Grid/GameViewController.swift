@@ -36,6 +36,7 @@ class GameViewController: UIViewController {
       
       SceneManager.sharedInstance.presentingView = skView
       SceneManager.sharedInstance.startScene = scene
+      SceneManager.sharedInstance.presentingController = self
     }
   }
   

@@ -22,6 +22,9 @@ final class SceneManager {
   
   var managedContext: NSManagedObjectContext!
   
+  // Need to change
+  var presentingController: UIViewController!
+  
   // Scene logic method
   
   func showLevelScene(level: Int) {
