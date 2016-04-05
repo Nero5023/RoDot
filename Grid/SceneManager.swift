@@ -155,7 +155,8 @@ final class SceneManager {
   }
   
   func shareLevel(nodes: [SKNode], levelName: String?) {
-    let urlString = "http://localhost:8080/newLevel/"
+//    let urlString = "http://localhost:8080/newLevel/"
+    let urlString = "https://rodot.me/newLevel/"
     let url = NSURL(string: urlString)
     let session = NSURLSession.sharedSession()
     let request = NSMutableURLRequest(URL: url!)
@@ -176,6 +177,7 @@ final class SceneManager {
 //      print("313")
       let json = JSON(data: data!)
       let levelid = json["levelid"].int
+      print((response as? NSHTTPURLResponse)?.statusCode)
       print(levelid)
       let result = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
       print(result as! NSDictionary)

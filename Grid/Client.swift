@@ -44,7 +44,7 @@ class Client {
   //MARK: POST
   
   func taskForPostMethod(method: String, parameters: [String: AnyObject], completionHandler: (data: NSData)-> ()) -> NSURLSessionTask {
-    let url = urlFromParmaters(parameters, withMethod: method)
+    let url = urlFromParmaters([:], withMethod: method)
     let request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -63,6 +63,7 @@ class Client {
       }
       guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
         // error handler
+        print((response as? NSHTTPURLResponse)?.statusCode)
         return
       }
       completionHandler(data: data!)

@@ -12,15 +12,15 @@ extension Client {
   
   
   struct Constants {
-    static let Scheme = "http"
-//    static let Host = "rodot.me"
-    static let Host = "localhost:8080"
+    static let Scheme = "https"
+    static let Host = "rodot.me"
+//    static let Host = "localhost:8080"
     static let SecretKey = ""
   }
   
   struct Methods {
-    static let GetLevelDeail = "/leveldetail"
-    static let ShareLevel = "/newLevel"
+    static let GetLevelDeail = "/level/detail"
+    static let ShareLevel = "/level/new"
     static let LikeLevel = "/level/like"
     static let LevelPage = "/level" // expample /level/2
   }

@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     SceneManager.sharedInstance.managedContext = coreDataStack.context
+
     return true
   }
 
@@ -45,10 +46,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-    print("123")
+    
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+      let webURL = userActivity.webpageURL!
+      
+      present(URL: webURL)
+      
+    }
+    
     return true
   }
-
+  
+  private func present(URL url: NSURL) -> Bool {
+    if let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true), let host = components.host, let path = components.path, let pathComponents = NSURL(string: path)!.pathComponents {
+      switch host {
+      case "rodot.me":
+        if pathComponents.count == 3 {
+          switch (pathComponents[0], pathComponents[1], pathComponents[2]) {
+          case ("/", "level", let levelid):
+            if let levelid = Int(levelid) where levelid > 0 {
+              presentSceneWithLevelId(levelid)
+              return true
+            }
+          default:
+            return false
+          }
+        }
+        
+        return true
+      default:
+        return false
+      }
+    }
+    return false
+  }
+  
+  private func presentSceneWithLevelId(levelId: Int) {
+    Client.sharedInstance.getLevelDetail(levelId) { scene in
+      SceneManager.sharedInstance.presentingView.presentScene(scene)
+    }
+  }
 
 }
 
