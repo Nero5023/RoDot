@@ -34,6 +34,7 @@ class LevelEditPlayScene: LevelScene {
 //    restartButton.actionTouchUpInside = self.newGame
     shareButton.actionTouchUpInside = { [unowned self] in
       SceneManager.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY")
+//      SceneManager.sharedInstance.getLevelFromWebServer()
     }
     shareButton.position = CGPoint(x: 1152-300+192, y: 1200)
     return shareButton

@@ -69,6 +69,8 @@
 		CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */; };
 		CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */; };
 		CE6943831CA676DB0038CBB4 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6943821CA676DB0038CBB4 /* SceneManager.swift */; };
+		CE6AE3D61CB17E7400B833C4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6AE3D51CB17E7400B833C4 /* Client.swift */; };
+		CE6AE3DA1CB1826900B833C4 /* Client+Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6AE3D91CB1826900B833C4 /* Client+Constant.swift */; };
 		CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */; };
 		CE7641FE1CB0353B0031080A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7641FD1CB0353B0031080A /* SwiftyJSON.swift */; };
 		CE787F801CA0D0FD0026807B /* Level8.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE787F7F1CA0D0FD0026807B /* Level8.sks */; };
@@ -110,6 +112,8 @@
 		CE7FE5441CA5915C00556AD5 /* Level14.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE7FE5431CA5915C00556AD5 /* Level14.sks */; };
 		CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8378E51C9457E400E7CD88 /* DestinationNode.swift */; };
 		CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE8378E91C94621B00E7CD88 /* Level1.sks */; };
+		CE848D721CB26F5700C5569E /* Client+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE848D711CB26F5700C5569E /* Client+Convenience.swift */; };
+		CE848D741CB2C23A00C5569E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE848D731CB2C23A00C5569E /* GameKit.framework */; };
 		CE885BE61C9D6190005E1A15 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE885BE51C9D6190005E1A15 /* PointButton.swift */; };
 		CE8A0BCF1C80BC95000ABFEA /* DetectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */; };
 		CEA02EE61C9C304700DC9C38 /* LevelEditorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */; };
@@ -205,6 +209,8 @@
 		CE68B3F21C9EEB1C00AA18A7 /* LevelEmpty.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEmpty.sks; sourceTree = "<group>"; };
 		CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLayerProtocol.swift; sourceTree = "<group>"; };
 		CE6943821CA676DB0038CBB4 /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
+		CE6AE3D51CB17E7400B833C4 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		CE6AE3D91CB1826900B833C4 /* Client+Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Constant.swift"; sourceTree = "<group>"; };
 		CE6C04911C699C2C0082068B /* ProtocolAndCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolAndCommon.swift; sourceTree = "<group>"; };
 		CE7641FD1CB0353B0031080A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		CE787F7F1CA0D0FD0026807B /* Level8.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8.sks; sourceTree = "<group>"; };
@@ -252,6 +258,9 @@
 		CE7FE5431CA5915C00556AD5 /* Level14.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level14.sks; sourceTree = "<group>"; };
 		CE8378E51C9457E400E7CD88 /* DestinationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationNode.swift; sourceTree = "<group>"; };
 		CE8378E91C94621B00E7CD88 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		CE848D711CB26F5700C5569E /* Client+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Convenience.swift"; sourceTree = "<group>"; };
+		CE848D731CB2C23A00C5569E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		CE848D751CB2C46400C5569E /* Grid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Grid.entitlements; sourceTree = "<group>"; };
 		CE885BE51C9D6190005E1A15 /* PointButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
 		CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectComponent.swift; sourceTree = "<group>"; };
 		CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditorScene.swift; sourceTree = "<group>"; };
@@ -272,6 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE848D741CB2C23A00C5569E /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +412,9 @@
 		CE6AE3D41CB17CBF00B833C4 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				CE6AE3D51CB17E7400B833C4 /* Client.swift */,
+				CE6AE3D91CB1826900B833C4 /* Client+Constant.swift */,
+				CE848D711CB26F5700C5569E /* Client+Convenience.swift */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -417,6 +430,7 @@
 		CE7DB7C31C68B64400AA358C = {
 			isa = PBXGroup;
 			children = (
+				CE848D731CB2C23A00C5569E /* GameKit.framework */,
 				CE7DB7CE1C68B64400AA358C /* Grid */,
 				CE7DB7E71C68B64400AA358C /* GridTests */,
 				CE7DB7F21C68B64400AA358C /* GridUITests */,
@@ -437,6 +451,7 @@
 		CE7DB7CE1C68B64400AA358C /* Grid */ = {
 			isa = PBXGroup;
 			children = (
+				CE848D751CB2C46400C5569E /* Grid.entitlements */,
 				CE6AE3D41CB17CBF00B833C4 /* Clients */,
 				CE7641FC1CB035290031080A /* ThirdPart */,
 				CE16AB951CAC376900A42545 /* CoreData */,
@@ -641,6 +656,14 @@
 					CE7DB7CB1C68B64400AA358C = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = WLUW25LQLS;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					CE7DB7E31C68B64400AA358C = {
 						CreatedOnToolsVersion = 7.2;
@@ -745,6 +768,7 @@
 				CEDC061C1C7DC6C1000F9C52 /* PhysicsComponent.swift in Sources */,
 				CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */,
 				CE1627CB1CACF9A90059DC89 /* Node+CoreDataProperties.swift in Sources */,
+				CE848D721CB26F5700C5569E /* Client+Convenience.swift in Sources */,
 				CE164FC91C7F32C0005BD8EB /* OrientationComponent.swift in Sources */,
 				CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */,
 				CE7DB80F1C68D74C00AA358C /* CGPoint+Extensions.swift in Sources */,
@@ -752,6 +776,7 @@
 				CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */,
 				CE885BE61C9D6190005E1A15 /* PointButton.swift in Sources */,
 				CE66F67D1C6B83B200E08955 /* RodNode.swift in Sources */,
+				CE6AE3D61CB17E7400B833C4 /* Client.swift in Sources */,
 				CE6643C61C81A17300A6F0D4 /* PointUnlockedState.swift in Sources */,
 				CE7DB8171C68D74C00AA358C /* SKTEffects.swift in Sources */,
 				CEDC061F1C7DC9EF000F9C52 /* GameplayConfiguration.swift in Sources */,
@@ -772,6 +797,7 @@
 				CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */,
 				CE7DB8101C68D74C00AA358C /* CGVector+Extensions.swift in Sources */,
 				CE7DB8121C68D74C00AA358C /* SKAction+Extensions.swift in Sources */,
+				CE6AE3DA1CB1826900B833C4 /* Client+Constant.swift in Sources */,
 				CE7DB8141C68D74C00AA358C /* SKColor+Extensions.swift in Sources */,
 				CE1E7A411CA29F0600BFD61B /* StartScene.swift in Sources */,
 				CE7DB7D61C68B64400AA358C /* GameViewController.swift in Sources */,
@@ -956,11 +982,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grid/Grid.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Grid/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nero.GridComponent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nero.rodot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -969,11 +996,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grid/Grid.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Grid/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nero.GridComponent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nero.rodot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
