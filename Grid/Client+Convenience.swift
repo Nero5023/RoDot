@@ -11,12 +11,13 @@ import SpriteKit
 
 extension Client {
   
-  func shareLevel(nodes: [SKNode], levelName: String?, completionHandler: (Int)->()) {
-    let _ = taskForPostMethod(Client.Methods.ShareLevel, jsonBody: getLevelDate(nodes, levelName: levelName)) { data in
+  func shareLevel(nodes: [SKNode], levelName: String?, completionHandler: (Int)->()) -> NSURLSessionTask {
+    let task = taskForPostMethod(Client.Methods.ShareLevel, jsonBody: getLevelDate(nodes, levelName: levelName)) { data in
       let json = JSON(data: data)
       let levelId = json[JSONBodyKeys.LevelId].int!
       completionHandler(levelId)
     }
+    return task
   }
   
   
@@ -30,8 +31,8 @@ extension Client {
   }
   
   
-  func getLevelDetail(levelid: Int, completionHandler:(sceen: SKScene)->()) {
-    let _ = taskForGetMethod(Client.Methods.GetLevelDeail, parameters: [Client.ParameterKeys.LevelId: levelid]) { data in
+  func getLevelDetail(levelid: Int, completionHandler:(sceen: SKScene)->()) -> NSURLSessionTask {
+    let task = taskForGetMethod(Client.Methods.GetLevelDeail, parameters: [Client.ParameterKeys.LevelId: levelid]) { data in
       let json = JSON(data: data)
       let nodes = json[Client.JSONBodyKeys.Nodes]
       let nodesData: [Dictionary<String, String>] = nodes.map { node in
@@ -43,6 +44,7 @@ extension Client {
       scene.scaleMode = .AspectFill
       completionHandler(sceen: scene)
     }
+    return task
   }
   
   func likeLevel(levelid: Int, completionHandler: ()->()) {

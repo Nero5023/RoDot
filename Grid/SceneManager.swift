@@ -121,6 +121,9 @@ final class SceneManager {
     }
   }
   
+  
+  
+  
   func fetchFirstLevel() -> [Node] {
     let levelFetch = NSFetchRequest(entityName: "Level")
     do {
@@ -145,6 +148,10 @@ final class SceneManager {
     }
     return []
   }
+  
+  
+  
+  
   
   // TODO: Change it
   

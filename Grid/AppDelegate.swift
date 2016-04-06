@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     SceneManager.sharedInstance.managedContext = coreDataStack.context
-
+    
     return true
   }
 
@@ -83,12 +83,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   private func presentSceneWithLevelId(levelId: Int) {
-    Client.sharedInstance.getLevelDetail(levelId) { scene in
+    let task = Client.sharedInstance.getLevelDetail(levelId) { scene in
       dispatch_async(dispatch_get_main_queue()) {
         HUD.hide()
         SceneManager.sharedInstance.presentingView.presentScene(scene)
       }
     }
+    Client.sharedInstance.setTimeOutDuration(10, taskToCancel: task)
   }
 
 }
