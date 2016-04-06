@@ -12,7 +12,7 @@ import GameplayKit
 enum LevelEditPlaySceneType {
   case testPlay     // For when DIYing
   case selfPlay     // For when playing self designed level
-  case sharePlay    // For when playing others sharing level
+  case sharePlay(Int)    // For when playing others sharing level
 }
 
 class LevelEditPlayScene: LevelScene {
@@ -22,7 +22,6 @@ class LevelEditPlayScene: LevelScene {
   var editScene: LevelEditorScene?
   
   var sceneType: LevelEditPlaySceneType?
-  
   
   lazy var restartButton: SKButtonNode = {
     let restartButton = SKButtonNode(imageNameNormal: "restartbutton", selected: nil)
@@ -83,7 +82,18 @@ class LevelEditPlayScene: LevelScene {
     let likeButton = SKButtonNode(imageNameNormal: "likebutton", selected: nil)
     likeButton.name = "likebutton"
     likeButton.zPosition = self.overlayNode.zPosition
-    
+    likeButton.actionTouchUpInside = { [unowned self] in
+      guard let sceneType = self.sceneType else { return }
+      switch sceneType {
+      case .sharePlay(let levelId):
+        Client.sharedInstance.likeLevel(levelId) {
+          print("like")
+          likeButton.isEnabled = false
+        }
+      default:
+        break
+      }
+    }
     likeButton.position = CGPoint(x: self.size.width/2, y: 1200)
     return likeButton
   }()

@@ -196,7 +196,8 @@ final class SceneManager {
   }
   
   func getLevelFromWebServer(){
-    let urlString = "http://localhost:8080/level/1"
+    let levelId = 1
+    let urlString = "http://localhost:8080/level/" + "\(levelId)"
     let url = NSURL(string: urlString)
     let session = NSURLSession.sharedSession()
     let request = NSMutableURLRequest(URL: url!)
@@ -217,7 +218,7 @@ final class SceneManager {
           "zRotation": String(nodeInfo["zRotation"].number!), "type": nodeInfo["type"].string!]
       }
       //        print(nodesData)
-      let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay)
+      let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay(levelId))
       scene?.scaleMode = .AspectFill
       SceneManager.sharedInstance.presentingView.presentScene(scene)
     }

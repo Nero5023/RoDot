@@ -40,7 +40,7 @@ extension Client {
         return ["name": nodeInfo[JSONBodyKeys.NodeName].string!, "position": nodeInfo[Client.JSONBodyKeys.Position].string!,
           "zRotation": String(nodeInfo[Client.JSONBodyKeys.ZRotation].number!), "type": nodeInfo[Client.JSONBodyKeys.Type].string!]
       }
-      let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay)!
+      let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay(levelid))!
       scene.scaleMode = .AspectFill
       completionHandler(sceen: scene)
     }
