@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           switch (pathComponents[0], pathComponents[1], pathComponents[2]) {
           case ("/", "level", let levelid):
             if let levelid = Int(levelid) where levelid > 0 {
+              (window?.rootViewController as? UINavigationController)?.dismissViewControllerAnimated(false, completion: nil)
               HUD.show(.Progress)
               presentSceneWithLevelId(levelid)
               return true
