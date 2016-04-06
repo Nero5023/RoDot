@@ -217,7 +217,7 @@ final class SceneManager {
           "zRotation": String(nodeInfo["zRotation"].number!), "type": nodeInfo["type"].string!]
       }
       //        print(nodesData)
-      let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData)
+      let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay)
       scene?.scaleMode = .AspectFill
       SceneManager.sharedInstance.presentingView.presentScene(scene)
     }

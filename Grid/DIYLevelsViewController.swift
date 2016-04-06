@@ -39,7 +39,7 @@ class DIYLevelsViewController: UITableViewController {
       return ["name": node.name!, "position": node.position!,
         "zRotation": String(node.zRotation!), "type": node.type!]
     }
-    let scene = LevelEditPlayScene.editSceneFromNodesData(nodes)
+    let scene = LevelEditPlayScene.editSceneFromNodesData(nodes, sceneType: .selfPlay)
     scene!.scaleMode = .AspectFill
     SceneManager.sharedInstance.presentingView.presentScene(scene)
     self.dismissViewControllerAnimated(true, completion: nil)

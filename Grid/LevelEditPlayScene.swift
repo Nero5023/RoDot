@@ -9,13 +9,19 @@
 import SpriteKit
 import GameplayKit
 
+enum LevelEditPlaySceneType {
+  case testPlay     // For when DIYing
+  case selfPlay     // For when playing self designed level
+  case sharePlay    // For when playing others sharing level
+}
+
 class LevelEditPlayScene: LevelScene {
   
   // MARK: Properties
   var editPlayScene: LevelEditPlayScene?
   var editScene: LevelEditorScene?
   
-  var isNeedSave: Bool = true
+  var sceneType: LevelEditPlaySceneType?
   
   
   lazy var restartButton: SKButtonNode = {
@@ -73,6 +79,15 @@ class LevelEditPlayScene: LevelScene {
     return saveButton
   }()
   
+  lazy var likeButton: SKButtonNode = {
+    let likeButton = SKButtonNode(imageNameNormal: "likebutton", selected: nil)
+    likeButton.name = "likebutton"
+    likeButton.zPosition = self.overlayNode.zPosition
+    
+    likeButton.position = CGPoint(x: self.size.width/2, y: 1200)
+    return likeButton
+  }()
+  
   // MARK: Class Methods
   class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode, transfers: [SKSpriteNode]) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEdirorScene")
@@ -125,12 +140,13 @@ class LevelEditPlayScene: LevelScene {
     for node in sprites.children {
       node.position += vector
     }
-    
+    scene?.sceneType = .testPlay
     scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
+    scene?.editPlayScene?.sceneType = scene?.sceneType
     return scene
   }
   
-  class func editSceneFromNodesData(nodesData: [Dictionary<String, String>]) -> LevelEditPlayScene? {
+  class func editSceneFromNodesData(nodesData: [Dictionary<String, String>], sceneType: LevelEditPlaySceneType) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
     guard let sprites = scene?.childNodeWithName("Sprites") else {
       fatalError("The LevelEditPlayScene must have a node named Sprites")
@@ -152,9 +168,9 @@ class LevelEditPlayScene: LevelScene {
       node.position = CGPointFromString(nodeData["position"]!)
       sprites.addChild(node)
     }
-    scene?.isNeedSave = false
+    scene?.sceneType = sceneType
     scene?.editPlayScene = scene?.copy() as? LevelEditPlayScene
-    scene?.editPlayScene?.isNeedSave = false
+    scene?.editPlayScene?.sceneType = sceneType
     return scene
     
   }
@@ -180,7 +196,7 @@ class LevelEditPlayScene: LevelScene {
     }
     let newScene = editPlayScene
     newScene.editPlayScene = newScene.copy() as? LevelEditPlayScene
-    newScene.editPlayScene?.isNeedSave = self.isNeedSave
+    newScene.editPlayScene?.sceneType = self.sceneType
     newScene.editScene = self.editScene
     newScene.scaleMode = self.scaleMode
     view?.presentScene(newScene)
@@ -206,15 +222,18 @@ class LevelEditPlayScene: LevelScene {
       }
     }
     afterDelay(1) { [unowned self] in
-      if self.isNeedSave {
+      self.overlayNode.addChild(self.restartButton)
+      guard let sceneType = self.sceneType else { return }
+      switch sceneType {
+      case .selfPlay:
+        break
+      case .testPlay:
         self.overlayNode.addChild(self.saveButton)
         self.overlayNode.addChild(self.shareButton)
+      case .sharePlay:
+        self.overlayNode.addChild(self.likeButton)
       }
-      self.overlayNode.addChild(self.restartButton)
     }
-//    if isNeedSave {
-//      SceneManager.sharedInstance.saveLevelData(editPlayScene!.spritesNode.children, levelName: "DIY")
-//    }
   }
   
 }
