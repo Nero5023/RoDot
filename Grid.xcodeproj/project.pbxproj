@@ -121,6 +121,24 @@
 		CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */; };
 		CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */; };
 		CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */; };
+		CEDA12FB1CB4F23D00EAB73E /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12E81CB4F23D00EAB73E /* FrameView.swift */; };
+		CEDA12FC1CB4F23D00EAB73E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12E91CB4F23D00EAB73E /* HUD.swift */; };
+		CEDA12FD1CB4F23D00EAB73E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEDA12EA1CB4F23D00EAB73E /* Images.xcassets */; };
+		CEDA12FE1CB4F23D00EAB73E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEDA12EB1CB4F23D00EAB73E /* Info.plist */; };
+		CEDA12FF1CB4F23D00EAB73E /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12ED1CB4F23D00EAB73E /* PKHUD.swift */; };
+		CEDA13001CB4F23D00EAB73E /* PKHUDAnimating.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12EE1CB4F23D00EAB73E /* PKHUDAnimating.swift */; };
+		CEDA13011CB4F23D00EAB73E /* PKHUDAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12EF1CB4F23D00EAB73E /* PKHUDAnimation.swift */; };
+		CEDA13021CB4F23D00EAB73E /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F01CB4F23D00EAB73E /* PKHUDAssets.swift */; };
+		CEDA13031CB4F23D00EAB73E /* PKHUDErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F11CB4F23D00EAB73E /* PKHUDErrorView.swift */; };
+		CEDA13041CB4F23D00EAB73E /* PKHUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F21CB4F23D00EAB73E /* PKHUDProgressView.swift */; };
+		CEDA13051CB4F23D00EAB73E /* PKHUDRotatingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F31CB4F23D00EAB73E /* PKHUDRotatingImageView.swift */; };
+		CEDA13061CB4F23D00EAB73E /* PKHUDSquareBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F41CB4F23D00EAB73E /* PKHUDSquareBaseView.swift */; };
+		CEDA13071CB4F23D00EAB73E /* PKHUDSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F51CB4F23D00EAB73E /* PKHUDSuccessView.swift */; };
+		CEDA13081CB4F23D00EAB73E /* PKHUDSystemActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F61CB4F23D00EAB73E /* PKHUDSystemActivityIndicatorView.swift */; };
+		CEDA13091CB4F23D00EAB73E /* PKHUDTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F71CB4F23D00EAB73E /* PKHUDTextView.swift */; };
+		CEDA130A1CB4F23D00EAB73E /* PKHUDWideBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F81CB4F23D00EAB73E /* PKHUDWideBaseView.swift */; };
+		CEDA130B1CB4F23D00EAB73E /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12F91CB4F23D00EAB73E /* Window.swift */; };
+		CEDA130C1CB4F23D00EAB73E /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12FA1CB4F23D00EAB73E /* WindowRootViewController.swift */; };
 		CEDC061A1C7DC5E4000F9C52 /* RenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06191C7DC5E4000F9C52 /* RenderComponent.swift */; };
 		CEDC061C1C7DC6C1000F9C52 /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC061B1C7DC6C1000F9C52 /* PhysicsComponent.swift */; };
 		CEDC061F1C7DC9EF000F9C52 /* GameplayConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */; };
@@ -268,6 +286,25 @@
 		CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
 		CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictedRotationPoint.swift; sourceTree = "<group>"; };
 		CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatableRodCountComponent.swift; sourceTree = "<group>"; };
+		CEDA12E81CB4F23D00EAB73E /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		CEDA12E91CB4F23D00EAB73E /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		CEDA12EA1CB4F23D00EAB73E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CEDA12EB1CB4F23D00EAB73E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEDA12EC1CB4F23D00EAB73E /* PKHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKHUD.h; sourceTree = "<group>"; };
+		CEDA12ED1CB4F23D00EAB73E /* PKHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUD.swift; sourceTree = "<group>"; };
+		CEDA12EE1CB4F23D00EAB73E /* PKHUDAnimating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAnimating.swift; sourceTree = "<group>"; };
+		CEDA12EF1CB4F23D00EAB73E /* PKHUDAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAnimation.swift; sourceTree = "<group>"; };
+		CEDA12F01CB4F23D00EAB73E /* PKHUDAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAssets.swift; sourceTree = "<group>"; };
+		CEDA12F11CB4F23D00EAB73E /* PKHUDErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDErrorView.swift; sourceTree = "<group>"; };
+		CEDA12F21CB4F23D00EAB73E /* PKHUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDProgressView.swift; sourceTree = "<group>"; };
+		CEDA12F31CB4F23D00EAB73E /* PKHUDRotatingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDRotatingImageView.swift; sourceTree = "<group>"; };
+		CEDA12F41CB4F23D00EAB73E /* PKHUDSquareBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDSquareBaseView.swift; sourceTree = "<group>"; };
+		CEDA12F51CB4F23D00EAB73E /* PKHUDSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDSuccessView.swift; sourceTree = "<group>"; };
+		CEDA12F61CB4F23D00EAB73E /* PKHUDSystemActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDSystemActivityIndicatorView.swift; sourceTree = "<group>"; };
+		CEDA12F71CB4F23D00EAB73E /* PKHUDTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDTextView.swift; sourceTree = "<group>"; };
+		CEDA12F81CB4F23D00EAB73E /* PKHUDWideBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDWideBaseView.swift; sourceTree = "<group>"; };
+		CEDA12F91CB4F23D00EAB73E /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CEDA12FA1CB4F23D00EAB73E /* WindowRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRootViewController.swift; sourceTree = "<group>"; };
 		CEDC06191C7DC5E4000F9C52 /* RenderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponent.swift; sourceTree = "<group>"; };
 		CEDC061B1C7DC6C1000F9C52 /* PhysicsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		CEDC061E1C7DC9EF000F9C52 /* GameplayConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayConfiguration.swift; sourceTree = "<group>"; };
@@ -422,6 +459,7 @@
 		CE7641FC1CB035290031080A /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				CEDA12E71CB4F23D00EAB73E /* PKHUD */,
 				CE7641FD1CB0353B0031080A /* SwiftyJSON.swift */,
 			);
 			name = ThirdPart;
@@ -537,6 +575,32 @@
 				CE787F8B1CA0EEA70026807B /* Level20.sks */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		CEDA12E71CB4F23D00EAB73E /* PKHUD */ = {
+			isa = PBXGroup;
+			children = (
+				CEDA12E81CB4F23D00EAB73E /* FrameView.swift */,
+				CEDA12E91CB4F23D00EAB73E /* HUD.swift */,
+				CEDA12EA1CB4F23D00EAB73E /* Images.xcassets */,
+				CEDA12EB1CB4F23D00EAB73E /* Info.plist */,
+				CEDA12EC1CB4F23D00EAB73E /* PKHUD.h */,
+				CEDA12ED1CB4F23D00EAB73E /* PKHUD.swift */,
+				CEDA12EE1CB4F23D00EAB73E /* PKHUDAnimating.swift */,
+				CEDA12EF1CB4F23D00EAB73E /* PKHUDAnimation.swift */,
+				CEDA12F01CB4F23D00EAB73E /* PKHUDAssets.swift */,
+				CEDA12F11CB4F23D00EAB73E /* PKHUDErrorView.swift */,
+				CEDA12F21CB4F23D00EAB73E /* PKHUDProgressView.swift */,
+				CEDA12F31CB4F23D00EAB73E /* PKHUDRotatingImageView.swift */,
+				CEDA12F41CB4F23D00EAB73E /* PKHUDSquareBaseView.swift */,
+				CEDA12F51CB4F23D00EAB73E /* PKHUDSuccessView.swift */,
+				CEDA12F61CB4F23D00EAB73E /* PKHUDSystemActivityIndicatorView.swift */,
+				CEDA12F71CB4F23D00EAB73E /* PKHUDTextView.swift */,
+				CEDA12F81CB4F23D00EAB73E /* PKHUDWideBaseView.swift */,
+				CEDA12F91CB4F23D00EAB73E /* Window.swift */,
+				CEDA12FA1CB4F23D00EAB73E /* WindowRootViewController.swift */,
+			);
+			path = PKHUD;
 			sourceTree = "<group>";
 		};
 		CEDC06181C7DC5A6000F9C52 /* Components */ = {
@@ -716,9 +780,11 @@
 				CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
+				CEDA12FD1CB4F23D00EAB73E /* Images.xcassets in Resources */,
 				CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */,
 				CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */,
 				CE787F8C1CA0EEA70026807B /* Level20.sks in Resources */,
+				CEDA12FE1CB4F23D00EAB73E /* Info.plist in Resources */,
 				CE787F941CA107990026807B /* Level17.sks in Resources */,
 				CE0B730C1C96C5B900009B6B /* Level6.sks in Resources */,
 				CE7FDBE01CA30244008616D4 /* ball_small.png in Resources */,
@@ -767,9 +833,12 @@
 				CE6643BF1C819E9500A6F0D4 /* IntelligenceComponent.swift in Sources */,
 				CEDC061C1C7DC6C1000F9C52 /* PhysicsComponent.swift in Sources */,
 				CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */,
+				CEDA13051CB4F23D00EAB73E /* PKHUDRotatingImageView.swift in Sources */,
+				CEDA13091CB4F23D00EAB73E /* PKHUDTextView.swift in Sources */,
 				CE1627CB1CACF9A90059DC89 /* Node+CoreDataProperties.swift in Sources */,
 				CE848D721CB26F5700C5569E /* Client+Convenience.swift in Sources */,
 				CE164FC91C7F32C0005BD8EB /* OrientationComponent.swift in Sources */,
+				CEDA12FB1CB4F23D00EAB73E /* FrameView.swift in Sources */,
 				CE6C04921C699C2C0082068B /* ProtocolAndCommon.swift in Sources */,
 				CE7DB80F1C68D74C00AA358C /* CGPoint+Extensions.swift in Sources */,
 				CE7DB8181C68D74C00AA358C /* SKTTimingFunctions.swift in Sources */,
@@ -787,11 +856,14 @@
 				CE69437F1CA654310038CBB4 /* SceneLayerProtocol.swift in Sources */,
 				CE6643CA1C81FEC900A6F0D4 /* InputComponent.swift in Sources */,
 				CE0C76F91C8C0EAE002CBF23 /* PointTranslatingState.swift in Sources */,
+				CEDA130A1CB4F23D00EAB73E /* PKHUDWideBaseView.swift in Sources */,
 				CEDC06241C7DE4E7000F9C52 /* Rod.swift in Sources */,
 				CE6643BD1C81889700A6F0D4 /* RelateComponent.swift in Sources */,
 				CE2776811C9065CE00B5FA7F /* FreezableProtocol.swift in Sources */,
+				CEDA13041CB4F23D00EAB73E /* PKHUDProgressView.swift in Sources */,
 				CE66F68A1C6BA6DC00E08955 /* Rotating.swift in Sources */,
 				CE7DB8131C68D74C00AA358C /* SKAction+SpecialEffects.swift in Sources */,
+				CEDA13011CB4F23D00EAB73E /* PKHUDAnimation.swift in Sources */,
 				CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */,
 				CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */,
 				CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */,
@@ -803,6 +875,7 @@
 				CE7DB7D61C68B64400AA358C /* GameViewController.swift in Sources */,
 				CE16AB941CAC356000A42545 /* CoreDataStack.swift in Sources */,
 				CE16AB9B1CAC38EA00A42545 /* LevelsData.xcdatamodeld in Sources */,
+				CEDA130B1CB4F23D00EAB73E /* Window.swift in Sources */,
 				CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */,
 				CE7641FE1CB0353B0031080A /* SwiftyJSON.swift in Sources */,
 				CE7DB8111C68D74C00AA358C /* Int+Extensions.swift in Sources */,
@@ -815,14 +888,19 @@
 				CE1627C91CACF9A90059DC89 /* Level+CoreDataProperties.swift in Sources */,
 				CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */,
 				CE7DB8151C68D74C00AA358C /* SKNode+Extensions.swift in Sources */,
+				CEDA13071CB4F23D00EAB73E /* PKHUDSuccessView.swift in Sources */,
 				CE164FC71C7F2759005BD8EB /* MoveComponent.swift in Sources */,
 				CE66F6881C6BA51F00E08955 /* Unlocked.swift in Sources */,
 				CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */,
 				CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */,
+				CEDA13061CB4F23D00EAB73E /* PKHUDSquareBaseView.swift in Sources */,
 				CE0B730E1C96E44A00009B6B /* PointNodeType.swift in Sources */,
+				CEDA130C1CB4F23D00EAB73E /* WindowRootViewController.swift in Sources */,
+				CEDA13021CB4F23D00EAB73E /* PKHUDAssets.swift in Sources */,
 				CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */,
 				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
 				CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */,
+				CEDA12FC1CB4F23D00EAB73E /* HUD.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,
 				CE27767B1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift in Sources */,
 				CE2776751C8FF68700B5FA7F /* ClockwiseComponent.swift in Sources */,
@@ -832,14 +910,18 @@
 				CE7DB8161C68D74C00AA358C /* SKTAudio.swift in Sources */,
 				CE66F6841C6B975900E08955 /* Checking.swift in Sources */,
 				CE8A0BCF1C80BC95000ABFEA /* DetectComponent.swift in Sources */,
+				CEDA13081CB4F23D00EAB73E /* PKHUDSystemActivityIndicatorView.swift in Sources */,
 				CE1627CC1CACF9A90059DC89 /* Node.swift in Sources */,
 				CE7DB80E1C68D74C00AA358C /* CGFloat+Extensions.swift in Sources */,
 				CE7DB8191C68D74C00AA358C /* Vector3.swift in Sources */,
 				CE6643C81C81A27700A6F0D4 /* PointRotatingState.swift in Sources */,
 				CE5244CF1CA00B16000DADF5 /* LevelEditPlayScene.swift in Sources */,
 				CE2776771C8FFE7D00B5FA7F /* ClockwiseRotationPoint.swift in Sources */,
+				CEDA13031CB4F23D00EAB73E /* PKHUDErrorView.swift in Sources */,
+				CEDA13001CB4F23D00EAB73E /* PKHUDAnimating.swift in Sources */,
 				CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */,
 				CE7DB7D01C68B64400AA358C /* AppDelegate.swift in Sources */,
+				CEDA12FF1CB4F23D00EAB73E /* PKHUD.swift in Sources */,
 				CE1627D21CAD47C20059DC89 /* DIYLevelsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

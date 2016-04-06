@@ -35,6 +35,7 @@ class LevelEditPlayScene: LevelScene {
     shareButton.actionTouchUpInside = { [unowned self] in
 //      SceneManager.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY")
 //      SceneManager.sharedInstance.getLevelFromWebServer()
+      HUD.show(.Progress)
       Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
         print(levelid)
         let shareURLString = "https://rodot.me/level/" + "\(levelid)"
@@ -48,6 +49,7 @@ class LevelEditPlayScene: LevelScene {
           }
         }
         dispatch_async(dispatch_get_main_queue()) {
+          HUD.hide()
           SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
         }
       }
@@ -63,7 +65,9 @@ class LevelEditPlayScene: LevelScene {
     saveButton.position = CGPoint(x: 300+192, y: 1200)
     saveButton.actionTouchUpInside = { [unowned self] in
       SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: "DIY")
-      SceneManager.sharedInstance.backToStartScene()
+      HUD.flash(.Success, delay: 1.3) { isFinished in
+        SceneManager.sharedInstance.backToStartScene()
+      }
     }
     return saveButton
   }()

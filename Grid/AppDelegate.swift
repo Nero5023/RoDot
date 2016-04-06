@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           switch (pathComponents[0], pathComponents[1], pathComponents[2]) {
           case ("/", "level", let levelid):
             if let levelid = Int(levelid) where levelid > 0 {
+              HUD.show(.Progress)
               presentSceneWithLevelId(levelid)
               return true
             }
@@ -83,7 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   private func presentSceneWithLevelId(levelId: Int) {
     Client.sharedInstance.getLevelDetail(levelId) { scene in
-      SceneManager.sharedInstance.presentingView.presentScene(scene)
+      dispatch_async(dispatch_get_main_queue()) {
+        HUD.hide()
+        SceneManager.sharedInstance.presentingView.presentScene(scene)
+      }
     }
   }
 

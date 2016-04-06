@@ -46,4 +46,8 @@ extension Client {
     static let Result = "Result"
   }
   
+  struct JSONBodyValues {
+    static let Success = "Success"
+  }
+  
 }

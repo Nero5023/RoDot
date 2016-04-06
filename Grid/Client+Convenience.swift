@@ -12,7 +12,7 @@ import SpriteKit
 extension Client {
   
   func shareLevel(nodes: [SKNode], levelName: String?, completionHandler: (Int)->()) {
-    let _ = taskForPostMethod(Client.Methods.ShareLevel, parameters: getLevelDate(nodes, levelName: levelName)) { data in
+    let _ = taskForPostMethod(Client.Methods.ShareLevel, jsonBody: getLevelDate(nodes, levelName: levelName)) { data in
       let json = JSON(data: data)
       let levelId = json[JSONBodyKeys.LevelId].int!
       completionHandler(levelId)
@@ -42,6 +42,17 @@ extension Client {
       let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData)!
       scene.scaleMode = .AspectFill
       completionHandler(sceen: scene)
+    }
+  }
+  
+  func likeLevel(levelid: Int, completionHandler: ()->()) {
+    let _ = taskForPostMethod(Client.Methods.LikeLevel, jsonBody: [Client.JSONBodyKeys.LevelId: levelid]) { data in
+      let json = JSON(data: data)
+      if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
+        completionHandler()
+      }else {
+        HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+      }
     }
   }
   

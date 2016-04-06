@@ -43,7 +43,7 @@ class Client {
 
   //MARK: POST
   
-  func taskForPostMethod(method: String, parameters: [String: AnyObject], completionHandler: (data: NSData)-> ()) -> NSURLSessionTask {
+  func taskForPostMethod(method: String, jsonBody: [String: AnyObject], completionHandler: (data: NSData)-> ()) -> NSURLSessionTask {
     let url = urlFromParmaters([:], withMethod: method)
     let request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = "POST"
@@ -51,7 +51,7 @@ class Client {
     request.addValue("application/json", forHTTPHeaderField: "Accept")
     
     do {
-      request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: [])
+      request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
     }catch let error as NSError {
       print("NSJSONSerialization error:\(error)")
     }
