@@ -47,13 +47,13 @@ class MoveComponent: GKComponent {
   override func updateWithDeltaTime(seconds: NSTimeInterval) {
     super.updateWithDeltaTime(seconds)
     guard let moveNode = moveNode else { return }
-    if isRotating == true && centerPosition != nil && lastTouchPosition != nil{
+    if let centerPosition = centerPosition, let lastTouchPosition = lastTouchPosition where isTranslating == false {
       let spritesLayer = moveNode.parent!
       let rodNode = renderComponent.node
-      let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!, vector: lastTouchPosition! - centerPosition!)
+      let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition, vector: lastTouchPosition - centerPosition)
       var angularVelocity: CGFloat = angle
-      
-      if let centerNode = getCenterNode() {
+      guard let centerNode = getCenterNode() else { return }
+      if isRotating {
         if let clockwiseComponent = centerNode.entity.componentForClass(ClockwiseComponent.self) {
           angularVelocity = clockwiseComponent.calculateAngularVelocity(angularVelocity)
           if angularVelocity == 0 {
@@ -62,12 +62,25 @@ class MoveComponent: GKComponent {
             moveNode.physicsBody?.allowsRotation = true
           }
         }
+        moveNode.physicsBody?.angularVelocity = angularVelocity * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
+      }else { // for resting
+        angularVelocity = min(0.4, abs(angularVelocity)) * angularVelocity.sign()
+//        print(angularVelocity)
+        angularVelocity = max(0.1, abs(angularVelocity)) * angularVelocity.sign()
+//        angularVelocity
+        moveNode.physicsBody?.angularVelocity = angularVelocity * 5
+        if abs(angle) < 0.04 {
+          let centerNode = getCenterNode()
+          self.centerPosition = nil
+          self.lastTouchPosition = nil
+          self.moveNode = nil
+          centerNode!.entity.componentForClass(RelateComponent.self)?.decompound()
+          centerNode!.entity.componentForClass(MoveComponent.self)?.restRotation()
+        }
       }
-      
-      
-      moveNode.physicsBody?.angularVelocity = angularVelocity * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
       lastAngle = angle
     }
+    
     if isTranslating == true && centerPosition != nil && lastTouchPosition != nil {
       if let orientationComponent = entity?.componentForClass(OrientationComponent.self) {
         var tag: CGPoint
@@ -99,7 +112,7 @@ class MoveComponent: GKComponent {
   
   // This method is for the point node
   // After the rotating, rest the state of the relating nodes
-  func restRotation(completion: () -> ()) {
+  func restRotation() {
     (renderComponent.node.scene as? LevelScene)?.isResting = true
     let angle = renderComponent.node.zRotation % (π/2.0)
     let angleToRotate: CGFloat
@@ -110,7 +123,7 @@ class MoveComponent: GKComponent {
     }
     let action = SKAction.sequence([
 //      SKAction.rotateByAngle(angleToRotate, duration: NSTimeInterval(abs(angleToRotate)/restAngularVelocity)),
-      SKAction.rotateByAngle(angleToRotate, duration: 0.33),
+      SKAction.rotateByAngle(angleToRotate, duration: 0.1),
       SKAction.runBlock({ [unowned self] in
         // In the didSimulatePhysics will do do the block below
         (self.renderComponent.node.scene as! LevelScene).restRotatingCompletionBlock = {
@@ -118,11 +131,29 @@ class MoveComponent: GKComponent {
             self.renderComponent.node.scene?.physicsWorld.removeAllJoints()
           self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
         }
-        completion()
         
         })
       ])
-    renderComponent.node.runAction(SKAction.afterDelay(0.1, performAction: action))
+    action.timingMode = .EaseInEaseOut
+    renderComponent.node.runAction(SKAction.afterDelay(0.0, performAction: action))
+  }
+  
+  func setTargetRestPosition() {
+    guard let moveNode = moveNode else { return }
+    if isRotating == false && centerPosition != nil && lastTouchPosition != nil{
+      (renderComponent.node.scene as? LevelScene)?.isResting = true
+      let rodNode = renderComponent.node
+      let spritesLayer = moveNode.parent!
+      var vector = moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!
+      if abs(vector.x) > abs(vector.y) {
+        vector = CGPoint(x: vector.x, y: 0)
+      }else {
+        vector = CGPoint(x: 0, y: vector.y)
+      }
+      
+      lastTouchPosition = centerPosition! + vector
+    }
+    
   }
   
   func restTranslation(completion: () -> ()) {

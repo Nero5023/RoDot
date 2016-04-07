@@ -139,14 +139,20 @@ class InputComponent: GKComponent {
   }
   
   func restInputState() {
-    guard let centerNode = centerNode else { return }
+    guard let _ = centerNode else { return }
     if inputState.isRotating == true {
-      inputState = InputState.initialSate
-      centerNode.entity.componentForClass(RelateComponent.self)?.decompound()
-      centerNode.entity.componentForClass(MoveComponent.self)?.restRotation({ [unowned self] in
-        self.moveableDirections = nil
-        self.centerNode = nil
-        })
+      inputState.isRotating = false
+      let moveComponent = entity?.componentForClass(MoveComponent.self)
+      moveComponent!.setTargetRestPosition()
+      
+      self.moveableDirections = nil
+      self.centerNode = nil
+//      inputState = InputState.initialSate
+//      centerNode.entity.componentForClass(RelateComponent.self)?.decompound()
+//      centerNode.entity.componentForClass(MoveComponent.self)?.restRotation({ [unowned self] in
+//        self.moveableDirections = nil
+//        self.centerNode = nil
+//        })
     }
     if inputState.isTranslation == true {
       inputState.isTranslation = false
