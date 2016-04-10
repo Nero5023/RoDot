@@ -61,10 +61,10 @@
             </objects>
             <point key="canvasLocation" x="1054" y="255"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Ro Dot Navigation Controller-->
         <scene sceneID="ww0-ht-VFi">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="93Y-8f-gyj" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="93Y-8f-gyj" customClass="RoDotNavigationController" customModule="Grid" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pym-gR-rGI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

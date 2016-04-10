@@ -119,6 +119,8 @@
 		CEA02EE61C9C304700DC9C38 /* LevelEditorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */; };
 		CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEA8BC071C9AF74500C0133C /* LevelEditor.sks */; };
 		CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */; };
+		CEACA2A11CB9F41F003E35B9 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */; };
+		CEACA2A31CB9F594003E35B9 /* RoDotNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */; };
 		CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */; };
 		CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */; };
 		CEDA12FB1CB4F23D00EAB73E /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12E81CB4F23D00EAB73E /* FrameView.swift */; };
@@ -284,6 +286,8 @@
 		CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditorScene.swift; sourceTree = "<group>"; };
 		CEA8BC071C9AF74500C0133C /* LevelEditor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEditor.sks; sourceTree = "<group>"; };
 		CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
+		CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
+		CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoDotNavigationController.swift; sourceTree = "<group>"; };
 		CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictedRotationPoint.swift; sourceTree = "<group>"; };
 		CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatableRodCountComponent.swift; sourceTree = "<group>"; };
 		CEDA12E81CB4F23D00EAB73E /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
@@ -490,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				CE848D751CB2C46400C5569E /* Grid.entitlements */,
+				CEACA29F1CB9F3F0003E35B9 /* GameCenter */,
 				CE6AE3D41CB17CBF00B833C4 /* Clients */,
 				CE7641FC1CB035290031080A /* ThirdPart */,
 				CE16AB951CAC376900A42545 /* CoreData */,
@@ -575,6 +580,15 @@
 				CE787F8B1CA0EEA70026807B /* Level20.sks */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		CEACA29F1CB9F3F0003E35B9 /* GameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */,
+				CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */,
+			);
+			name = GameCenter;
 			sourceTree = "<group>";
 		};
 		CEDA12E71CB4F23D00EAB73E /* PKHUD */ = {
@@ -828,6 +842,7 @@
 				CEDC061A1C7DC5E4000F9C52 /* RenderComponent.swift in Sources */,
 				CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */,
 				CE66F6811C6B8E3900E08955 /* GridGraph.swift in Sources */,
+				CEACA2A31CB9F594003E35B9 /* RoDotNavigationController.swift in Sources */,
 				CE27767D1C90597900B5FA7F /* FreezableComponent.swift in Sources */,
 				CE6643C41C81A14F00A6F0D4 /* PointLockedState.swift in Sources */,
 				CE6643BF1C819E9500A6F0D4 /* IntelligenceComponent.swift in Sources */,
@@ -900,6 +915,7 @@
 				CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */,
 				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
 				CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */,
+				CEACA2A11CB9F41F003E35B9 /* GameKitHelper.swift in Sources */,
 				CEDA12FC1CB4F23D00EAB73E /* HUD.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,
 				CE27767B1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift in Sources */,
