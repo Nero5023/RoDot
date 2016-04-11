@@ -121,6 +121,7 @@
 		CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */; };
 		CEACA2A11CB9F41F003E35B9 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */; };
 		CEACA2A31CB9F594003E35B9 /* RoDotNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */; };
+		CEACA2A51CBA9079003E35B9 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A41CBA9079003E35B9 /* LevelManager.swift */; };
 		CEBB4D411C87080D00D2174E /* RestrictedRotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */; };
 		CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */; };
 		CEDA12FB1CB4F23D00EAB73E /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA12E81CB4F23D00EAB73E /* FrameView.swift */; };
@@ -288,6 +289,7 @@
 		CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
 		CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 		CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoDotNavigationController.swift; sourceTree = "<group>"; };
+		CEACA2A41CBA9079003E35B9 /* LevelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
 		CEBB4D401C87080D00D2174E /* RestrictedRotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictedRotationPoint.swift; sourceTree = "<group>"; };
 		CEBB4D421C87094000D2174E /* RotatableRodCountComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatableRodCountComponent.swift; sourceTree = "<group>"; };
 		CEDA12E81CB4F23D00EAB73E /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 				CE7DB7DC1C68B64400AA358C /* LaunchScreen.storyboard */,
 				CE7DB7DF1C68B64400AA358C /* Info.plist */,
 				CE7DB8011C68D74C00AA358C /* SKTUtils */,
+				CEACA2A41CBA9079003E35B9 /* LevelManager.swift */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 				CEDC061A1C7DC5E4000F9C52 /* RenderComponent.swift in Sources */,
 				CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */,
 				CE66F6811C6B8E3900E08955 /* GridGraph.swift in Sources */,
+				CEACA2A51CBA9079003E35B9 /* LevelManager.swift in Sources */,
 				CEACA2A31CB9F594003E35B9 /* RoDotNavigationController.swift in Sources */,
 				CE27767D1C90597900B5FA7F /* FreezableComponent.swift in Sources */,
 				CE6643C41C81A14F00A6F0D4 /* PointLockedState.swift in Sources */,

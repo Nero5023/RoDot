@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+private let RestartGameActionKey = "RestartGame"
 
 class LevelScene: SKScene, SceneLayerProtocol {
   
@@ -133,8 +134,11 @@ class LevelScene: SKScene, SceneLayerProtocol {
     restartButton.position = CGPoint(x: 1536-300, y: 1900)
     restartButton.name = "restart"
     restartButton.actionTouchUpInside = { [unowned self] in
-      self.newGame()
+      if self.actionForKey(RestartGameActionKey) == nil {
+        self.newGame()
+      }
     }
+    restartButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(restartButton)
   }
   
@@ -292,7 +296,10 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func lose() {
     playable = false
-    performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
+//    performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
+    runAction(SKAction.sequence(
+      [SKAction.waitForDuration(1), SKAction.runBlock{[unowned self] in self.newGame() }]),
+              withKey: RestartGameActionKey)
   }
   
   func win() {

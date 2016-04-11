@@ -40,25 +40,46 @@ class LevelEditPlayScene: LevelScene {
     shareButton.actionTouchUpInside = { [unowned self] in
 //      SceneManager.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY")
 //      SceneManager.sharedInstance.getLevelFromWebServer()
-      HUD.show(.Progress)
-      let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
-        let shareURLString = "https://rodot.me/level/" + "\(levelid)"
-        let shareURL = NSURL(string: shareURLString)!
-        let str = "This is the game I made by RoDot try this!"
-        let activityViewController = UIActivityViewController(activityItems: [str, shareURLString], applicationActivities: nil)
-        activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
-        activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
-          if isCompleted {
-//            print("Complete")
+      self.showEnterLevelNameAlert("Share") { levelName in
+        HUD.show(.Progress)
+        let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
+          let shareURLString = "https://rodot.me/level/" + "\(levelid)"
+          let shareURL = NSURL(string: shareURLString)!
+          let str = "This is the game I made by RoDot try this!"
+          let activityViewController = UIActivityViewController(activityItems: [str, shareURLString], applicationActivities: nil)
+          activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+          activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
+            if isCompleted {
+              //            print("Complete")
+            }
           }
-        }
-        dispatch_async(dispatch_get_main_queue()) {
-          
-          HUD.hide()
-          SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
-        }
-      }//End for task completionHandler
-      Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
+          dispatch_async(dispatch_get_main_queue()) {
+            
+            HUD.hide()
+            SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+          }
+        }//End for task completionHandler
+        Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
+      }// end for showEnterLevelNameAlert completionHandler
+//      HUD.show(.Progress)
+//      let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
+//        let shareURLString = "https://rodot.me/level/" + "\(levelid)"
+//        let shareURL = NSURL(string: shareURLString)!
+//        let str = "This is the game I made by RoDot try this!"
+//        let activityViewController = UIActivityViewController(activityItems: [str, shareURLString], applicationActivities: nil)
+//        activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+//        activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
+//          if isCompleted {
+////            print("Complete")
+//          }
+//        }
+//        dispatch_async(dispatch_get_main_queue()) {
+//          
+//          HUD.hide()
+//          SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+//        }
+//      }//End for task completionHandler
+//      Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
     }
     shareButton.position = CGPoint(x: 1152-300+192, y: 1200)
     return shareButton
@@ -70,10 +91,39 @@ class LevelEditPlayScene: LevelScene {
     saveButton.zPosition = self.overlayNode.zPosition
     saveButton.position = CGPoint(x: 300+192, y: 1200)
     saveButton.actionTouchUpInside = { [unowned self] in
-      SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: "DIY")
-      HUD.flash(.Success, delay: 1.3) { isFinished in
-        SceneManager.sharedInstance.backToStartScene()
+//      
+//      let alertController = UIAlertController(title: "Level Name", message: "Plese enter the level name.", preferredStyle: .Alert)
+//      
+//      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { _ in }
+//      let saveAction = UIAlertAction(title: "Save", style: .Default) { action in
+//        let loginTextField = alertController.textFields![0] as UITextField
+//        SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: loginTextField.text)
+//        HUD.flash(.Success, delay: 1.3) { isFinished in
+//          SceneManager.sharedInstance.backToStartScene()
+//        }
+//        
+//      }
+//      saveAction.enabled = false
+//      alertController.addAction(cancelAction)
+//      alertController.addAction(saveAction)
+//      
+//      alertController.addTextFieldWithConfigurationHandler { textField in
+//        textField.placeholder = "Name"
+//        NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) {
+//          nofitication in
+//          saveAction.enabled = textField.text != nil
+//        }
+//        
+//      }
+//      SceneManager.sharedInstance.presentingController.presentViewController(alertController, animated: true, completion: nil)
+//      
+      self.showEnterLevelNameAlert("Save") { levelName in
+        SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
+        HUD.flash(.Success, delay: 1.3) { isFinished in
+          SceneManager.sharedInstance.backToStartScene()
+        }
       }
+      
     }
     return saveButton
   }()
@@ -244,6 +294,35 @@ class LevelEditPlayScene: LevelScene {
         self.overlayNode.addChild(self.likeButton)
       }
     }
+  }
+  
+  func showEnterLevelNameAlert(actionName:String ,completionHandler:(String?)->()) {
+    let alertController = UIAlertController(title: "Level Name", message: "Plese enter the level name.", preferredStyle: .Alert)
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { _ in }
+    let saveAction = UIAlertAction(title: actionName, style: .Default) { action in
+      let levelNameTextField = alertController.textFields![0] as UITextField
+      completionHandler(levelNameTextField.text)
+//      SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: loginTextField.text)
+//      HUD.flash(.Success, delay: 1.3) { isFinished in
+//        SceneManager.sharedInstance.backToStartScene()
+//      }
+      
+    }
+    saveAction.enabled = false
+    alertController.addAction(cancelAction)
+    alertController.addAction(saveAction)
+    
+    alertController.addTextFieldWithConfigurationHandler { textField in
+      textField.placeholder = "Name"
+      NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) {
+        nofitication in
+        saveAction.enabled = textField.text != nil
+      }
+      
+    }
+    SceneManager.sharedInstance.presentingController.presentViewController(alertController, animated: true, completion: nil)
+
   }
   
 }
