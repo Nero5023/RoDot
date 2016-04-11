@@ -129,7 +129,7 @@ class MoveComponent: GKComponent {
         (self.renderComponent.node.scene as! LevelScene).restRotatingCompletionBlock = {
           [unowned self] in
             self.renderComponent.node.scene?.physicsWorld.removeAllJoints()
-          self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
+            self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
         }
         
         })

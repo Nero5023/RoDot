@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import GameKit
 
 private let RestartGameActionKey = "RestartGame"
 
@@ -35,6 +36,8 @@ class LevelScene: SKScene, SceneLayerProtocol {
   var currentLevel: Int = 0
   
   var playable: Bool = false
+  
+  var rotateCount = 0
   
   // Class Methods:
   
@@ -255,10 +258,12 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   override func didSimulatePhysics() {
     if let restRotatingCompletionBlock = restRotatingCompletionBlock {
+      // Every time when finish rotate, call this
       restRotatingCompletionBlock()
       physicsWorld.removeAllJoints()
       self.restRotatingCompletionBlock = nil
       isResting = false
+      rotateCount += 1
     }
   }
   
@@ -292,6 +297,8 @@ class LevelScene: SKScene, SceneLayerProtocol {
     let scene = LevelScene.level(currentLevel)
     scene!.scaleMode = scaleMode
     view!.presentScene(scene)
+    print(rotateCount)
+    GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.rotateAchievements(rotateCount))
   }
   
   func lose() {

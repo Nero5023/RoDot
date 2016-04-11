@@ -31,4 +31,11 @@ class GameKitHelper: NSObject {
       
     }
   }
+  
+  func reportAchievements(achievements: [GKAchievement], errorHandler: ((NSError?)->Void)? = nil) {
+    guard gameCenterEnaled else {
+      return
+    }
+    GKAchievement.reportAchievements(achievements, withCompletionHandler: errorHandler)
+  }
 }

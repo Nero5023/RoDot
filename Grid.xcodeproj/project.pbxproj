@@ -148,6 +148,7 @@
 		CEDC06211C7DCCFA000F9C52 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06201C7DCCFA000F9C52 /* ColliderType.swift */; };
 		CEDC06241C7DE4E7000F9C52 /* Rod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06231C7DE4E7000F9C52 /* Rod.swift */; };
 		CEDC06261C7DEC11000F9C52 /* RotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06251C7DEC11000F9C52 /* RotationPoint.swift */; };
+		CEE136581CBBC309004A1A5F /* AchievementsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE136571CBBC309004A1A5F /* AchievementsHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -317,6 +318,7 @@
 		CEDC06201C7DCCFA000F9C52 /* ColliderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
 		CEDC06231C7DE4E7000F9C52 /* Rod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rod.swift; sourceTree = "<group>"; };
 		CEDC06251C7DEC11000F9C52 /* RotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationPoint.swift; sourceTree = "<group>"; };
+		CEE136571CBBC309004A1A5F /* AchievementsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -590,6 +592,7 @@
 			children = (
 				CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */,
 				CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */,
+				CEE136571CBBC309004A1A5F /* AchievementsHelper.swift */,
 			);
 			name = GameCenter;
 			sourceTree = "<group>";
@@ -904,6 +907,7 @@
 				CEA02EE61C9C304700DC9C38 /* LevelEditorScene.swift in Sources */,
 				CE0C76F71C8C0E5A002CBF23 /* TranslationPoint.swift in Sources */,
 				CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */,
+				CEE136581CBBC309004A1A5F /* AchievementsHelper.swift in Sources */,
 				CE1627C91CACF9A90059DC89 /* Level+CoreDataProperties.swift in Sources */,
 				CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */,
 				CE7DB8151C68D74C00AA358C /* SKNode+Extensions.swift in Sources */,
