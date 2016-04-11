@@ -354,6 +354,7 @@ extension LevelScene: SKPhysicsContactDelegate {
     
     if collision == PhysicsCategory.Ball | PhysicsCategory.Distance {
       print("win")
+      (overlayNode.childNodeWithName("restart") as? SKButtonNode)?.isEnabled = false
       let ball = contact.bodyA.categoryBitMask == PhysicsCategory.Ball ? contact.bodyA.node : contact.bodyB.node
       let distance = contact.bodyA.categoryBitMask == PhysicsCategory.Distance ? contact.bodyA.node : contact.bodyB.node
       ball!.physicsBody = nil
