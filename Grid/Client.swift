@@ -32,7 +32,9 @@ class Client {
       self.disableTimeoutHandler()
       guard error == nil else {
         dispatch_async(dispatch_get_main_queue()) {
-          HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+          if error!.localizedDescription != "cancelled" {
+            HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+          }
         }
         return
       }
@@ -67,12 +69,16 @@ class Client {
       self.disableTimeoutHandler()
       guard error == nil else {
         dispatch_async(dispatch_get_main_queue()) {
-          HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+          print(error?.localizedDescription)
+          if error!.localizedDescription != "cancelled" {
+            HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+          }
         }
         return
       }
       guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
         dispatch_async(dispatch_get_main_queue()) {
+          print((response as? NSHTTPURLResponse)?.statusCode)
           HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
         }
         return

@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import GameKit
 
 enum LevelEditPlaySceneType {
   case testPlay     // For when DIYing
@@ -50,7 +51,7 @@ class LevelEditPlayScene: LevelScene {
           activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
           activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
             if isCompleted {
-              //            print("Complete")
+              GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
             }
           }
           dispatch_async(dispatch_get_main_queue()) {

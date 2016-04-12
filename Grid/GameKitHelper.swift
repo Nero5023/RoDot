@@ -38,4 +38,12 @@ class GameKitHelper: NSObject {
     }
     GKAchievement.reportAchievements(achievements, withCompletionHandler: errorHandler)
   }
+  
+  func reportScore(score: Int64, forLeaderBoardId leaderBoardId: String, errorHandler: ((NSError?)->Void)? = nil) {
+    guard gameCenterEnaled else { return }
+    let gkSore = GKScore(leaderboardIdentifier: leaderBoardId)
+    gkSore.value = score
+    GKScore.reportScores([gkSore], withCompletionHandler: errorHandler)
+  }
+  
 }
