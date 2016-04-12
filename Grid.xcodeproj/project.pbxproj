@@ -249,7 +249,7 @@
 		CE787F931CA107990026807B /* Level17.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level17.sks; sourceTree = "<group>"; };
 		CE787F951CA10D270026807B /* Level18.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level18.sks; sourceTree = "<group>"; };
 		CE787F971CA10D960026807B /* Level19.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level19.sks; sourceTree = "<group>"; };
-		CE7DB7CC1C68B64400AA358C /* Grid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE7DB7CC1C68B64400AA358C /* RoDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7DB7CF1C68B64400AA358C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7DB7D11C68B64400AA358C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE7DB7D31C68B64400AA358C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -493,7 +493,7 @@
 		CE7DB7CD1C68B64400AA358C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE7DB7CC1C68B64400AA358C /* Grid.app */,
+				CE7DB7CC1C68B64400AA358C /* RoDot.app */,
 				CE7DB7E41C68B64400AA358C /* GridTests.xctest */,
 				CE7DB7EF1C68B64400AA358C /* GridUITests.xctest */,
 			);
@@ -694,7 +694,7 @@
 			);
 			name = Grid;
 			productName = Grid;
-			productReference = CE7DB7CC1C68B64400AA358C /* Grid.app */;
+			productReference = CE7DB7CC1C68B64400AA358C /* RoDot.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CE7DB7E31C68B64400AA358C /* GridTests */ = {
@@ -1102,7 +1102,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.rodot;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RoDot;
 			};
 			name = Debug;
 		};
@@ -1116,7 +1116,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.rodot;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RoDot;
 			};
 			name = Release;
 		};

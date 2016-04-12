@@ -36,10 +36,11 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
     guard screenRecordingAvailable else { return }
     let sharedRecorder = RPScreenRecorder.sharedRecorder()
     sharedRecorder.delegate = self
-    sharedRecorder.startRecordingWithMicrophoneEnabled(sharedRecorder.microphoneEnabled) { error in
+    sharedRecorder.startRecordingWithMicrophoneEnabled(true) { error in
       if let error = error {
         dispatch_async(dispatch_get_main_queue()) {
-          HUD.flash(HUDContentType.LabeledError(title: "Error happened", subtitle: error.localizedDescription), delay: 1.3, completion: nil)
+//          HUD.flash(HUDContentType.LabeledError(title: "Error happened", subtitle: error.localizedDescription), delay: 1.3, completion: nil)
+          print("sharedRecorder error: \(error.localizedDescription)")
           button.texture = SKTexture(imageNamed: "recordbutton")
           button.isEnabled = true
         }
