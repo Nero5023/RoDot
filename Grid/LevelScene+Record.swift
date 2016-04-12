@@ -47,6 +47,7 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
         return
       }
       self.toggleRecord()
+      button.isEnabled = true
       button.texture = SKTexture(imageNamed: "recordingbutton")
     }
   }
