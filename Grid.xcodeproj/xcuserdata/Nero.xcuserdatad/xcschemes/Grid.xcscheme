@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CE7DB7CB1C68B64400AA358C"
-               BuildableName = "Grid.app"
+               BuildableName = "RoDot.app"
                BlueprintName = "Grid"
                ReferencedContainer = "container:Grid.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE7DB7CB1C68B64400AA358C"
-            BuildableName = "Grid.app"
+            BuildableName = "RoDot.app"
             BlueprintName = "Grid"
             ReferencedContainer = "container:Grid.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE7DB7CB1C68B64400AA358C"
-            BuildableName = "Grid.app"
+            BuildableName = "RoDot.app"
             BlueprintName = "Grid"
             ReferencedContainer = "container:Grid.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE7DB7CB1C68B64400AA358C"
-            BuildableName = "Grid.app"
+            BuildableName = "RoDot.app"
             BlueprintName = "Grid"
             ReferencedContainer = "container:Grid.xcodeproj">
          </BuildableReference>

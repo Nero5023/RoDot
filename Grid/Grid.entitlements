@@ -5,6 +5,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:rodot.me</string>
+		<string>applinks:www.rodot.me</string>
 	</array>
 </dict>
 </plist>

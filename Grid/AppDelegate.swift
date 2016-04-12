@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   private func present(URL url: NSURL) -> Bool {
     if let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true), let host = components.host, let path = components.path, let pathComponents = NSURL(string: path)!.pathComponents {
       switch host {
-      case "rodot.me":
+      case "rodot.me", "www.rodot.me":
         if pathComponents.count == 3 {
           switch (pathComponents[0], pathComponents[1], pathComponents[2]) {
           case ("/", "level", let levelid):
