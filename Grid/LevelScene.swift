@@ -39,6 +39,9 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   var rotateCount = 0
   
+  var stopRecordingCompletionHandler: (()->())?
+  
+  
   // Class Methods:
   
   class func level(levelNum: Int) -> LevelScene? {
@@ -101,6 +104,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     addTopRootRectangle()
     addBackButton()
     addRestartButton()
+    addRecordButton()
     
     setUpPointDetail()
   }
@@ -127,8 +131,16 @@ class LevelScene: SKScene, SceneLayerProtocol {
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1900)
     backButton.actionTouchUpInside = {
-      SceneManager.sharedInstance.backToStartScene()
+      if self.isRecording {
+        self.stopRecordingCompletionHandler = {
+          SceneManager.sharedInstance.backToStartScene()
+        }
+        self.stopRecording(self.overlayNode.childNodeWithName("record") as! SKButtonNode)
+      }else {
+        SceneManager.sharedInstance.backToStartScene()
+      }
     }
+    backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
   }
   
@@ -144,6 +156,8 @@ class LevelScene: SKScene, SceneLayerProtocol {
     restartButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(restartButton)
   }
+  
+
   
   func initializeAnimation() {
     for entity in entities {
@@ -392,5 +406,6 @@ extension LevelScene: SKPhysicsContactDelegate {
     }
   }
 }
+
 
 

@@ -13,7 +13,7 @@ import GameKit
 enum LevelEditPlaySceneType {
   case testPlay     // For when DIYing
   case selfPlay     // For when playing self designed level
-  case sharePlay(Int)    // For when playing others sharing level
+  case sharePlay(Int)    // For when playing others sharing level, Int is levelid
 }
 
 class LevelEditPlayScene: LevelScene {
@@ -294,6 +294,16 @@ class LevelEditPlayScene: LevelScene {
       case .sharePlay:
         self.overlayNode.addChild(self.likeButton)
       }
+    }
+  }
+  
+  override func addRecordButton() {
+    guard let sceneType = sceneType else { return }
+    switch sceneType {
+    case .testPlay:
+      return
+    default:
+      super.addRecordButton()
     }
   }
   

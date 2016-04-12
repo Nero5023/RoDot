@@ -43,7 +43,7 @@ class  AchievementsHelper {
     let percent = Double((Double(count)/Double(targetCount)) * 100)
     let achievement = GKAchievement(identifier: identifier, player: GKLocalPlayer())
     achievement.percentComplete = percent
-    print(achievement.percentComplete)
+//    print(achievement.percentComplete)
     achievement.showsCompletionBanner = true
     return achievement
   }

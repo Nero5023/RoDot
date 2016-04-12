@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     SceneManager.sharedInstance.managedContext = coreDataStack.context
-    
+    NSUserDefaults.standardUserDefaults().setBool(false, forKey: IsRecordingKey)
     return true
   }
 

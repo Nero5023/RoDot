@@ -119,6 +119,8 @@
 		CEA02EE61C9C304700DC9C38 /* LevelEditorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */; };
 		CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEA8BC071C9AF74500C0133C /* LevelEditor.sks */; };
 		CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */; };
+		CEAAE92C1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE92B1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift */; };
+		CEAAE92E1CBC967E00CBF159 /* LevelScene+Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE92D1CBC967E00CBF159 /* LevelScene+Record.swift */; };
 		CEACA2A11CB9F41F003E35B9 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */; };
 		CEACA2A31CB9F594003E35B9 /* RoDotNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */; };
 		CEACA2A51CBA9079003E35B9 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACA2A41CBA9079003E35B9 /* LevelManager.swift */; };
@@ -288,6 +290,8 @@
 		CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditorScene.swift; sourceTree = "<group>"; };
 		CEA8BC071C9AF74500C0133C /* LevelEditor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEditor.sks; sourceTree = "<group>"; };
 		CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
+		CEAAE92B1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenRecordingAvailable.swift; sourceTree = "<group>"; };
+		CEAAE92D1CBC967E00CBF159 /* LevelScene+Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LevelScene+Record.swift"; sourceTree = "<group>"; };
 		CEACA2A01CB9F41F003E35B9 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 		CEACA2A21CB9F594003E35B9 /* RoDotNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoDotNavigationController.swift; sourceTree = "<group>"; };
 		CEACA2A41CBA9079003E35B9 /* LevelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 				CE12AE0D1C85BF8E00E876FF /* SceneState */,
 				CE69437E1CA654310038CBB4 /* SceneLayerProtocol.swift */,
 				CE6665B61C8349F90079F1C0 /* LevelScene.swift */,
+				CEAAE92D1CBC967E00CBF159 /* LevelScene+Record.swift */,
+				CEAAE92B1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift */,
 				CE6943801CA65FB80038CBB4 /* StartScene */,
 				CE0B730D1C96E44A00009B6B /* PointNodeType.swift */,
 				CE1627CD1CACFAF10059DC89 /* NodeType.swift */,
@@ -509,6 +515,7 @@
 				CEDC06221C7DCDE5000F9C52 /* PhysicsColider */,
 				CE66F6801C6B8E3900E08955 /* GridGraph.swift */,
 				CE7DB7CF1C68B64400AA358C /* AppDelegate.swift */,
+				CEACA2A41CBA9079003E35B9 /* LevelManager.swift */,
 				CE7DB7D11C68B64400AA358C /* GameScene.sks */,
 				CE7DB7D31C68B64400AA358C /* GameScene.swift */,
 				CE7DB7D51C68B64400AA358C /* GameViewController.swift */,
@@ -518,7 +525,6 @@
 				CE7DB7DC1C68B64400AA358C /* LaunchScreen.storyboard */,
 				CE7DB7DF1C68B64400AA358C /* Info.plist */,
 				CE7DB8011C68D74C00AA358C /* SKTUtils */,
-				CEACA2A41CBA9079003E35B9 /* LevelManager.swift */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -907,12 +913,14 @@
 				CEA02EE61C9C304700DC9C38 /* LevelEditorScene.swift in Sources */,
 				CE0C76F71C8C0E5A002CBF23 /* TranslationPoint.swift in Sources */,
 				CE8378E61C9457E400E7CD88 /* DestinationNode.swift in Sources */,
+				CEAAE92C1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift in Sources */,
 				CEE136581CBBC309004A1A5F /* AchievementsHelper.swift in Sources */,
 				CE1627C91CACF9A90059DC89 /* Level+CoreDataProperties.swift in Sources */,
 				CE21F2651C95CEBE00C39D58 /* RotateCountComponent.swift in Sources */,
 				CE7DB8151C68D74C00AA358C /* SKNode+Extensions.swift in Sources */,
 				CEDA13071CB4F23D00EAB73E /* PKHUDSuccessView.swift in Sources */,
 				CE164FC71C7F2759005BD8EB /* MoveComponent.swift in Sources */,
+				CEAAE92E1CBC967E00CBF159 /* LevelScene+Record.swift in Sources */,
 				CE66F6881C6BA51F00E08955 /* Unlocked.swift in Sources */,
 				CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */,
 				CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */,
