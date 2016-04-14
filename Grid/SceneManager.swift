@@ -81,7 +81,7 @@ final class SceneManager {
       //      let path = UIBezierPath(ovalInRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 32, height: 32)))
       let path = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: GameplayConfiguration.bubbleOrbitRadius, startAngle: CGFloat(0).degreesToRadians(), endAngle: CGFloat(360).degreesToRadians(), clockwise: false)
       //      path.applyTransform(CGAffineTransformMakeRotation(90))
-      
+      bubble.position = CGPoint(x: GameplayConfiguration.bubbleOrbitRadius, y: 0)
       // this is the colckwise animation
       let rotateAction = SKAction.followPath(path.CGPath, asOffset: false, orientToPath: false, duration: animationDuration)
       var foreverRotation = SKAction.repeatActionForever(rotateAction)
