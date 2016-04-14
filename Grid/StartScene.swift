@@ -186,7 +186,10 @@ class StartScene: SKScene, SceneLayerProtocol {
     let runblock = SKAction.runBlock{
       self.maxSizeBallNode.zPosition = self.bgNode.zPosition - 10
     }
+    
+//    print(background.size)
     background.runAction(SKAction.sequence([SKAction.waitForDuration(0.5), runblock, SKAction.fadeInWithDuration(0.5)]))
+    maxSizeBallNode.runAction(SKAction.sequence([SKAction.waitForDuration(1), SKAction.fadeOutWithDuration(0.33), SKAction.runBlock{ self.maxSizeBallNode.removeFromParent() }]))
   }
   
   // theme button

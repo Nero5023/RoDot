@@ -106,6 +106,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     addRestartButton()
     addRecordButton()
     
+    
     setUpPointDetail()
   }
   
@@ -212,6 +213,17 @@ class LevelScene: SKScene, SceneLayerProtocol {
     physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
     physicsBody!.categoryBitMask = PhysicsCategory.Edge
     physicsBody!.collisionBitMask = PhysicsCategory.Ball
+    
+    addBackground(playableRect)
+  }
+  
+  func addBackground(playableRect: CGRect) {
+    let background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
+    background.zPosition = bgNode.zPosition
+    background.anchorPoint = CGPoint.zero
+    background.position = playableRect.origin
+    background.size = playableRect.size
+    bgNode.addChild(background)
   }
   
   

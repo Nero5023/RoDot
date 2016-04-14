@@ -178,6 +178,22 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     configureOverlay()
     
     showComponetLayer()
+    
+    addBackground()
+  }
+  
+  func addBackground() {
+    let maxAspectRatio: CGFloat = 16.0/9.0
+    let maxAspectRatioWidth = size.height / maxAspectRatio
+    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
+    let playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
+    
+    let background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
+    background.zPosition = bgNode.zPosition
+    background.anchorPoint = CGPoint.zero
+    background.position = playableRect.origin
+    background.size = playableRect.size
+    bgNode.addChild(background)
   }
   
   func configureOverlay() {
