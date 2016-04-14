@@ -159,6 +159,8 @@ class LevelScene: SKScene, SceneLayerProtocol {
     }
     restartButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(restartButton)
+    restartButton.alpha = 0
+    restartButton.runAction(SKAction.fadeInWithDuration(0.66))
   }
   
 

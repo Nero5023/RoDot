@@ -30,6 +30,8 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
         self.startRecording(recordButton)
       }
     }
+    recordButton.alpha = 0
+    recordButton.runAction(SKAction.fadeInWithDuration(0.66))
   }
   
   func startRecording(button: SKButtonNode) {

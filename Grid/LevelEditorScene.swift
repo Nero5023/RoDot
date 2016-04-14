@@ -176,10 +176,24 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     }
     
     configureOverlay()
+    addBackground()
     
+    addBackButton()
     showComponetLayer()
     
-    addBackground()
+  }
+  
+  func addBackButton() {
+    let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
+    backButton.name = "back"
+    backButton.position = CGPoint(x: 300, y: 1900)
+    backButton.actionTouchUpInside = {
+      SceneManager.sharedInstance.backToStartScene()
+    }
+    backButton.zPosition = overlayNode.zPosition
+    overlayNode.addChild(backButton)
+    backButton.alpha = 0
+    backButton.runAction(SKAction.fadeInWithDuration(0.66))
   }
   
   func addBackground() {

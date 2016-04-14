@@ -44,6 +44,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     
     guard isFirstTime else {
       updateSelectButtonsState()
+      fromDiySceneAnimation()
       return
     }
     isFirstTime = false
@@ -208,9 +209,18 @@ class StartScene: SKScene, SceneLayerProtocol {
     diyButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(diyButton)
     diyButton.actionTouchUpInside = { [unowned self] in
-      let editScene = LevelEditorScene(fileNamed:"LevelEditor")
-      editScene?.scaleMode = self.scaleMode
-      self.view?.presentScene(editScene)
+      let scaleAction = SKAction.scaleTo(0.2, duration: 0.44)
+      let fadoutAction = SKAction.fadeOutWithDuration(0.44)
+      let scaleAndFadeOutAction = SKAction.group([scaleAction, fadoutAction])
+      let runBlock = SKAction.runBlock {
+        let editScene = LevelEditorScene(fileNamed:"LevelEditor")
+        editScene?.scaleMode = self.scaleMode
+        self.view?.presentScene(editScene)
+      }
+      diyButton.runAction(SKAction.sequence([scaleAndFadeOutAction, runBlock]))
+      for button in self.themeButtons where button != diyButton {
+        button.runAction(SKAction.fadeOutWithDuration(0.44))
+      }
     }
     diyButton.alpha = 0
     diyButton.runAction(SKAction.sequence([SKAction.waitForDuration(0.9), SKAction.fadeInWithDuration(0.5)]))
@@ -244,7 +254,7 @@ class StartScene: SKScene, SceneLayerProtocol {
         SKAction.scaleTo(0, duration: 0.2),
         SKAction.runBlock{
           theme.removeFromParent()
-          theme.setScale(1)
+//          theme.setScale(1)
           self.addLevelSelectButtons(theme.position)
           self.addBackButton()
         }
@@ -254,8 +264,9 @@ class StartScene: SKScene, SceneLayerProtocol {
         themeButton.runAction(SKAction.sequence([
           SKAction.fadeOutWithDuration(0.2),
           SKAction.runBlock {
+            themeButton.removeAllActions()
             themeButton.removeFromParent()
-            themeButton.alpha = 1
+//            themeButton.alpha = 1
           }
         ]))
       }
@@ -264,6 +275,19 @@ class StartScene: SKScene, SceneLayerProtocol {
     theme.runAction(SKAction.sequence([SKAction.waitForDuration(0.5), SKAction.fadeInWithDuration(0.5)]))
     
     return theme
+  }
+  
+  func fromDiySceneAnimation() {
+    for button in themeButtons {
+      if button.parent == nil {
+        return
+      }
+    }
+    for button in themeButtons {
+      let scaleAction = SKAction.scaleTo(1, duration: 0.44)
+      let fadeInAction = SKAction.fadeInWithDuration(0.44)
+      button.runAction(SKAction.group([scaleAction, fadeInAction]))
+    }
   }
   
   // Level select buttons
@@ -344,6 +368,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       guard let node = node as? SKSpriteNode else { return }
       let originalPosition = node.position
       node.position = fromPosition
+      node.setScale(0)
       var factor: Double = 800
       if fromPosition.x == 768 {
         factor = 450
@@ -351,7 +376,6 @@ class StartScene: SKScene, SceneLayerProtocol {
       var distance = NSTimeInterval((fromPosition - originalPosition).length()) / factor
       node.zPosition = node.zPosition - CGFloat(distance)
       if distance < 0.2 { distance = 0.2 }
-      node.setScale(0)
       let scaleAction0 = SKAction.scaleTo(1.15, duration: distance)
       let scaleAction1 = SKAction.scaleTo(0.85, duration: 0.33)
       let scaleAction2 = SKAction.scaleTo(1, duration: 0.33)
@@ -364,7 +388,48 @@ class StartScene: SKScene, SceneLayerProtocol {
 
       let moveAndScleAction = SKAction.group([moveAction, scaleAction0])
       moveAndScleAction.timingMode = SKActionTimingMode.EaseInEaseOut
-      node.runAction(SKAction.sequence([SKAction.waitForDuration(NSTimeInterval(0)),moveAndScleAction, scaleAction1, scaleAction2]))
+
+      node.runAction(SKAction.sequence([moveAndScleAction, scaleAction1, scaleAction2]))
+    }
+  }
+  
+  func restAnimationLevelSelectButtonsAndThemesButton(selectedThemeButton: SKButtonNode) {
+    var maxAnimationDuration: NSTimeInterval = 0
+    enumerateChildNodesWithName("//levelSelectButton") { node, _ in
+      guard let node = node as? SKSpriteNode else { return }
+      let originalPosition = node.position
+      let toPosition = selectedThemeButton.position
+      var factor: Double = 900
+      if toPosition.x == 768 {
+        factor = 500
+      }
+      var duration = NSTimeInterval((toPosition - originalPosition).length()) / factor
+      //Make the far away node is under the close node
+      node.zPosition = node.zPosition - CGFloat(duration)
+      if duration < 0.2 { duration = 0.2 }
+      maxAnimationDuration = max(duration, maxAnimationDuration)
+      let scaleAction0 = SKAction.scaleTo(0, duration: duration)
+      
+      let moveAction = SKAction.moveTo(toPosition, duration: duration)
+      
+      let moveAndScleAction = SKAction.group([moveAction, scaleAction0])
+      moveAndScleAction.timingMode = SKActionTimingMode.EaseInEaseOut
+      
+      node.runAction(SKAction.sequence([moveAndScleAction, SKAction.runBlock{ node.removeFromParent() }]))
+    }
+    overlayNode.addChild(selectedThemeButton)
+    let scaleAction1 = SKAction.scaleTo(0.95, duration: 0.11)
+    let scaleAction2 = SKAction.scaleTo(1, duration: 0.11)
+    selectedThemeButton.runAction(SKAction.sequence([SKAction.waitForDuration(maxAnimationDuration), SKAction.scaleTo(1.05, duration: 0.33), scaleAction1, scaleAction2]))
+    for buttonNode in themeButtons where buttonNode != selectedThemeButton{
+//      print(buttonNode.parent)
+      self.overlayNode.addChild(buttonNode)
+      buttonNode.alpha = 0
+      let waitAction = SKAction.waitForDuration(maxAnimationDuration)
+      let fadeInAction = SKAction.fadeInWithDuration(0.55)
+      fadeInAction.timingMode = SKActionTimingMode.EaseInEaseOut
+      buttonNode.runAction(SKAction.sequence([waitAction, fadeInAction]))
+//      buttonNode.alpha = 1
     }
   }
   
@@ -373,18 +438,17 @@ class StartScene: SKScene, SceneLayerProtocol {
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1900)
     backButton.actionTouchUpInside = {
-      //TODO:
-      for themeButton in self.themeButtons {
-        self.overlayNode.addChild(themeButton)
+      
+      for themeButton in self.themeButtons where themeButton.xScale == 0 {
+        self.restAnimationLevelSelectButtonsAndThemesButton(themeButton)
       }
       
-      self.enumerateChildNodesWithName("//levelSelectButton") { node, _ in
-        node.removeFromParent()
-      }
       backButton.removeFromParent()
     }
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
+    backButton.alpha = 0
+    backButton.runAction(SKAction.fadeInWithDuration(0.66))
   }
   
   // Level select action
