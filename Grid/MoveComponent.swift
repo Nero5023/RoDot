@@ -68,8 +68,6 @@ class MoveComponent: GKComponent {
 //        print(angularVelocity)
         angularVelocity = max(0.2, abs(angularVelocity)) * angularVelocity.sign()
 //        angularVelocity
-        print("angularVelocity:\(angularVelocity)")
-        print("angle:\(angle)")
         moveNode.physicsBody?.angularVelocity = angularVelocity * 5
         if abs(angle) < 0.04 {
           let centerNode = getCenterNode()

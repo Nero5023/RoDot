@@ -209,8 +209,8 @@ class StartScene: SKScene, SceneLayerProtocol {
     diyButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(diyButton)
     diyButton.actionTouchUpInside = { [unowned self] in
-      let scaleAction = SKAction.scaleTo(0.2, duration: 0.44)
-      let fadoutAction = SKAction.fadeOutWithDuration(0.44)
+      let scaleAction = SKAction.scaleTo(0.2, duration: 0.33)
+      let fadoutAction = SKAction.fadeOutWithDuration(0.33)
       let scaleAndFadeOutAction = SKAction.group([scaleAction, fadoutAction])
       let runBlock = SKAction.runBlock {
         let editScene = LevelEditorScene(fileNamed:"LevelEditor")
@@ -219,7 +219,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
       diyButton.runAction(SKAction.sequence([scaleAndFadeOutAction, runBlock]))
       for button in self.themeButtons where button != diyButton {
-        button.runAction(SKAction.fadeOutWithDuration(0.44))
+        button.runAction(SKAction.fadeOutWithDuration(0.33))
       }
     }
     diyButton.alpha = 0
@@ -436,7 +436,7 @@ class StartScene: SKScene, SceneLayerProtocol {
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
-    backButton.position = CGPoint(x: 300, y: 1900)
+    backButton.position = CGPoint(x: 300, y: 1950)
     backButton.actionTouchUpInside = {
       
       for themeButton in self.themeButtons where themeButton.xScale == 0 {

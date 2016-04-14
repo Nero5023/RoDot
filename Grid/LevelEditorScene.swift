@@ -186,14 +186,14 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
-    backButton.position = CGPoint(x: 300, y: 1900)
+    backButton.position = CGPoint(x: 300, y: 1950)
     backButton.actionTouchUpInside = {
       SceneManager.sharedInstance.backToStartScene()
     }
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
     backButton.alpha = 0
-    backButton.runAction(SKAction.fadeInWithDuration(0.66))
+    backButton.runAction(SKAction.sequence([SKAction.waitForDuration(0.33), SKAction.fadeInWithDuration(0.66)]))
   }
   
   func addBackground() {
@@ -233,7 +233,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   
   func setUpButtonsInLayer(layer: LayerType) {
-    for node in overlayNode.childNodeWithName(layer.rawValue)!.children {
+    let layerNode = overlayNode.childNodeWithName(layer.rawValue)!
+    for node in layerNode.children {
       if let node = node as? SKButtonNode {
         
         // set the highlightTextue other way
@@ -261,6 +262,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         }
       }
     }
+    layerNode.alpha = 0
+    layerNode.runAction(SKAction.fadeInWithDuration(0.66))
   }
   
   func setAllButtonsNotHighlight() {
@@ -304,21 +307,38 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     setHiddenForPointDetailComponent(true)
   }
   
-  func setHiddenForPointDetailComponent(isHidden: Bool) {
+  func setHiddenForPointDetailComponent(hidden: Bool) {
     for layerType in LayerType.allType where layerType != .nodeTypeLayer {
-      overlayNode.childNodeWithName(layerType.rawValue)?.hidden = isHidden
+      let layerNode =  overlayNode.childNodeWithName(layerType.rawValue)!
+      layerNode.removeAllActions()
+      if hidden {
+        layerNode.runAction(SKAction.fadeOutWithDuration(0.33))
+      }else {
+        layerNode.runAction(SKAction.fadeInWithDuration(0.33))
+      }
     }
   }
   
   func hiddenOtherNodeType() {
-    for node in overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!.children where node.name != "point" && node is SKButtonNode{
-      node.hidden = true
-    }
+    setHiddenForOtherNodeType(true)
   }
   
   func showOtherNodeType() {
+    setHiddenForOtherNodeType(false)
+  }
+  
+  func setHiddenForOtherNodeType(hidden: Bool) {
     for node in overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!.children where node.name != "point" && node is SKButtonNode{
-      node.hidden = false
+      let node = node as! SKButtonNode
+      node.removeAllActions()
+      if hidden {
+        node.isEnabled = false
+        node.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.33)]))
+      }else {
+        node.isEnabled = true
+        node.runAction(SKAction.sequence([SKAction.fadeInWithDuration(0.33)]))
+      }
+//      node.hidden = hidden
     }
   }
   

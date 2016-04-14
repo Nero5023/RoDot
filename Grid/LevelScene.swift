@@ -130,7 +130,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
-    backButton.position = CGPoint(x: 300, y: 1900)
+    backButton.position = CGPoint(x: 300, y: 1950)
     backButton.actionTouchUpInside = backButtonTouchUpInsideActon
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
@@ -150,7 +150,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func addRestartButton() {
     let restartButton = SKButtonNode(imageNameNormal: "restart", selected: nil)
-    restartButton.position = CGPoint(x: 1536-300, y: 1900)
+    restartButton.position = CGPoint(x: 1536-300, y: 1950)
     restartButton.name = "restart"
     restartButton.actionTouchUpInside = { [unowned self] in
       if self.actionForKey(RestartGameActionKey) == nil {
@@ -332,8 +332,17 @@ class LevelScene: SKScene, SceneLayerProtocol {
     GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.rotateAchievements(rotateCount))
   }
   
+  func fadeOutRecordRestartButton() {
+    let waitAction = SKAction.waitForDuration(0.33)
+    let fadeoutAction = SKAction.fadeOutWithDuration(0.66)
+    let action = SKAction.sequence([waitAction, fadeoutAction])
+    overlayNode.childNodeWithName("restart")?.runAction(action)
+    overlayNode.childNodeWithName("record")?.runAction(action)
+  }
+  
   func lose() {
     playable = false
+
 //    performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
     runAction(SKAction.sequence(
       [SKAction.waitForDuration(1), SKAction.runBlock{[unowned self] in self.newGame() }]),
@@ -342,6 +351,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func win() {
     playable = false
+    fadeOutRecordRestartButton()
     for entity in entities {
       if let entity = entity as? Rod {
         afterDelay(NSTimeInterval(0), runBlock: {
