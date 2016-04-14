@@ -41,7 +41,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   var stopRecordingCompletionHandler: (()->())?
   
-  
+  var isFinishAnimation: Bool = false
   // Class Methods:
   
   class func level(levelNum: Int) -> LevelScene? {
@@ -131,6 +131,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1900)
     backButton.actionTouchUpInside = {
+      guard self.isFinishAnimation else { return }
       if self.isRecording {
         self.stopRecordingCompletionHandler = {
           SceneManager.sharedInstance.backToStartScene()
@@ -197,6 +198,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
       SKAction.runBlock({ [unowned self] in
       (ball as? BallNode)?.didMoveToScene()
       self.playable = true
+      self.isFinishAnimation = true
     })])
     ball.runAction(action)
   }
@@ -311,7 +313,6 @@ class LevelScene: SKScene, SceneLayerProtocol {
     let scene = LevelScene.level(currentLevel)
     scene!.scaleMode = scaleMode
     view!.presentScene(scene)
-    print(rotateCount)
     GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.rotateAchievements(rotateCount))
   }
   
@@ -343,6 +344,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     }
     if currentLevel < 20 {
       currentLevel += 1
+      LevelManager().passLevel(theme: .Theme1, level: currentLevel)
     }
     performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
   }

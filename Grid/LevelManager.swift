@@ -8,17 +8,24 @@
 
 import Foundation
 
-struct LevelManager {
+enum ThemeType: String {
+  case Theme1 = "theme1"
+  case Theme2 = "theme2"
+  case Theme3 = "theme3"
+}
+
+class LevelManager {
+  
   
   struct Constants {
     
     static let ThemeLevelDic = "ThemeLevelDic"
     
     static let ThemesCount = 3
-    static let Theme1 = "Theme1"
-    static let Theme2 = "Theme2"
-    static let Theme3 = "Theme3"
     
+    static let Theme1 = ThemeType.Theme1.rawValue
+    static let Theme2 = ThemeType.Theme2.rawValue
+    static let Theme3 = ThemeType.Theme3.rawValue
     
     static let TotalLevels = "TotalLevels"
     static let UnlockedLevels = "UnlockedLevels"
@@ -34,6 +41,8 @@ struct LevelManager {
     }
   }
   
+//  let themeMap: [Int: [String: Int]]
+  
   var theme1: [String: Int] {
     return self.themesInfo[LevelManager.Constants.Theme1]!
   }
@@ -45,6 +54,10 @@ struct LevelManager {
   var theme3: [String: Int] {
     return self.themesInfo[LevelManager.Constants.Theme3]!
   }
+  
+  lazy var themeMap: [Int: [String: Int]] = {
+    return [1: self.theme1, 2: self.theme2, 3: self.theme3]
+  }()
   
   init() {
     if let info = NSUserDefaults.standardUserDefaults().dictionaryForKey(LevelManager.Constants.ThemeLevelDic) as? [String: [String: Int]]{
@@ -65,7 +78,18 @@ struct LevelManager {
       
       self.themesInfo = themesInfo
     }
+  }
+  
+  func passLevel(theme theme: ThemeType, level: Int) {
+    guard  level > 0 && level < themesInfo[theme.rawValue]![LevelManager.Constants.TotalLevels] else { return }
+    if level == themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!+1 {
+      themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = level
+    }
     
+  }
+  
+  func getUnlockLevels(theme theme: ThemeType) -> Int {
+    return themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!
   }
   
   
