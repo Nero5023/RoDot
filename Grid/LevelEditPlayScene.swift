@@ -11,9 +11,11 @@ import GameplayKit
 import GameKit
 
 enum LevelEditPlaySceneType {
-  case testPlay     // For when DIYing
+  case testPlay    // For when DIYing
   case selfPlay     // For when playing self designed level
   case sharePlay(Int)    // For when playing others sharing level, Int is levelid
+  
+  
 }
 
 class LevelEditPlayScene: LevelScene {
@@ -43,7 +45,7 @@ class LevelEditPlayScene: LevelScene {
 //      SceneManager.sharedInstance.getLevelFromWebServer()
       self.showEnterLevelNameAlert("Share") { levelName in
         HUD.show(.Progress)
-        let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
+        let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: levelName) { levelid in
           let shareURLString = "https://rodot.me/level/" + "\(levelid)"
           let shareURL = NSURL(string: shareURLString)!
           let str = "This is the game I made by RoDot try this!"
@@ -52,6 +54,13 @@ class LevelEditPlayScene: LevelScene {
           activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
             if isCompleted {
               GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
+              switch self.sceneType! {
+              case .testPlay:
+                SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
+              default:
+                break
+              }
+              self.backButtonTouchUpInsideActon()
             }
           }
           dispatch_async(dispatch_get_main_queue()) {
@@ -287,6 +296,7 @@ class LevelEditPlayScene: LevelScene {
       guard let sceneType = self.sceneType else { return }
       switch sceneType {
       case .selfPlay:
+        self.overlayNode.addChild(self.shareButton)
         break
       case .testPlay:
         self.overlayNode.addChild(self.saveButton)

@@ -131,19 +131,21 @@ class LevelScene: SKScene, SceneLayerProtocol {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1900)
-    backButton.actionTouchUpInside = {
-      guard self.isFinishAnimation else { return }
-      if self.isRecording {
-        self.stopRecordingCompletionHandler = {
-          SceneManager.sharedInstance.backToStartScene()
-        }
-        self.stopRecording(self.overlayNode.childNodeWithName("record") as! SKButtonNode)
-      }else {
-        SceneManager.sharedInstance.backToStartScene()
-      }
-    }
+    backButton.actionTouchUpInside = backButtonTouchUpInsideActon
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
+  }
+  
+  func backButtonTouchUpInsideActon() {
+    guard self.isFinishAnimation else { return }
+    if self.isRecording {
+      self.stopRecordingCompletionHandler = {
+        SceneManager.sharedInstance.backToStartScene()
+      }
+      self.stopRecording(self.overlayNode.childNodeWithName("record") as! SKButtonNode)
+    }else {
+      SceneManager.sharedInstance.backToStartScene()
+    }
   }
   
   func addRestartButton() {
