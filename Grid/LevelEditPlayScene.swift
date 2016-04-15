@@ -47,7 +47,7 @@ class LevelEditPlayScene: LevelScene {
       switch self.sceneType! {
       case .selfPlay(let levelName ):
         self.shareLevel(levelName)
-      default:        
+      default:
         self.showEnterLevelNameAlert("Share") { levelName in
           self.shareLevel(levelName)
         }// end for showEnterLevelNameAlert completionHandler
@@ -243,6 +243,7 @@ class LevelEditPlayScene: LevelScene {
   
   override func didMoveToView(view: SKView) {
     super.didMoveToView(view)
+    addSmallShareButton()
     guard let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode else {
       return
     }
@@ -298,6 +299,23 @@ class LevelEditPlayScene: LevelScene {
       case .sharePlay:
         self.overlayNode.addChild(self.likeButton)
       }
+    }
+  }
+  
+  func addSmallShareButton() {
+    guard let sceneType = sceneType else { return }
+    switch sceneType {
+    case .selfPlay:
+      let smallShreButton = SKButtonNode(imageNameNormal: "sharebutton_s", selected: nil)
+      smallShreButton.position = CGPoint(x: 1536-300-120-120, y: 1950)
+      smallShreButton.name = "share_s"
+      smallShreButton.zPosition = overlayNode.zPosition
+      overlayNode.addChild(smallShreButton)
+      smallShreButton.actionTouchUpInside = self.shareButton.actionTouchUpInside
+      smallShreButton.alpha = 0
+      smallShreButton.runAction(SKAction.fadeInWithDuration(0.66))
+    default:
+      return
     }
   }
   
