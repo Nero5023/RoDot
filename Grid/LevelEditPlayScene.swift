@@ -12,7 +12,7 @@ import GameKit
 
 enum LevelEditPlaySceneType {
   case testPlay    // For when DIYing
-  case selfPlay     // For when playing self designed level
+  case selfPlay(String?)     // For when playing self designed level, String is the level Name
   case sharePlay(Int)    // For when playing others sharing level, Int is levelid
   
   
@@ -43,53 +43,16 @@ class LevelEditPlayScene: LevelScene {
     shareButton.actionTouchUpInside = { [unowned self] in
 //      SceneManager.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY")
 //      SceneManager.sharedInstance.getLevelFromWebServer()
-      self.showEnterLevelNameAlert("Share") { levelName in
-        HUD.show(.Progress)
-        let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: levelName) { levelid in
-          let shareURLString = "https://rodot.me/level/" + "\(levelid)"
-          let shareURL = NSURL(string: shareURLString)!
-          let str = "This is the game I made by RoDot try this!"
-          let activityViewController = UIActivityViewController(activityItems: [str, shareURLString], applicationActivities: nil)
-          activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
-          activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
-            if isCompleted {
-              GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
-              switch self.sceneType! {
-              case .testPlay:
-                SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
-              default:
-                break
-              }
-              self.backButtonTouchUpInsideActon()
-            }
-          }
-          dispatch_async(dispatch_get_main_queue()) {
-            
-            HUD.hide()
-            SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
-          }
-        }//End for task completionHandler
-        Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
-      }// end for showEnterLevelNameAlert completionHandler
-//      HUD.show(.Progress)
-//      let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY") { levelid in
-//        let shareURLString = "https://rodot.me/level/" + "\(levelid)"
-//        let shareURL = NSURL(string: shareURLString)!
-//        let str = "This is the game I made by RoDot try this!"
-//        let activityViewController = UIActivityViewController(activityItems: [str, shareURLString], applicationActivities: nil)
-//        activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
-//        activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
-//          if isCompleted {
-////            print("Complete")
-//          }
-//        }
-//        dispatch_async(dispatch_get_main_queue()) {
-//          
-//          HUD.hide()
-//          SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
-//        }
-//      }//End for task completionHandler
-//      Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
+      
+      switch self.sceneType! {
+      case .selfPlay(let levelName ):
+        self.shareLevel(levelName)
+      default:        
+        self.showEnterLevelNameAlert("Share") { levelName in
+          self.shareLevel(levelName)
+        }// end for showEnterLevelNameAlert completionHandler
+      }
+
     }
     shareButton.position = CGPoint(x: 1152-300+192, y: 1200)
     return shareButton
@@ -243,6 +206,37 @@ class LevelEditPlayScene: LevelScene {
     scene?.editPlayScene?.sceneType = sceneType
     return scene
     
+  }
+  
+  func shareLevel(levelName: String?) {
+    var levelName = levelName
+    if levelName == nil { levelName = "DIY" }
+    HUD.show(.Progress)
+    let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: levelName) { levelid in
+      let shareURLString = "https://rodot.me/level/" + "\(levelid)"
+      let shareURL = NSURL(string: shareURLString)!
+      let str = "This is the game I made by RoDot try this!"
+      let activityViewController = UIActivityViewController(activityItems: [str, shareURL], applicationActivities: nil)
+      activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+      activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
+        if isCompleted {
+          GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
+          switch self.sceneType! {
+          case .testPlay:
+            SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
+          default:
+            break
+          }
+          self.backButtonTouchUpInsideActon()
+        }
+      }
+      dispatch_async(dispatch_get_main_queue()) {
+        
+        HUD.hide()
+        SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+      }
+    }//End for task completionHandler
+    Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
   }
   
   // MARK: Scene Life Cycle
