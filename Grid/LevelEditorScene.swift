@@ -46,6 +46,30 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
           hiddenOtherNodeType()
         }
       }
+      setUpPointDetail()
+    }
+  }
+  
+  func setUpPointDetail() {
+    let layerNode = overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!
+    let point = (layerNode.childNodeWithName("point") as! SKButtonNode)
+    for node in point.children { node.removeFromParent() }
+    if let _ = typeLayerInfo[.nodeTypeLayer] {
+      let pointTypeName = pointButtonTypeName()
+      let textureImageName = PointNodeType(nodeName: pointTypeName).textureImageName()
+      point.texture = SKTexture(imageNamed: textureImageName)
+      point.highlightTexture = SKTexture(imageNamed: textureImageName)
+      if let rotatableCount = self.typeLayerInfo[.rotatableCountLayer] {
+        SceneManager.sharedInstance.addBubbles(point, rotatableRodCount: (Int(rotatableCount)!))
+      }
+      if let clockwiseStr = self.typeLayerInfo[.clockwiseLayer] {
+        var clockwise: Bool = true
+        if clockwiseStr == "ac" { clockwise = false }
+        SceneManager.sharedInstance.animationBubble(point, isClockwise: clockwise)
+      }
+      if let rotateCount = self.typeLayerInfo[.rotateCountLayer] {
+        SceneManager.sharedInstance.addRotateCountNodes(point, rotateCount: Int(rotateCount)!)
+      }
     }
   }
   
@@ -378,17 +402,22 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     touchPosition = touches.first!.locationInNode(overlayNode)
     if overlayNode.nodeAtPoint(touchPosition) == overlayNode && overlayNode.hidden == false {
       for button in pointButtons {
-        let rotatableCount = self.typeLayerInfo[.rotatableCountLayer] == nil ? "" : self.typeLayerInfo[.rotatableCountLayer]!
-        let clockwise = self.typeLayerInfo[.clockwiseLayer] == nil ? "normal" : self.typeLayerInfo[.clockwiseLayer]!
-        let rotateCount = self.typeLayerInfo[.rotateCountLayer] == nil ? "" : self.typeLayerInfo[.rotateCountLayer]!
+        let pointTypeName = pointButtonTypeName()
         if button.type == nil {
-          let textureImageName = PointNodeType(nodeName: rotatableCount + clockwise + rotateCount).textureImageName()
+          let textureImageName = PointNodeType(nodeName: pointTypeName).textureImageName()
           button.selectedTexture = SKTexture(imageNamed: textureImageName)
         }
-        button.nextNodeName = rotatableCount + clockwise + rotateCount
+        button.nextNodeName = pointTypeName
       }
       showEditLayer()
     }
+  }
+  
+  func pointButtonTypeName() -> String {
+    let rotatableCount = self.typeLayerInfo[.rotatableCountLayer] == nil ? "" : self.typeLayerInfo[.rotatableCountLayer]!
+    let clockwise = self.typeLayerInfo[.clockwiseLayer] == nil ? "normal" : self.typeLayerInfo[.clockwiseLayer]!
+    let rotateCount = self.typeLayerInfo[.rotateCountLayer] == nil ? "" : self.typeLayerInfo[.rotateCountLayer]!
+    return rotatableCount + clockwise + rotateCount
   }
   
   func addTransfer(touchPosition: CGPoint) {
