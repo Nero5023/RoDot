@@ -114,6 +114,8 @@ class MoveComponent: GKComponent {
   // After the rotating, rest the state of the relating nodes
   func restRotation() {
     (renderComponent.node.scene as? LevelScene)?.isResting = true
+    let soundCloseLock = SKAction.playSoundFileNamed("close_lock.wav", waitForCompletion: false)
+    renderComponent.node.runAction(soundCloseLock)
     let angle = renderComponent.node.zRotation % (π/2.0)
     let angleToRotate: CGFloat
     if abs(angle) < π/4.0 {

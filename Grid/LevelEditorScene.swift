@@ -50,6 +50,19 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     }
   }
   
+//  let soundButtonClick = SKAction.playSoundFileNamed("piano_63.wav", waitForCompletion: false)
+//  let soundButtonUnClick = SKAction.playSoundFileNamed("piano_64.wav", waitForCompletion: false)
+  let soundButtonClicks = [SKAction.playSoundFileNamed("piano_60.wav", waitForCompletion: false),
+                           SKAction.playSoundFileNamed("piano_61.wav", waitForCompletion: false),
+                           SKAction.playSoundFileNamed("piano_62.wav", waitForCompletion: false),
+                           SKAction.playSoundFileNamed("piano_63.wav", waitForCompletion: false),
+                           SKAction.playSoundFileNamed("piano_64.wav", waitForCompletion: false)]
+  let soundButtonUnClicks = [SKAction.playSoundFileNamed("piano_50.wav", waitForCompletion: false),
+                             SKAction.playSoundFileNamed("piano_51.wav", waitForCompletion: false),
+                             SKAction.playSoundFileNamed("piano_52.wav", waitForCompletion: false),
+                             SKAction.playSoundFileNamed("piano_53.wav", waitForCompletion: false)]
+  
+  
   func setUpPointDetail() {
     let layerNode = overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!
     let point = (layerNode.childNodeWithName("point") as! SKButtonNode)
@@ -133,7 +146,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         // ComponentButton Action
         
         componentButton.actionTouchUpInside = { [unowned self] in
-
+          SKTAudio.sharedInstance().playSoundEffect("button_click_3.wav")
           self.typeLayerInfo[.rotatableCountLayer] = nil
           self.typeLayerInfo[.rotateCountLayer] = nil
           self.typeLayerInfo[.clockwiseLayer] = nil
@@ -149,7 +162,10 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         let runButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: SKTexture(imageNamed: "runButton_disabled"))
         node.removeFromParent()
         self.spritesNode.addChild(runButton)
-        runButton.actionTouchUpInside = self.generateNewScene
+        runButton.actionTouchUpInside = {
+          SKTAudio.sharedInstance().playSoundEffect("fadeout.mp3")
+          self.generateNewScene()
+        }
         runButton.isEnabled = false
       }
       
@@ -160,12 +176,15 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       rodButton.name = nil
       rod.removeFromParent()
       rodButton.actionTouchUpInside = {
+        
         let normal = rodButton.normalSKTexture
         rodButton.normalSKTexture = rodButton.selectedTexture
         rodButton.selectedTexture = normal
         if rodButton.name == nil {
+          self.runAction(self.soundButtonClicks[Int.random(self.soundButtonClicks.count)])
           rodButton.name = "rod"
         }else {
+          self.runAction(self.soundButtonUnClicks[Int.random(self.soundButtonUnClicks.count)])
           rodButton.name = nil
         }
       }
@@ -179,13 +198,16 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       pointButton.type = nil
       pointButton.nextNodeName = "static"
       pointButton.actionTouchUpInside = {
+        
         if pointButton.type == nil { // This will do when touched on the node unchecked
+          self.runAction(self.soundButtonClicks[Int.random(self.soundButtonClicks.count)])
           pointButton.name = pointButton.nextNodeName
           pointButton.type = PointNodeType(nodeName: pointButton.name)
           pointButton.normalSKTexture = SKTexture(imageNamed: pointButton.type!.textureImageName())
           pointButton.selectedTexture = SKTexture(imageNamed: "point_unchecked")
           pointButton.addDetail()
         }else { // This will do when touched on the node unchecked
+          self.runAction(self.soundButtonUnClicks[Int.random(self.soundButtonUnClicks.count)])
           pointButton.type = nil
           pointButton.name = nil
           let nextType = PointNodeType(nodeName: pointButton.nextNodeName)
@@ -212,6 +234,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1950)
     backButton.actionTouchUpInside = {
+      SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
       SceneManager.sharedInstance.backToStartScene()
     }
     backButton.zPosition = overlayNode.zPosition
@@ -269,6 +292,9 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
           
           if !node.isHighlight {
             self.typeLayerInfo[layer] = nil
+            self.runAction(self.soundButtonUnClicks[Int.random(self.soundButtonUnClicks.count)])
+          }else {
+            self.runAction(self.soundButtonClicks[Int.random(self.soundButtonClicks.count)])
           }
           
           if node.name == "point" {
@@ -385,11 +411,13 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
           button.name = nodeType
           // Ball or destination action
           button.actionTouchUpInside = { [unowned self] in
+            self.runAction(self.soundButtonUnClicks[Int.random(self.soundButtonUnClicks.count)])
             if nodeType == "ball" { self.isAddBall = false }
             if nodeType == "destination" { self.isAddDestination = false }
             button.removeFromParent()
           }
           spritesNode.addChild(button)
+          self.runAction(self.soundButtonClicks[Int.random(self.soundButtonClicks.count)])
           if nodeType == "ball" { isAddBall = true }
           if nodeType == "destination" { isAddDestination = true }
         }
@@ -434,10 +462,12 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     }
     transferNodes.insert(button)
     button.actionTouchUp = { [unowned self] in
+      self.runAction(self.soundButtonUnClicks[Int.random(self.soundButtonUnClicks.count)])
       button.removeFromParent()
       self.typeLayerInfo[.nodeTypeLayer] = nodeType
       self.transferNodes.remove(button)
     }
+    self.runAction(self.soundButtonClicks[Int.random(self.soundButtonClicks.count)])
     spritesNode.addChild(button)
   }
 

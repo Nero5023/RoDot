@@ -38,6 +38,9 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   var levelSelectButtons = [SKButtonNode]()
   
+  let soundBubblePop = SKAction.playSoundFileNamed("fadeout.mp3", waitForCompletion: false)
+//  let soundBallBounce = SKAction.playSoundFileNamed("ball_bounce.wav", waitForCompletion: true)
+  
   // MARK: Scene Life Cycle
   
   override func didMoveToView(view: SKView) {
@@ -66,6 +69,7 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   
   func setUpRodAndBall() {
+    physicsWorld.contactDelegate = self
     enumerateChildNodesWithName("//ball", usingBlock: { node, _ in
       let node = node as! StartBallNode
       node.originalPosition = node.position
@@ -82,6 +86,7 @@ class StartScene: SKScene, SceneLayerProtocol {
         node.physicsBody!.linearDamping = 0.08
         node.physicsBody!.categoryBitMask = PhysicsCategory.Ball
         node.physicsBody!.collisionBitMask = PhysicsCategory.Rod
+        node.physicsBody!.contactTestBitMask = PhysicsCategory.Rod
         if self.touchable == false { self.touchable = true }
       })
       let actionSequence = SKAction.sequence([waitAction, moveUpaction, addPhysicsAction])
@@ -103,6 +108,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       node.physicsBody!.friction = 0
       node.physicsBody!.categoryBitMask = PhysicsCategory.Rod
       node.physicsBody!.collisionBitMask = PhysicsCategory.Ball
+      node.physicsBody!.contactTestBitMask = PhysicsCategory.Ball
       node.alpha = 0
     })
   }
@@ -209,6 +215,8 @@ class StartScene: SKScene, SceneLayerProtocol {
     diyButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(diyButton)
     diyButton.actionTouchUpInside = { [unowned self] in
+      let soundClick = SKAction.playSoundFileNamed("diy_click.wav", waitForCompletion: false)
+      self.runAction(soundClick)
       let scaleAction = SKAction.scaleTo(0.2, duration: 0.33)
       let fadoutAction = SKAction.fadeOutWithDuration(0.33)
       let scaleAndFadeOutAction = SKAction.group([scaleAction, fadoutAction])
@@ -250,6 +258,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     
     
     theme.actionTouchUpInside = {
+      self.runAction(SKAction.playSoundFileNamed("energy_4.wav", waitForCompletion: false))
       let action = SKAction.sequence([
         SKAction.scaleTo(0, duration: 0.2),
         SKAction.runBlock{
@@ -305,12 +314,20 @@ class StartScene: SKScene, SceneLayerProtocol {
         let currentLevel = row*5 + column + 1
 //        button.actionTouchUpInside = levelButtonSelectAction(currentLevel)
         button.actionTouchUpInside = {
+          guard self.touchable else { return }
+          self.touchable = false
+          self.runAction(self.soundBubblePop)
           let sequenceAction = SKAction.sequence([
             SKAction.group([
               SKAction.scaleTo(3, duration: 0.3),
               SKAction.fadeOutWithDuration(0.3)
               ]),
-            SKAction.runBlock(self.levelButtonSelectAction(currentLevel))
+            SKAction.runBlock{
+              self.levelButtonSelectAction(currentLevel)()
+              self.touchable = true
+              button.isSelected = false
+            }
+            
             ])
           button.runAction(sequenceAction)
           for levelSelectButton in self.levelSelectButtons where levelSelectButton != button {
@@ -369,9 +386,9 @@ class StartScene: SKScene, SceneLayerProtocol {
       let originalPosition = node.position
       node.position = fromPosition
       node.setScale(0)
-      var factor: Double = 800
+      var factor: Double = 900
       if fromPosition.x == 768 {
-        factor = 450
+        factor = 500
       }
       var distance = NSTimeInterval((fromPosition - originalPosition).length()) / factor
       node.zPosition = node.zPosition - CGFloat(distance)
@@ -438,7 +455,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     backButton.name = "back"
     backButton.position = CGPoint(x: 300, y: 1950)
     backButton.actionTouchUpInside = {
-      
+      SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
       for themeButton in self.themeButtons where themeButton.xScale == 0 {
         self.restAnimationLevelSelectButtonsAndThemesButton(themeButton)
       }
@@ -469,8 +486,17 @@ class StartScene: SKScene, SceneLayerProtocol {
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     if !touchable { return }
     didTouchedScreen = true
+    
   }
   
   
-  
+}
+
+extension StartScene: SKPhysicsContactDelegate {
+  func didBeginContact(contact: SKPhysicsContact) {
+    let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+    if collision == PhysicsCategory.Rod | PhysicsCategory.Ball {
+
+    }
+  }
 }

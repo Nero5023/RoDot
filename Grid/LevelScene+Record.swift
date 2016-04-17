@@ -48,6 +48,8 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
         }
         return
       }
+      let soundReord = SKAction.playSoundFileNamed("record.wav", waitForCompletion: false)
+      button.runAction(soundReord)
       self.toggleRecord()
       button.isEnabled = true
       button.texture = SKTexture(imageNamed: "recordingbutton")

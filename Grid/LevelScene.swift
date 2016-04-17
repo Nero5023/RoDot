@@ -138,6 +138,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func backButtonTouchUpInsideActon() {
     guard self.isFinishAnimation else { return }
+    SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
     if self.isRecording {
       self.stopRecordingCompletionHandler = {
         SceneManager.sharedInstance.backToStartScene()
@@ -154,6 +155,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     restartButton.name = "restart"
     restartButton.actionTouchUpInside = { [unowned self] in
       if self.actionForKey(RestartGameActionKey) == nil {
+        SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
         self.newGame()
       }
     }
@@ -342,7 +344,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func lose() {
     playable = false
-
+    SKTAudio.sharedInstance().playSoundEffect("failure.wav")
 //    performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
     runAction(SKAction.sequence(
       [SKAction.waitForDuration(1), SKAction.runBlock{[unowned self] in self.newGame() }]),
@@ -351,6 +353,9 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func win() {
     playable = false
+    
+    SKTAudio.sharedInstance().playSoundEffect("success.wav")
+    
     fadeOutRecordRestartButton()
     for entity in entities {
       if let entity = entity as? Rod {
@@ -376,7 +381,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   }
 }
 
-// MARK: Contect
+// MARK: SKPhysicsContactDelegate
 
 extension LevelScene: SKPhysicsContactDelegate {
   
@@ -434,6 +439,5 @@ extension LevelScene: SKPhysicsContactDelegate {
     }
   }
 }
-
 
 

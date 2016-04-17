@@ -30,7 +30,10 @@ class LevelEditPlayScene: LevelScene {
     let restartButton = SKButtonNode(imageNameNormal: "restartbutton", selected: nil)
     restartButton.name = "restartbutton"
     restartButton.zPosition = self.overlayNode.zPosition
-    restartButton.actionTouchUpInside = self.newGame
+    restartButton.actionTouchUpInside =  {
+      SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
+      self.newGame()
+    }
     restartButton.position = CGPoint(x: self.size.width/2, y: 719)
     return restartButton
   }()
@@ -250,6 +253,7 @@ class LevelEditPlayScene: LevelScene {
     let editButton = copyNode(editNode, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
     editNode.removeFromParent()
     editButton.actionTouchUpInside = {
+      SKTAudio.sharedInstance().playSoundEffect("button_click_3.wav")
       self.view!.presentScene(self.editScene)
     }
     overlayNode.addChild(editButton)
@@ -270,6 +274,9 @@ class LevelEditPlayScene: LevelScene {
   override func win() {
 //    super.win()
     playable = false
+    
+    SKTAudio.sharedInstance().playSoundEffect("success.wav")
+    
     for entity in entities {
       if let entity = entity as? Rod {
         afterDelay(NSTimeInterval(0), runBlock: {
