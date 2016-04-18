@@ -52,12 +52,12 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
 //  let soundButtonClick = SKAction.playSoundFileNamed("piano_63.wav", waitForCompletion: false)
 //  let soundButtonUnClick = SKAction.playSoundFileNamed("piano_64.wav", waitForCompletion: false)
-  let soundButtonClicks = [SKAction.playSoundFileNamed("piano_60.wav", waitForCompletion: false),
+  let soundButtonUnClicks = [SKAction.playSoundFileNamed("piano_60.wav", waitForCompletion: false),
                            SKAction.playSoundFileNamed("piano_61.wav", waitForCompletion: false),
                            SKAction.playSoundFileNamed("piano_62.wav", waitForCompletion: false),
                            SKAction.playSoundFileNamed("piano_63.wav", waitForCompletion: false),
                            SKAction.playSoundFileNamed("piano_64.wav", waitForCompletion: false)]
-  let soundButtonUnClicks = [SKAction.playSoundFileNamed("piano_50.wav", waitForCompletion: false),
+  let soundButtonClicks = [SKAction.playSoundFileNamed("piano_50.wav", waitForCompletion: false),
                              SKAction.playSoundFileNamed("piano_51.wav", waitForCompletion: false),
                              SKAction.playSoundFileNamed("piano_52.wav", waitForCompletion: false),
                              SKAction.playSoundFileNamed("piano_53.wav", waitForCompletion: false)]

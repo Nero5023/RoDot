@@ -35,6 +35,9 @@ class MoveComponent: GKComponent {
   
   var lastAngle: CGFloat = 0
   
+  // Used to fix the rod is stucked
+  var afterDelayRestRotationBlock: (()->())?
+  
   // MARK: Initializers
   
   override init() {
@@ -64,18 +67,23 @@ class MoveComponent: GKComponent {
         }
         moveNode.physicsBody?.angularVelocity = angularVelocity * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
       }else { // for resting
+        if afterDelayRestRotationBlock == nil {
+          afterDelayRestRotationBlock = self.restRotationWithSKAction
+          delay(2) {
+            if let afterDelayRestRotationBlock = self.afterDelayRestRotationBlock {
+              afterDelayRestRotationBlock()
+            }
+          }
+        }
+        
         angularVelocity = min(0.4, abs(angularVelocity)) * angularVelocity.sign()
 //        print(angularVelocity)
         angularVelocity = max(0.2, abs(angularVelocity)) * angularVelocity.sign()
 //        angularVelocity
         moveNode.physicsBody?.angularVelocity = angularVelocity * 5
+        
         if abs(angle) < 0.04 {
-          let centerNode = getCenterNode()
-          self.centerPosition = nil
-          self.lastTouchPosition = nil
-          self.moveNode = nil
-          centerNode!.entity.componentForClass(RelateComponent.self)?.decompound()
-          centerNode!.entity.componentForClass(MoveComponent.self)?.restRotation()
+          self.restRotationWithSKAction()
         }
       }
       lastAngle = angle
@@ -102,6 +110,17 @@ class MoveComponent: GKComponent {
     }
   }
   
+  func restRotationWithSKAction() {
+    guard moveNode != nil && centerPosition != nil && lastTouchPosition != nil  else { return }
+    let centerNode = getCenterNode()
+    self.centerPosition = nil
+    self.lastTouchPosition = nil
+    self.moveNode = nil
+    centerNode!.entity.componentForClass(RelateComponent.self)?.decompound()
+    centerNode!.entity.componentForClass(MoveComponent.self)?.restRotation()
+    afterDelayRestRotationBlock = nil
+  }
+  
   func getCenterNode() -> EntityNode? {
     for node in moveNode!.nodesAtPoint(centerPosition!) where node is EntityNode {
       return node as? EntityNode
@@ -114,8 +133,7 @@ class MoveComponent: GKComponent {
   // After the rotating, rest the state of the relating nodes
   func restRotation() {
     (renderComponent.node.scene as? LevelScene)?.isResting = true
-    let soundCloseLock = SKAction.playSoundFileNamed("close_lock.wav", waitForCompletion: false)
-    renderComponent.node.runAction(soundCloseLock)
+    SKTAudio.sharedInstance().playSoundEffect("close_lock_2.wav", withVolume: 0.33)
     let angle = renderComponent.node.zRotation % (π/2.0)
     let angleToRotate: CGFloat
     if abs(angle) < π/4.0 {
@@ -210,4 +228,13 @@ class MoveComponent: GKComponent {
   }
 
 
+}
+
+private func delay(delay:Double, closure:()->()) {
+  dispatch_after(
+    dispatch_time(
+      DISPATCH_TIME_NOW,
+      Int64(delay * Double(NSEC_PER_SEC))
+    ),
+    dispatch_get_main_queue(), closure)
 }

@@ -167,7 +167,10 @@ class StartScene: SKScene, SceneLayerProtocol {
         self.addBackground()
 //        self.maxSizeBallNode.removeFromParent()
       }
-      maxSizeBallNode.runAction(SKAction.sequence([scaleAction0, runBlock ,scaleAction1]))
+      let runBlock1 = SKAction.runBlock {
+        SKTAudio.sharedInstance().playBackgroundMusic("background_music.wav")
+      }
+      maxSizeBallNode.runAction(SKAction.sequence([scaleAction0, runBlock ,scaleAction1, runBlock1]))
     }
   }
   
@@ -203,15 +206,15 @@ class StartScene: SKScene, SceneLayerProtocol {
   func addThemeButtons() {
     
     themeButtons.reserveCapacity(3)
-    let theme1 = addThemeButton(withButtonName: "theme1", position: CGPoint(x: 378+20, y: 1414-20))
+    let theme1 = addThemeButton(withButtonName: "theme1", position: CGPoint(x: 192 + 528 + 261, y: 1417 + 261))
     themeButtons.append(theme1)
-    let theme2 = addThemeButton(withButtonName: "theme2", position: CGPoint(x: 768, y: 1024))
+    let theme2 = addThemeButton(withButtonName: "theme2", position: CGPoint(x: 192 + 100 + 213, y: 1013 + 213))
     themeButtons.append(theme2)
-    let theme3 = addThemeButton(withButtonName: "theme3", position: CGPoint(x: 1158-20, y: 634+20))
+    let theme3 = addThemeButton(withButtonName: "theme3", position: CGPoint(x: 192 + 690 + 140, y: 779 + 140))
     themeButtons.append(theme3)
     
     let diyButton = SKButtonNode(imageNameNormal: "diy", selected: "diy_selected")
-    diyButton.position = CGPoint(x: 214 + 192, y: 856)
+    diyButton.position = CGPoint(x: 192 + 227 + 210, y: 469 + 210)
     diyButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(diyButton)
     diyButton.actionTouchUpInside = { [unowned self] in
@@ -234,7 +237,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     diyButton.runAction(SKAction.sequence([SKAction.waitForDuration(0.9), SKAction.fadeInWithDuration(0.5)]))
     
     let myDiybutton = SKButtonNode(imageNameNormal: "mydiy", selected: "mydiy_selected")
-    myDiybutton.position = CGPoint(x: 468 + 192, y: 562)
+    myDiybutton.position = CGPoint(x: 192 + 635 + 120, y: 178 + 120)
     myDiybutton.zPosition = overlayNode.zPosition
     overlayNode.addChild(myDiybutton)
     myDiybutton.actionTouchUpInside = { [unowned self] in

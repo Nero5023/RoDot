@@ -73,7 +73,7 @@ public class SKTAudio {
     }
   }
 
-  public func playSoundEffect(filename: String) {
+  public func playSoundEffect(filename: String, withVolume volume: Float = 1.0) {
     let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
     if (url == nil) {
       print("Could not find file: \(filename)")
@@ -88,6 +88,7 @@ public class SKTAudio {
       soundEffectPlayer = nil
     }
     if let player = soundEffectPlayer {
+      player.volume = volume
       player.numberOfLoops = 0
       player.prepareToPlay()
       player.play()

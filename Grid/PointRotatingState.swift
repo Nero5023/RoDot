@@ -24,8 +24,7 @@ class PointRotatingState: GKState {
   // MARK: GKState Life Cycle
   
   override func didEnterWithPreviousState(previousState: GKState?) {
-    let soundOpenLock = SKAction.playSoundFileNamed("open_lock.wav", waitForCompletion: false)
-    self.entity.componentForClass(RenderComponent.self)?.node.runAction(soundOpenLock)
+    SKTAudio.sharedInstance().playSoundEffect("open_lock_2.wav", withVolume: 0.33)
   }
   
   override func isValidNextState(stateClass: AnyClass) -> Bool {
