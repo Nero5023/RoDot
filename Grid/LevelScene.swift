@@ -155,7 +155,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     restartButton.name = "restart"
     restartButton.actionTouchUpInside = { [unowned self] in
       if self.actionForKey(RestartGameActionKey) == nil {
-        SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
+        SKTAudio.sharedInstance().playSoundEffect("restart_click.wav")
         self.newGame()
       }
     }

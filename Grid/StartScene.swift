@@ -215,7 +215,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     
     let diyButton = SKButtonNode(imageNameNormal: "diy", selected: "diy_selected")
     diyButton.position = CGPoint(x: 192 + 227 + 210, y: 469 + 210)
-    diyButton.zPosition = overlayNode.zPosition
+    diyButton.zPosition = overlayNode.zPosition 
     overlayNode.addChild(diyButton)
     diyButton.actionTouchUpInside = { [unowned self] in
       let soundClick = SKAction.playSoundFileNamed("diy_click.wav", waitForCompletion: false)

@@ -120,6 +120,7 @@ class Client {
   func setTimeOutDuration(delay:Double, taskToCancel: NSURLSessionTask) {
     self.timeOutHandler = {
       HUD.flash(.LabeledError(title: "Timeout", subtitle: "Try again"), delay: 1.3)
+      SKTAudio.sharedInstance().playSoundEffect("timeout.wav")
     }
     self.delay(delay) { [unowned self] in
       if let timeOutHandler = self.timeOutHandler {

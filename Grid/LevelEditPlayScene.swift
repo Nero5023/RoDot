@@ -31,7 +31,7 @@ class LevelEditPlayScene: LevelScene {
     restartButton.name = "restartbutton"
     restartButton.zPosition = self.overlayNode.zPosition
     restartButton.actionTouchUpInside =  {
-      SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
+      SKTAudio.sharedInstance().playSoundEffect("restart_click.wav")
       self.newGame()
     }
     restartButton.position = CGPoint(x: self.size.width/2, y: 719)
@@ -46,7 +46,7 @@ class LevelEditPlayScene: LevelScene {
     shareButton.actionTouchUpInside = { [unowned self] in
 //      SceneManager.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: "DIY")
 //      SceneManager.sharedInstance.getLevelFromWebServer()
-      
+      SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
       switch self.sceneType! {
       case .selfPlay(let levelName ):
         self.shareLevel(levelName)
@@ -67,32 +67,7 @@ class LevelEditPlayScene: LevelScene {
     saveButton.zPosition = self.overlayNode.zPosition
     saveButton.position = CGPoint(x: 300+192, y: 1200)
     saveButton.actionTouchUpInside = { [unowned self] in
-//      
-//      let alertController = UIAlertController(title: "Level Name", message: "Plese enter the level name.", preferredStyle: .Alert)
-//      
-//      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { _ in }
-//      let saveAction = UIAlertAction(title: "Save", style: .Default) { action in
-//        let loginTextField = alertController.textFields![0] as UITextField
-//        SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: loginTextField.text)
-//        HUD.flash(.Success, delay: 1.3) { isFinished in
-//          SceneManager.sharedInstance.backToStartScene()
-//        }
-//        
-//      }
-//      saveAction.enabled = false
-//      alertController.addAction(cancelAction)
-//      alertController.addAction(saveAction)
-//      
-//      alertController.addTextFieldWithConfigurationHandler { textField in
-//        textField.placeholder = "Name"
-//        NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) {
-//          nofitication in
-//          saveAction.enabled = textField.text != nil
-//        }
-//        
-//      }
-//      SceneManager.sharedInstance.presentingController.presentViewController(alertController, animated: true, completion: nil)
-//      
+      SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
       self.showEnterLevelNameAlert("Save") { levelName in
         SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
         HUD.flash(.Success, delay: 1.3) { isFinished in
@@ -105,16 +80,17 @@ class LevelEditPlayScene: LevelScene {
   }()
   
   lazy var likeButton: SKButtonNode = {
-    let likeButton = SKButtonNode(imageNameNormal: "likebutton", selected: nil)
+    let likeButton = SKButtonNode(imageNameNormal: "likebutton", selected: "likebutton_selected", disabled: "likebutton_selected")
     likeButton.name = "likebutton"
     likeButton.zPosition = self.overlayNode.zPosition
     likeButton.actionTouchUpInside = { [unowned self] in
       guard let sceneType = self.sceneType else { return }
       switch sceneType {
       case .sharePlay(let levelId):
+        likeButton.isEnabled = false
+        SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
         Client.sharedInstance.likeLevel(levelId) {
           print("like")
-          likeButton.isEnabled = false
         }
       default:
         break

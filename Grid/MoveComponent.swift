@@ -144,6 +144,7 @@ class MoveComponent: GKComponent {
     let action = SKAction.sequence([
 //      SKAction.rotateByAngle(angleToRotate, duration: NSTimeInterval(abs(angleToRotate)/restAngularVelocity)),
       SKAction.rotateByAngle(angleToRotate, duration: 0.1),
+//      SKAction.rotateByAngle(angleToRotate, duration: abs(Double(angleToRotate))/0.3),
       SKAction.runBlock({ [unowned self] in
         // In the didSimulatePhysics will do do the block below
         (self.renderComponent.node.scene as! LevelScene).restRotatingCompletionBlock = {
