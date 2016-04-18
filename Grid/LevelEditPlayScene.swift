@@ -200,6 +200,7 @@ class LevelEditPlayScene: LevelScene {
       activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
         if isCompleted {
           GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
+          LeaderboardHelper.reportMostShareTimesLeaderboard()
           switch self.sceneType! {
           case .testPlay:
             SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)

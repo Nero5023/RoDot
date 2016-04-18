@@ -9,8 +9,8 @@
 import Foundation
 import GameKit
 
-private let RotateCountKey = "RotateCount"
-private let ShareCountKey = "ShareCount"
+let RotateCountKey = "RotateCount"
+let ShareCountKey = "ShareCount"
 
 class  AchievementsHelper {
   static let Rotate10TimesAchievementId = "com.nero.rodot.rotate10times"

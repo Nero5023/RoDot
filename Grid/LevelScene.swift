@@ -332,6 +332,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     scene!.scaleMode = scaleMode
     view!.presentScene(scene)
     GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.rotateAchievements(rotateCount))
+    LeaderboardHelper.reportMostRotateTimesToLeaderboard()
   }
   
   func fadeOutRecordRestartButton() {
