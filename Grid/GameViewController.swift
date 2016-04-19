@@ -68,7 +68,54 @@ extension GameViewController: StartSceneDelegate {
     performSegueWithIdentifier("presentdiyviewcontroller", sender: nil)
   }
   
-  func didSelectMoreButton(scene: StartScene) {
-    
+  func didSelectMoreButton(scene: StartScene, buttonCenterPosition: CGPoint) {
+    let floatMenuController = FloatingMenuController(fromPosition: buttonCenterPosition)
+    floatMenuController.delegate = self
+    let bgMusicImageName = SceneManager.sharedInstance.backgroundMusicEabled() ? "bgmusic" : "bgmusic_disabled"
+    let soundEffertImageName = SceneManager.sharedInstance.soundEffertMusicEabled() ? "sound_effert" : "sound_effert_disabled"
+    floatMenuController.buttonItems = [
+      FloatingButton(image: UIImage(named: bgMusicImageName)),
+      FloatingButton(image: UIImage(named: soundEffertImageName)),
+      FloatingButton(image: UIImage(named: "rate")),
+      FloatingButton(image: UIImage(named: "gamecenter")),
+    ]
+    floatMenuController.labelTitles = [
+      "Music",
+      "Sound Effert",
+      "Rate",
+      "GameCenter",
+    ]
+    presentViewController(floatMenuController, animated: true, completion: nil)
+  }
+}
+
+extension GameViewController: FloatingMenueControllerDelegate {
+  func floatingMenuController(controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index:Int) {
+    switch index {
+    case 0: // BackgroundMusci
+      if SceneManager.sharedInstance.backgroundMusicEabled() {
+        button.setImage(UIImage(named: "bgmusic_disabled"), forState: .Normal)
+        SceneManager.sharedInstance.setBackgroundMuscicEabled(false)
+      }else {
+        button.setImage(UIImage(named: "bgmusic"), forState: .Normal)
+        SceneManager.sharedInstance.setBackgroundMuscicEabled(true)
+      }
+    case 1: // SoundEffert
+      if SceneManager.sharedInstance.soundEffertMusicEabled() {
+        button.setImage(UIImage(named: "sound_effert_disabled"), forState: .Normal)
+        SceneManager.sharedInstance.setSoundEffertEabled(false)
+      }else {
+        button.setImage(UIImage(named: "sound_effert"), forState: .Normal)
+        SceneManager.sharedInstance.setSoundEffertEabled(true)
+      }
+    case 3: //Gamecenter
+//      controller.delegate
+      controller.dismissViewControllerAnimated(true) {
+        GameKitHelper.shareInstance.showGKGameCenterViewController(self)
+      }
+    default:
+      break
+    }
+    SKTAudio.sharedInstance().playSoundEffect("button_click_5.wav")
   }
 }

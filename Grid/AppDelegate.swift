@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
     SceneManager.sharedInstance.managedContext = coreDataStack.context
     NSUserDefaults.standardUserDefaults().setBool(false, forKey: IsRecordingKey)
+    NSUserDefaults.standardUserDefaults().registerDefaults([BackgroundMusicEabledKey: true, SoundEffertEabledKey: true])
     return true
   }
 

@@ -10,6 +10,9 @@ import SpriteKit
 import GameplayKit
 import CoreData
 
+let BackgroundMusicEabledKey = "BackgroundMusicEabled"
+let SoundEffertEabledKey = "SoundEffertEabled"
+
 final class SceneManager {
   
   // MARK: Propreties
@@ -223,6 +226,27 @@ final class SceneManager {
       SceneManager.sharedInstance.presentingView.presentScene(scene)
     }
     task.resume()
+  }
+  
+  func backgroundMusicEabled() -> Bool {
+    return NSUserDefaults.standardUserDefaults().boolForKey(BackgroundMusicEabledKey)
+  }
+  
+  func soundEffertMusicEabled() -> Bool {
+    return NSUserDefaults.standardUserDefaults().boolForKey(SoundEffertEabledKey)
+  }
+  
+  func setBackgroundMuscicEabled(eabled: Bool) {
+    if eabled {
+      SKTAudio.sharedInstance().resumeBackgroundMusic()
+    }else {
+      SKTAudio.sharedInstance().pauseBackgroundMusic()
+    }
+    NSUserDefaults.standardUserDefaults().setBool(eabled, forKey: BackgroundMusicEabledKey)
+  }
+  
+  func setSoundEffertEabled(eabled: Bool) {
+    NSUserDefaults.standardUserDefaults().setBool(eabled, forKey: SoundEffertEabledKey)
   }
   
 }

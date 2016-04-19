@@ -48,20 +48,21 @@ class FloatingMenuController: UIViewController {
   var labelTitles = [String]()
   var buttonLabels = [UILabel]()
   
-  let fromView: UIView
+//  let fromView: UIView
+  let fromPosition: CGPoint
   
   let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
   
   let closeButon = FloatingButton(image: UIImage(named: "icon-close"), backgroundColor: UIColor.flatRedColor)
   
-  init(fromView: UIView) {
-    self.fromView = fromView
+  init(fromPosition: CGPoint) {
+    self.fromPosition = fromPosition
     super.init(nibName: nil, bundle: nil)
     
-    //这个使得present controller 背景不消失
+    //present controller background doest disapper
     modalPresentationStyle = .OverFullScreen
     
-    //present 效果
+    //present effect
     modalTransitionStyle = .CrossDissolve
   }
 
@@ -80,14 +81,15 @@ class FloatingMenuController: UIViewController {
 //  }
   
   func configureButtons(initial: Bool) {
-    let parentController = presentingViewController!
-    let center = parentController.view.convertPoint(fromView.center, fromView: fromView.superview)
+    _ = presentingViewController!
+//    let center = parentController.view.convertPoint(fromView.center, fromView: fromView.superview)
+    let center = fromPosition
     closeButon.center = center
     
     if initial {
       closeButon.alpha = 0
       closeButon.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-      for (index, button) in buttonItems.enumerate() {
+      for (_, button) in buttonItems.enumerate() {
         button.center = center
         button.alpha = 0
         button.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
@@ -168,6 +170,7 @@ class FloatingMenuController: UIViewController {
   
   func handleCloseMenu(sender: AnyObject) {
     delegate?.floatingMenuControllerDidCancel?(self)
+    SKTAudio.sharedInstance().playSoundEffect("button_click_5.wav")
     dismissViewControllerAnimated(true, completion: nil)
     
   }

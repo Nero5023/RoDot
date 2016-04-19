@@ -74,6 +74,8 @@ public class SKTAudio {
   }
 
   public func playSoundEffect(filename: String, withVolume volume: Float = 1.0) {
+    guard SceneManager.sharedInstance.soundEffertMusicEabled() else { return }
+    
     let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
     if (url == nil) {
       print("Could not find file: \(filename)")

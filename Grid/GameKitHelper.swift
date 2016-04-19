@@ -47,3 +47,21 @@ class GameKitHelper: NSObject {
   }
   
 }
+
+extension GameKitHelper: GKGameCenterControllerDelegate {
+  func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+    gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  
+  func showGKGameCenterViewController(viewController: UIViewController) {
+    guard gameCenterEnaled else { return }
+    
+    let gameCenterViewController = GKGameCenterViewController()
+    
+    gameCenterViewController.gameCenterDelegate = self
+    
+    viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
+  }
+}
+

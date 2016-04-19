@@ -10,7 +10,7 @@ import SpriteKit
 
 protocol StartSceneDelegate: class {
   func didSelectMyDiysButton(scene: StartScene)
-  func didSelectMoreButton(scene: StartScene)
+  func didSelectMoreButton(scene: StartScene, buttonCenterPosition: CGPoint)
 }
 
 class StartScene: SKScene, SceneLayerProtocol {
@@ -39,8 +39,6 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   var levelSelectButtons = [SKButtonNode]()
   
-  let soundBubblePop = SKAction.playSoundFileNamed("fadeout.mp3", waitForCompletion: false)
-//  let soundBallBounce = SKAction.playSoundFileNamed("ball_bounce.wav", waitForCompletion: true)
   
   // MARK: Scene Life Cycle
   
@@ -170,6 +168,9 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
       let runBlock1 = SKAction.runBlock {
         SKTAudio.sharedInstance().playBackgroundMusic("background_music.wav")
+        if !SceneManager.sharedInstance.backgroundMusicEabled() {
+          SKTAudio.sharedInstance().pauseBackgroundMusic()
+        }
       }
       maxSizeBallNode.runAction(SKAction.sequence([scaleAction0, runBlock ,scaleAction1, runBlock1]))
     }
@@ -218,8 +219,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     diyButton.zPosition = overlayNode.zPosition 
     overlayNode.addChild(diyButton)
     diyButton.actionTouchUpInside = { [unowned self] in
-      let soundClick = SKAction.playSoundFileNamed("diy_click.wav", waitForCompletion: false)
-      self.runAction(soundClick)
+      SKTAudio.sharedInstance().playSoundEffect("diy_click.wav")
       let scaleAction = SKAction.scaleTo(0.2, duration: 0.33)
       let fadoutAction = SKAction.fadeOutWithDuration(0.33)
       let scaleAndFadeOutAction = SKAction.group([scaleAction, fadoutAction])
@@ -250,11 +250,15 @@ class StartScene: SKScene, SceneLayerProtocol {
     themeButtons.append(myDiybutton)
     
     let moreButton = SKButtonNode(imageNameNormal: "more", selected: nil)
-    moreButton.position = CGPoint(x: 1536 - 192 - 37 - 75, y: 37 + 75)
-    moreButton.zPosition = overlayNode.zPosition
-//    overlayNode.addChild(moreButton)
+    let factor = self.size.height / view!.bounds.size.height
+    moreButton.size = CGSize(width: FloatingButtonWidth * factor, height: FloatingButtonWidth * factor)
+    moreButton.position = CGPoint(x: 1536 - 192 - 37 - moreButton.size.width/2, y: 37 + moreButton.size.width/2)
+    overlayNode.addChild(moreButton)
     moreButton.actionTouchUpInside = {
-      self.startSceneDelegate?.didSelectMoreButton(self)
+      SKTAudio.sharedInstance().playSoundEffect("fadeout.mp3")
+      let moreButtonPosisitonInScene = self.convertPoint(moreButton.position, fromNode: moreButton.parent!)
+      let centerPosition = self.view!.convertPoint(moreButtonPosisitonInScene, fromScene: self)
+      self.startSceneDelegate?.didSelectMoreButton(self, buttonCenterPosition: centerPosition)
     }
     
     moreButton.alpha = 0
@@ -272,7 +276,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     
     
     theme.actionTouchUpInside = {
-      self.runAction(SKAction.playSoundFileNamed("energy_4.wav", waitForCompletion: false))
+      SKTAudio.sharedInstance().playSoundEffect("energy_4.wav")
       let action = SKAction.sequence([
         SKAction.scaleTo(0, duration: 0.2),
         SKAction.runBlock{
@@ -330,7 +334,7 @@ class StartScene: SKScene, SceneLayerProtocol {
         button.actionTouchUpInside = {
           guard self.touchable else { return }
           self.touchable = false
-          self.runAction(self.soundBubblePop)
+          SKTAudio.sharedInstance().playSoundEffect("fadeout.mp3")
           let sequenceAction = SKAction.sequence([
             SKAction.group([
               SKAction.scaleTo(3, duration: 0.3),
