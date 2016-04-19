@@ -4,22 +4,38 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--DIYLevels-->
+        <!--Desinged Levels-->
         <scene sceneID="qlH-Rl-VP2">
             <objects>
-                <tableViewController id="8er-vx-Sw7" customClass="DIYLevelsViewController" customModule="Grid" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ydr-xe-UvX">
+                <tableViewController id="8er-vx-Sw7" customClass="DIYLevelsViewController" customModule="RoDot" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ydr-xe-UvX">
                         <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="AW6-od-A1J">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="66" id="AW6-od-A1J" customClass="DIYLevelTableViewCell" customModule="RoDot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AW6-od-A1J" id="9Ul-zi-ZeK">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LevelName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgm-r5-Rvs">
+                                            <rect key="frame" x="18" y="17" width="574" height="31"/>
+                                            <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="24"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Xgm-r5-Rvs" firstAttribute="leading" secondItem="9Ul-zi-ZeK" secondAttribute="leading" constant="18" id="BLL-Do-htx"/>
+                                        <constraint firstAttribute="bottom" secondItem="Xgm-r5-Rvs" secondAttribute="bottom" constant="17.5" id="Oae-Df-3G6"/>
+                                        <constraint firstAttribute="trailing" secondItem="Xgm-r5-Rvs" secondAttribute="trailing" constant="8" id="efa-ZO-1eU"/>
+                                        <constraint firstItem="Xgm-r5-Rvs" firstAttribute="top" secondItem="9Ul-zi-ZeK" secondAttribute="top" constant="17" id="wUP-an-w07"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="levelName" destination="Xgm-r5-Rvs" id="k6J-0z-IGX"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -27,8 +43,9 @@
                             <outlet property="delegate" destination="8er-vx-Sw7" id="ohE-5k-whd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="DIYLevels" id="9rg-R1-9jN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="g2O-4H-VY3">
+                    <navigationItem key="navigationItem" title="Desinged Levels" id="9rg-R1-9jN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="g2O-4H-VY3">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="doneButton:" destination="8er-vx-Sw7" id="PJv-ni-rl0"/>
                             </connections>
@@ -42,7 +59,7 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Grid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="RoDot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
@@ -64,7 +81,7 @@
         <!--Ro Dot Navigation Controller-->
         <scene sceneID="ww0-ht-VFi">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="93Y-8f-gyj" customClass="RoDotNavigationController" customModule="Grid" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="93Y-8f-gyj" customClass="RoDotNavigationController" customModule="RoDot" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pym-gR-rGI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -88,6 +105,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Fci-Yi-8Hu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.3529411764705882" green="0.64313725490196072" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="9TE-97-EmB">

@@ -28,6 +28,7 @@
 		CE145F1D1CC601FD009D41BA /* Theme2-1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1C1CC601FD009D41BA /* Theme2-1.sks */; };
 		CE145F1F1CC60743009D41BA /* themplate.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1E1CC60743009D41BA /* themplate.sks */; };
 		CE145F211CC62AA0009D41BA /* button_click_5.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE145F201CC62AA0009D41BA /* button_click_5.wav */; };
+		CE145F231CC63A42009D41BA /* DIYLevelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */; };
 		CE1627C91CACF9A90059DC89 /* Level+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C51CACF9A90059DC89 /* Level+CoreDataProperties.swift */; };
 		CE1627CA1CACF9A90059DC89 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C61CACF9A90059DC89 /* Level.swift */; };
 		CE1627CB1CACF9A90059DC89 /* Node+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C71CACF9A90059DC89 /* Node+CoreDataProperties.swift */; };
@@ -231,6 +232,7 @@
 		CE145F1C1CC601FD009D41BA /* Theme2-1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-1.sks"; sourceTree = "<group>"; };
 		CE145F1E1CC60743009D41BA /* themplate.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = themplate.sks; sourceTree = "<group>"; };
 		CE145F201CC62AA0009D41BA /* button_click_5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click_5.wav; sourceTree = "<group>"; };
+		CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIYLevelTableViewCell.swift; sourceTree = "<group>"; };
 		CE1627C51CACF9A90059DC89 /* Level+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Level+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE1627C61CACF9A90059DC89 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		CE1627C71CACF9A90059DC89 /* Node+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Node+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 				CEE2D0C81CC5C37E003B4788 /* FloatingButton.swift */,
 				CEE2D0C61CC5C372003B4788 /* UIColors+FloatingMenu.swift */,
 				CE1627D11CAD47C20059DC89 /* DIYLevelsViewController.swift */,
+				CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */,
 				CE7DB7D71C68B64400AA358C /* Main.storyboard */,
 				CE7DB7DA1C68B64400AA358C /* Assets.xcassets */,
 				CE7DB7DC1C68B64400AA358C /* LaunchScreen.storyboard */,
@@ -1101,6 +1104,7 @@
 				CEDA13021CB4F23D00EAB73E /* PKHUDAssets.swift in Sources */,
 				CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */,
 				CEBB4D431C87094000D2174E /* RotatableRodCountComponent.swift in Sources */,
+				CE145F231CC63A42009D41BA /* DIYLevelTableViewCell.swift in Sources */,
 				CE1E9AF91C8E85580012F3F8 /* TransferComponent.swift in Sources */,
 				CEACA2A11CB9F41F003E35B9 /* GameKitHelper.swift in Sources */,
 				CEDA12FC1CB4F23D00EAB73E /* HUD.swift in Sources */,

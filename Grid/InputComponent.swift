@@ -67,7 +67,7 @@ class InputComponent: GKComponent {
   
   var firstTouchPosition: CGPoint?
   
-  let MIN_MOVE_DISTANCE: CGFloat = 5
+  let MIN_MOVE_DISTANCE: CGFloat = 3
   
   var inputState = InputState() {
     didSet {

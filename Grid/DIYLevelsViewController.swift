@@ -10,12 +10,20 @@ import UIKit
 
 class DIYLevelsViewController: UITableViewController {
   
+  
+  let CellIdentifier = "Cell"
+  
   var levels = [Level]()
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
 //    self.navigationController?.navigationBar.statusBarHidden = true
-    tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+//    tableView.registerClass(DIYLevelTableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+    self.tableView.tableFooterView = UIView()
     self.levels = SceneManager.sharedInstance.fetchAllLevels()
     tableView.reloadData()
   }
@@ -25,9 +33,14 @@ class DIYLevelsViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath) as! DIYLevelTableViewCell
     let level = levels[indexPath.row]
-    cell.textLabel!.text = level.name
+    cell.levelName.text = level.name
+    if indexPath.row % 2 == 1 {
+      cell.backgroundColor = UIColor(red: 90/255.0, green: 164/255.0, blue: 253/255.0, alpha: 1)
+      cell.levelName.textColor = UIColor.whiteColor()
+    }
+    cell.contentView.backgroundColor = UIColor.clearColor()
     return cell
   }
   

@@ -22,7 +22,7 @@ class Rod: GKEntity {
     let renderComponent = RenderComponent(entity: self, renderNode: renderNode)
     addComponent(renderComponent)
     
-    let physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: GameplayConfiguration.Rod.physizeBodyWidth, height: renderComponent.node.size.height))
+    let physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: GameplayConfiguration.Rod.physizeBodyWidth, height: renderComponent.node.size.height - 2))
     physicsBody.affectedByGravity = false
     physicsBody.dynamic = false
     

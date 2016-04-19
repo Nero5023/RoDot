@@ -88,7 +88,7 @@ class BasePointEntity: GKEntity {
     let renderComponent = RenderComponent(entity: self, renderNode: renderNode)
     addComponent(renderComponent)
     
-    let physicsBody = SKPhysicsBody(circleOfRadius: renderComponent.node.size.width/2.0)
+    let physicsBody = SKPhysicsBody(circleOfRadius: renderComponent.node.size.width/2.0 - 2)
     physicsBody.affectedByGravity = false
     physicsBody.dynamic = false
     let physicsComponent = PhysicsComponent(physicsBody:physicsBody, colliderType: GameplayConfiguration.RotationPoint.collider)
