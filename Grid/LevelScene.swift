@@ -88,6 +88,13 @@ class LevelScene: SKScene, SceneLayerProtocol {
           let entity = Transfer(renderNode: node)
           node.removeFromParent()
           self.addEntity(entity)
+          let renderNode = entity.componentForClass(RenderComponent.self)!.node
+          renderNode.runAction(SKAction.repeatActionForever(SKAction.rotateByAngle(2*π, duration: 2)))
+          renderNode.setScale(0)
+          let scaleAction = SKAction.scaleTo(1, duration: 0.66)
+          scaleAction.timingMode = SKActionTimingMode.EaseOut
+          renderNode.runAction(SKAction.sequence([SKAction.waitForDuration(1), scaleAction]))
+          
         }
       }
       
@@ -130,7 +137,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
-    backButton.position = CGPoint(x: 300, y: 1950)
+    backButton.position = CGPoint(x: 108 + xMargin, y: 1950)
     backButton.actionTouchUpInside = backButtonTouchUpInsideActon
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
@@ -151,7 +158,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   func addRestartButton() {
     let restartButton = SKButtonNode(imageNameNormal: "restart", selected: nil)
-    restartButton.position = CGPoint(x: 1536-300, y: 1950)
+    restartButton.position = CGPoint(x: size.width - xMargin - 108, y: 1950)
     restartButton.name = "restart"
     restartButton.actionTouchUpInside = { [unowned self] in
       if self.actionForKey(RestartGameActionKey) == nil {
@@ -211,24 +218,19 @@ class LevelScene: SKScene, SceneLayerProtocol {
   }
   
   func setUpScene() {
-    let maxAspectRatio: CGFloat = 16.0/9.0
-    let maxAspectRatioWidth = size.height / maxAspectRatio
-    
-    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
-    let playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
-    physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
+    physicsBody = SKPhysicsBody(edgeLoopFromRect: backgroundRect)
     physicsBody!.categoryBitMask = PhysicsCategory.Edge
     physicsBody!.collisionBitMask = PhysicsCategory.Ball
     
-    addBackground(playableRect)
+    addBackground()
   }
   
-  func addBackground(playableRect: CGRect) {
+  func addBackground() {
     let background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
     background.zPosition = bgNode.zPosition
     background.anchorPoint = CGPoint.zero
-    background.position = playableRect.origin
-    background.size = playableRect.size
+    background.size = backgroundRect.size
+    background.position = backgroundRect.origin
     bgNode.addChild(background)
   }
   
@@ -393,6 +395,7 @@ extension LevelScene: SKPhysicsContactDelegate {
       let ball = contact.bodyA.categoryBitMask == PhysicsCategory.Ball ? contact.bodyA.node : contact.bodyB.node
       if let transfer = transfer as? EntityNode, ball = ball as? SKSpriteNode {
         transfer.entity.componentForClass(TransferComponent.self)?.transferNode(ball)
+        SKTAudio.sharedInstance().playSoundEffect("teleport.wav")
       }
     }
     // 可以用 collision & PhysicsCategory.Transfer 看看是不是 Transfer 

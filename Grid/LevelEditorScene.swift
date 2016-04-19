@@ -219,7 +219,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
-    backButton.position = CGPoint(x: 300, y: 1950)
+    backButton.position = CGPoint(x: xMargin + 108, y: 1950)
     backButton.actionTouchUpInside = {
       SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
       SceneManager.sharedInstance.backToStartScene()
@@ -231,16 +231,11 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   }
   
   func addBackground() {
-    let maxAspectRatio: CGFloat = 16.0/9.0
-    let maxAspectRatioWidth = size.height / maxAspectRatio
-    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
-    let playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
-    
     let background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
     background.zPosition = bgNode.zPosition
     background.anchorPoint = CGPoint.zero
-    background.position = playableRect.origin
-    background.size = playableRect.size
+    background.size = backgroundRect.size
+    background.position = backgroundRect.origin
     bgNode.addChild(background)
   }
   

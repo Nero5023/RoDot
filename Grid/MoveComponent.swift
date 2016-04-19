@@ -67,14 +67,14 @@ class MoveComponent: GKComponent {
         }
         moveNode.physicsBody?.angularVelocity = angularVelocity * GameplayConfiguration.PhysicsFactors.compoundangularVelocityFactor
       }else { // for resting
-        if afterDelayRestRotationBlock == nil {
-          afterDelayRestRotationBlock = self.restRotationWithSKAction
-          delay(2) {
-            if let afterDelayRestRotationBlock = self.afterDelayRestRotationBlock {
-              afterDelayRestRotationBlock()
-            }
-          }
-        }
+//        if afterDelayRestRotationBlock == nil {
+//          afterDelayRestRotationBlock = self.restRotationWithSKAction
+//          delay(2) {
+//            if let afterDelayRestRotationBlock = self.afterDelayRestRotationBlock {
+//              afterDelayRestRotationBlock()
+//            }
+//          }
+//        }
         
         angularVelocity = min(0.4, abs(angularVelocity)) * angularVelocity.sign()
 //        print(angularVelocity)

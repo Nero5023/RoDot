@@ -20,8 +20,7 @@ class StartScene: SKScene, SceneLayerProtocol {
   let TotalBallNodesCount: Int = 9
   
   var staticBallCount: Int = 0
-  
-  var playableRect: CGRect!
+
   
   var titlePositoin: CGPoint!
   
@@ -34,11 +33,9 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   weak var startSceneDelegate: StartSceneDelegate?
   
-  
   var themeButtons = [SKButtonNode]()
   
   var levelSelectButtons = [SKButtonNode]()
-  
   
   // MARK: Scene Life Cycle
   
@@ -51,19 +48,12 @@ class StartScene: SKScene, SceneLayerProtocol {
     }
     isFirstTime = false
     
-    setUpRodAndBall()
-    
-    let maxAspectRatio: CGFloat = 16.0/9.0
-    let maxAspectRatioWidth = size.height / maxAspectRatio
-    
-    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
-    playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
-    
     let titleLabelNode = childNodeWithName("title")!
-    
     titlePositoin = titleLabelNode.position
     titleLabelNode.alpha = 0
     titleLabelNode.runAction(SKAction.fadeAlphaTo(1, duration: 1.5))
+    
+    setUpRodAndBall()
   }
   
   
@@ -183,16 +173,23 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   
   func addBackground() {
-    let maxAspectRatio: CGFloat = 16.0/9.0
-    let maxAspectRatioWidth = size.height / maxAspectRatio
-    
-    let playableMargin: CGFloat = (size.width - maxAspectRatioWidth)/2
-    let playableRect = CGRect(x: playableMargin, y: 0, width: size.width - playableMargin*2, height: size.height)
+    print("factor:\(view!.bounds.size.height/view!.bounds.size.width)")
+    print(playableMargin)
     let background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
     background.zPosition = bgNode.zPosition
     background.anchorPoint = CGPoint.zero
     background.position = playableRect.origin
-    background.size = playableRect.size
+//    background.size = playableRect.size
+    background.size = backgroundRect.size
+    background.position = backgroundRect.origin
+//    if view!.bounds.size.height/view!.bounds.size.width <= 1.5 { // not 16:9
+//      background.size = size
+//      background.position = CGPoint.zero
+//    }else {
+//      background.size = playableRect.size
+//      background.position = playableRect.origin
+//    }
+    
     background.alpha = 0
     bgNode.addChild(background)
     let runblock = SKAction.runBlock{
@@ -252,7 +249,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     let moreButton = SKButtonNode(imageNameNormal: "more", selected: nil)
     let factor = self.size.height / view!.bounds.size.height
     moreButton.size = CGSize(width: FloatingButtonWidth * factor, height: FloatingButtonWidth * factor)
-    moreButton.position = CGPoint(x: 1536 - 192 - 37 - moreButton.size.width/2, y: 37 + moreButton.size.width/2)
+    moreButton.position = CGPoint(x: 1536 - xMargin - 37 - moreButton.size.width/2, y: 37 + moreButton.size.width/2)
     overlayNode.addChild(moreButton)
     moreButton.actionTouchUpInside = {
       SKTAudio.sharedInstance().playSoundEffect("fadeout.mp3")
@@ -471,7 +468,7 @@ class StartScene: SKScene, SceneLayerProtocol {
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
-    backButton.position = CGPoint(x: 300, y: 1950)
+    backButton.position = CGPoint(x: xMargin + 108, y: 1950)
     backButton.actionTouchUpInside = {
       SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
       for themeButton in self.themeButtons where themeButton.xScale == 0 {

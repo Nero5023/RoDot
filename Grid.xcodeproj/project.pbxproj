@@ -29,6 +29,7 @@
 		CE145F1F1CC60743009D41BA /* themplate.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1E1CC60743009D41BA /* themplate.sks */; };
 		CE145F211CC62AA0009D41BA /* button_click_5.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE145F201CC62AA0009D41BA /* button_click_5.wav */; };
 		CE145F231CC63A42009D41BA /* DIYLevelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */; };
+		CE145F251CC6717B009D41BA /* teleport.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE145F241CC6717B009D41BA /* teleport.wav */; };
 		CE1627C91CACF9A90059DC89 /* Level+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C51CACF9A90059DC89 /* Level+CoreDataProperties.swift */; };
 		CE1627CA1CACF9A90059DC89 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C61CACF9A90059DC89 /* Level.swift */; };
 		CE1627CB1CACF9A90059DC89 /* Node+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C71CACF9A90059DC89 /* Node+CoreDataProperties.swift */; };
@@ -233,6 +234,7 @@
 		CE145F1E1CC60743009D41BA /* themplate.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = themplate.sks; sourceTree = "<group>"; };
 		CE145F201CC62AA0009D41BA /* button_click_5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click_5.wav; sourceTree = "<group>"; };
 		CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIYLevelTableViewCell.swift; sourceTree = "<group>"; };
+		CE145F241CC6717B009D41BA /* teleport.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = teleport.wav; sourceTree = "<group>"; };
 		CE1627C51CACF9A90059DC89 /* Level+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Level+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE1627C61CACF9A90059DC89 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		CE1627C71CACF9A90059DC89 /* Node+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Node+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -735,6 +737,7 @@
 				CE6A4EC81CC360E600157748 /* failure.wav */,
 				CEF770041CC4772800F8E992 /* background_music.wav */,
 				CE16CAFC1CC5208900304CE3 /* timeout.wav */,
+				CE145F241CC6717B009D41BA /* teleport.wav */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */,
 				CE0E025E1CC2641B006BA395 /* close_lock.wav in Resources */,
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
+				CE145F251CC6717B009D41BA /* teleport.wav in Resources */,
 				CE145F1D1CC601FD009D41BA /* Theme2-1.sks in Resources */,
 				CE787F821CA0D5BC0026807B /* Level10.sks in Resources */,
 				CE145F211CC62AA0009D41BA /* button_click_5.wav in Resources */,

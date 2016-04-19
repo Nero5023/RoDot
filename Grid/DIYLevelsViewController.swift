@@ -39,6 +39,10 @@ class DIYLevelsViewController: UITableViewController {
     if indexPath.row % 2 == 1 {
       cell.backgroundColor = UIColor(red: 90/255.0, green: 164/255.0, blue: 253/255.0, alpha: 1)
       cell.levelName.textColor = UIColor.whiteColor()
+    }else {
+      cell.backgroundColor = UIColor.whiteColor()
+      cell.levelName.textColor = UIColor.blackColor()
+
     }
     cell.contentView.backgroundColor = UIColor.clearColor()
     return cell

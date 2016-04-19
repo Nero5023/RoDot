@@ -17,7 +17,7 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
     guard screenRecordingAvailable else { return }
     
     let recordButton = SKButtonNode(imageNameNormal: isRecording ? "recordingbutton" : "recordbutton", selected: "recordbutton_selected", disabled: "recordbutton_selected")
-    recordButton.position = CGPoint(x: 1536-300-120, y: 1950)
+    recordButton.position = CGPoint(x: size.width - xMargin - 108 - 120, y: 1950)
     recordButton.name = "record"
     recordButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(recordButton)

@@ -291,7 +291,8 @@ class LevelEditPlayScene: LevelScene {
     switch sceneType {
     case .selfPlay:
       let smallShreButton = SKButtonNode(imageNameNormal: "sharebutton_s", selected: nil)
-      smallShreButton.position = CGPoint(x: 1536-300-120-120, y: 1950)
+      let margin: CGFloat = screenRecordingAvailable ? (120+120) : 120
+      smallShreButton.position = CGPoint(x: size.width-xMargin-108-margin, y: 1950)
       smallShreButton.name = "share_s"
       smallShreButton.zPosition = overlayNode.zPosition
       overlayNode.addChild(smallShreButton)
