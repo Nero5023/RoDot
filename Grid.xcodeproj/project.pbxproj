@@ -25,6 +25,8 @@
 		CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE141C85D76D00E876FF /* StaticPoint.swift */; };
 		CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */; };
 		CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */; };
+		CE145F1D1CC601FD009D41BA /* Theme2-1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1C1CC601FD009D41BA /* Theme2-1.sks */; };
+		CE145F1F1CC60743009D41BA /* themplate.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1E1CC60743009D41BA /* themplate.sks */; };
 		CE1627C91CACF9A90059DC89 /* Level+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C51CACF9A90059DC89 /* Level+CoreDataProperties.swift */; };
 		CE1627CA1CACF9A90059DC89 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C61CACF9A90059DC89 /* Level.swift */; };
 		CE1627CB1CACF9A90059DC89 /* Node+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1627C71CACF9A90059DC89 /* Node+CoreDataProperties.swift */; };
@@ -183,6 +185,9 @@
 		CEDC06241C7DE4E7000F9C52 /* Rod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06231C7DE4E7000F9C52 /* Rod.swift */; };
 		CEDC06261C7DEC11000F9C52 /* RotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC06251C7DEC11000F9C52 /* RotationPoint.swift */; };
 		CEE136581CBBC309004A1A5F /* AchievementsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE136571CBBC309004A1A5F /* AchievementsHelper.swift */; };
+		CEE2D0C51CC5C343003B4788 /* FloatingMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2D0C41CC5C343003B4788 /* FloatingMenuController.swift */; };
+		CEE2D0C71CC5C372003B4788 /* UIColors+FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2D0C61CC5C372003B4788 /* UIColors+FloatingMenu.swift */; };
+		CEE2D0C91CC5C37E003B4788 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2D0C81CC5C37E003B4788 /* FloatingButton.swift */; };
 		CEF770051CC4772800F8E992 /* background_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = CEF770041CC4772800F8E992 /* background_music.wav */; };
 /* End PBXBuildFile section */
 
@@ -222,6 +227,8 @@
 		CE12AE141C85D76D00E876FF /* StaticPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticPoint.swift; sourceTree = "<group>"; };
 		CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointLockedForeverState.swift; sourceTree = "<group>"; };
 		CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePointEntity.swift; sourceTree = "<group>"; };
+		CE145F1C1CC601FD009D41BA /* Theme2-1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-1.sks"; sourceTree = "<group>"; };
+		CE145F1E1CC60743009D41BA /* themplate.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = themplate.sks; sourceTree = "<group>"; };
 		CE1627C51CACF9A90059DC89 /* Level+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Level+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE1627C61CACF9A90059DC89 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		CE1627C71CACF9A90059DC89 /* Node+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Node+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -388,6 +395,9 @@
 		CEDC06231C7DE4E7000F9C52 /* Rod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rod.swift; sourceTree = "<group>"; };
 		CEDC06251C7DEC11000F9C52 /* RotationPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationPoint.swift; sourceTree = "<group>"; };
 		CEE136571CBBC309004A1A5F /* AchievementsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsHelper.swift; sourceTree = "<group>"; };
+		CEE2D0C41CC5C343003B4788 /* FloatingMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingMenuController.swift; sourceTree = "<group>"; };
+		CEE2D0C61CC5C372003B4788 /* UIColors+FloatingMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColors+FloatingMenu.swift"; sourceTree = "<group>"; };
+		CEE2D0C81CC5C37E003B4788 /* FloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		CEF770041CC4772800F8E992 /* background_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_music.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -425,6 +435,15 @@
 				CE0C76F41C8BD54A002CBF23 /* LevelSceneSuccessState.swift */,
 			);
 			name = SceneState;
+			sourceTree = "<group>";
+		};
+		CE145F1B1CC601FD009D41BA /* Theme2 */ = {
+			isa = PBXGroup;
+			children = (
+				CE145F1C1CC601FD009D41BA /* Theme2-1.sks */,
+				CE145F1E1CC60743009D41BA /* themplate.sks */,
+			);
+			path = Theme2;
 			sourceTree = "<group>";
 		};
 		CE16AB951CAC376900A42545 /* CoreData */ = {
@@ -586,6 +605,9 @@
 				CE7DB7D11C68B64400AA358C /* GameScene.sks */,
 				CE7DB7D31C68B64400AA358C /* GameScene.swift */,
 				CE7DB7D51C68B64400AA358C /* GameViewController.swift */,
+				CEE2D0C41CC5C343003B4788 /* FloatingMenuController.swift */,
+				CEE2D0C81CC5C37E003B4788 /* FloatingButton.swift */,
+				CEE2D0C61CC5C372003B4788 /* UIColors+FloatingMenu.swift */,
 				CE1627D11CAD47C20059DC89 /* DIYLevelsViewController.swift */,
 				CE7DB7D71C68B64400AA358C /* Main.storyboard */,
 				CE7DB7DA1C68B64400AA358C /* Assets.xcassets */,
@@ -656,6 +678,7 @@
 				CE787F951CA10D270026807B /* Level18.sks */,
 				CE787F971CA10D960026807B /* Level19.sks */,
 				CE787F8B1CA0EEA70026807B /* Level20.sks */,
+				CE145F1B1CC601FD009D41BA /* Theme2 */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -912,6 +935,7 @@
 				CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */,
 				CE0E025E1CC2641B006BA395 /* close_lock.wav in Resources */,
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
+				CE145F1D1CC601FD009D41BA /* Theme2-1.sks in Resources */,
 				CE787F821CA0D5BC0026807B /* Level10.sks in Resources */,
 				CE0E02621CC27B9F006BA395 /* restart_click.wav in Resources */,
 				CE1627D01CAD188D0059DC89 /* LevelEdirorScene.sks in Resources */,
@@ -948,6 +972,7 @@
 				CEF770051CC4772800F8E992 /* background_music.wav in Resources */,
 				CE7FE5441CA5915C00556AD5 /* Level14.sks in Resources */,
 				CE787F861CA0E1910026807B /* Level11.sks in Resources */,
+				CE145F1F1CC60743009D41BA /* themplate.sks in Resources */,
 				CE6A4ECD1CC36D8600157748 /* ball_bounce_2.wav in Resources */,
 				CE787F921CA105A10026807B /* Level16.sks in Resources */,
 				CE16CAF91CC5076800304CE3 /* close_lock_2.wav in Resources */,
@@ -1031,6 +1056,7 @@
 				CE66F68A1C6BA6DC00E08955 /* Rotating.swift in Sources */,
 				CE7DB8131C68D74C00AA358C /* SKAction+SpecialEffects.swift in Sources */,
 				CEDA13011CB4F23D00EAB73E /* PKHUDAnimation.swift in Sources */,
+				CEE2D0C71CC5C372003B4788 /* UIColors+FloatingMenu.swift in Sources */,
 				CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */,
 				CE0C76F31C8BD4ED002CBF23 /* LevelSceneFailState.swift in Sources */,
 				CE0C76F11C8BD4C3002CBF23 /* LevelSceneActiveState.swift in Sources */,
@@ -1038,6 +1064,7 @@
 				CE7DB8121C68D74C00AA358C /* SKAction+Extensions.swift in Sources */,
 				CE6AE3DA1CB1826900B833C4 /* Client+Constant.swift in Sources */,
 				CE7DB8141C68D74C00AA358C /* SKColor+Extensions.swift in Sources */,
+				CEE2D0C51CC5C343003B4788 /* FloatingMenuController.swift in Sources */,
 				CE1E7A411CA29F0600BFD61B /* StartScene.swift in Sources */,
 				CE7DB7D61C68B64400AA358C /* GameViewController.swift in Sources */,
 				CE16AB941CAC356000A42545 /* CoreDataStack.swift in Sources */,
@@ -1074,6 +1101,7 @@
 				CEACA2A11CB9F41F003E35B9 /* GameKitHelper.swift in Sources */,
 				CEDA12FC1CB4F23D00EAB73E /* HUD.swift in Sources */,
 				CE6665B71C8349F90079F1C0 /* LevelScene.swift in Sources */,
+				CEE2D0C91CC5C37E003B4788 /* FloatingButton.swift in Sources */,
 				CE27767B1C9006E300B5FA7F /* ClockwiseRescritedRPoint.swift in Sources */,
 				CE2776751C8FF68700B5FA7F /* ClockwiseComponent.swift in Sources */,
 				CE27767F1C90625200B5FA7F /* IceBallNode.swift in Sources */,

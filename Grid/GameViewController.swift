@@ -67,4 +67,8 @@ extension GameViewController: StartSceneDelegate {
 //    print("in view controller")
     performSegueWithIdentifier("presentdiyviewcontroller", sender: nil)
   }
+  
+  func didSelectMoreButton(scene: StartScene) {
+    
+  }
 }

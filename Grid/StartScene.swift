@@ -10,6 +10,7 @@ import SpriteKit
 
 protocol StartSceneDelegate: class {
   func didSelectMyDiysButton(scene: StartScene)
+  func didSelectMoreButton(scene: StartScene)
 }
 
 class StartScene: SKScene, SceneLayerProtocol {
@@ -197,7 +198,6 @@ class StartScene: SKScene, SceneLayerProtocol {
       self.maxSizeBallNode.zPosition = self.bgNode.zPosition - 10
     }
     
-//    print(background.size)
     background.runAction(SKAction.sequence([SKAction.waitForDuration(0.5), runblock, SKAction.fadeInWithDuration(0.5)]))
     maxSizeBallNode.runAction(SKAction.sequence([SKAction.waitForDuration(1), SKAction.fadeOutWithDuration(0.33), SKAction.runBlock{ self.maxSizeBallNode.removeFromParent() }]))
   }
@@ -248,6 +248,17 @@ class StartScene: SKScene, SceneLayerProtocol {
     
     themeButtons.append(diyButton)
     themeButtons.append(myDiybutton)
+    
+    let moreButton = SKButtonNode(imageNameNormal: "more", selected: nil)
+    moreButton.position = CGPoint(x: 1536 - 192 - 37 - 75, y: 37 + 75)
+    moreButton.zPosition = overlayNode.zPosition
+//    overlayNode.addChild(moreButton)
+    moreButton.actionTouchUpInside = {
+      self.startSceneDelegate?.didSelectMoreButton(self)
+    }
+    
+    moreButton.alpha = 0
+    moreButton.runAction(SKAction.sequence([SKAction.waitForDuration(0.9), SKAction.fadeInWithDuration(0.5)]))
     
   }
   
