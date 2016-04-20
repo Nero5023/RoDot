@@ -147,15 +147,6 @@
 		CE6A4EAE1CC3329A00157748 /* button_click_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EAD1CC3329A00157748 /* button_click_3.wav */; };
 		CE6A4EB11CC3347500157748 /* button_click_4.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EB01CC3347500157748 /* button_click_4.wav */; };
 		CE6A4EB31CC3348700157748 /* button_unclick.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EB21CC3348700157748 /* button_unclick.wav */; };
-		CE6A4EB51CC352F600157748 /* piano_63.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EB41CC352F600157748 /* piano_63.wav */; };
-		CE6A4EB71CC353C400157748 /* piano_64.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EB61CC353C400157748 /* piano_64.wav */; };
-		CE6A4EB91CC354FF00157748 /* piano_62.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EB81CC354FF00157748 /* piano_62.wav */; };
-		CE6A4EBB1CC3551B00157748 /* piano_61.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EBA1CC3551B00157748 /* piano_61.wav */; };
-		CE6A4EBD1CC3554200157748 /* piano_60.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EBC1CC3554200157748 /* piano_60.wav */; };
-		CE6A4EC21CC355BC00157748 /* piano_50.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EBE1CC355BC00157748 /* piano_50.wav */; };
-		CE6A4EC31CC355BC00157748 /* piano_51.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EBF1CC355BC00157748 /* piano_51.wav */; };
-		CE6A4EC41CC355BC00157748 /* piano_52.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EC01CC355BC00157748 /* piano_52.wav */; };
-		CE6A4EC51CC355BC00157748 /* piano_53.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EC11CC355BC00157748 /* piano_53.wav */; };
 		CE6A4EC71CC35E4000157748 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EC61CC35E4000157748 /* success.wav */; };
 		CE6A4EC91CC360E600157748 /* failure.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4EC81CC360E600157748 /* failure.wav */; };
 		CE6A4ECB1CC36B5B00157748 /* ball_bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE6A4ECA1CC36B5B00157748 /* ball_bounce.wav */; };
@@ -407,15 +398,6 @@
 		CE6A4EAD1CC3329A00157748 /* button_click_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click_3.wav; sourceTree = "<group>"; };
 		CE6A4EB01CC3347500157748 /* button_click_4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click_4.wav; sourceTree = "<group>"; };
 		CE6A4EB21CC3348700157748 /* button_unclick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_unclick.wav; sourceTree = "<group>"; };
-		CE6A4EB41CC352F600157748 /* piano_63.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_63.wav; sourceTree = "<group>"; };
-		CE6A4EB61CC353C400157748 /* piano_64.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_64.wav; sourceTree = "<group>"; };
-		CE6A4EB81CC354FF00157748 /* piano_62.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_62.wav; sourceTree = "<group>"; };
-		CE6A4EBA1CC3551B00157748 /* piano_61.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_61.wav; sourceTree = "<group>"; };
-		CE6A4EBC1CC3554200157748 /* piano_60.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_60.wav; sourceTree = "<group>"; };
-		CE6A4EBE1CC355BC00157748 /* piano_50.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_50.wav; sourceTree = "<group>"; };
-		CE6A4EBF1CC355BC00157748 /* piano_51.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_51.wav; sourceTree = "<group>"; };
-		CE6A4EC01CC355BC00157748 /* piano_52.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_52.wav; sourceTree = "<group>"; };
-		CE6A4EC11CC355BC00157748 /* piano_53.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano_53.wav; sourceTree = "<group>"; };
 		CE6A4EC61CC35E4000157748 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
 		CE6A4EC81CC360E600157748 /* failure.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure.wav; sourceTree = "<group>"; };
 		CE6A4ECA1CC36B5B00157748 /* ball_bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ball_bounce.wav; sourceTree = "<group>"; };
@@ -904,15 +886,6 @@
 				CE6A4EB01CC3347500157748 /* button_click_4.wav */,
 				CE145F201CC62AA0009D41BA /* button_click_5.wav */,
 				CE6A4EB21CC3348700157748 /* button_unclick.wav */,
-				CE6A4EBE1CC355BC00157748 /* piano_50.wav */,
-				CE6A4EBF1CC355BC00157748 /* piano_51.wav */,
-				CE6A4EC01CC355BC00157748 /* piano_52.wav */,
-				CE6A4EC11CC355BC00157748 /* piano_53.wav */,
-				CE6A4EBC1CC3554200157748 /* piano_60.wav */,
-				CE6A4EBA1CC3551B00157748 /* piano_61.wav */,
-				CE6A4EB81CC354FF00157748 /* piano_62.wav */,
-				CE6A4EB41CC352F600157748 /* piano_63.wav */,
-				CE6A4EB61CC353C400157748 /* piano_64.wav */,
 				CE6A4EC61CC35E4000157748 /* success.wav */,
 				CE6A4EC81CC360E600157748 /* failure.wav */,
 				CEF770041CC4772800F8E992 /* background_music.wav */,
@@ -1115,7 +1088,6 @@
 				CE787F901CA0F4450026807B /* Level15.sks in Resources */,
 				CE787F8A1CA0EADA0026807B /* Level13.sks in Resources */,
 				CE7DB7D21C68B64400AA358C /* GameScene.sks in Resources */,
-				CE6A4EC31CC355BC00157748 /* piano_51.wav in Resources */,
 				CE6A4EB31CC3348700157748 /* button_unclick.wav in Resources */,
 				CE6A4EAA1CC32F8900157748 /* button_click.wav in Resources */,
 				CE61F85B1CC7DC2800CFF0EE /* Theme3-31.sks in Resources */,
@@ -1127,7 +1099,6 @@
 				CE787F981CA10D960026807B /* Level19.sks in Resources */,
 				CE61F8571CC7D8CE00CFF0EE /* Theme1-34.sks in Resources */,
 				CE61F8411CC7C15400CFF0EE /* Theme3-27.sks in Resources */,
-				CE6A4EC41CC355BC00157748 /* piano_52.wav in Resources */,
 				CEAD708F1CC1DD160048763A /* bubble_pop.mp3 in Resources */,
 				CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */,
 				CE101F5A1CC8129B0077E9A5 /* Theme1-48.sks in Resources */,
@@ -1155,17 +1126,14 @@
 				CE787F841CA0DCE20026807B /* Level9.sks in Resources */,
 				CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
-				CE6A4EBB1CC3551B00157748 /* piano_61.wav in Resources */,
 				CE101F581CC810EE0077E9A5 /* Theme3-38.sks in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
 				CE101F5E1CC818BF0077E9A5 /* Theme1-49.sks in Resources */,
 				CEDA12FD1CB4F23D00EAB73E /* Images.xcassets in Resources */,
-				CE6A4EC51CC355BC00157748 /* piano_53.wav in Resources */,
 				CE101F501CC80A760077E9A5 /* Theme2-40.sks in Resources */,
 				CE61F8751CC7EDF600CFF0EE /* Theme1-43.sks in Resources */,
 				CE0E02681CC290A7006BA395 /* energy_4.wav in Resources */,
 				CE6A4ECB1CC36B5B00157748 /* ball_bounce.wav in Resources */,
-				CE6A4EB71CC353C400157748 /* piano_64.wav in Resources */,
 				CE61F83C1CC7BE5C00CFF0EE /* Theme1-28.sks in Resources */,
 				CE61F8731CC7EBC300CFF0EE /* Theme3-33.sks in Resources */,
 				CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */,
@@ -1188,11 +1156,8 @@
 				CE101F4C1CC808070077E9A5 /* Theme2-38.sks in Resources */,
 				CE61F8771CC7F01300CFF0EE /* Theme3-34.sks in Resources */,
 				CE0E02641CC28570006BA395 /* menu_back.wav in Resources */,
-				CE6A4EBD1CC3554200157748 /* piano_60.wav in Resources */,
 				CE6A4EC91CC360E600157748 /* failure.wav in Resources */,
 				CE787F801CA0D0FD0026807B /* Level8.sks in Resources */,
-				CE6A4EC21CC355BC00157748 /* piano_50.wav in Resources */,
-				CE6A4EB51CC352F600157748 /* piano_63.wav in Resources */,
 				CE101F481CC803EC0077E9A5 /* Theme1-47.sks in Resources */,
 				CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */,
 				CE7DB7D91C68B64400AA358C /* Main.storyboard in Resources */,
@@ -1219,7 +1184,6 @@
 				CE68B3F11C9E7E4100AA18A7 /* ComponentChoose.sks in Resources */,
 				CE101F521CC80CA80077E9A5 /* Theme2-41.sks in Resources */,
 				CE61F8681CC7E54000CFF0EE /* Theme1-39.sks in Resources */,
-				CE6A4EB91CC354FF00157748 /* piano_62.wav in Resources */,
 				CE4BEA031C95670D004DCDB5 /* Level2.sks in Resources */,
 				CE61F8551CC7D7C500CFF0EE /* Theme1-46.sks in Resources */,
 				CE0E026A1CC29736006BA395 /* diy_click.wav in Resources */,

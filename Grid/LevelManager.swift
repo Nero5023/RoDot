@@ -12,10 +12,24 @@ enum ThemeType: String {
   case Theme1 = "theme1"
   case Theme2 = "theme2"
   case Theme3 = "theme3"
+  
+  var themeNum: Int {
+      switch self {
+      case .Theme1:
+        return 1
+      case .Theme2:
+        return 2
+      case .Theme3:
+        return 3
+    }
+  }
+  
+  static var allTypes: [ThemeType] = [.Theme1, .Theme2, .Theme3]
 }
 
 class LevelManager {
   
+  static let shareInstance = LevelManager()
   
   struct Constants {
     
@@ -59,7 +73,7 @@ class LevelManager {
     return [1: self.theme1, 2: self.theme2, 3: self.theme3]
   }()
   
-  init() {
+  private init() {
     if let info = NSUserDefaults.standardUserDefaults().dictionaryForKey(LevelManager.Constants.ThemeLevelDic) as? [String: [String: Int]]{
       self.themesInfo = info
     }else {
@@ -88,13 +102,17 @@ class LevelManager {
     
   }
   
-  func getUnlockLevels(theme theme: ThemeType) -> Int {
+  func getUnlockLevels(themeType theme: ThemeType) -> Int {
     return themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!
   }
   
   func unLockTheme(theme: ThemeType) {
-    guard getUnlockLevels(theme: theme) == 0 else { return }
+    guard getUnlockLevels(themeType: theme) == 0 else { return }
     themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = 1
+  }
+  
+  func themeEabled(theme: ThemeType) -> Bool {
+    return getUnlockLevels(themeType: theme) != 0
   }
   
 }

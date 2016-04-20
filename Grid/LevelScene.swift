@@ -34,6 +34,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   var isResting: Bool = false
   
   var currentLevel: Int = 0
+  var theme: ThemeType = .Theme1
   
   var playable: Bool = false
   
@@ -46,6 +47,13 @@ class LevelScene: SKScene, SceneLayerProtocol {
   
   class func level(levelNum: Int) -> LevelScene? {
     let scene = LevelScene(fileNamed: "Level\(levelNum)")!
+    scene.currentLevel = levelNum
+    scene.scaleMode = .AspectFill
+    return scene
+  }
+  
+  class func themeLevel(theme: ThemeType, levelNum: Int) -> LevelScene? {
+    let scene = LevelScene(fileNamed: "Theme\(theme.themeNum+1)-\(levelNum)")!
     scene.currentLevel = levelNum
     scene.scaleMode = .AspectFill
     return scene
@@ -376,10 +384,23 @@ class LevelScene: SKScene, SceneLayerProtocol {
         entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0, duration: 0.8))
       }
     }
+    
     if currentLevel < 20 {
       currentLevel += 1
-      LevelManager().passLevel(theme: .Theme1, level: currentLevel)
+      LevelManager.shareInstance.passLevel(theme: .Theme1, level: currentLevel)
     }
+    
+    if currentLevel >= 10 {
+      switch theme {
+      case .Theme1:
+        LevelManager.shareInstance.unLockTheme(.Theme2)
+      case .Theme2:
+        LevelManager.shareInstance.unLockTheme(.Theme3)
+      default:
+        break
+      }
+    }
+    
     performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
   }
 }

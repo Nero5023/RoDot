@@ -272,6 +272,7 @@ class LevelEditPlayScene: LevelScene {
     }
     afterDelay(1) { [unowned self] in
       self.overlayNode.addChild(self.restartButton)
+      self.playable = true
       guard let sceneType = self.sceneType else { return }
       switch sceneType {
       case .selfPlay:

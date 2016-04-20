@@ -87,7 +87,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
       self.ballNodes.append(node)
     })
-    
+//    SKTAudio.sharedInstance().playBackgroundMusic("background_1.wav")
     enumerateChildNodesWithName("//rod", usingBlock: { node, _ in
       let node = node as! SKSpriteNode
       node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
@@ -201,11 +201,11 @@ class StartScene: SKScene, SceneLayerProtocol {
   func addThemeButtons() {
     
     themeButtons.reserveCapacity(3)
-    let theme1 = addThemeButton(withButtonName: "theme1", position: CGPoint(x: 192 + 528 + 261, y: 1417 + 261))
+    let theme1 = addThemeButton(themeType: .Theme1, position: CGPoint(x: 192 + 528 + 261, y: 1417 + 261))
     themeButtons.append(theme1)
-    let theme2 = addThemeButton(withButtonName: "theme2", position: CGPoint(x: 192 + 100 + 213, y: 1013 + 213))
+    let theme2 = addThemeButton(themeType: .Theme2, position: CGPoint(x: 192 + 100 + 213, y: 1013 + 213))
     themeButtons.append(theme2)
-    let theme3 = addThemeButton(withButtonName: "theme3", position: CGPoint(x: 192 + 690 + 140, y: 779 + 140))
+    let theme3 = addThemeButton(themeType: .Theme3, position: CGPoint(x: 192 + 690 + 140, y: 779 + 140))
     themeButtons.append(theme3)
     
     let diyButton = SKButtonNode(imageNameNormal: "diy", selected: "diy_selected")
@@ -260,18 +260,71 @@ class StartScene: SKScene, SceneLayerProtocol {
     
   }
   
+  
+  func updateThemeButtonInfo(themeType: ThemeType) {
+    let themeButton = overlayNode.childNodeWithName(themeType.rawValue) as! SKButtonNode
+    if themeButton.isEnabled {
+      if let label = themeButton.childNodeWithName("label") as? SKLabelNode {
+        let passedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: themeType) - 1
+        label.text = "\(passedLevels)/25"
+      }
+    }else {
+      if LevelManager.shareInstance.themeEabled(themeType) {
+        addLabelToThemeButton(themeButton, themeType: themeType)
+        themeButton.isEnabled = true
+      }
+    }
+  }
+  
+  func updateAllThemeButtonInfo() {
+    ThemeType.allTypes.forEach {
+      self.updateThemeButtonInfo($0)
+    }
+  }
+  
+  func addLabelToThemeButton(themeButton: SKButtonNode, themeType: ThemeType) {
+    guard LevelManager.shareInstance.themeEabled(themeType) else { return }
+    let passedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: themeType) - 1
+    let label = SKLabelNode(text: "\(passedLevels)/25")
+    label.position = CGPoint(x: 0, y: 0)
+    label.verticalAlignmentMode = .Center
+    label.zPosition = 10
+    label.fontName = "ArialRoundedMTBold"
+    label.color = UIColor.whiteColor()
+    label.fontSize = themeButton.size.width/3.5
+    label.name = "label"
+    themeButton.addChild(label)
+  }
+  
   //Help Method
-  func addThemeButton(withButtonName name: String, position: CGPoint) -> SKButtonNode {
-    let theme = SKButtonNode(imageNameNormal: name, selected: name+"_selected")
+  func addThemeButton(themeType themeType: ThemeType, position: CGPoint) -> SKButtonNode {
+    let theme = SKButtonNode(imageNameNormal: themeType.rawValue, selected: themeType.rawValue+"_selected", disabled: themeType.rawValue + "_disabled")
     theme.position = position
     theme.zPosition = overlayNode.zPosition
-    theme.name = name
+    theme.name = themeType.rawValue
     overlayNode.addChild(theme)
+    if LevelManager.shareInstance.themeEabled(themeType) {
+//      let passedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: themeType) - 1
+//      let label = SKLabelNode(text: "\(passedLevels)/25")
+//      label.position = CGPoint(x: 0, y: 0)
+//      label.verticalAlignmentMode = .Center
+//      label.zPosition = 10
+//      label.fontName = "ArialRoundedMTBold"
+//      label.color = UIColor.whiteColor()
+//      label.fontSize = theme.size.width/3.5
+//      label.name = "label"
+//      theme.addChild(label)
+      addLabelToThemeButton(theme, themeType: themeType)
+    }else {
+      theme.isEnabled = false
+    }
+    
     
     theme.actionTouchUpInside = {
 //      theme.removeAllActions()
+      guard self.touchable == true else { return }
+      self.touchable = false
       SKTAudio.sharedInstance().playSoundEffect("energy_4.wav")
-      theme.isEnabled = false
       let action = SKAction.sequence([
         SKAction.scaleTo(0, duration: 0.2),
         SKAction.runBlock{
@@ -279,7 +332,8 @@ class StartScene: SKScene, SceneLayerProtocol {
 //          theme.setScale(1)
           self.addLevelSelectButtons(theme.position)
           self.addBackButton()
-          theme.isEnabled = true
+          
+          self.touchable = true
         }
       ])
       theme.runAction(action)
@@ -350,8 +404,8 @@ class StartScene: SKScene, SceneLayerProtocol {
               levelSelectButton.runAction(SKAction.fadeOutWithDuration(0.3))
           }
         }
-        button.isEnabled = currentLevel < LevelManager().getUnlockLevels(theme: .Theme1)
-        if currentLevel == LevelManager().getUnlockLevels(theme: .Theme1) {
+        button.isEnabled = currentLevel < LevelManager.shareInstance.getUnlockLevels(themeType: .Theme1)
+        if currentLevel == LevelManager.shareInstance.getUnlockLevels(themeType: .Theme1) {
           
           button.selectedTexture = SKTexture(imageNamed: "playingLevelButton_selected")
           button.isEnabled = true
@@ -387,7 +441,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
     }
     
-    let unlockedLevels = LevelManager().getUnlockLevels(theme: .Theme1)
+    let unlockedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: .Theme1)
     
     for (index, button) in levelSelectButtons.enumerate() where index+1 <= unlockedLevels {
       if button.isHighlight && index+1 != unlockedLevels {
@@ -501,7 +555,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       for themeButton in self.themeButtons where themeButton.xScale == 0 {
         self.restAnimationLevelSelectButtonsAndThemesButton(themeButton)
       }
-      
+      self.updateAllThemeButtonInfo()
       backButton.removeFromParent()
     }
     backButton.zPosition = overlayNode.zPosition
