@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DIYLevelsViewController: UITableViewController {
   
@@ -15,21 +16,32 @@ class DIYLevelsViewController: UITableViewController {
   
   var levels = [Level]()
   
+  var fetchedResultsController: NSFetchedResultsController!
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-//    self.navigationController?.navigationBar.statusBarHidden = true
-//    tableView.registerClass(DIYLevelTableViewCell.self, forCellReuseIdentifier: CellIdentifier)
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.tableFooterView = UIView()
     self.levels = SceneManager.sharedInstance.fetchAllLevels()
-    tableView.reloadData()
+    
+    let levelFetchRequset = NSFetchRequest(entityName: "Level")
+    let dateScort = NSSortDescriptor(key: "date", ascending: false)
+    levelFetchRequset.sortDescriptors = [dateScort]
+    fetchedResultsController = NSFetchedResultsController(fetchRequest: levelFetchRequset, managedObjectContext: SceneManager.sharedInstance.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+    do {
+      try fetchedResultsController.performFetch()
+    } catch let error as NSError {
+      print("Error: \(error.localizedDescription)")
+    }
+//    tableView.reloadData()
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return levels.count
+//    let sectionInfo = fetchedResultsController.sections![section]
+//    return sectionInfo.numberOfObjects
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -88,4 +100,8 @@ class DIYLevelsViewController: UITableViewController {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func configureCell(cell: DIYLevelTableViewCell, indexPath: NSIndexPath) {
+    let level = fetchedResultsController.objectAtIndexPath(indexPath) as! Level
+    cell.levelName.text = level.name
+  }
 }

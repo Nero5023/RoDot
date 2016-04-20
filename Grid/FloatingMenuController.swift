@@ -192,6 +192,10 @@ class FloatingMenuController: UIViewController {
     }, completion: nil)
   }
   
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    
+  }
+  
 }
 
 

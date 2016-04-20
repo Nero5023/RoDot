@@ -173,8 +173,6 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   
   func addBackground() {
-    print("factor:\(view!.bounds.size.height/view!.bounds.size.width)")
-    print(playableMargin)
     let background = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
     background.zPosition = bgNode.zPosition
     background.anchorPoint = CGPoint.zero
