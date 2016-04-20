@@ -80,7 +80,6 @@ class StartScene: SKScene, SceneLayerProtocol {
       })
       let actionSequence = SKAction.sequence([waitAction, moveUpaction, addPhysicsAction])
       node.runAction(actionSequence)
-      
       if self.maxSizeBallNode == nil {
         self.maxSizeBallNode = node
       }else {
@@ -269,9 +268,10 @@ class StartScene: SKScene, SceneLayerProtocol {
     theme.name = name
     overlayNode.addChild(theme)
     
-    
     theme.actionTouchUpInside = {
+//      theme.removeAllActions()
       SKTAudio.sharedInstance().playSoundEffect("energy_4.wav")
+      theme.isEnabled = false
       let action = SKAction.sequence([
         SKAction.scaleTo(0, duration: 0.2),
         SKAction.runBlock{
@@ -279,6 +279,7 @@ class StartScene: SKScene, SceneLayerProtocol {
 //          theme.setScale(1)
           self.addLevelSelectButtons(theme.position)
           self.addBackButton()
+          theme.isEnabled = true
         }
       ])
       theme.runAction(action)
@@ -294,7 +295,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
     }
     theme.alpha = 0
-    theme.runAction(SKAction.sequence([SKAction.waitForDuration(0.5), SKAction.fadeInWithDuration(0.5)]))
+    theme.runAction(SKAction.sequence([SKAction.waitForDuration(0.5), SKAction.fadeInWithDuration(1)]))
     
     return theme
   }
@@ -320,6 +321,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     for row in 0..<5 {
       for column in 0..<5 {
         let button = SKButtonNode(imageNameNormal: "levelSelectButton", selected: "levelSelectButton_selected", disabled: "levelSelectButton_disabled")
+        button.highlightTexture = SKTexture(imageNamed: "playingLevelButton")
         button.position.x = self.size.width/2 + CGFloat(column-2) * (70+button.size.width)
         button.position.y = self.size.height/2 - CGFloat(row-2) * (70+button.size.height)
         button.name = "levelSelectButton"
@@ -336,6 +338,7 @@ class StartScene: SKScene, SceneLayerProtocol {
               SKAction.fadeOutWithDuration(0.3)
               ]),
             SKAction.runBlock{
+              SKTAudio.sharedInstance().playBackgroundMusic("background_play.mp3")
               self.levelButtonSelectAction(currentLevel)()
               self.touchable = true
               button.isSelected = false
@@ -347,7 +350,13 @@ class StartScene: SKScene, SceneLayerProtocol {
               levelSelectButton.runAction(SKAction.fadeOutWithDuration(0.3))
           }
         }
-        button.isEnabled = currentLevel <= LevelManager().getUnlockLevels(theme: .Theme1)
+        button.isEnabled = currentLevel < LevelManager().getUnlockLevels(theme: .Theme1)
+        if currentLevel == LevelManager().getUnlockLevels(theme: .Theme1) {
+          
+          button.selectedTexture = SKTexture(imageNamed: "playingLevelButton_selected")
+          button.isEnabled = true
+          button.isHighlight = true
+        }
         addChild(button)
         levelSelectButtons.append(button)
       }
@@ -379,12 +388,32 @@ class StartScene: SKScene, SceneLayerProtocol {
     }
     
     let unlockedLevels = LevelManager().getUnlockLevels(theme: .Theme1)
+    
     for (index, button) in levelSelectButtons.enumerate() where index+1 <= unlockedLevels {
+      if button.isHighlight && index+1 != unlockedLevels {
+        let actoin = SKAction.sequence([
+          SKAction.waitForDuration(restButtonAnimatioinDuration),
+          SKAction.scaleTo(0, duration: 0.33),
+          SKAction.runBlock {
+            button.selectedTexture = SKTexture(imageNamed: "levelSelectButton_selected")
+            button.isHighlight = false
+            button.isEnabled = true
+          },
+          SKAction.scaleTo(1, duration: 0.33)
+          ])
+        button.runAction(actoin)
+      }
       if button.isEnabled == false {
         let actoin = SKAction.sequence([
           SKAction.waitForDuration(restButtonAnimatioinDuration),
           SKAction.scaleTo(0, duration: 0.33),
-          SKAction.runBlock { button.isEnabled = true},
+          SKAction.runBlock {
+            button.isEnabled = true
+            if index + 1 == unlockedLevels {
+              button.selectedTexture = SKTexture(imageNamed: "playingLevelButton_selected")
+              button.isHighlight = true
+            }
+          },
           SKAction.scaleTo(1, duration: 0.33)
         ])
         button.runAction(actoin)
@@ -478,7 +507,7 @@ class StartScene: SKScene, SceneLayerProtocol {
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
     backButton.alpha = 0
-    backButton.runAction(SKAction.fadeInWithDuration(0.66))
+    backButton.runAction(SKAction.sequence([SKAction.waitForDuration(1), SKAction.fadeInWithDuration(0.66)]))
   }
   
   // Level select action

@@ -89,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       dispatch_async(dispatch_get_main_queue()) {
         HUD.hide()
         SceneManager.sharedInstance.presentingView.presentScene(scene)
+        SKTAudio.sharedInstance().playBackgroundMusic("background_play.mp3")
       }
     }
     Client.sharedInstance.setTimeOutDuration(10, taskToCancel: task)

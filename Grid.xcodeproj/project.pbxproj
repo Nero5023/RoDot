@@ -22,11 +22,25 @@
 		CE0E02661CC28EDA006BA395 /* fadeout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE0E02651CC28EDA006BA395 /* fadeout.mp3 */; };
 		CE0E02681CC290A7006BA395 /* energy_4.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE0E02671CC290A7006BA395 /* energy_4.wav */; };
 		CE0E026A1CC29736006BA395 /* diy_click.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE0E02691CC29736006BA395 /* diy_click.wav */; };
+		CE101F421CC7FE7D0077E9A5 /* Theme1-45.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F411CC7FE7D0077E9A5 /* Theme1-45.sks */; };
+		CE101F441CC7FF730077E9A5 /* Theme3-39.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F431CC7FF730077E9A5 /* Theme3-39.sks */; };
+		CE101F461CC802390077E9A5 /* Theme3-36.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F451CC802390077E9A5 /* Theme3-36.sks */; };
+		CE101F481CC803EC0077E9A5 /* Theme1-47.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F471CC803EC0077E9A5 /* Theme1-47.sks */; };
+		CE101F4A1CC805210077E9A5 /* Theme2-37.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F491CC805210077E9A5 /* Theme2-37.sks */; };
+		CE101F4C1CC808070077E9A5 /* Theme2-38.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F4B1CC808070077E9A5 /* Theme2-38.sks */; };
+		CE101F4E1CC808DA0077E9A5 /* Theme2-39.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F4D1CC808DA0077E9A5 /* Theme2-39.sks */; };
+		CE101F501CC80A760077E9A5 /* Theme2-40.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F4F1CC80A760077E9A5 /* Theme2-40.sks */; };
+		CE101F521CC80CA80077E9A5 /* Theme2-41.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F511CC80CA80077E9A5 /* Theme2-41.sks */; };
+		CE101F561CC8109D0077E9A5 /* Theme3-37.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F551CC8109D0077E9A5 /* Theme3-37.sks */; };
+		CE101F581CC810EE0077E9A5 /* Theme3-38.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F571CC810EE0077E9A5 /* Theme3-38.sks */; };
+		CE101F5A1CC8129B0077E9A5 /* Theme1-48.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F591CC8129B0077E9A5 /* Theme1-48.sks */; };
+		CE101F5C1CC814D60077E9A5 /* template.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F5B1CC814D60077E9A5 /* template.sks */; };
+		CE101F5E1CC818BF0077E9A5 /* Theme1-49.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE101F5D1CC818BF0077E9A5 /* Theme1-49.sks */; };
 		CE12AE151C85D76D00E876FF /* StaticPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE141C85D76D00E876FF /* StaticPoint.swift */; };
 		CE12AE171C85D80600E876FF /* PointLockedForeverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */; };
 		CE12AE1B1C85D99B00E876FF /* BasePointEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */; };
 		CE145F1D1CC601FD009D41BA /* Theme2-1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1C1CC601FD009D41BA /* Theme2-1.sks */; };
-		CE145F1F1CC60743009D41BA /* themplate.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1E1CC60743009D41BA /* themplate.sks */; };
+		CE145F1F1CC60743009D41BA /* Theme1-26.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE145F1E1CC60743009D41BA /* Theme1-26.sks */; };
 		CE145F211CC62AA0009D41BA /* button_click_5.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE145F201CC62AA0009D41BA /* button_click_5.wav */; };
 		CE145F231CC63A42009D41BA /* DIYLevelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */; };
 		CE145F251CC6717B009D41BA /* teleport.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE145F241CC6717B009D41BA /* teleport.wav */; };
@@ -66,6 +80,46 @@
 		CE5203F61C97D06B000EA721 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE5203F51C97D06B000EA721 /* Level5.sks */; };
 		CE5244CF1CA00B16000DADF5 /* LevelEditPlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */; };
 		CE61F82D1CC769B600CFF0EE /* DIYLevelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61F82C1CC769B600CFF0EE /* DIYLevelListViewController.swift */; };
+		CE61F82F1CC7B15500CFF0EE /* background_play.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE61F82E1CC7B15500CFF0EE /* background_play.mp3 */; };
+		CE61F8311CC7B37700CFF0EE /* background_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8301CC7B37700CFF0EE /* background_start.wav */; };
+		CE61F8341CC7BA5200CFF0EE /* Theme2-26.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8331CC7BA5200CFF0EE /* Theme2-26.sks */; };
+		CE61F8361CC7BC6600CFF0EE /* Theme2-27.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8351CC7BC6600CFF0EE /* Theme2-27.sks */; };
+		CE61F8381CC7BCB900CFF0EE /* Theme1-27.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8371CC7BCB900CFF0EE /* Theme1-27.sks */; };
+		CE61F83A1CC7BD6C00CFF0EE /* Theme3-26.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8391CC7BD6C00CFF0EE /* Theme3-26.sks */; };
+		CE61F83C1CC7BE5C00CFF0EE /* Theme1-28.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F83B1CC7BE5C00CFF0EE /* Theme1-28.sks */; };
+		CE61F83E1CC7BF4800CFF0EE /* Theme3-28.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F83D1CC7BF4800CFF0EE /* Theme3-28.sks */; };
+		CE61F8411CC7C15400CFF0EE /* Theme3-27.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8401CC7C15400CFF0EE /* Theme3-27.sks */; };
+		CE61F8441CC7C44A00CFF0EE /* Theme1-29.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8421CC7C44A00CFF0EE /* Theme1-29.sks */; };
+		CE61F8451CC7C44A00CFF0EE /* Theme2-28.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8431CC7C44A00CFF0EE /* Theme2-28.sks */; };
+		CE61F8471CC7C60D00CFF0EE /* Theme3-29.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8461CC7C60D00CFF0EE /* Theme3-29.sks */; };
+		CE61F8491CC7D00D00CFF0EE /* Theme3-30.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8481CC7D00D00CFF0EE /* Theme3-30.sks */; };
+		CE61F84B1CC7D0FB00CFF0EE /* Theme1-33.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F84A1CC7D0FB00CFF0EE /* Theme1-33.sks */; };
+		CE61F84D1CC7D20000CFF0EE /* Theme2-29.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F84C1CC7D20000CFF0EE /* Theme2-29.sks */; };
+		CE61F84F1CC7D31E00CFF0EE /* Theme1-30.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F84E1CC7D31E00CFF0EE /* Theme1-30.sks */; };
+		CE61F8511CC7D42F00CFF0EE /* Theme1-31.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8501CC7D42F00CFF0EE /* Theme1-31.sks */; };
+		CE61F8531CC7D66F00CFF0EE /* Theme1-32.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8521CC7D66F00CFF0EE /* Theme1-32.sks */; };
+		CE61F8551CC7D7C500CFF0EE /* Theme1-46.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8541CC7D7C500CFF0EE /* Theme1-46.sks */; };
+		CE61F8571CC7D8CE00CFF0EE /* Theme1-34.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8561CC7D8CE00CFF0EE /* Theme1-34.sks */; };
+		CE61F8591CC7DA0C00CFF0EE /* Theme1-35.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8581CC7DA0C00CFF0EE /* Theme1-35.sks */; };
+		CE61F85B1CC7DC2800CFF0EE /* Theme3-31.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F85A1CC7DC2800CFF0EE /* Theme3-31.sks */; };
+		CE61F85D1CC7DE3400CFF0EE /* Theme1-36.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F85C1CC7DE3400CFF0EE /* Theme1-36.sks */; };
+		CE61F85F1CC7E02600CFF0EE /* Theme1-37.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F85E1CC7E02600CFF0EE /* Theme1-37.sks */; };
+		CE61F8611CC7E0C400CFF0EE /* Theme1-38.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8601CC7E0C400CFF0EE /* Theme1-38.sks */; };
+		CE61F8631CC7E28000CFF0EE /* Theme2-30.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8621CC7E28000CFF0EE /* Theme2-30.sks */; };
+		CE61F8661CC7E44000CFF0EE /* Theme2-31.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8651CC7E44000CFF0EE /* Theme2-31.sks */; };
+		CE61F8681CC7E54000CFF0EE /* Theme1-39.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8671CC7E54000CFF0EE /* Theme1-39.sks */; };
+		CE61F86B1CC7E63600CFF0EE /* Theme1-40.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F86A1CC7E63600CFF0EE /* Theme1-40.sks */; };
+		CE61F86D1CC7E78200CFF0EE /* Theme1-41.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F86C1CC7E78200CFF0EE /* Theme1-41.sks */; };
+		CE61F86F1CC7E8C700CFF0EE /* Theme3-32.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F86E1CC7E8C700CFF0EE /* Theme3-32.sks */; };
+		CE61F8711CC7EB1700CFF0EE /* Theme1-42.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8701CC7EB1700CFF0EE /* Theme1-42.sks */; };
+		CE61F8731CC7EBC300CFF0EE /* Theme3-33.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8721CC7EBC300CFF0EE /* Theme3-33.sks */; };
+		CE61F8751CC7EDF600CFF0EE /* Theme1-43.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8741CC7EDF600CFF0EE /* Theme1-43.sks */; };
+		CE61F8771CC7F01300CFF0EE /* Theme3-34.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8761CC7F01300CFF0EE /* Theme3-34.sks */; };
+		CE61F8791CC7F33200CFF0EE /* Theme2-32.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8781CC7F33200CFF0EE /* Theme2-32.sks */; };
+		CE61F87B1CC7F52800CFF0EE /* Theme2-33.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F87A1CC7F52800CFF0EE /* Theme2-33.sks */; };
+		CE61F87D1CC7F75E00CFF0EE /* Theme3-35.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F87C1CC7F75E00CFF0EE /* Theme3-35.sks */; };
+		CE61F87F1CC7F9B600CFF0EE /* Theme1-44.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F87E1CC7F9B600CFF0EE /* Theme1-44.sks */; };
+		CE61F8811CC7FB5400CFF0EE /* Theme2-34.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE61F8801CC7FB5400CFF0EE /* Theme2-34.sks */; };
 		CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE63145C1CA4075D00624822 /* ball_scaleDown.sks */; };
 		CE637FF81C8EEEDF005FB30D /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE637FF71C8EEEDF005FB30D /* Transfer.swift */; };
 		CE6576131C7A056700EA2348 /* TransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6576121C7A056700EA2348 /* TransferNode.swift */; };
@@ -228,11 +282,25 @@
 		CE0E02651CC28EDA006BA395 /* fadeout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fadeout.mp3; sourceTree = "<group>"; };
 		CE0E02671CC290A7006BA395 /* energy_4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = energy_4.wav; sourceTree = "<group>"; };
 		CE0E02691CC29736006BA395 /* diy_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = diy_click.wav; sourceTree = "<group>"; };
+		CE101F411CC7FE7D0077E9A5 /* Theme1-45.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-45.sks"; path = "../Theme2/Theme1-45.sks"; sourceTree = "<group>"; };
+		CE101F431CC7FF730077E9A5 /* Theme3-39.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-39.sks"; path = "Grid/Theme2/Theme3-39.sks"; sourceTree = SOURCE_ROOT; };
+		CE101F451CC802390077E9A5 /* Theme3-36.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-36.sks"; path = "Grid/Theme2/Theme3-36.sks"; sourceTree = SOURCE_ROOT; };
+		CE101F471CC803EC0077E9A5 /* Theme1-47.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-47.sks"; path = "../Theme2/Theme1-47.sks"; sourceTree = "<group>"; };
+		CE101F491CC805210077E9A5 /* Theme2-37.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-37.sks"; sourceTree = "<group>"; };
+		CE101F4B1CC808070077E9A5 /* Theme2-38.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-38.sks"; sourceTree = "<group>"; };
+		CE101F4D1CC808DA0077E9A5 /* Theme2-39.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-39.sks"; sourceTree = "<group>"; };
+		CE101F4F1CC80A760077E9A5 /* Theme2-40.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-40.sks"; sourceTree = "<group>"; };
+		CE101F511CC80CA80077E9A5 /* Theme2-41.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-41.sks"; sourceTree = "<group>"; };
+		CE101F551CC8109D0077E9A5 /* Theme3-37.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-37.sks"; path = "Grid/Theme2/Theme3-37.sks"; sourceTree = SOURCE_ROOT; };
+		CE101F571CC810EE0077E9A5 /* Theme3-38.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-38.sks"; path = "Grid/Theme2/Theme3-38.sks"; sourceTree = SOURCE_ROOT; };
+		CE101F591CC8129B0077E9A5 /* Theme1-48.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-48.sks"; path = "Grid/Theme2/Theme1-48.sks"; sourceTree = SOURCE_ROOT; };
+		CE101F5B1CC814D60077E9A5 /* template.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = template.sks; sourceTree = "<group>"; };
+		CE101F5D1CC818BF0077E9A5 /* Theme1-49.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-49.sks"; path = "../Theme2/Theme1-49.sks"; sourceTree = "<group>"; };
 		CE12AE141C85D76D00E876FF /* StaticPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticPoint.swift; sourceTree = "<group>"; };
 		CE12AE161C85D80600E876FF /* PointLockedForeverState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointLockedForeverState.swift; sourceTree = "<group>"; };
 		CE12AE1A1C85D99B00E876FF /* BasePointEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePointEntity.swift; sourceTree = "<group>"; };
 		CE145F1C1CC601FD009D41BA /* Theme2-1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-1.sks"; sourceTree = "<group>"; };
-		CE145F1E1CC60743009D41BA /* themplate.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = themplate.sks; sourceTree = "<group>"; };
+		CE145F1E1CC60743009D41BA /* Theme1-26.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-26.sks"; path = "../Theme2/Theme1-26.sks"; sourceTree = "<group>"; };
 		CE145F201CC62AA0009D41BA /* button_click_5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click_5.wav; sourceTree = "<group>"; };
 		CE145F221CC63A42009D41BA /* DIYLevelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIYLevelTableViewCell.swift; sourceTree = "<group>"; };
 		CE145F241CC6717B009D41BA /* teleport.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = teleport.wav; sourceTree = "<group>"; };
@@ -272,6 +340,46 @@
 		CE5203F51C97D06B000EA721 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
 		CE5244CE1CA00B16000DADF5 /* LevelEditPlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditPlayScene.swift; sourceTree = "<group>"; };
 		CE61F82C1CC769B600CFF0EE /* DIYLevelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIYLevelListViewController.swift; sourceTree = "<group>"; };
+		CE61F82E1CC7B15500CFF0EE /* background_play.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_play.mp3; sourceTree = "<group>"; };
+		CE61F8301CC7B37700CFF0EE /* background_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_start.wav; sourceTree = "<group>"; };
+		CE61F8331CC7BA5200CFF0EE /* Theme2-26.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme2-26.sks"; path = "../Theme1/Theme2-26.sks"; sourceTree = "<group>"; };
+		CE61F8351CC7BC6600CFF0EE /* Theme2-27.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-27.sks"; sourceTree = "<group>"; };
+		CE61F8371CC7BCB900CFF0EE /* Theme1-27.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-27.sks"; path = "../Theme2/Theme1-27.sks"; sourceTree = "<group>"; };
+		CE61F8391CC7BD6C00CFF0EE /* Theme3-26.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-26.sks"; path = "Grid/Theme2/Theme3-26.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F83B1CC7BE5C00CFF0EE /* Theme1-28.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-28.sks"; path = "../Theme2/Theme1-28.sks"; sourceTree = "<group>"; };
+		CE61F83D1CC7BF4800CFF0EE /* Theme3-28.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-28.sks"; path = "Grid/Theme2/Theme3-28.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F8401CC7C15400CFF0EE /* Theme3-27.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-27.sks"; path = "Grid/Theme2/Theme3-27.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F8421CC7C44A00CFF0EE /* Theme1-29.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-29.sks"; path = "../Theme2/Theme1-29.sks"; sourceTree = "<group>"; };
+		CE61F8431CC7C44A00CFF0EE /* Theme2-28.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-28.sks"; sourceTree = "<group>"; };
+		CE61F8461CC7C60D00CFF0EE /* Theme3-29.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-29.sks"; path = "Grid/Theme2/Theme3-29.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F8481CC7D00D00CFF0EE /* Theme3-30.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-30.sks"; path = "Grid/Theme2/Theme3-30.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F84A1CC7D0FB00CFF0EE /* Theme1-33.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-33.sks"; path = "../Theme2/Theme1-33.sks"; sourceTree = "<group>"; };
+		CE61F84C1CC7D20000CFF0EE /* Theme2-29.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-29.sks"; sourceTree = "<group>"; };
+		CE61F84E1CC7D31E00CFF0EE /* Theme1-30.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-30.sks"; path = "../Theme2/Theme1-30.sks"; sourceTree = "<group>"; };
+		CE61F8501CC7D42F00CFF0EE /* Theme1-31.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-31.sks"; path = "../Theme2/Theme1-31.sks"; sourceTree = "<group>"; };
+		CE61F8521CC7D66F00CFF0EE /* Theme1-32.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-32.sks"; path = "../Theme2/Theme1-32.sks"; sourceTree = "<group>"; };
+		CE61F8541CC7D7C500CFF0EE /* Theme1-46.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-46.sks"; path = "../Theme2/Theme1-46.sks"; sourceTree = "<group>"; };
+		CE61F8561CC7D8CE00CFF0EE /* Theme1-34.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-34.sks"; path = "../Theme2/Theme1-34.sks"; sourceTree = "<group>"; };
+		CE61F8581CC7DA0C00CFF0EE /* Theme1-35.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-35.sks"; path = "../Theme2/Theme1-35.sks"; sourceTree = "<group>"; };
+		CE61F85A1CC7DC2800CFF0EE /* Theme3-31.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-31.sks"; path = "Grid/Theme2/Theme3-31.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F85C1CC7DE3400CFF0EE /* Theme1-36.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-36.sks"; path = "../Theme2/Theme1-36.sks"; sourceTree = "<group>"; };
+		CE61F85E1CC7E02600CFF0EE /* Theme1-37.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-37.sks"; path = "../Theme2/Theme1-37.sks"; sourceTree = "<group>"; };
+		CE61F8601CC7E0C400CFF0EE /* Theme1-38.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-38.sks"; path = "../Theme2/Theme1-38.sks"; sourceTree = "<group>"; };
+		CE61F8621CC7E28000CFF0EE /* Theme2-30.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-30.sks"; sourceTree = "<group>"; };
+		CE61F8651CC7E44000CFF0EE /* Theme2-31.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-31.sks"; sourceTree = "<group>"; };
+		CE61F8671CC7E54000CFF0EE /* Theme1-39.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-39.sks"; path = "../Theme2/Theme1-39.sks"; sourceTree = "<group>"; };
+		CE61F86A1CC7E63600CFF0EE /* Theme1-40.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-40.sks"; path = "../Theme2/Theme1-40.sks"; sourceTree = "<group>"; };
+		CE61F86C1CC7E78200CFF0EE /* Theme1-41.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-41.sks"; path = "../Theme2/Theme1-41.sks"; sourceTree = "<group>"; };
+		CE61F86E1CC7E8C700CFF0EE /* Theme3-32.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-32.sks"; path = "Grid/Theme2/Theme3-32.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F8701CC7EB1700CFF0EE /* Theme1-42.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-42.sks"; path = "../Theme2/Theme1-42.sks"; sourceTree = "<group>"; };
+		CE61F8721CC7EBC300CFF0EE /* Theme3-33.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-33.sks"; path = "Grid/Theme2/Theme3-33.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F8741CC7EDF600CFF0EE /* Theme1-43.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-43.sks"; path = "../Theme2/Theme1-43.sks"; sourceTree = "<group>"; };
+		CE61F8761CC7F01300CFF0EE /* Theme3-34.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-34.sks"; path = "Grid/Theme2/Theme3-34.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F8781CC7F33200CFF0EE /* Theme2-32.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-32.sks"; sourceTree = "<group>"; };
+		CE61F87A1CC7F52800CFF0EE /* Theme2-33.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-33.sks"; sourceTree = "<group>"; };
+		CE61F87C1CC7F75E00CFF0EE /* Theme3-35.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme3-35.sks"; path = "Grid/Theme2/Theme3-35.sks"; sourceTree = SOURCE_ROOT; };
+		CE61F87E1CC7F9B600CFF0EE /* Theme1-44.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = "Theme1-44.sks"; path = "../Theme2/Theme1-44.sks"; sourceTree = "<group>"; };
+		CE61F8801CC7FB5400CFF0EE /* Theme2-34.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Theme2-34.sks"; sourceTree = "<group>"; };
 		CE63145C1CA4075D00624822 /* ball_scaleDown.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ball_scaleDown.sks; sourceTree = "<group>"; };
 		CE637FF71C8EEEDF005FB30D /* Transfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
 		CE6576121C7A056700EA2348 /* TransferNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferNode.swift; sourceTree = "<group>"; };
@@ -449,7 +557,21 @@
 			isa = PBXGroup;
 			children = (
 				CE145F1C1CC601FD009D41BA /* Theme2-1.sks */,
-				CE145F1E1CC60743009D41BA /* themplate.sks */,
+				CE61F8331CC7BA5200CFF0EE /* Theme2-26.sks */,
+				CE61F8351CC7BC6600CFF0EE /* Theme2-27.sks */,
+				CE61F8431CC7C44A00CFF0EE /* Theme2-28.sks */,
+				CE61F84C1CC7D20000CFF0EE /* Theme2-29.sks */,
+				CE61F8621CC7E28000CFF0EE /* Theme2-30.sks */,
+				CE61F8651CC7E44000CFF0EE /* Theme2-31.sks */,
+				CE61F8781CC7F33200CFF0EE /* Theme2-32.sks */,
+				CE61F87A1CC7F52800CFF0EE /* Theme2-33.sks */,
+				CE61F8801CC7FB5400CFF0EE /* Theme2-34.sks */,
+				CE101F491CC805210077E9A5 /* Theme2-37.sks */,
+				CE101F4B1CC808070077E9A5 /* Theme2-38.sks */,
+				CE101F4D1CC808DA0077E9A5 /* Theme2-39.sks */,
+				CE101F4F1CC80A760077E9A5 /* Theme2-40.sks */,
+				CE101F511CC80CA80077E9A5 /* Theme2-41.sks */,
+				CE101F5B1CC814D60077E9A5 /* template.sks */,
 			);
 			path = Theme2;
 			sourceTree = "<group>";
@@ -484,6 +606,59 @@
 				CE6943821CA676DB0038CBB4 /* SceneManager.swift */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		CE61F8321CC7BA3200CFF0EE /* Theme1 */ = {
+			isa = PBXGroup;
+			children = (
+				CE145F1E1CC60743009D41BA /* Theme1-26.sks */,
+				CE61F8371CC7BCB900CFF0EE /* Theme1-27.sks */,
+				CE61F83B1CC7BE5C00CFF0EE /* Theme1-28.sks */,
+				CE61F8421CC7C44A00CFF0EE /* Theme1-29.sks */,
+				CE61F84E1CC7D31E00CFF0EE /* Theme1-30.sks */,
+				CE61F8501CC7D42F00CFF0EE /* Theme1-31.sks */,
+				CE61F8521CC7D66F00CFF0EE /* Theme1-32.sks */,
+				CE61F84A1CC7D0FB00CFF0EE /* Theme1-33.sks */,
+				CE61F8561CC7D8CE00CFF0EE /* Theme1-34.sks */,
+				CE61F8581CC7DA0C00CFF0EE /* Theme1-35.sks */,
+				CE61F85C1CC7DE3400CFF0EE /* Theme1-36.sks */,
+				CE61F85E1CC7E02600CFF0EE /* Theme1-37.sks */,
+				CE61F8601CC7E0C400CFF0EE /* Theme1-38.sks */,
+				CE61F8671CC7E54000CFF0EE /* Theme1-39.sks */,
+				CE61F86A1CC7E63600CFF0EE /* Theme1-40.sks */,
+				CE61F86C1CC7E78200CFF0EE /* Theme1-41.sks */,
+				CE61F8701CC7EB1700CFF0EE /* Theme1-42.sks */,
+				CE61F8741CC7EDF600CFF0EE /* Theme1-43.sks */,
+				CE61F87E1CC7F9B600CFF0EE /* Theme1-44.sks */,
+				CE101F411CC7FE7D0077E9A5 /* Theme1-45.sks */,
+				CE61F8541CC7D7C500CFF0EE /* Theme1-46.sks */,
+				CE101F471CC803EC0077E9A5 /* Theme1-47.sks */,
+				CE101F591CC8129B0077E9A5 /* Theme1-48.sks */,
+				CE101F5D1CC818BF0077E9A5 /* Theme1-49.sks */,
+			);
+			path = Theme1;
+			sourceTree = "<group>";
+		};
+		CE61F83F1CC7C0A800CFF0EE /* Theme3 */ = {
+			isa = PBXGroup;
+			children = (
+				CE61F8391CC7BD6C00CFF0EE /* Theme3-26.sks */,
+				CE61F8401CC7C15400CFF0EE /* Theme3-27.sks */,
+				CE61F83D1CC7BF4800CFF0EE /* Theme3-28.sks */,
+				CE61F8461CC7C60D00CFF0EE /* Theme3-29.sks */,
+				CE61F8481CC7D00D00CFF0EE /* Theme3-30.sks */,
+				CE61F85A1CC7DC2800CFF0EE /* Theme3-31.sks */,
+				CE61F86E1CC7E8C700CFF0EE /* Theme3-32.sks */,
+				CE61F8721CC7EBC300CFF0EE /* Theme3-33.sks */,
+				CE61F8761CC7F01300CFF0EE /* Theme3-34.sks */,
+				CE61F87C1CC7F75E00CFF0EE /* Theme3-35.sks */,
+				CE101F451CC802390077E9A5 /* Theme3-36.sks */,
+				CE101F551CC8109D0077E9A5 /* Theme3-37.sks */,
+				CE101F571CC810EE0077E9A5 /* Theme3-38.sks */,
+				CE101F431CC7FF730077E9A5 /* Theme3-39.sks */,
+			);
+			name = Theme3;
+			path = Theme2/Theme3;
 			sourceTree = "<group>";
 		};
 		CE6643C21C81A12500A6F0D4 /* PointState */ = {
@@ -688,7 +863,9 @@
 				CE787F951CA10D270026807B /* Level18.sks */,
 				CE787F971CA10D960026807B /* Level19.sks */,
 				CE787F8B1CA0EEA70026807B /* Level20.sks */,
+				CE61F8321CC7BA3200CFF0EE /* Theme1 */,
 				CE145F1B1CC601FD009D41BA /* Theme2 */,
+				CE61F83F1CC7C0A800CFF0EE /* Theme3 */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -741,6 +918,8 @@
 				CEF770041CC4772800F8E992 /* background_music.wav */,
 				CE16CAFC1CC5208900304CE3 /* timeout.wav */,
 				CE145F241CC6717B009D41BA /* teleport.wav */,
+				CE61F82E1CC7B15500CFF0EE /* background_play.mp3 */,
+				CE61F8301CC7B37700CFF0EE /* background_start.wav */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -939,14 +1118,26 @@
 				CE6A4EC31CC355BC00157748 /* piano_51.wav in Resources */,
 				CE6A4EB31CC3348700157748 /* button_unclick.wav in Resources */,
 				CE6A4EAA1CC32F8900157748 /* button_click.wav in Resources */,
+				CE61F85B1CC7DC2800CFF0EE /* Theme3-31.sks in Resources */,
+				CE61F83E1CC7BF4800CFF0EE /* Theme3-28.sks in Resources */,
 				CE787F961CA10D270026807B /* Level18.sks in Resources */,
 				CE6A4EC71CC35E4000157748 /* success.wav in Resources */,
+				CE61F8791CC7F33200CFF0EE /* Theme2-32.sks in Resources */,
+				CE61F86F1CC7E8C700CFF0EE /* Theme3-32.sks in Resources */,
 				CE787F981CA10D960026807B /* Level19.sks in Resources */,
+				CE61F8571CC7D8CE00CFF0EE /* Theme1-34.sks in Resources */,
+				CE61F8411CC7C15400CFF0EE /* Theme3-27.sks in Resources */,
 				CE6A4EC41CC355BC00157748 /* piano_52.wav in Resources */,
 				CEAD708F1CC1DD160048763A /* bubble_pop.mp3 in Resources */,
 				CE68B3F31C9EEB1C00AA18A7 /* LevelEmpty.sks in Resources */,
+				CE101F5A1CC8129B0077E9A5 /* Theme1-48.sks in Resources */,
+				CE61F84F1CC7D31E00CFF0EE /* Theme1-30.sks in Resources */,
 				CE0E025E1CC2641B006BA395 /* close_lock.wav in Resources */,
+				CE61F82F1CC7B15500CFF0EE /* background_play.mp3 in Resources */,
+				CE61F84D1CC7D20000CFF0EE /* Theme2-29.sks in Resources */,
+				CE61F8311CC7B37700CFF0EE /* background_start.wav in Resources */,
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
+				CE61F83A1CC7BD6C00CFF0EE /* Theme3-26.sks in Resources */,
 				CE145F251CC6717B009D41BA /* teleport.wav in Resources */,
 				CE145F1D1CC601FD009D41BA /* Theme2-1.sks in Resources */,
 				CE787F821CA0D5BC0026807B /* Level10.sks in Resources */,
@@ -954,56 +1145,98 @@
 				CE0E02621CC27B9F006BA395 /* restart_click.wav in Resources */,
 				CE1627D01CAD188D0059DC89 /* LevelEdirorScene.sks in Resources */,
 				CE8378EA1C94621B00E7CD88 /* Level1.sks in Resources */,
+				CE101F4E1CC808DA0077E9A5 /* Theme2-39.sks in Resources */,
 				CE7FDBDE1CA2FF1C008616D4 /* ball_scaleUp.sks in Resources */,
 				CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */,
+				CE61F8631CC7E28000CFF0EE /* Theme2-30.sks in Resources */,
+				CE101F421CC7FE7D0077E9A5 /* Theme1-45.sks in Resources */,
+				CE61F8381CC7BCB900CFF0EE /* Theme1-27.sks in Resources */,
+				CE61F87D1CC7F75E00CFF0EE /* Theme3-35.sks in Resources */,
 				CE787F841CA0DCE20026807B /* Level9.sks in Resources */,
 				CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
 				CE6A4EBB1CC3551B00157748 /* piano_61.wav in Resources */,
+				CE101F581CC810EE0077E9A5 /* Theme3-38.sks in Resources */,
 				CE21F2631C95B20D00C39D58 /* Level7.sks in Resources */,
+				CE101F5E1CC818BF0077E9A5 /* Theme1-49.sks in Resources */,
 				CEDA12FD1CB4F23D00EAB73E /* Images.xcassets in Resources */,
 				CE6A4EC51CC355BC00157748 /* piano_53.wav in Resources */,
+				CE101F501CC80A760077E9A5 /* Theme2-40.sks in Resources */,
+				CE61F8751CC7EDF600CFF0EE /* Theme1-43.sks in Resources */,
 				CE0E02681CC290A7006BA395 /* energy_4.wav in Resources */,
 				CE6A4ECB1CC36B5B00157748 /* ball_bounce.wav in Resources */,
 				CE6A4EB71CC353C400157748 /* piano_64.wav in Resources */,
+				CE61F83C1CC7BE5C00CFF0EE /* Theme1-28.sks in Resources */,
+				CE61F8731CC7EBC300CFF0EE /* Theme3-33.sks in Resources */,
 				CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */,
+				CE61F87B1CC7F52800CFF0EE /* Theme2-33.sks in Resources */,
 				CE6A4EB11CC3347500157748 /* button_click_4.wav in Resources */,
 				CE4BEA051C95886B004DCDB5 /* Level3.sks in Resources */,
+				CE101F4A1CC805210077E9A5 /* Theme2-37.sks in Resources */,
+				CE61F8451CC7C44A00CFF0EE /* Theme2-28.sks in Resources */,
+				CE101F461CC802390077E9A5 /* Theme3-36.sks in Resources */,
+				CE61F8531CC7D66F00CFF0EE /* Theme1-32.sks in Resources */,
 				CE787F8C1CA0EEA70026807B /* Level20.sks in Resources */,
+				CE61F8591CC7DA0C00CFF0EE /* Theme1-35.sks in Resources */,
 				CEDA12FE1CB4F23D00EAB73E /* Info.plist in Resources */,
+				CE61F8471CC7C60D00CFF0EE /* Theme3-29.sks in Resources */,
+				CE61F8511CC7D42F00CFF0EE /* Theme1-31.sks in Resources */,
 				CE787F941CA107990026807B /* Level17.sks in Resources */,
 				CE6A4EAE1CC3329A00157748 /* button_click_3.wav in Resources */,
 				CE0B730C1C96C5B900009B6B /* Level6.sks in Resources */,
 				CE7FDBE01CA30244008616D4 /* ball_small.png in Resources */,
+				CE101F4C1CC808070077E9A5 /* Theme2-38.sks in Resources */,
+				CE61F8771CC7F01300CFF0EE /* Theme3-34.sks in Resources */,
 				CE0E02641CC28570006BA395 /* menu_back.wav in Resources */,
 				CE6A4EBD1CC3554200157748 /* piano_60.wav in Resources */,
 				CE6A4EC91CC360E600157748 /* failure.wav in Resources */,
 				CE787F801CA0D0FD0026807B /* Level8.sks in Resources */,
 				CE6A4EC21CC355BC00157748 /* piano_50.wav in Resources */,
 				CE6A4EB51CC352F600157748 /* piano_63.wav in Resources */,
+				CE101F481CC803EC0077E9A5 /* Theme1-47.sks in Resources */,
 				CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */,
 				CE7DB7D91C68B64400AA358C /* Main.storyboard in Resources */,
 				CEF770051CC4772800F8E992 /* background_music.wav in Resources */,
+				CE101F441CC7FF730077E9A5 /* Theme3-39.sks in Resources */,
 				CE7FE5441CA5915C00556AD5 /* Level14.sks in Resources */,
+				CE61F87F1CC7F9B600CFF0EE /* Theme1-44.sks in Resources */,
 				CE787F861CA0E1910026807B /* Level11.sks in Resources */,
-				CE145F1F1CC60743009D41BA /* themplate.sks in Resources */,
+				CE145F1F1CC60743009D41BA /* Theme1-26.sks in Resources */,
+				CE61F85F1CC7E02600CFF0EE /* Theme1-37.sks in Resources */,
 				CE6A4ECD1CC36D8600157748 /* ball_bounce_2.wav in Resources */,
 				CE787F921CA105A10026807B /* Level16.sks in Resources */,
 				CE16CAF91CC5076800304CE3 /* close_lock_2.wav in Resources */,
+				CE61F84B1CC7D0FB00CFF0EE /* Theme1-33.sks in Resources */,
+				CE61F8491CC7D00D00CFF0EE /* Theme3-30.sks in Resources */,
 				CE16CAFD1CC5208900304CE3 /* timeout.wav in Resources */,
+				CE61F8611CC7E0C400CFF0EE /* Theme1-38.sks in Resources */,
+				CE61F85D1CC7DE3400CFF0EE /* Theme1-36.sks in Resources */,
 				CE16CAF51CC5069F00304CE3 /* open_lock_2.wav in Resources */,
+				CE61F8341CC7BA5200CFF0EE /* Theme2-26.sks in Resources */,
+				CE61F8361CC7BC6600CFF0EE /* Theme2-27.sks in Resources */,
+				CE61F8441CC7C44A00CFF0EE /* Theme1-29.sks in Resources */,
 				CE5203F61C97D06B000EA721 /* Level5.sks in Resources */,
 				CE68B3F11C9E7E4100AA18A7 /* ComponentChoose.sks in Resources */,
+				CE101F521CC80CA80077E9A5 /* Theme2-41.sks in Resources */,
+				CE61F8681CC7E54000CFF0EE /* Theme1-39.sks in Resources */,
 				CE6A4EB91CC354FF00157748 /* piano_62.wav in Resources */,
 				CE4BEA031C95670D004DCDB5 /* Level2.sks in Resources */,
+				CE61F8551CC7D7C500CFF0EE /* Theme1-46.sks in Resources */,
 				CE0E026A1CC29736006BA395 /* diy_click.wav in Resources */,
 				CE0E025C1CC2637B006BA395 /* open_lock.wav in Resources */,
+				CE101F5C1CC814D60077E9A5 /* template.sks in Resources */,
+				CE61F8661CC7E44000CFF0EE /* Theme2-31.sks in Resources */,
+				CE101F561CC8109D0077E9A5 /* Theme3-37.sks in Resources */,
+				CE61F8711CC7EB1700CFF0EE /* Theme1-42.sks in Resources */,
+				CE61F8811CC7FB5400CFF0EE /* Theme2-34.sks in Resources */,
 				CE787F881CA0E4DB0026807B /* Level12.sks in Resources */,
 				CE1B1E181C770964000FDE5E /* Level.sks in Resources */,
 				CE4BEA071C958DE5004DCDB5 /* Level4.sks in Resources */,
 				CE16CAFB1CC51C2A00304CE3 /* menu_click.wav in Resources */,
 				CE0E02661CC28EDA006BA395 /* fadeout.mp3 in Resources */,
 				CE0E02601CC27A45006BA395 /* record.wav in Resources */,
+				CE61F86B1CC7E63600CFF0EE /* Theme1-40.sks in Resources */,
+				CE61F86D1CC7E78200CFF0EE /* Theme1-41.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

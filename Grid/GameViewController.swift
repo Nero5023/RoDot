@@ -14,10 +14,6 @@ class GameViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     if let scene = StartScene(fileNamed: "StartScene") {
-      //        if let scene = LevelEditorScene(fileNamed:"LevelEditor") {
-      //      if let scene = LevelScene.level(1) {
-//      if let scene = LevelScene(fileNamed: "Level") {
-      // Configure the view.
       
       scene.startSceneDelegate = self
       
@@ -38,6 +34,19 @@ class GameViewController: UIViewController {
       SceneManager.sharedInstance.startScene = scene
       SceneManager.sharedInstance.presentingController = self
     }
+    
+    
+//    if let scene = LevelScene(fileNamed: "test") {
+//      let skView = self.view as! SKView
+//      skView.showsFPS = true
+//      skView.showsNodeCount = true
+//      skView.ignoresSiblingOrder = true
+//      scene.scaleMode = .AspectFill
+//      
+//      skView.presentScene(scene)
+//    }
+    
+    
   }
   
   override func shouldAutorotate() -> Bool {

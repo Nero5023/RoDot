@@ -81,7 +81,7 @@ class LevelManager {
   }
   
   func passLevel(theme theme: ThemeType, level: Int) {
-    guard  level > 0 && level < themesInfo[theme.rawValue]![LevelManager.Constants.TotalLevels] else { return }
+    guard  level > 0 && level <= themesInfo[theme.rawValue]![LevelManager.Constants.TotalLevels] else { return }
     if level == themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!+1 {
       themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = level
     }
@@ -92,5 +92,9 @@ class LevelManager {
     return themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!
   }
   
+  func unLockTheme(theme: ThemeType) {
+    guard getUnlockLevels(theme: theme) == 0 else { return }
+    themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = 1
+  }
   
 }
