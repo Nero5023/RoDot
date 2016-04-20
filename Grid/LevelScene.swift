@@ -144,7 +144,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   }
   
   func backButtonTouchUpInsideActon() {
-    guard self.isFinishAnimation else { return }
+    guard self.isFinishAnimation && self.playable else { return }
     SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
     if self.isRecording {
       self.stopRecordingCompletionHandler = {
