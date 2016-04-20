@@ -185,6 +185,7 @@ class MoveComponent: GKComponent {
       fatalError("The node at centerPositon is EntityNode")
     }
     let distanceToMove = targetPositon.distanceTo(renderComponent.node.position)
+    SKTAudio.sharedInstance().playSoundEffect("close_lock_2.wav", withVolume: 0.33)
     let action = SKAction.sequence([
       SKAction.moveTo(targetPositon, duration: NSTimeInterval(distanceToMove/restLinverVelocity)),
       SKAction.runBlock({ [unowned self] in

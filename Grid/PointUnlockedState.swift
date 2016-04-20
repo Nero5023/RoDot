@@ -34,6 +34,6 @@ class PointUnlockedState: GKState {
   }
   
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    return stateClass is PointCheckingState.Type || stateClass is PointRotatingState.Type || stateClass is PointLockedForeverState.Type
+    return stateClass is PointCheckingState.Type || stateClass is PointRotatingState.Type || stateClass is PointLockedForeverState.Type || stateClass is PointTranslatingState.Type
   }
 }

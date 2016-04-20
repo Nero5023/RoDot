@@ -24,8 +24,12 @@ class PointTranslatingState: GKState {
   
   // MARK: GKState Life Cycle
   
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    SKTAudio.sharedInstance().playSoundEffect("open_lock_2.wav", withVolume: 0.33)
+  }
+  
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    return stateClass is PointCheckingState.Type || stateClass is PointTranslatingState.Type
+    return stateClass is PointCheckingState.Type || stateClass is PointTranslatingState.Type || stateClass is PointUnlockedState.Type
   }
   
 }
