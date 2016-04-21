@@ -22,6 +22,6 @@ class DestinationNode: SKSpriteNode, CustomNodeEvents {
     zPosition = 0
 
     alpha = 0
-    runAction(SKAction.sequence([SKAction.waitForDuration(1), SKAction.fadeInWithDuration(0.66)]))
+    runAction(SKAction.sequence([SKAction.waitForDuration(2), SKAction.fadeInWithDuration(0.66)]))
   }
 }

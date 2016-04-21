@@ -215,6 +215,20 @@ class LevelScene: SKScene, SceneLayerProtocol {
     ball.setScale(0.01)
     ball.physicsBody?.affectedByGravity = false
     ball.physicsBody = nil
+    let blackHole = SKSpriteNode(imageNamed: "destination")
+    blackHole.position = ball.position
+    blackHole.position = ball.position
+    blackHole.zPosition = ball.zPosition - 10
+    spritesNode.addChild(blackHole)
+    blackHole.setScale(0)
+    blackHole.runAction(SKAction.sequence([
+      SKAction.waitForDuration(1.1),
+      SKAction.scaleTo(1.15, duration: 0.33),
+      SKAction.fadeOutWithDuration(0.66),
+      SKAction.runBlock {
+        blackHole.removeFromParent()
+      }
+      ]))
     let action = SKAction.sequence([SKAction.waitForDuration(1.4),
       SKAction.scaleTo(1, duration: 0.3),
       SKAction.runBlock({ [unowned self] in
