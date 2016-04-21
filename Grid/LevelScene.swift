@@ -53,8 +53,9 @@ class LevelScene: SKScene, SceneLayerProtocol {
   }
   
   class func themeLevel(theme: ThemeType, levelNum: Int) -> LevelScene? {
-    let scene = LevelScene(fileNamed: "Theme\(theme.themeNum+1)-\(levelNum)")!
+    let scene = LevelScene(fileNamed: "Theme\(theme.themeNum)_\(levelNum)")!
     scene.currentLevel = levelNum
+    scene.theme = theme
     scene.scaleMode = .AspectFill
     return scene
   }
@@ -398,7 +399,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
   // MARK: Game Life Cycle
   
   func newGame() {
-    let scene = LevelScene.level(currentLevel)
+    let scene = LevelScene.themeLevel(theme, levelNum: currentLevel)
     scene!.scaleMode = scaleMode
     view!.presentScene(scene)
     GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.rotateAchievements(rotateCount))
@@ -445,9 +446,14 @@ class LevelScene: SKScene, SceneLayerProtocol {
       }
     }
     
-    if currentLevel < 20 {
+    if currentLevel < theme.themeTotalLevels { // It's hard c
+      LevelManager.shareInstance.passLevel(theme: theme, level: currentLevel)
       currentLevel += 1
-      LevelManager.shareInstance.passLevel(theme: .Theme1, level: currentLevel)
+    }else if currentLevel == theme.themeTotalLevels {
+      playable = true
+      LevelManager.shareInstance.passLevel(theme: theme, level: currentLevel)
+      backButtonTouchUpInsideActon()
+      return
     }
     
     if currentLevel >= 10 {

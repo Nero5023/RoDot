@@ -25,6 +25,17 @@ enum ThemeType: String {
   }
   
   static var allTypes: [ThemeType] = [.Theme1, .Theme2, .Theme3]
+  
+  var themeTotalLevels: Int {
+    switch self {
+    case .Theme1:
+      return LevelManager.Constants.Theme1Levels
+    case .Theme2:
+      return LevelManager.Constants.Theme2Levels
+    case .Theme3:
+      return LevelManager.Constants.Theme3Levels
+    }
+  }
 }
 
 class LevelManager {
@@ -47,6 +58,7 @@ class LevelManager {
     static let Theme1Levels = 25
     static let Theme2Levels = 25
     static let Theme3Levels = 25
+    
   }
   
   var themesInfo: [String: [String: Int]] {
@@ -96,10 +108,11 @@ class LevelManager {
   
   func passLevel(theme theme: ThemeType, level: Int) {
     guard  level > 0 && level <= themesInfo[theme.rawValue]![LevelManager.Constants.TotalLevels] else { return }
-    if level == themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!+1 {
-      themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = level
+    if level == themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]! {
+      themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = level+1
     }
-    
+
+  
   }
   
   func getUnlockLevels(themeType theme: ThemeType) -> Int {

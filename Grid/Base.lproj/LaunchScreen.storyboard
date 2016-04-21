@@ -15,7 +15,20 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchScreenIcon" translatesAutoresizingMaskIntoConstraints="NO" id="kir-vd-T8Z">
+                                <rect key="frame" x="180" y="180" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="2HU-er-ofR"/>
+                                    <constraint firstAttribute="height" constant="240" id="bXx-vm-N6G"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kir-vd-T8Z" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="LMG-bv-0IC"/>
+                            <constraint firstItem="kir-vd-T8Z" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="gYM-iX-kDz"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -23,4 +36,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="lanchScreenIcon" width="512" height="512"/>
+    </resources>
 </document>

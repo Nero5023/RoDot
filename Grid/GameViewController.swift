@@ -34,8 +34,8 @@ class GameViewController: UIViewController {
       SceneManager.sharedInstance.startScene = scene
       SceneManager.sharedInstance.presentingController = self
     }
-    
-    
+//    
+//    
 //    if let scene = LevelScene(fileNamed: "test") {
 //      let skView = self.view as! SKView
 //      skView.showsFPS = true
@@ -45,8 +45,8 @@ class GameViewController: UIViewController {
 //      
 //      skView.presentScene(scene)
 //    }
-    
-    
+//
+//    
   }
   
   override func shouldAutorotate() -> Bool {
@@ -85,13 +85,13 @@ extension GameViewController: StartSceneDelegate {
     floatMenuController.buttonItems = [
       FloatingButton(image: UIImage(named: bgMusicImageName)),
       FloatingButton(image: UIImage(named: soundEffertImageName)),
-      FloatingButton(image: UIImage(named: "rate")),
+//      FloatingButton(image: UIImage(named: "rate")),
       FloatingButton(image: UIImage(named: "gamecenter")),
     ]
     floatMenuController.labelTitles = [
       "Music",
       "Sound Effert",
-      "Rate",
+//      "Rate",
       "GameCenter",
     ]
     presentViewController(floatMenuController, animated: true, completion: nil)
@@ -117,7 +117,7 @@ extension GameViewController: FloatingMenueControllerDelegate {
         button.setImage(UIImage(named: "sound_effert"), forState: .Normal)
         SceneManager.sharedInstance.setSoundEffertEabled(true)
       }
-    case 3: //Gamecenter
+    case 2: //Gamecenter
 //      controller.delegate
       controller.dismissViewControllerAnimated(true) {
         GameKitHelper.shareInstance.showGKGameCenterViewController(self)

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     SceneManager.sharedInstance.managedContext = coreDataStack.context
     NSUserDefaults.standardUserDefaults().setBool(false, forKey: IsRecordingKey)
     NSUserDefaults.standardUserDefaults().registerDefaults([BackgroundMusicEabledKey: true, SoundEffertEabledKey: true, LikedLevelIdsKey: [Int](), IsFirstLanchedKey: true])
-//    NSUserDefaults.standardUserDefaults().registerDefaults([LikedLevelIdsKey: [Int]()])
+    NSUserDefaults.standardUserDefaults().registerDefaults([LikedLevelIdsKey: [Int]()])
     return true
   }
 

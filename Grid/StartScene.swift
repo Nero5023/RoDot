@@ -39,6 +39,8 @@ class StartScene: SKScene, SceneLayerProtocol {
   
   var levelSelectButtons = [SKButtonNode]()
   
+  var fromThemeType: ThemeType?
+  
   // MARK: Scene Life Cycle
   
   override func didMoveToView(view: SKView) {
@@ -350,7 +352,7 @@ class StartScene: SKScene, SceneLayerProtocol {
         SKAction.runBlock{
           theme.removeFromParent()
 //          theme.setScale(1)
-          self.addLevelSelectButtons(theme.position)
+          self.addLevelSelectButtons(theme.position, themeType: themeType)
           self.addBackButton()
           
           self.touchable = true
@@ -388,7 +390,7 @@ class StartScene: SKScene, SceneLayerProtocol {
   }
   
   // Level select buttons
-  func addLevelSelectButtons(fromePositon: CGPoint) {
+  func addLevelSelectButtons(fromePositon: CGPoint, themeType: ThemeType) {
 //    var levelSelectButtons = [[SKButtonNode]]()
     levelSelectButtons.removeAll(keepCapacity: true)
     levelSelectButtons.reserveCapacity(25)
@@ -413,7 +415,8 @@ class StartScene: SKScene, SceneLayerProtocol {
               ]),
             SKAction.runBlock{
               SKTAudio.sharedInstance().playBackgroundMusic("background_play.mp3")
-              self.levelButtonSelectAction(currentLevel)()
+              self.fromThemeType = themeType
+              SceneManager.sharedInstance.showLevelScene(themeType, level: currentLevel)
               self.touchable = true
               button.isSelected = false
             }
@@ -424,8 +427,8 @@ class StartScene: SKScene, SceneLayerProtocol {
               levelSelectButton.runAction(SKAction.fadeOutWithDuration(0.3))
           }
         }
-        button.isEnabled = currentLevel < LevelManager.shareInstance.getUnlockLevels(themeType: .Theme1)
-        if currentLevel == LevelManager.shareInstance.getUnlockLevels(themeType: .Theme1) {
+        button.isEnabled = currentLevel < LevelManager.shareInstance.getUnlockLevels(themeType: themeType)
+        if currentLevel == LevelManager.shareInstance.getUnlockLevels(themeType: themeType) {
           
           button.selectedTexture = SKTexture(imageNamed: "playingLevelButton_selected")
           button.isEnabled = true
@@ -461,7 +464,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
     }
     
-    let unlockedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: .Theme1)
+    let unlockedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: self.fromThemeType!)
     
     for (index, button) in levelSelectButtons.enumerate() where index+1 <= unlockedLevels {
       if button.isHighlight && index+1 != unlockedLevels {
@@ -585,17 +588,18 @@ class StartScene: SKScene, SceneLayerProtocol {
   }
   
   // Level select action
-  func levelButtonSelectAction(level: Int) -> (()->()) {
-    return {
-
-      if level > 20 {
-        SceneManager.sharedInstance.showLevelScene(level-5)
-      }else {
-        SceneManager.sharedInstance.showLevelScene(level)
-      }
-      
-    }
-  }
+//  func levelButtonSelectAction(level: Int) -> (()->()) {
+//    return {
+//
+////      if level > 20 {
+////        SceneManager.sharedInstance.showLevelScene(level-5)
+////      }else {
+////        SceneManager.sharedInstance.showLevelScene(level)
+////      }
+//      SceneManager.sharedInstance.showLevelScene(themeType!, level: <#T##Int#>)
+//      
+//    }
+//  }
   
   // MARK: Touch Event:
   

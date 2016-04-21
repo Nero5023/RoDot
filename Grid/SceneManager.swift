@@ -36,6 +36,12 @@ final class SceneManager {
     presentingView.presentScene(levelScene)
   }
   
+  func showLevelScene(theme: ThemeType, level: Int) {
+    let levelScene = LevelScene.themeLevel(theme, levelNum: level)
+    levelScene?.scaleMode = .AspectFill
+    presentingView.presentScene(levelScene)
+  }
+  
   func backToStartScene() {
     presentingView.presentScene(startScene)
   }
