@@ -10,6 +10,8 @@ import SpriteKit
 import GameplayKit
 import GameKit
 
+let LikedLevelIdsKey = "LikedLevelIds"
+
 enum LevelEditPlaySceneType {
   case testPlay    // For when DIYing
   case selfPlay(String?)     // For when playing self designed level, String is the level Name
@@ -88,9 +90,15 @@ class LevelEditPlayScene: LevelScene {
       switch sceneType {
       case .sharePlay(let levelId):
         likeButton.isEnabled = false
+        self.animationLikeIcon()
         SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
+        
         Client.sharedInstance.likeLevel(levelId) {
           print("like")
+        }
+        if var likedLevelIds = NSUserDefaults.standardUserDefaults().arrayForKey(LikedLevelIdsKey) as? [Int] {
+          likedLevelIds.append(levelId)
+          NSUserDefaults.standardUserDefaults().setObject(likedLevelIds, forKey: LikedLevelIdsKey)
         }
       default:
         break
@@ -224,6 +232,9 @@ class LevelEditPlayScene: LevelScene {
   override func didMoveToView(view: SKView) {
     super.didMoveToView(view)
     addSmallShareButton()
+    
+    addLikeCountIcon()
+    
     guard let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode else {
       return
     }
@@ -234,6 +245,7 @@ class LevelEditPlayScene: LevelScene {
       self.view!.presentScene(self.editScene)
     }
     overlayNode.addChild(editButton)
+    
   }
   
   override func newGame() {
@@ -272,6 +284,7 @@ class LevelEditPlayScene: LevelScene {
     }
     afterDelay(1) { [unowned self] in
       self.overlayNode.addChild(self.restartButton)
+      (self.overlayNode.childNodeWithName("restart") as? SKButtonNode)?.isEnabled = true
       self.playable = true
       guard let sceneType = self.sceneType else { return }
       switch sceneType {
@@ -281,8 +294,9 @@ class LevelEditPlayScene: LevelScene {
       case .testPlay:
         self.overlayNode.addChild(self.saveButton)
         self.overlayNode.addChild(self.shareButton)
-      case .sharePlay:
+      case .sharePlay(let levelId):
         self.overlayNode.addChild(self.likeButton)
+        self.likeButton.isEnabled = !self.checkIsLikeLevel(levelId)
       }
     }
   }
@@ -304,6 +318,67 @@ class LevelEditPlayScene: LevelScene {
       return
     }
   }
+  
+  func addLikeCountIcon() {
+    guard let sceneType = sceneType else { return }
+    switch sceneType {
+    case .sharePlay(let levelid):
+      Client.sharedInstance.getLvelLikeCount(levelid) { likeCount in
+        let likeIcon = SKSpriteNode(imageNamed: "likescount")
+        let margin: CGFloat = 120 + 120
+        likeIcon.position = CGPoint(x: self.size.width-self.xMargin-108-margin, y: 1950)
+        likeIcon.name = "likeIcon"
+        likeIcon.zPosition = self.overlayNode.zPosition
+        self.overlayNode.addChild(likeIcon)
+        let label = SKLabelNode(text: "\(likeCount)")
+        label.position = CGPoint(x: -likeIcon.size.width/2-15, y: 0)
+        label.verticalAlignmentMode = .Center
+        label.horizontalAlignmentMode = .Right
+        label.zPosition = likeIcon.zPosition + 10
+        label.fontName = "ArialRoundedMTBold"
+//        print(label.colorBlendFactor)
+//        label.colorBlendFactor = 1
+        label.fontColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 91/255.0, alpha: 1)
+        label.fontSize = likeIcon.size.width / 1.1
+        label.name = "label"
+        likeIcon.addChild(label)
+        likeIcon.alpha = 0
+        dispatch_async(dispatch_get_main_queue()) {
+          likeIcon.runAction(SKAction.fadeInWithDuration(0.66))
+        }
+      }
+    default:
+      break
+    }
+  }
+  
+  func animationLikeIcon() {
+    guard let label = overlayNode.childNodeWithName("likeIcon")?.childNodeWithName("label") as? SKLabelNode else { return }
+    let likesCount = Int(label.text!)!
+    let dy: CGFloat = 20
+    let moveUpAction = SKAction.moveByX(0, y: dy, duration: 0.33)
+    let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
+    let groupAction0 = SKAction.group([moveUpAction, fadeOutAction])
+    let runblock = SKAction.runBlock {
+      label.text = "\(likesCount+1)"
+      label.position.y = -dy
+    }
+    let fadeInAction = SKAction.fadeInWithDuration(0.33)
+    let groupAction1 = SKAction.group([moveUpAction, fadeInAction])
+    label.runAction(SKAction.sequence([groupAction0, runblock, groupAction1]))
+    
+  }
+  
+  func checkIsLikeLevel(levelId: Int) -> Bool {
+    guard let likedLevelIds = NSUserDefaults.standardUserDefaults().objectForKey(LikedLevelIdsKey) as? [Int]
+      else { return  false }
+    if likedLevelIds.contains(levelId) {
+      return true
+    }else {
+      return false
+    }
+  }
+  
   
   override func addRecordButton() {
     guard let sceneType = sceneType else { return }

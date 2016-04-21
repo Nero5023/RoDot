@@ -23,6 +23,7 @@ extension Client {
     static let ShareLevel = "/level/new"
     static let LikeLevel = "/level/like"
     static let LevelPage = "/level" // expample /level/2
+    static let LikeCount = "/level/likescount"
   }
   
   struct ParameterKeys {
@@ -44,6 +45,8 @@ extension Client {
     static let Date = "date"
     
     static let Result = "Result"
+    
+    static let LevelLikesCount = "likes"
   }
   
   struct JSONBodyValues {

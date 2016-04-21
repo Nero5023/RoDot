@@ -58,4 +58,13 @@ extension Client {
     }
   }
   
+  func getLvelLikeCount(levelid: Int, completionHandler: (Int)->()) {
+    let _ = taskForGetMethod(Client.Methods.LikeCount, parameters: ["levelid": levelid]) { data in
+      let jsonBody = JSON(data: data)
+      let likesCount = jsonBody[Client.JSONBodyKeys.LevelLikesCount].int!
+      completionHandler(likesCount)
+    }
+  }
+  
+  
 }
