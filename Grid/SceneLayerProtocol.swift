@@ -46,6 +46,7 @@ extension SceneLayerProtocol {
     guard let hudNode = childNodeWithName("HUD") else {
       fatalError("The Secne conform the SceneLayerProtocol must have the node named HUD")
     }
+    hudNode.zPosition = 500
     return hudNode
   }
   

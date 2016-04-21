@@ -13,6 +13,8 @@ protocol StartSceneDelegate: class {
   func didSelectMoreButton(scene: StartScene, buttonCenterPosition: CGPoint)
 }
 
+let IsFirstLanchedKey = "FirstLanched"
+
 class StartScene: SKScene, SceneLayerProtocol {
   
   // MARK: Properties
@@ -99,6 +101,24 @@ class StartScene: SKScene, SceneLayerProtocol {
       node.physicsBody!.contactTestBitMask = PhysicsCategory.Ball
       node.alpha = 0
     })
+    
+    
+    guard NSUserDefaults.standardUserDefaults().boolForKey(IsFirstLanchedKey) else { return }
+    NSUserDefaults.standardUserDefaults().setBool(false, forKey: IsFirstLanchedKey)
+    let tapInstruction = SKSpriteNode(imageNamed: "tap")
+    tapInstruction.name = "tap"
+    tapInstruction.zPosition = hudNode.zPosition
+    tapInstruction.position = CGPoint(x: 1100, y: 300)
+    hudNode.addChild(tapInstruction)
+    tapInstruction.alpha = 0
+    let fadeInAction = SKAction.fadeInWithDuration(0.8)
+    let fadeOutActoin = SKAction.fadeOutWithDuration(1.3)
+    fadeInAction.timingMode = .EaseInEaseOut
+    fadeOutActoin.timingMode = .EaseInEaseOut
+    let tapAction = SKAction.sequence([fadeInAction, fadeOutActoin, SKAction.waitForDuration(0.1)])
+    tapInstruction.runAction(SKAction.sequence([
+      SKAction.waitForDuration(2), SKAction.repeatActionForever(tapAction)
+      ]))
   }
   
   // Update
@@ -582,7 +602,11 @@ class StartScene: SKScene, SceneLayerProtocol {
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     if !touchable { return }
     didTouchedScreen = true
-    
+    if let tap = hudNode.childNodeWithName("tap") {
+      tap.removeAllActions()
+      tap.runAction(SKAction.fadeOutWithDuration(0.33))
+      
+    }
   }
   
   
