@@ -11,10 +11,11 @@ import GameplayKit
 import GameKit
 
 let LikedLevelIdsKey = "LikedLevelIds"
+let SharedLevlsDicKey = "SharedLevlsDic"
 
 enum LevelEditPlaySceneType {
   case testPlay    // For when DIYing
-  case selfPlay(String?)     // For when playing self designed level, String is the level Name
+  case selfPlay(String?, levelObjectId: String)     // For when playing self designed level, String is the level Name
   case sharePlay(Int)    // For when playing others sharing level, Int is levelid
   
   
@@ -50,8 +51,12 @@ class LevelEditPlayScene: LevelScene {
 //      SceneManager.sharedInstance.getLevelFromWebServer()
       SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
       switch self.sceneType! {
-      case .selfPlay(let levelName ):
-        self.shareLevel(levelName)
+      case .selfPlay(let levelName, let objectId):
+        if let levelid = self.checkLevelIsAlreadyShared(objectId) {
+          self.shareLevelDirectory(levelName!, levelid: levelid)
+        }else {
+          self.shareLevel(levelName)
+        }
       default:
         self.showEnterLevelNameAlert("Share") { levelName in
           self.shareLevel(levelName)
@@ -200,32 +205,81 @@ class LevelEditPlayScene: LevelScene {
     if levelName == nil { levelName = "DIY" }
     HUD.show(.Progress)
     let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: levelName) { levelid in
-      let shareURLString = "https://rodot.me/level/" + "\(levelid)"
-      let shareURL = NSURL(string: shareURLString)!
-      let str = "This is the game I made by RoDot try this!"
-      let activityViewController = UIActivityViewController(activityItems: [str, shareURL], applicationActivities: nil)
-      activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
-      activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
-        if isCompleted {
-          GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
-          LeaderboardHelper.reportMostShareTimesLeaderboard()
-          switch self.sceneType! {
-          case .testPlay:
-            SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
-          default:
-            break
-          }
-          self.backButtonTouchUpInsideActon()
-        }
-      }
-      dispatch_async(dispatch_get_main_queue()) {
-        
-        HUD.hide()
-        SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
-      }
+//      let shareURLString = "https://rodot.me/level/" + "\(levelid)"
+//      let shareURL = NSURL(string: shareURLString)!
+//      let str = "This is the level I made named:\(levelName!) by RoDot try this!"
+//      let activityViewController = UIActivityViewController(activityItems: [str, shareURL], applicationActivities: nil)
+//      activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+//      activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
+//        if isCompleted {
+//          GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
+//          LeaderboardHelper.reportMostShareTimesLeaderboard()
+//          switch self.sceneType! {
+//          case .testPlay:
+//            SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
+//          default:
+//            break
+//          }
+//          self.backButtonTouchUpInsideActon()
+//        }
+//      }
+      //      dispatch_async(dispatch_get_main_queue()) {
+      //
+      //        HUD.hide()
+      //        SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+      //      }
+      self.shareLevelDirectory(levelName!, levelid: levelid)
     }//End for task completionHandler
     Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
   }
+  
+  func shareLevelDirectory(levelName: String, levelid: Int) {
+    let shareURLString = "https://rodot.me/level/" + "\(levelid)"
+    let shareURL = NSURL(string: shareURLString)!
+    let str = "This is the level I made named:\(levelName) by RoDot try this!"
+    let activityViewController = UIActivityViewController(activityItems: [str, shareURL], applicationActivities: nil)
+    activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+    activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
+      if isCompleted {
+        GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
+        LeaderboardHelper.reportMostShareTimesLeaderboard()
+        switch self.sceneType! {
+        case .testPlay:
+          
+          //MARK: TODO ....
+          let objectidStr = SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
+          self.saveObjectIdLevlIdToNSUserDefalut(objectidStr, levelId: levelid)
+        case .selfPlay(_ , levelObjectId: let objectidStr):
+          self.saveObjectIdLevlIdToNSUserDefalut(objectidStr, levelId: levelid)
+        default:
+          break
+        }
+        self.backButtonTouchUpInsideActon()
+      }
+    }
+    dispatch_async(dispatch_get_main_queue()) {
+      
+      HUD.hide()
+      SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+    }
+  }
+  
+  func checkLevelIsAlreadyShared(objectId: String) -> Int? {
+    guard let dic = NSUserDefaults.standardUserDefaults().dictionaryForKey(SharedLevlsDicKey) as? [String: Int] else { return nil }
+    if let levelid = dic[objectId] {
+      return levelid
+    }else {
+      return nil
+    }
+  }
+  
+  func saveObjectIdLevlIdToNSUserDefalut(objectidStr: String, levelId: Int) {
+    guard var dic = NSUserDefaults.standardUserDefaults().dictionaryForKey(SharedLevlsDicKey) as? [String: Int] else { return }
+    dic[objectidStr] = levelId
+    NSUserDefaults.standardUserDefaults().setObject(dic, forKey: SharedLevlsDicKey)
+  }
+  
+  
   
   // MARK: Scene Life Cycle
   

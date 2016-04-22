@@ -104,7 +104,7 @@ final class SceneManager {
     }
   }
   
-  func saveLevelData(nodes: [SKNode], levelName: String?) {
+  func saveLevelData(nodes: [SKNode], levelName: String?) -> String {
     let nodesSet = NSMutableSet(capacity: nodes.count)
     let nodeEntity = NSEntityDescription.entityForName("Node", inManagedObjectContext: managedContext)
     
@@ -128,6 +128,7 @@ final class SceneManager {
     }catch let error as NSError {
       print("Can't save, error:\(error)")
     }
+    return "\(levelData.objectID)"
   }
   
   
