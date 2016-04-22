@@ -442,6 +442,7 @@ class StartScene: SKScene, SceneLayerProtocol {
   }
   
   func updateSelectButtonsState() {
+    guard let fromThemeType = self.fromThemeType else { return }
     let restButtonAnimatioinDuration: NSTimeInterval = 0.6
     for button in levelSelectButtons {
       let fadeInAction = SKAction.fadeInWithDuration(restButtonAnimatioinDuration)
@@ -464,7 +465,7 @@ class StartScene: SKScene, SceneLayerProtocol {
       }
     }
     
-    let unlockedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: self.fromThemeType!)
+    let unlockedLevels = LevelManager.shareInstance.getUnlockLevels(themeType: fromThemeType)
     
     for (index, button) in levelSelectButtons.enumerate() where index+1 <= unlockedLevels {
       if button.isHighlight && index+1 != unlockedLevels {

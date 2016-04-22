@@ -108,6 +108,7 @@ extension GameViewController: FloatingMenueControllerDelegate {
       }else {
         button.setImage(UIImage(named: "bgmusic"), forState: .Normal)
         SceneManager.sharedInstance.setBackgroundMuscicEabled(true)
+        SKTAudio.sharedInstance().playBackgroundMusic("background_music.wav")
       }
     case 1: // SoundEffert
       if SceneManager.sharedInstance.soundEffertMusicEabled() {

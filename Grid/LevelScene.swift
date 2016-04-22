@@ -295,6 +295,11 @@ class LevelScene: SKScene, SceneLayerProtocol {
       pathLine.alpha = 0
       pathLine.runAction(SKAction.sequence([waitAction, fadeInAction]))
     }
+    
+    if let instructionNode = hudNode.childNodeWithName("instraction") {
+      instructionNode.alpha = 0
+      instructionNode.runAction(SKAction.sequence([waitAction, fadeInAction]))
+    }
   }
   
   

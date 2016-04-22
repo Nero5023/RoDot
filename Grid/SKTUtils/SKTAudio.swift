@@ -35,6 +35,7 @@ public class SKTAudio {
   }
 
   public func playBackgroundMusic(filename: String) {
+    guard SceneManager.sharedInstance.backgroundMusicEabled() else { return }
     let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
     if (url == nil) {
       print("Could not find file: \(filename)")
