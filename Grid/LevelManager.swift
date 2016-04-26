@@ -111,8 +111,13 @@ class LevelManager {
     if level == themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]! {
       themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = level+1
     }
-
+  }
   
+  // Just for test user or me
+  func passAllLevels() {
+    themesInfo[ThemeType.Theme1.rawValue]![LevelManager.Constants.UnlockedLevels] = 25+1
+    themesInfo[ThemeType.Theme2.rawValue]![LevelManager.Constants.UnlockedLevels] = 25+1
+    themesInfo[ThemeType.Theme3.rawValue]![LevelManager.Constants.UnlockedLevels] = 25+1
   }
   
   func getUnlockLevels(themeType theme: ThemeType) -> Int {

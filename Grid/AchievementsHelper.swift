@@ -23,17 +23,25 @@ class  AchievementsHelper {
   static let ShareLevel100TimesAchievementId = "com.nero.rodot.sharelevel100times"
   
   class func rotateAchievements(roateCount: Int) -> [GKAchievement] {
-    var totalRotateCount: Int = 0
+    var totalRotateCountBefore: Int = 0
     if let count = NSUserDefaults.standardUserDefaults().objectForKey(RotateCountKey) as? Int {
-      totalRotateCount = count
+      totalRotateCountBefore = count
     }
-    totalRotateCount += roateCount
+    let totalRotateCount = totalRotateCountBefore + roateCount
     var achievements = [GKAchievement]()
-    achievements.reserveCapacity(4)
-    achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 10, identifier: AchievementsHelper.Rotate10TimesAchievementId))
-    achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 50, identifier: AchievementsHelper.Rotate50TimesAchievementId))
-    achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 100, identifier: AchievementsHelper.Rotate100TimesAchievementId))
-    achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 500, identifier: AchievementsHelper.Rotate500TimesAchievementId))
+
+    if totalRotateCountBefore <= 10 {
+      achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 10, identifier: AchievementsHelper.Rotate10TimesAchievementId))
+    }
+    if totalRotateCountBefore <= 50 {
+      achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 50, identifier: AchievementsHelper.Rotate50TimesAchievementId))
+    }
+    if totalRotateCountBefore <= 100 {
+      achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 100, identifier: AchievementsHelper.Rotate100TimesAchievementId))
+    }
+    if totalRotateCountBefore <= 500 {
+      achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 500, identifier: AchievementsHelper.Rotate500TimesAchievementId))
+    }
     NSUserDefaults.standardUserDefaults().setObject(totalRotateCount, forKey: RotateCountKey)
     return achievements
   }
@@ -55,10 +63,19 @@ class  AchievementsHelper {
     }
     totalShareCount += 1
     var achievements = [GKAchievement]()
-    achievements.reserveCapacity(3)
-    achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 10, identifier: AchievementsHelper.ShareLevel10TimesAchievementId))
-    achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 50, identifier: AchievementsHelper.ShareLevel50TimesAchievementId))
-    achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 100, identifier: AchievementsHelper.ShareLevel100TimesAchievementId))
+    
+    if totalShareCount - 1 <= 9 {
+      achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 10, identifier: AchievementsHelper.ShareLevel10TimesAchievementId))
+    }
+    
+    if totalShareCount - 1 <= 49 {
+      achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 50, identifier: AchievementsHelper.ShareLevel50TimesAchievementId))
+    }
+    
+    if totalShareCount - 1 <= 99 {
+      achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 100, identifier: AchievementsHelper.ShareLevel100TimesAchievementId))
+    }
+    
     NSUserDefaults.standardUserDefaults().setObject(totalShareCount, forKey: ShareCountKey)
     return achievements
   }

@@ -20,6 +20,8 @@ enum LayerType: String {
   }
 }
 
+let ShowEditSceneInstructionCountKey = "ShowEditSceneInstructionCount"
+
 class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   // MARK: Properties
@@ -212,18 +214,20 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     addBackground()
     
     addBackButton()
+    addDoneButton()
     showComponetLayer()
     
+    if let showInstructionCount =  NSUserDefaults.standardUserDefaults().objectForKey(ShowEditSceneInstructionCountKey) as? Int where showInstructionCount < 3 {
+      addInstructionLabel()
+      NSUserDefaults.standardUserDefaults().setObject(showInstructionCount + 1, forKey: ShowEditSceneInstructionCountKey)
+    }
   }
   
   func addBackButton() {
     let backButton = SKButtonNode(imageNameNormal: "back", selected: nil)
     backButton.name = "back"
     backButton.position = CGPoint(x: xMargin + 108, y: 1950)
-    backButton.actionTouchUpInside = {
-      SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
-      SceneManager.sharedInstance.backToStartScene()
-    }
+    backButton.actionTouchUpInside = backButtonAction
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
     backButton.alpha = 0
@@ -239,12 +243,33 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     bgNode.addChild(background)
   }
   
+  func addDoneButton() {
+    let doneButton = SKButtonNode(imageNameNormal: "done_button", selected: nil)
+    doneButton.actionTouchUpInside = {
+      for button in self.pointButtons {
+        let pointTypeName = self.pointButtonTypeName()
+        if button.type == nil {
+          let textureImageName = PointNodeType(nodeName: pointTypeName).textureImageName()
+          button.selectedTexture = SKTexture(imageNamed: textureImageName)
+        }
+        button.nextNodeName = pointTypeName
+      }
+      self.showEditLayer()
+    }
+    doneButton.position = CGPoint(x: 500, y: -150)
+    overlayNode.childNodeWithName(LayerType.rotateCountLayer.rawValue)?.addChild(doneButton)
+  }
+  
   func configureOverlay() {
     let overlayScece = SKScene(fileNamed: "ComponentChoose")!
     addChild(overlayScece.childNodeWithName("Overlay")!.copy() as! SKNode)
     enumerateChildNodesWithName("/Overlay//*", usingBlock: { (node, _) -> () in
       if let node = node as? SKSpriteNode {
         let button = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil)
+        for child in node.children {
+          child.removeFromParent()
+          button.addChild(child)
+        }
         node.parent?.addChild(button)
         node.removeFromParent()
       }
@@ -314,6 +339,32 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     scene?.scaleMode = self.scaleMode
     scene?.editScene = self
     self.view?.presentScene(scene)
+  }
+  
+  
+  func addInstructionLabel() {
+    let label = SKLabelNode(text: "Tap the rod and dot to add or cancel.")
+//    Tap the empty space to add node
+    label.fontColor = UIColor.blackColor()
+    label.fontSize = 50
+    label.fontName = "ArialRoundedMTBold"
+    label.position = CGPoint(x: size.width/2, y: size.height - 80)
+    spritesNode.addChild(label)
+    let fadeInAction = SKAction.fadeInWithDuration(0.8)
+    let fadeOutActoin = SKAction.fadeOutWithDuration(1.3)
+    fadeInAction.timingMode = .EaseInEaseOut
+    fadeOutActoin.timingMode = .EaseInEaseOut
+    
+    let willShowTexts = ["Tap the empty space to add node.", "After adding a ball and a target, you can run it.", "Tap the rod and dot to add or cancel."]
+    var index = 0
+    let runblock = SKAction.runBlock {
+      index = index % willShowTexts.count
+      label.text = willShowTexts[index]
+      index+=1
+    }
+    let action = SKAction.sequence([fadeInAction, SKAction.waitForDuration(3), fadeOutActoin, SKAction.waitForDuration(0.1), runblock])
+    label.runAction(SKAction.repeatActionForever(action))
+    
   }
   
   
@@ -451,6 +502,22 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     }
     SKTAudio.sharedInstance().playSoundEffect("button_click_3.wav")
     spritesNode.addChild(button)
+  }
+  
+  
+  func backButtonAction() {
+    let alertController = UIAlertController(title: "Are you sure to exit?", message: nil, preferredStyle: .Alert)
+    
+    let cancelAction = UIAlertAction(title: "No", style: .Cancel) { _ in }
+    let confirmAction = UIAlertAction(title: "Yes", style: .Default) { _ in
+      SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
+      SceneManager.sharedInstance.backToStartScene()
+    }
+    
+    alertController.addAction(cancelAction)
+    alertController.addAction(confirmAction)
+    
+    SceneManager.sharedInstance.presentingController.presentViewController(alertController, animated: true, completion: nil)
   }
 
 }

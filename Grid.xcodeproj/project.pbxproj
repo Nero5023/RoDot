@@ -43,6 +43,9 @@
 		CE16CAFB1CC51C2A00304CE3 /* menu_click.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE16CAFA1CC51C2A00304CE3 /* menu_click.wav */; };
 		CE16CAFD1CC5208900304CE3 /* timeout.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE16CAFC1CC5208900304CE3 /* timeout.wav */; };
 		CE16CAFF1CC5400800304CE3 /* LeaderboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16CAFE1CC5400800304CE3 /* LeaderboardHelper.swift */; };
+		CE1794B81CCF9BAC00450155 /* Theme1_16.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1794B71CCF9BAC00450155 /* Theme1_16.sks */; };
+		CE1794BA1CCFA0A000450155 /* test2.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1794B91CCFA0A000450155 /* test2.sks */; };
+		CE1794BC1CCFA1EC00450155 /* Theme3_11.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1794BB1CCFA1EC00450155 /* Theme3_11.sks */; };
 		CE1900001CC9601E009595BC /* Theme1_24.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFE71CC9601E009595BC /* Theme1_24.sks */; };
 		CE1900011CC9601E009595BC /* Theme1_25.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFE81CC9601E009595BC /* Theme1_25.sks */; };
 		CE19001B1CC96027009595BC /* Theme2_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1900021CC96027009595BC /* Theme2_1.sks */; };
@@ -80,7 +83,6 @@
 		CE1900541CC96032009595BC /* Theme3_8.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19003B1CC96032009595BC /* Theme3_8.sks */; };
 		CE1900551CC96032009595BC /* Theme3_9.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19003C1CC96032009595BC /* Theme3_9.sks */; };
 		CE1900561CC96032009595BC /* Theme3_10.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19003D1CC96032009595BC /* Theme3_10.sks */; };
-		CE1900571CC96032009595BC /* Theme3_11.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19003E1CC96032009595BC /* Theme3_11.sks */; };
 		CE1900581CC96032009595BC /* Theme3_12.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19003F1CC96032009595BC /* Theme3_12.sks */; };
 		CE1900591CC96032009595BC /* Theme3_13.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1900401CC96032009595BC /* Theme3_13.sks */; };
 		CE19005A1CC96032009595BC /* Theme3_14.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1900411CC96032009595BC /* Theme3_14.sks */; };
@@ -93,7 +95,6 @@
 		CE1900611CC96032009595BC /* Theme3_20.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1900481CC96032009595BC /* Theme3_20.sks */; };
 		CE1900621CC96032009595BC /* Theme3_21.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1900491CC96032009595BC /* Theme3_21.sks */; };
 		CE1900631CC96032009595BC /* Theme3_23.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19004A1CC96032009595BC /* Theme3_23.sks */; };
-		CE1900641CC96032009595BC /* Theme3_24.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19004B1CC96032009595BC /* Theme3_24.sks */; };
 		CE1900651CC96032009595BC /* Theme3_25.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19004C1CC96032009595BC /* Theme3_25.sks */; };
 		CE19FFCE1CC96013009595BC /* Theme2_.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFCC1CC96013009595BC /* Theme2_.sks */; };
 		CE19FFE91CC9601E009595BC /* Theme1_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFD01CC9601E009595BC /* Theme1_1.sks */; };
@@ -111,7 +112,6 @@
 		CE19FFF51CC9601E009595BC /* Theme1_13.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFDC1CC9601E009595BC /* Theme1_13.sks */; };
 		CE19FFF61CC9601E009595BC /* Theme1_14.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFDD1CC9601E009595BC /* Theme1_14.sks */; };
 		CE19FFF71CC9601E009595BC /* Theme1_15.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFDE1CC9601E009595BC /* Theme1_15.sks */; };
-		CE19FFF81CC9601E009595BC /* Theme1_16.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFDF1CC9601E009595BC /* Theme1_16.sks */; };
 		CE19FFF91CC9601E009595BC /* Theme1_17.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFE01CC9601E009595BC /* Theme1_17.sks */; };
 		CE19FFFA1CC9601E009595BC /* Theme1_18.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFE11CC9601E009595BC /* Theme1_18.sks */; };
 		CE19FFFB1CC9601E009595BC /* Theme1_19.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFE21CC9601E009595BC /* Theme1_19.sks */; };
@@ -121,6 +121,9 @@
 		CE19FFFF1CC9601E009595BC /* Theme1_23.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE19FFE61CC9601E009595BC /* Theme1_23.sks */; };
 		CE1B1E151C76F244000FDE5E /* BallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B1E141C76F244000FDE5E /* BallNode.swift */; };
 		CE1B1E181C770964000FDE5E /* Level.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level.sks */; };
+		CE1C26CE1CCF92D8000C05E8 /* template.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1C26CD1CCF92D8000C05E8 /* template.sks */; };
+		CE1C26D01CCF92FD000C05E8 /* test.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1C26CF1CCF92FD000C05E8 /* test.sks */; };
+		CE1C26D41CCF999C000C05E8 /* Theme3_24.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1C26D31CCF999C000C05E8 /* Theme3_24.sks */; };
 		CE1E7A411CA29F0600BFD61B /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E7A401CA29F0600BFD61B /* StartScene.swift */; };
 		CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1E7A421CA2A00B00BFD61B /* StartScene.sks */; };
 		CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */; };
@@ -296,6 +299,9 @@
 		CE16CAFA1CC51C2A00304CE3 /* menu_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu_click.wav; sourceTree = "<group>"; };
 		CE16CAFC1CC5208900304CE3 /* timeout.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = timeout.wav; sourceTree = "<group>"; };
 		CE16CAFE1CC5400800304CE3 /* LeaderboardHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardHelper.swift; sourceTree = "<group>"; };
+		CE1794B71CCF9BAC00450155 /* Theme1_16.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_16.sks; sourceTree = "<group>"; };
+		CE1794B91CCFA0A000450155 /* test2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = test2.sks; sourceTree = "<group>"; };
+		CE1794BB1CCFA1EC00450155 /* Theme3_11.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_11.sks; sourceTree = "<group>"; };
 		CE1900021CC96027009595BC /* Theme2_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme2_1.sks; sourceTree = "<group>"; };
 		CE1900031CC96027009595BC /* Theme2_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme2_2.sks; sourceTree = "<group>"; };
 		CE1900041CC96027009595BC /* Theme2_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme2_3.sks; sourceTree = "<group>"; };
@@ -331,7 +337,6 @@
 		CE19003B1CC96032009595BC /* Theme3_8.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_8.sks; sourceTree = "<group>"; };
 		CE19003C1CC96032009595BC /* Theme3_9.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_9.sks; sourceTree = "<group>"; };
 		CE19003D1CC96032009595BC /* Theme3_10.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_10.sks; sourceTree = "<group>"; };
-		CE19003E1CC96032009595BC /* Theme3_11.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_11.sks; sourceTree = "<group>"; };
 		CE19003F1CC96032009595BC /* Theme3_12.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_12.sks; sourceTree = "<group>"; };
 		CE1900401CC96032009595BC /* Theme3_13.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_13.sks; sourceTree = "<group>"; };
 		CE1900411CC96032009595BC /* Theme3_14.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_14.sks; sourceTree = "<group>"; };
@@ -344,7 +349,6 @@
 		CE1900481CC96032009595BC /* Theme3_20.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_20.sks; sourceTree = "<group>"; };
 		CE1900491CC96032009595BC /* Theme3_21.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_21.sks; sourceTree = "<group>"; };
 		CE19004A1CC96032009595BC /* Theme3_23.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_23.sks; sourceTree = "<group>"; };
-		CE19004B1CC96032009595BC /* Theme3_24.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_24.sks; sourceTree = "<group>"; };
 		CE19004C1CC96032009595BC /* Theme3_25.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_25.sks; sourceTree = "<group>"; };
 		CE19FFCC1CC96013009595BC /* Theme2_.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme2_.sks; sourceTree = "<group>"; };
 		CE19FFD01CC9601E009595BC /* Theme1_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_1.sks; sourceTree = "<group>"; };
@@ -362,7 +366,6 @@
 		CE19FFDC1CC9601E009595BC /* Theme1_13.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_13.sks; sourceTree = "<group>"; };
 		CE19FFDD1CC9601E009595BC /* Theme1_14.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_14.sks; sourceTree = "<group>"; };
 		CE19FFDE1CC9601E009595BC /* Theme1_15.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_15.sks; sourceTree = "<group>"; };
-		CE19FFDF1CC9601E009595BC /* Theme1_16.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_16.sks; sourceTree = "<group>"; };
 		CE19FFE01CC9601E009595BC /* Theme1_17.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_17.sks; sourceTree = "<group>"; };
 		CE19FFE11CC9601E009595BC /* Theme1_18.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_18.sks; sourceTree = "<group>"; };
 		CE19FFE21CC9601E009595BC /* Theme1_19.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_19.sks; sourceTree = "<group>"; };
@@ -374,6 +377,9 @@
 		CE19FFE81CC9601E009595BC /* Theme1_25.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme1_25.sks; sourceTree = "<group>"; };
 		CE1B1E141C76F244000FDE5E /* BallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallNode.swift; sourceTree = "<group>"; };
 		CE1B1E171C770964000FDE5E /* Level.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level.sks; sourceTree = "<group>"; };
+		CE1C26CD1CCF92D8000C05E8 /* template.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = template.sks; sourceTree = "<group>"; };
+		CE1C26CF1CCF92FD000C05E8 /* test.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = test.sks; sourceTree = "<group>"; };
+		CE1C26D31CCF999C000C05E8 /* Theme3_24.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_24.sks; sourceTree = "<group>"; };
 		CE1E7A401CA29F0600BFD61B /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		CE1E7A421CA2A00B00BFD61B /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartBallNode.swift; sourceTree = "<group>"; };
@@ -570,7 +576,7 @@
 				CE19FFDC1CC9601E009595BC /* Theme1_13.sks */,
 				CE19FFDD1CC9601E009595BC /* Theme1_14.sks */,
 				CE19FFDE1CC9601E009595BC /* Theme1_15.sks */,
-				CE19FFDF1CC9601E009595BC /* Theme1_16.sks */,
+				CE1794B71CCF9BAC00450155 /* Theme1_16.sks */,
 				CE19FFE01CC9601E009595BC /* Theme1_17.sks */,
 				CE19FFE11CC9601E009595BC /* Theme1_18.sks */,
 				CE19FFE21CC9601E009595BC /* Theme1_19.sks */,
@@ -629,7 +635,7 @@
 				CE19003B1CC96032009595BC /* Theme3_8.sks */,
 				CE19003C1CC96032009595BC /* Theme3_9.sks */,
 				CE19003D1CC96032009595BC /* Theme3_10.sks */,
-				CE19003E1CC96032009595BC /* Theme3_11.sks */,
+				CE1794BB1CCFA1EC00450155 /* Theme3_11.sks */,
 				CE19003F1CC96032009595BC /* Theme3_12.sks */,
 				CE1900401CC96032009595BC /* Theme3_13.sks */,
 				CE1900411CC96032009595BC /* Theme3_14.sks */,
@@ -642,7 +648,7 @@
 				CE1900491CC96032009595BC /* Theme3_21.sks */,
 				CE1900471CC96032009595BC /* Theme3_22.sks */,
 				CE19004A1CC96032009595BC /* Theme3_23.sks */,
-				CE19004B1CC96032009595BC /* Theme3_24.sks */,
+				CE1C26D31CCF999C000C05E8 /* Theme3_24.sks */,
 				CE19004C1CC96032009595BC /* Theme3_25.sks */,
 				CE19FFCC1CC96013009595BC /* Theme2_.sks */,
 			);
@@ -666,6 +672,16 @@
 				CE6943821CA676DB0038CBB4 /* SceneManager.swift */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		CE1C26CC1CCF92A4000C05E8 /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C26CD1CCF92D8000C05E8 /* template.sks */,
+				CE1C26CF1CCF92FD000C05E8 /* test.sks */,
+				CE1794B91CCFA0A000450155 /* test2.sks */,
+			);
+			name = Template;
 			sourceTree = "<group>";
 		};
 		CE6643C21C81A12500A6F0D4 /* PointState */ = {
@@ -850,6 +866,7 @@
 		CE7FDBD81CA2FA14008616D4 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				CE1C26CC1CCF92A4000C05E8 /* Template */,
 				CE19FFC91CC96013009595BC /* Theme1 */,
 				CE19FFCA1CC96013009595BC /* Theme2 */,
 				CE19FFCB1CC96013009595BC /* Theme3 */,
@@ -1116,8 +1133,10 @@
 				CE1900001CC9601E009595BC /* Theme1_24.sks in Resources */,
 				CE0E025E1CC2641B006BA395 /* close_lock.wav in Resources */,
 				CE61F82F1CC7B15500CFF0EE /* background_play.mp3 in Resources */,
+				CE1C26D41CCF999C000C05E8 /* Theme3_24.sks in Resources */,
 				CE19001E1CC96027009595BC /* Theme2_4.sks in Resources */,
 				CE61F8311CC7B37700CFF0EE /* background_start.wav in Resources */,
+				CE1794B81CCF9BAC00450155 /* Theme1_16.sks in Resources */,
 				CE7DB7DE1C68B64400AA358C /* LaunchScreen.storyboard in Resources */,
 				CE145F251CC6717B009D41BA /* teleport.wav in Resources */,
 				CE145F211CC62AA0009D41BA /* button_click_5.wav in Resources */,
@@ -1131,13 +1150,10 @@
 				CE1900011CC9601E009595BC /* Theme1_25.sks in Resources */,
 				CE19004D1CC96032009595BC /* Theme3_1.sks in Resources */,
 				CE19FFE91CC9601E009595BC /* Theme1_1.sks in Resources */,
-				CE1900571CC96032009595BC /* Theme3_11.sks in Resources */,
 				CE19FFF41CC9601E009595BC /* Theme1_12.sks in Resources */,
 				CE19FFEE1CC9601E009595BC /* Theme1_6.sks in Resources */,
 				CE7FDBDE1CA2FF1C008616D4 /* ball_scaleUp.sks in Resources */,
 				CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */,
-				CE19FFF81CC9601E009595BC /* Theme1_16.sks in Resources */,
-				CE1900641CC96032009595BC /* Theme3_24.sks in Resources */,
 				CE1900581CC96032009595BC /* Theme3_12.sks in Resources */,
 				CE63145D1CA4075D00624822 /* ball_scaleDown.sks in Resources */,
 				CE7DB7DB1C68B64400AA358C /* Assets.xcassets in Resources */,
@@ -1161,6 +1177,7 @@
 				CE7FDBE01CA30244008616D4 /* ball_small.png in Resources */,
 				CE0E02641CC28570006BA395 /* menu_back.wav in Resources */,
 				CE1900311CC96027009595BC /* Theme2_23.sks in Resources */,
+				CE1794BA1CCFA0A000450155 /* test2.sks in Resources */,
 				CE19FFF31CC9601E009595BC /* Theme1_11.sks in Resources */,
 				CE6A4EC91CC360E600157748 /* failure.wav in Resources */,
 				CE7FDBDA1CA2FA5D008616D4 /* ThemeTitles.sks in Resources */,
@@ -1178,12 +1195,14 @@
 				CE19FFFD1CC9601E009595BC /* Theme1_21.sks in Resources */,
 				CE19005E1CC96032009595BC /* Theme3_18.sks in Resources */,
 				CE19001F1CC96027009595BC /* Theme2_5.sks in Resources */,
+				CE1794BC1CCFA1EC00450155 /* Theme3_11.sks in Resources */,
 				CE19FFF11CC9601E009595BC /* Theme1_9.sks in Resources */,
 				CE1900591CC96032009595BC /* Theme3_13.sks in Resources */,
 				CE1900541CC96032009595BC /* Theme3_8.sks in Resources */,
 				CEF770051CC4772800F8E992 /* background_music.wav in Resources */,
 				CE6A4ECD1CC36D8600157748 /* ball_bounce_2.wav in Resources */,
 				CE19002E1CC96027009595BC /* Theme2_20.sks in Resources */,
+				CE1C26CE1CCF92D8000C05E8 /* template.sks in Resources */,
 				CE1900621CC96032009595BC /* Theme3_21.sks in Resources */,
 				CE19FFED1CC9601E009595BC /* Theme1_5.sks in Resources */,
 				CE19FFFC1CC9601E009595BC /* Theme1_20.sks in Resources */,
@@ -1191,6 +1210,7 @@
 				CE19001C1CC96027009595BC /* Theme2_2.sks in Resources */,
 				CE16CAF91CC5076800304CE3 /* close_lock_2.wav in Resources */,
 				CE1900241CC96027009595BC /* Theme2_10.sks in Resources */,
+				CE1C26D01CCF92FD000C05E8 /* test.sks in Resources */,
 				CE16CAFD1CC5208900304CE3 /* timeout.wav in Resources */,
 				CE19004E1CC96032009595BC /* Theme3_2.sks in Resources */,
 				CE1900501CC96032009595BC /* Theme3_4.sks in Resources */,
