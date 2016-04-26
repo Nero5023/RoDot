@@ -76,4 +76,16 @@ public extension Int {
     assert(min < max)
     return Int(arc4random_uniform(UInt32(max - min + 1))) + min
   }
+  
+  /**
+   * Returns the stringified integer, like 1200 to 1.2k
+   */
+  public func stringify() -> String {
+    switch self {
+    case Int.min ..< 1000:
+      return "\(self)"
+    default:
+      return "\(self/1000)" + "k"
+    }
+  }
 }

@@ -123,7 +123,6 @@
 		CE1B1E181C770964000FDE5E /* Level.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1B1E171C770964000FDE5E /* Level.sks */; };
 		CE1C26CE1CCF92D8000C05E8 /* template.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1C26CD1CCF92D8000C05E8 /* template.sks */; };
 		CE1C26D01CCF92FD000C05E8 /* test.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1C26CF1CCF92FD000C05E8 /* test.sks */; };
-		CE1C26D41CCF999C000C05E8 /* Theme3_24.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1C26D31CCF999C000C05E8 /* Theme3_24.sks */; };
 		CE1E7A411CA29F0600BFD61B /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E7A401CA29F0600BFD61B /* StartScene.swift */; };
 		CE1E7A431CA2A00B00BFD61B /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1E7A421CA2A00B00BFD61B /* StartScene.sks */; };
 		CE1E7A451CA2B81900BFD61B /* StartBallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */; };
@@ -204,6 +203,7 @@
 		CE885BE61C9D6190005E1A15 /* PointButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE885BE51C9D6190005E1A15 /* PointButton.swift */; };
 		CE8A0BCF1C80BC95000ABFEA /* DetectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */; };
 		CEA02EE61C9C304700DC9C38 /* LevelEditorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */; };
+		CEA173811CCFC78800A948B5 /* Theme3_24.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEA173801CCFC78800A948B5 /* Theme3_24.sks */; };
 		CEA8BC081C9AF74500C0133C /* LevelEditor.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEA8BC071C9AF74500C0133C /* LevelEditor.sks */; };
 		CEA8BC0A1C9B0C4F00C0133C /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */; };
 		CEAAE92C1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE92B1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift */; };
@@ -379,7 +379,6 @@
 		CE1B1E171C770964000FDE5E /* Level.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level.sks; sourceTree = "<group>"; };
 		CE1C26CD1CCF92D8000C05E8 /* template.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = template.sks; sourceTree = "<group>"; };
 		CE1C26CF1CCF92FD000C05E8 /* test.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = test.sks; sourceTree = "<group>"; };
-		CE1C26D31CCF999C000C05E8 /* Theme3_24.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_24.sks; sourceTree = "<group>"; };
 		CE1E7A401CA29F0600BFD61B /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		CE1E7A421CA2A00B00BFD61B /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		CE1E7A441CA2B81900BFD61B /* StartBallNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartBallNode.swift; sourceTree = "<group>"; };
@@ -467,6 +466,7 @@
 		CE885BE51C9D6190005E1A15 /* PointButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointButton.swift; sourceTree = "<group>"; };
 		CE8A0BCE1C80BC95000ABFEA /* DetectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectComponent.swift; sourceTree = "<group>"; };
 		CEA02EE51C9C304700DC9C38 /* LevelEditorScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelEditorScene.swift; sourceTree = "<group>"; };
+		CEA173801CCFC78800A948B5 /* Theme3_24.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Theme3_24.sks; sourceTree = "<group>"; };
 		CEA8BC071C9AF74500C0133C /* LevelEditor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelEditor.sks; sourceTree = "<group>"; };
 		CEA8BC091C9B0C4F00C0133C /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
 		CEAAE92B1CBC8F8900CBF159 /* ScreenRecordingAvailable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenRecordingAvailable.swift; sourceTree = "<group>"; };
@@ -648,7 +648,7 @@
 				CE1900491CC96032009595BC /* Theme3_21.sks */,
 				CE1900471CC96032009595BC /* Theme3_22.sks */,
 				CE19004A1CC96032009595BC /* Theme3_23.sks */,
-				CE1C26D31CCF999C000C05E8 /* Theme3_24.sks */,
+				CEA173801CCFC78800A948B5 /* Theme3_24.sks */,
 				CE19004C1CC96032009595BC /* Theme3_25.sks */,
 				CE19FFCC1CC96013009595BC /* Theme2_.sks */,
 			);
@@ -1133,7 +1133,7 @@
 				CE1900001CC9601E009595BC /* Theme1_24.sks in Resources */,
 				CE0E025E1CC2641B006BA395 /* close_lock.wav in Resources */,
 				CE61F82F1CC7B15500CFF0EE /* background_play.mp3 in Resources */,
-				CE1C26D41CCF999C000C05E8 /* Theme3_24.sks in Resources */,
+				CEA173811CCFC78800A948B5 /* Theme3_24.sks in Resources */,
 				CE19001E1CC96027009595BC /* Theme2_4.sks in Resources */,
 				CE61F8311CC7B37700CFF0EE /* background_start.wav in Resources */,
 				CE1794B81CCF9BAC00450155 /* Theme1_16.sks in Resources */,

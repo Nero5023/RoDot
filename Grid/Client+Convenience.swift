@@ -53,7 +53,7 @@ extension Client {
       if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
         completionHandler()
       }else {
-        HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+//        HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
       }
     }
   }
@@ -66,5 +66,38 @@ extension Client {
     }
   }
   
+  func levelWin(levelid: Int, completionHandler: ()->()) {
+    let _ = taskForPostMethod(Client.Methods.LevelWin, jsonBody: [Client.JSONBodyKeys.LevelId: levelid]) { data in
+      let json = JSON(data)
+      if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
+        completionHandler()
+      }
+    }
+  }
+  
+  func levelLose(levelid: Int, completionHandler: ()->()) {
+    let _ = taskForPostMethod(Client.Methods.LevelLose, jsonBody: [Client.JSONBodyKeys.LevelId: levelid]) { data in
+      let json = JSON(data)
+      if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
+        completionHandler()
+      }
+    }
+  }
+  
+  func getLevelWinTimes(levelid: Int, completionHandler: (Int)->()) {
+    let _ = taskForGetMethod(Client.Methods.GetLevelWinTimes, parameters: ["levelid": levelid]) { data in
+      let jsonBody = JSON(data: data)
+      let likesCount = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int!
+      completionHandler(likesCount)
+    }
+  }
+  
+  func getLevelLoseTimes(levelid: Int, completionHandler: (Int)->()) {
+    let _ = taskForGetMethod(Client.Methods.GetLevelLoseTimes, parameters: ["levelid": levelid]) { data in
+      let jsonBody = JSON(data: data)
+      let likesCount = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int!
+      completionHandler(likesCount)
+    }
+  }
   
 }

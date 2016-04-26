@@ -287,7 +287,7 @@ class LevelEditPlayScene: LevelScene {
     super.didMoveToView(view)
     addSmallShareButton()
     
-    addLikeCountIcon()
+    addTopLevelDetilsLabels()
     
     guard let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode else {
       return
@@ -314,11 +314,41 @@ class LevelEditPlayScene: LevelScene {
     view?.presentScene(newScene)
   }
   
+  func animationWinOrLoseTiemsLabel(isWin: Bool) {
+    let label = isWin ? overlayNode.childNodeWithName("win") : overlayNode.childNodeWithName("lose")
+    guard let titleLabel = label as? SKLabelNode else { return }
+    guard let timesLabel = titleLabel.childNodeWithName("label") as? SKLabelNode else { return }
+    let dx: CGFloat = 20
+    let moveUpAction = SKAction.moveByX(dx, y: 0, duration: 0.33)
+    let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
+    let groupAction0 = SKAction.group([moveUpAction, fadeOutAction])
+    let runblock = SKAction.runBlock {
+      if let times = Int(timesLabel.text!) {
+        timesLabel.text = (times+1).stringify()
+      }
+      timesLabel.position.x = timesLabel.position.x - 2*dx
+    }
+    let fadeInAction = SKAction.fadeInWithDuration(0.33)
+    let groupAction1 = SKAction.group([moveUpAction, fadeInAction])
+    timesLabel.runAction(SKAction.sequence([groupAction0, runblock, groupAction1]))
+    
+  }
+  
   override func win() {
 //    super.win()
     playable = false
     
     SKTAudio.sharedInstance().playSoundEffect("success.wav")
+    
+    if let sceneType = sceneType {
+      switch sceneType {
+      case .sharePlay(let levelId):
+        Client.sharedInstance.levelWin(levelId) { }
+        animationWinOrLoseTiemsLabel(true)
+      default:
+        break
+      }
+    }
     
     for entity in entities {
       if let entity = entity as? Rod {
@@ -355,6 +385,19 @@ class LevelEditPlayScene: LevelScene {
     }
   }
   
+  override func lose() {
+    super.lose()
+    if let sceneType = sceneType {
+      switch sceneType {
+      case .sharePlay(let levelId):
+        Client.sharedInstance.levelLose(levelId) { }
+        animationWinOrLoseTiemsLabel(false)
+      default:
+        break
+      }
+    }
+  }
+  
   func addSmallShareButton() {
     guard let sceneType = sceneType else { return }
     switch sceneType {
@@ -373,7 +416,7 @@ class LevelEditPlayScene: LevelScene {
     }
   }
   
-  func addLikeCountIcon() {
+  func addTopLevelDetilsLabels() {
     guard let sceneType = sceneType else { return }
     switch sceneType {
     case .sharePlay(let levelid):
@@ -384,7 +427,7 @@ class LevelEditPlayScene: LevelScene {
         likeIcon.name = "likeIcon"
         likeIcon.zPosition = self.overlayNode.zPosition
         self.overlayNode.addChild(likeIcon)
-        let label = SKLabelNode(text: "\(likeCount)")
+        let label = SKLabelNode(text: likeCount.stringify())
         label.position = CGPoint(x: -likeIcon.size.width/2-15, y: 0)
         label.verticalAlignmentMode = .Center
         label.horizontalAlignmentMode = .Right
@@ -401,21 +444,71 @@ class LevelEditPlayScene: LevelScene {
           likeIcon.runAction(SKAction.fadeInWithDuration(0.66))
         }
       }
+      
+      loadLoseAndWinLabels(levelid)
+      
     default:
       break
     }
   }
   
+  func loadLoseAndWinLabels(levelid: Int) {
+    Client.sharedInstance.getLevelWinTimes(levelid) { times in
+      let winColor = UIColor(red: 100/255.0, green: 221/255.0, blue: 23/255.0, alpha: 1)
+      let winLabel = self.setUpWinOrLostLabel("Win:", fontColor: winColor, labelName: "win", position: CGPoint(x: self.xMargin + 108 + 90, y: 1980))
+      self.overlayNode.addChild(winLabel)
+      
+      let winTimesLabel = self.setUpWinOrLostLabel(times.stringify(), fontColor: winColor, labelName: "label", position: CGPoint(x: 170, y: 0))
+      winTimesLabel.zPosition -= 10
+      winLabel.addChild(winTimesLabel)
+      winLabel.alpha = 0
+      dispatch_async(dispatch_get_main_queue()) {
+        winLabel.runAction(SKAction.fadeInWithDuration(0.55))
+      }
+    }
+    
+    Client.sharedInstance.getLevelLoseTimes(levelid) { times in
+      let loseColor = UIColor(red: 224/255.0, green: 0/255.0, blue: 100/255.0, alpha: 1)
+      let loseLabel = self.setUpWinOrLostLabel("Lose:", fontColor: loseColor, labelName: "lose", position: CGPoint(x: self.xMargin + 108 + 90, y: 1920))
+      self.overlayNode.addChild(loseLabel)
+      
+      let loseimesLabel = self.setUpWinOrLostLabel(times.stringify(), fontColor: loseColor, labelName: "label", position: CGPoint(x: 170, y: 0))
+      loseimesLabel.zPosition -= 10
+      loseLabel.addChild(loseimesLabel)
+      loseLabel.alpha = 0
+      dispatch_async(dispatch_get_main_queue()) {
+        loseLabel.runAction(SKAction.fadeInWithDuration(0.55))
+      }
+    }
+  }
+  
+  func setUpWinOrLostLabel(text: String, fontColor: UIColor, labelName: String, position: CGPoint) -> SKLabelNode {
+    let fontSize: CGFloat = 60
+    let fontName = "ArialRoundedMTBold"
+    
+    let label = SKLabelNode(text: text)
+    label.position = position
+    label.zPosition = self.overlayNode.zPosition
+    label.fontColor = fontColor
+    label.fontSize = fontSize
+    label.horizontalAlignmentMode = .Left
+    label.verticalAlignmentMode = .Center
+    label.fontName = fontName
+    label.name = labelName
+    
+    return label
+  }
+  
   func animationLikeIcon() {
     guard let label = overlayNode.childNodeWithName("likeIcon")?.childNodeWithName("label") as? SKLabelNode else { return }
-    let likesCount = Int(label.text!)!
     let dy: CGFloat = 20
     let moveUpAction = SKAction.moveByX(0, y: dy, duration: 0.33)
     let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
     let groupAction0 = SKAction.group([moveUpAction, fadeOutAction])
     let runblock = SKAction.runBlock {
-      label.text = "\(likesCount+1)"
-      label.position.y = -dy
+      if let likesCount = Int(label.text!) {
+        label.text = (likesCount+1).stringify()
+      }
     }
     let fadeInAction = SKAction.fadeInWithDuration(0.33)
     let groupAction1 = SKAction.group([moveUpAction, fadeInAction])
