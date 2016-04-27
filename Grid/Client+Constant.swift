@@ -28,6 +28,8 @@ extension Client {
     static let GetLevelWinTimes = "/level/wintimes"
     static let LevelLose = "/level/lose"
     static let GetLevelLoseTimes = "/level/losetimes"
+    
+    static let GetLevelPlayInfo = "/level/levelplayinfo"
   }
   
   struct ParameterKeys {

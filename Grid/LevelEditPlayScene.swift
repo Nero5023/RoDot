@@ -29,6 +29,8 @@ class LevelEditPlayScene: LevelScene {
   
   var sceneType: LevelEditPlaySceneType?
   
+  var getLevelPlaySessionTask: NSURLSessionTask?
+  
   lazy var restartButton: SKButtonNode = {
     let restartButton = SKButtonNode(imageNameNormal: "restartbutton", selected: nil)
     restartButton.name = "restartbutton"
@@ -306,6 +308,7 @@ class LevelEditPlayScene: LevelScene {
     guard let editPlayScene = editPlayScene else {
       fatalError("The LevelEditPlayScene must have a editScene")
     }
+    getLevelPlaySessionTask?.cancel()
     let newScene = editPlayScene
     newScene.editPlayScene = newScene.copy() as? LevelEditPlayScene
     newScene.editPlayScene?.sceneType = self.sceneType
@@ -420,35 +423,89 @@ class LevelEditPlayScene: LevelScene {
     guard let sceneType = sceneType else { return }
     switch sceneType {
     case .sharePlay(let levelid):
-      Client.sharedInstance.getLvelLikeCount(levelid) { likeCount in
-        let likeIcon = SKSpriteNode(imageNamed: "likescount")
-        let margin: CGFloat = 120 + 120
-        likeIcon.position = CGPoint(x: self.size.width-self.xMargin-108-margin, y: 1950)
-        likeIcon.name = "likeIcon"
-        likeIcon.zPosition = self.overlayNode.zPosition
-        self.overlayNode.addChild(likeIcon)
-        let label = SKLabelNode(text: likeCount.stringify())
-        label.position = CGPoint(x: -likeIcon.size.width/2-15, y: 0)
-        label.verticalAlignmentMode = .Center
-        label.horizontalAlignmentMode = .Right
-        label.zPosition = likeIcon.zPosition + 10
-        label.fontName = "ArialRoundedMTBold"
-//        print(label.colorBlendFactor)
-//        label.colorBlendFactor = 1
-        label.fontColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 91/255.0, alpha: 1)
-        label.fontSize = likeIcon.size.width / 1.1
-        label.name = "label"
-        likeIcon.addChild(label)
-        likeIcon.alpha = 0
-        dispatch_async(dispatch_get_main_queue()) {
-          likeIcon.runAction(SKAction.fadeInWithDuration(0.66))
-        }
-      }
+      loadTopPlayInfo(levelid)
+//      Client.sharedInstance.getLvelLikeCount(levelid) { likeCount in
+//        let likeIcon = SKSpriteNode(imageNamed: "likescount")
+//        let margin: CGFloat = 120 + 120
+//        likeIcon.position = CGPoint(x: self.size.width-self.xMargin-108-margin, y: 1950)
+//        likeIcon.name = "likeIcon"
+//        likeIcon.zPosition = self.overlayNode.zPosition
+//        self.overlayNode.addChild(likeIcon)
+//        let label = SKLabelNode(text: likeCount.stringify())
+//        label.position = CGPoint(x: -likeIcon.size.width/2-15, y: 0)
+//        label.verticalAlignmentMode = .Center
+//        label.horizontalAlignmentMode = .Right
+//        label.zPosition = likeIcon.zPosition + 10
+//        label.fontName = "ArialRoundedMTBold"
+////        print(label.colorBlendFactor)
+////        label.colorBlendFactor = 1
+//        label.fontColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 91/255.0, alpha: 1)
+//        label.fontSize = likeIcon.size.width / 1.1
+//        label.name = "label"
+//        likeIcon.addChild(label)
+//        likeIcon.alpha = 0
+//        dispatch_async(dispatch_get_main_queue()) {
+//          likeIcon.runAction(SKAction.fadeInWithDuration(0.66))
+//        }
+//      }
+//      
+//      loadLoseAndWinLabels(levelid)
       
-      loadLoseAndWinLabels(levelid)
       
     default:
       break
+    }
+  }
+  
+  func loadTopPlayInfo(levelid: Int) {
+    getLevelPlaySessionTask = Client.sharedInstance.getPlayLevelInfo(levelid) { playInfo in
+      guard let likeCount = playInfo[Client.JSONBodyKeys.LevelLikesCount], winTimes = playInfo[Client.JSONBodyKeys.LevelWinTimes], loseTimes = playInfo[Client.JSONBodyKeys.LevelLoseTimes] else { return }
+      
+      let likeIcon = SKSpriteNode(imageNamed: "likescount")
+      let margin: CGFloat = 120 + 120
+      likeIcon.position = CGPoint(x: self.size.width-self.xMargin-108-margin, y: 1950)
+      likeIcon.name = "likeIcon"
+      likeIcon.zPosition = self.overlayNode.zPosition
+      self.overlayNode.addChild(likeIcon)
+      let label = SKLabelNode(text: likeCount.stringify())
+      label.position = CGPoint(x: -likeIcon.size.width/2-15, y: 0)
+      label.verticalAlignmentMode = .Center
+      label.horizontalAlignmentMode = .Right
+      label.zPosition = likeIcon.zPosition + 10
+      label.fontName = "ArialRoundedMTBold"
+      //        print(label.colorBlendFactor)
+      //        label.colorBlendFactor = 1
+      label.fontColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 91/255.0, alpha: 1)
+      label.fontSize = likeIcon.size.width / 1.1
+      label.name = "label"
+      likeIcon.addChild(label)
+      likeIcon.alpha = 0
+      
+      //Winlabels
+      let winColor = UIColor(red: 100/255.0, green: 221/255.0, blue: 23/255.0, alpha: 1)
+      let winLabel = self.setUpWinOrLostLabel("Win:", fontColor: winColor, labelName: "win", position: CGPoint(x: self.xMargin + 108 + 90, y: 1980))
+      self.overlayNode.addChild(winLabel)
+      
+      let winTimesLabel = self.setUpWinOrLostLabel(winTimes.stringify(), fontColor: winColor, labelName: "label", position: CGPoint(x: 170, y: 0))
+      winTimesLabel.zPosition -= 10
+      winLabel.addChild(winTimesLabel)
+      winLabel.alpha = 0
+      
+      //LoseLabels
+      let loseColor = UIColor(red: 224/255.0, green: 0/255.0, blue: 100/255.0, alpha: 1)
+      let loseLabel = self.setUpWinOrLostLabel("Lose:", fontColor: loseColor, labelName: "lose", position: CGPoint(x: self.xMargin + 108 + 90, y: 1920))
+      self.overlayNode.addChild(loseLabel)
+      
+      let loseimesLabel = self.setUpWinOrLostLabel(loseTimes.stringify(), fontColor: loseColor, labelName: "label", position: CGPoint(x: 170, y: 0))
+      loseimesLabel.zPosition -= 10
+      loseLabel.addChild(loseimesLabel)
+      loseLabel.alpha = 0
+      dispatch_async(dispatch_get_main_queue()) {
+        likeIcon.runAction(SKAction.fadeInWithDuration(0.66))
+        winLabel.runAction(SKAction.fadeInWithDuration(0.66))
+        loseLabel.runAction(SKAction.fadeInWithDuration(0.55))
+      }
+      self.getLevelPlaySessionTask = nil
     }
   }
   
@@ -509,6 +566,7 @@ class LevelEditPlayScene: LevelScene {
       if let likesCount = Int(label.text!) {
         label.text = (likesCount+1).stringify()
       }
+      label.position.y = -dy
     }
     let fadeInAction = SKAction.fadeInWithDuration(0.33)
     let groupAction1 = SKAction.group([moveUpAction, fadeInAction])

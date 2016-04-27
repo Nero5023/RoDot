@@ -87,17 +87,28 @@ extension Client {
   func getLevelWinTimes(levelid: Int, completionHandler: (Int)->()) {
     let _ = taskForGetMethod(Client.Methods.GetLevelWinTimes, parameters: ["levelid": levelid]) { data in
       let jsonBody = JSON(data: data)
-      let likesCount = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int!
-      completionHandler(likesCount)
+      let winTimes = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int!
+      completionHandler(winTimes)
     }
   }
   
   func getLevelLoseTimes(levelid: Int, completionHandler: (Int)->()) {
     let _ = taskForGetMethod(Client.Methods.GetLevelLoseTimes, parameters: ["levelid": levelid]) { data in
       let jsonBody = JSON(data: data)
-      let likesCount = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int!
-      completionHandler(likesCount)
+      let lostTimes = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int!
+      completionHandler(lostTimes)
     }
+  }
+  
+  func getPlayLevelInfo(levelid: Int, completionHandler:([String: Int])->()) -> NSURLSessionTask{
+    let task = taskForGetMethod(Client.Methods.GetLevelPlayInfo, parameters: ["levelid": levelid]) { data in
+      let jsonBody = JSON(data: data)
+      if let winTimes = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int, lostTimes = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int, likesCount = jsonBody[Client.JSONBodyKeys.LevelLikesCount].int {
+        let playInfo = [Client.JSONBodyKeys.LevelWinTimes: winTimes, Client.JSONBodyKeys.LevelLoseTimes: lostTimes, Client.JSONBodyKeys.LevelLikesCount: likesCount]
+        completionHandler(playInfo)
+      }
+    }
+    return task
   }
   
 }
