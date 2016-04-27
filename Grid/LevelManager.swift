@@ -127,6 +127,9 @@ class LevelManager {
   func unLockTheme(theme: ThemeType) {
     guard getUnlockLevels(themeType: theme) == 0 else { return }
     themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = 1
+    delay(2) {
+      HUD.flash(.Label("You just have unlocked \(theme.rawValue)"), delay: 1.5)
+    }
   }
   
   func themeEabled(theme: ThemeType) -> Bool {
