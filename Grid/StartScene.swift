@@ -434,6 +434,7 @@ class StartScene: SKScene, SceneLayerProtocol {
           button.isEnabled = true
           button.isHighlight = true
         }
+        button.zPosition = 10000
         addChild(button)
         levelSelectButtons.append(button)
       }

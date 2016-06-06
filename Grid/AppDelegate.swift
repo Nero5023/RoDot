@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     NSUserDefaults.standardUserDefaults().registerDefaults([BackgroundMusicEabledKey: true, SoundEffertEabledKey: true, LikedLevelIdsKey: [Int](), IsFirstLanchedKey: true, ShowEditSceneInstructionCountKey: 0])
     NSUserDefaults.standardUserDefaults().registerDefaults([LikedLevelIdsKey: [Int]()])
     NSUserDefaults.standardUserDefaults().registerDefaults([SharedLevlsDicKey: [String: Int]()])
+    
     return true
   }
 
