@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Grid
+//@testable import Grid //这里我注释了这个，不然有个错误
 
 class GridTests: XCTestCase {
     

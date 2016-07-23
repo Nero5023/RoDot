@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     NSUserDefaults.standardUserDefaults().registerDefaults([LikedLevelIdsKey: [Int]()])
     NSUserDefaults.standardUserDefaults().registerDefaults([SharedLevlsDicKey: [String: Int]()])
     
+//    LevelManager.shareInstance.passAllLevels()
+    
     return true
   }
 
