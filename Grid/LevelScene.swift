@@ -264,7 +264,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
     let waitAction = SKAction.waitForDuration(2)
     let fadeInAction = SKAction.fadeInWithDuration(0.33)
     let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
-        
+    
     catchFingerInstraction({ fingerCircle, pathCircle in
             fingerCircle.alpha = 0
             let rotateAction = SKAction.rotateByAngle(-π/2, duration: 1)
