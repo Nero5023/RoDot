@@ -264,41 +264,62 @@ class LevelScene: SKScene, SceneLayerProtocol {
     let waitAction = SKAction.waitForDuration(2)
     let fadeInAction = SKAction.fadeInWithDuration(0.33)
     let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
-    if let fingerCircle = hudNode.childNodeWithName("finger_circle"), let pathCircle = hudNode.childNodeWithName("path_circle"){
-      fingerCircle.alpha = 0
-      let rotateAction = SKAction.rotateByAngle(-π/2, duration: 1)
-      rotateAction.timingMode = .EaseInEaseOut
-      let restZRotation = SKAction.runBlock { fingerCircle.zRotation = 0 }
-      let totalRotateAction = SKAction.repeatAction(SKAction.sequence([fadeInAction ,rotateAction, fadeOutAction, restZRotation]), count: 3)
+        
+    catchFingerInstraction({ fingerCircle, pathCircle in
+            fingerCircle.alpha = 0
+            let rotateAction = SKAction.rotateByAngle(-π/2, duration: 1)
+            rotateAction.timingMode = .EaseInEaseOut
+            let restZRotation = SKAction.runBlock { fingerCircle.zRotation = 0 }
+            let totalRotateAction = SKAction.repeatAction(SKAction.sequence([fadeInAction ,rotateAction, fadeOutAction, restZRotation]), count: 3)
+            
+            fingerCircle.runAction(SKAction.sequence([
+              waitAction, fadeInAction, totalRotateAction
+              ]))
+            fingerCircle.zPosition = hudNode.zPosition
+            pathCircle.zPosition = hudNode.zPosition
+            pathCircle.alpha = 0
+            pathCircle.runAction(SKAction.sequence([waitAction, fadeInAction]))
       
-      fingerCircle.runAction(SKAction.sequence([
-        waitAction, fadeInAction, totalRotateAction
-        ]))
-      fingerCircle.zPosition = hudNode.zPosition
-      pathCircle.zPosition = hudNode.zPosition
-      pathCircle.alpha = 0
-      pathCircle.runAction(SKAction.sequence([waitAction, fadeInAction]))
-    }
-    if let fingerLine = hudNode.childNodeWithName("finger_line"), let pathLine = hudNode.childNodeWithName("path_line") as? SKSpriteNode {
-      fingerLine.zPosition = hudNode.zPosition
-      fingerLine.alpha = 0
-      let originalPosition = fingerLine.position
-      let moveAction = SKAction.moveToX(pathLine.position.x + pathLine.size.width/2, duration: 1)
-      moveAction.timingMode = .EaseInEaseOut
-      let restPositon = SKAction.runBlock { fingerLine.position =  originalPosition}
-      let totalMoveAction = SKAction.repeatAction(SKAction.sequence([fadeInAction ,moveAction, fadeOutAction, restPositon]), count: 3)
-      fingerLine.runAction(SKAction.sequence([
-        waitAction, fadeInAction, totalMoveAction
-        ]))
-      
-      pathLine.zPosition = hudNode.zPosition
-      pathLine.alpha = 0
-      pathLine.runAction(SKAction.sequence([waitAction, fadeInAction]))
-    }
+      }, lineBlock: { fingerLine, pathLine in
+            fingerLine.zPosition = hudNode.zPosition
+            fingerLine.alpha = 0
+            let originalPosition = fingerLine.position
+            let moveAction = SKAction.moveToX(pathLine.position.x + pathLine.size.width/2, duration: 1)
+            moveAction.timingMode = .EaseInEaseOut
+            let restPositon = SKAction.runBlock { fingerLine.position =  originalPosition}
+            let totalMoveAction = SKAction.repeatAction(SKAction.sequence([fadeInAction ,moveAction, fadeOutAction, restPositon]), count: 3)
+            fingerLine.runAction(SKAction.sequence([
+              waitAction, fadeInAction, totalMoveAction
+              ]))
+            pathLine.zPosition = hudNode.zPosition
+            pathLine.alpha = 0
+            pathLine.runAction(SKAction.sequence([waitAction, fadeInAction]))
+    })
+    
     
     if let instructionNode = hudNode.childNodeWithName("instraction") {
       instructionNode.alpha = 0
       instructionNode.runAction(SKAction.sequence([waitAction, fadeInAction]))
+    }
+  }
+  
+  func romoveInstractions() {
+    let fadeoutAction = SKAction.fadeOutWithDuration(0.33)
+    catchFingerInstraction({ fingerCircle, pathCircle in
+        fingerCircle.runAction(SKAction.sequence([fadeoutAction, SKAction.runBlock{ fingerCircle.removeAllActions() }]))
+        pathCircle.runAction(fadeoutAction)
+      }, lineBlock: { fingerLine, pathLine in
+        fingerLine.runAction(SKAction.sequence([fadeoutAction, SKAction.runBlock{ fingerLine.removeAllActions() }]))
+        pathLine.runAction(fadeoutAction)
+    })
+  }
+  
+  func catchFingerInstraction(@noescape circleBlock: (fingerCircle: SKNode, pathCircle: SKNode)->(), @noescape lineBlock: (fingerLine: SKNode, pathLine: SKSpriteNode)->()) {
+    if let fingerCircle = hudNode.childNodeWithName("finger_circle"), let pathCircle = hudNode.childNodeWithName("path_circle") {
+      circleBlock(fingerCircle: fingerCircle, pathCircle: pathCircle)
+    }
+    if let fingerLine = hudNode.childNodeWithName("finger_line"), let pathLine = hudNode.childNodeWithName("path_line") as? SKSpriteNode {
+      lineBlock(fingerLine: fingerLine, pathLine: pathLine)
     }
   }
   
@@ -471,7 +492,7 @@ class LevelScene: SKScene, SceneLayerProtocol {
         break
       }
     }
-    
+    romoveInstractions()
     performSelector(#selector(LevelScene.newGame), withObject: nil, afterDelay: 1)
   }
 }
