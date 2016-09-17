@@ -350,7 +350,8 @@ public struct JSONIndex: Comparable, _Incrementable, Equatable {
         case .array:
             return JSONIndex(arrayIndex: (self.arrayIndex! + 1))
         case .dictionary:
-            return JSONIndex(dictionaryIndex: <#T##Dictionary corresponding to your index##Dictionary#>.index(after: self.dictionaryIndex!))
+//            return JSONIndex(dictionaryIndex: <#T##Dictionary corresponding to your index##Dictionary#>.index(after: self.dictionaryIndex!))
+            return JSONIndex(dictionaryIndex: self.dictionaryIndex!.successor)
         default:
             return JSONIndex()
         }

@@ -12,15 +12,14 @@ import CoreData
 class DIYLevelListViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
-  
-  var fetchedResultsController: NSFetchedResultsController<AnyObject>!
+  var fetchedResultsController: NSFetchedResultsController<NSManagedObject>!
   let CellIdentifier = "Cell"
   
   override func viewDidLoad() {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     self.tableView.tableFooterView = UIView()
     
-    let levelFetchRequset = NSFetchRequest(entityName: "Level")
+    let levelFetchRequset = NSFetchRequest<NSManagedObject>(entityName: "Level")
     let dateScort = NSSortDescriptor(key: "date", ascending: false)
     levelFetchRequset.sortDescriptors = [dateScort]
     fetchedResultsController = NSFetchedResultsController(fetchRequest: levelFetchRequset, managedObjectContext: SceneManager.sharedInstance.managedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -119,18 +118,20 @@ extension DIYLevelListViewController: UITableViewDelegate {
       //      $0 as! Node
       let node = node as! Node
       return ["name": node.name!, "position": node.position!,
-        "zRotation": String(node.zRotation!), "type": node.type!]
+        "zRotation": String(describing: node.zRotation!), "type": node.type!]
     }
     let scene = LevelEditPlayScene.editSceneFromNodesData(nodes, sceneType: .selfPlay(level.name, levelObjectId: "\(level.objectID)"))
     scene!.scaleMode = .aspectFill
     SceneManager.sharedInstance.presentingView.presentScene(scene)
     self.dismiss(animated: true, completion: nil)
   }
-  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+  
+  @nonobjc func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
   
-  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+  
+  @nonobjc func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == UITableViewCellEditingStyle.delete {
       let levelToMove = fetchedResultsController.object(at: indexPath) as! Level
       SceneManager.sharedInstance.managedContext.delete(levelToMove)
@@ -143,6 +144,7 @@ extension DIYLevelListViewController: UITableViewDelegate {
     }
 //    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
   }
+    
   
   
 }
