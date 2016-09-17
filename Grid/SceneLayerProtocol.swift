@@ -22,7 +22,7 @@ protocol SceneLayerProtocol {
   var xMargin: CGFloat { get }
   
   // This function is already implemente by the SKScene
-  func childNodeWithName(name: String) -> SKNode?
+  func childNodeWithName(_ name: String) -> SKNode?
   var view: SKView? { get }
   var size: CGSize { get set }
 }

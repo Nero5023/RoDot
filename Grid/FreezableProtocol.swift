@@ -12,9 +12,9 @@ import GameplayKit
 protocol FreezableProtocol {
   var freezableComponent: FreezableComponent { get }
   
-  func setNodeIsFreezed(isFreezed: Bool)
+  func setNodeIsFreezed(_ isFreezed: Bool)
   
-  func componentForClass<ComponentType : GKComponent>(componentClass: ComponentType.Type) -> ComponentType?
+  func componentForClass<ComponentType : GKComponent>(_ componentClass: ComponentType.Type) -> ComponentType?
 }
 
 extension FreezableProtocol {
@@ -26,10 +26,10 @@ extension FreezableProtocol {
   }
   
   
-  func setNodeIsFreezed(isFreezed: Bool) {
+  func setNodeIsFreezed(_ isFreezed: Bool) {
     freezableComponent.isFreezd = isFreezed
     //If it is the Transfer entity, set the reaslted node to isFreezed.
-    if let relateEnityFreezableComponent = componentForClass(TransferComponent.self)?.relatedNode.entity.componentForClass(FreezableComponent.self) {
+    if let relateEnityFreezableComponent = componentForClass(TransferComponent.self)?.relatedNode.entity.component(ofType: FreezableComponent.self) {
       relateEnityFreezableComponent.isFreezd = isFreezed
     }
   }

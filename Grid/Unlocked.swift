@@ -17,11 +17,11 @@ class Unlocked: GKState {
     super.init()
   }
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    node.userInteractionEnabled = true
+  override func didEnter(from previousState: GKState?) {
+    node.isUserInteractionEnabled = true
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is Checking.Type || stateClass is Rotating.Type
   }
   

@@ -14,7 +14,7 @@ class MoveComponent: GKComponent {
   // MARK: Properties
   
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("A MoveComponent's entity must have a RenderComponent ")
     }
     return renderComponent
@@ -44,20 +44,24 @@ class MoveComponent: GKComponent {
     restAngularVelocity = GameplayConfiguration.PhysicsFactors.restAngularVelocity
     restLinverVelocity = GameplayConfiguration.PhysicsFactors.restLinerVelocity
   }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
   
   // MARK: GKComponent Life Cycle
   
-  override func updateWithDeltaTime(seconds: NSTimeInterval) {
-    super.updateWithDeltaTime(seconds)
+  override func update(deltaTime seconds: TimeInterval) {
+    super.update(deltaTime: seconds)
     guard let moveNode = moveNode else { return }
-    if let centerPosition = centerPosition, let lastTouchPosition = lastTouchPosition where isTranslating == false {
+    if let centerPosition = centerPosition, let lastTouchPosition = lastTouchPosition , isTranslating == false {
       let spritesLayer = moveNode.parent!
       let rodNode = renderComponent.node
-      let angle = angleWith(moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition, vector: lastTouchPosition - centerPosition)
+      let angle = angleWith(moveNode.convert(rodNode.position, to: spritesLayer) - centerPosition, vector: lastTouchPosition - centerPosition)
       var angularVelocity: CGFloat = angle
       guard let centerNode = getCenterNode() else { return }
       if isRotating {
-        if let clockwiseComponent = centerNode.entity.componentForClass(ClockwiseComponent.self) {
+        if let clockwiseComponent = centerNode.entity.component(ofType: ClockwiseComponent.self) {
           angularVelocity = clockwiseComponent.calculateAngularVelocity(angularVelocity)
           if angularVelocity == 0 {
             moveNode.physicsBody?.allowsRotation = false
@@ -90,7 +94,7 @@ class MoveComponent: GKComponent {
     }
     
     if isTranslating == true && centerPosition != nil && lastTouchPosition != nil {
-      if let orientationComponent = entity?.componentForClass(OrientationComponent.self) {
+      if let orientationComponent = entity?.component(ofType: OrientationComponent.self) {
         var tag: CGPoint
         if orientationComponent.direction == HVDirection.horizontal {
           tag = CGPoint(x: 1, y: 0)
@@ -101,7 +105,7 @@ class MoveComponent: GKComponent {
         let sTargetPositon = centerPosition! + CGPoint(x: -22 - 105, y: -22 - 105)
         lastTouchPosition = CGPoint(x: max(min(lastTouchPosition!.x, lTargetPositon.x), sTargetPositon.x),
                               y: max(min(lastTouchPosition!.y, lTargetPositon.y), sTargetPositon.y))
-        moveNode.physicsBody?.dynamic = true
+        moveNode.physicsBody?.isDynamic = true
 //        moveNode.physicsBody?.angularVelocity = 0
         moveNode.physicsBody?.allowsRotation = false
 
@@ -116,13 +120,13 @@ class MoveComponent: GKComponent {
     self.centerPosition = nil
     self.lastTouchPosition = nil
     self.moveNode = nil
-    centerNode!.entity.componentForClass(RelateComponent.self)?.decompound()
-    centerNode!.entity.componentForClass(MoveComponent.self)?.restRotation()
+    centerNode!.entity.component(ofType: RelateComponent.self)?.decompound()
+    centerNode!.entity.component(ofType: MoveComponent.self)?.restRotation()
     afterDelayRestRotationBlock = nil
   }
   
   func getCenterNode() -> EntityNode? {
-    for node in moveNode!.nodesAtPoint(centerPosition!) where node is EntityNode {
+    for node in moveNode!.nodes(at: centerPosition!) where node is EntityNode {
       return node as? EntityNode
     }
     return nil
@@ -134,7 +138,7 @@ class MoveComponent: GKComponent {
   func restRotation() {
     (renderComponent.node.scene as? LevelScene)?.isResting = true
     SKTAudio.sharedInstance().playSoundEffect("close_lock_2.wav", withVolume: 0.33)
-    let angle = renderComponent.node.zRotation % (π/2.0)
+    let angle = renderComponent.node.zRotation.truncatingRemainder(dividingBy: (π/2.0))
     let angleToRotate: CGFloat
     if abs(angle) < π/4.0 {
       angleToRotate = -angle
@@ -143,20 +147,20 @@ class MoveComponent: GKComponent {
     }
     let action = SKAction.sequence([
 //      SKAction.rotateByAngle(angleToRotate, duration: NSTimeInterval(abs(angleToRotate)/restAngularVelocity)),
-      SKAction.rotateByAngle(angleToRotate, duration: 0.1),
+      SKAction.rotate(byAngle: angleToRotate, duration: 0.1),
 //      SKAction.rotateByAngle(angleToRotate, duration: abs(Double(angleToRotate))/0.3),
-      SKAction.runBlock({ [unowned self] in
+      SKAction.run({ [unowned self] in
         // In the didSimulatePhysics will do do the block below
         (self.renderComponent.node.scene as! LevelScene).restRotatingCompletionBlock = {
           [unowned self] in
             self.renderComponent.node.scene?.physicsWorld.removeAllJoints()
-            self.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
+            self.entity?.component(ofType: RelateComponent.self)?.updateStateSurroundCenter()
         }
         
         })
       ])
-    action.timingMode = .EaseInEaseOut
-    renderComponent.node.runAction(SKAction.afterDelay(0.0, performAction: action))
+    action.timingMode = .easeInEaseOut
+    renderComponent.node.run(SKAction.afterDelay(0.0, performAction: action))
   }
   
   func setTargetRestPosition() {
@@ -165,7 +169,7 @@ class MoveComponent: GKComponent {
       (renderComponent.node.scene as? LevelScene)?.isResting = true
       let rodNode = renderComponent.node
       let spritesLayer = moveNode.parent!
-      var vector = moveNode.convertPoint(rodNode.position, toNode: spritesLayer) - centerPosition!
+      var vector = moveNode.convert(rodNode.position, to: spritesLayer) - centerPosition!
       if abs(vector.x) > abs(vector.y) {
         vector = CGPoint(x: vector.x, y: 0)
       }else {
@@ -177,31 +181,31 @@ class MoveComponent: GKComponent {
     
   }
   
-  func restTranslation(completion: () -> ()) {
+  func restTranslation(_ completion: @escaping () -> ()) {
     (renderComponent.node.scene as? LevelScene)?.isResting = true
     let targetPositon = getRestTargetPosition()
     renderComponent.node.physicsBody?.velocity = CGVector.zero
-    guard let centerNode = renderComponent.node.parent?.nodeAtPoint(centerPosition!) as? EntityNode else {
+    guard let centerNode = renderComponent.node.parent?.atPoint(centerPosition!) as? EntityNode else {
       fatalError("The node at centerPositon is EntityNode")
     }
     let distanceToMove = targetPositon.distanceTo(renderComponent.node.position)
     SKTAudio.sharedInstance().playSoundEffect("close_lock_2.wav", withVolume: 0.33)
     let action = SKAction.sequence([
-      SKAction.moveTo(targetPositon, duration: NSTimeInterval(distanceToMove/restLinverVelocity)),
-      SKAction.runBlock({ [unowned self] in
-        self.renderComponent.node.physicsBody?.dynamic = false
+      SKAction.move(to: targetPositon, duration: TimeInterval(distanceToMove/restLinverVelocity)),
+      SKAction.run({ [unowned self] in
+        self.renderComponent.node.physicsBody?.isDynamic = false
         self.renderComponent.node.physicsBody?.allowsRotation = true
         (self.renderComponent.node.scene as? LevelScene)?.isResting = false
-        centerNode.entity?.componentForClass(RelateComponent.self)?.updateStateSurroundCenter()
+        centerNode.entity?.component(ofType: RelateComponent.self)?.updateStateSurroundCenter()
         completion()
         })
       ])
-    renderComponent.node.runAction(action)    
+    renderComponent.node.run(action)    
   }
   
   // MARK: Convenience Methods
   
-  func angleWith(lastVector: CGPoint, vector: CGPoint) -> CGFloat {
+  func angleWith(_ lastVector: CGPoint, vector: CGPoint) -> CGFloat {
     let oldAngle = atan2(lastVector.y, lastVector.x) - π/2
     let newAngle = atan2(vector.y, vector.x) - π/2
     return shortestAngleBetween(oldAngle, angle2: newAngle)
@@ -209,7 +213,7 @@ class MoveComponent: GKComponent {
   
   func getRestTargetPosition() -> CGPoint {
     let distanceToTarget = GameplayConfiguration.Rod.height/2 + GameplayConfiguration.RotationPoint.radius
-    guard let orientationComponent = entity?.componentForClass(OrientationComponent.self) else {
+    guard let orientationComponent = entity?.component(ofType: OrientationComponent.self) else {
       fatalError("The node to rest translation must have a OrientationComponent.")
     }
     var targetPositon: CGPoint
@@ -232,11 +236,7 @@ class MoveComponent: GKComponent {
 
 }
 
-public func delay(delay:Double, closure:()->()) {
-  dispatch_after(
-    dispatch_time(
-      DISPATCH_TIME_NOW,
-      Int64(delay * Double(NSEC_PER_SEC))
-    ),
-    dispatch_get_main_queue(), closure)
+public func delay(_ delay:Double, closure:@escaping ()->()) {
+  DispatchQueue.main.asyncAfter(
+    deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }

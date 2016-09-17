@@ -16,13 +16,13 @@ class DIYLevelsViewController: UITableViewController {
   
   var levels = [Level]()
   
-  var fetchedResultsController: NSFetchedResultsController!
+  var fetchedResultsController: NSFetchedResultsController<AnyObject>!
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     self.tableView.tableFooterView = UIView()
     self.levels = SceneManager.sharedInstance.fetchAllLevels()
     
@@ -38,70 +38,70 @@ class DIYLevelsViewController: UITableViewController {
 //    tableView.reloadData()
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return levels.count
 //    let sectionInfo = fetchedResultsController.sections![section]
 //    return sectionInfo.numberOfObjects
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath) as! DIYLevelTableViewCell
-    let level = levels[indexPath.row]
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath) as! DIYLevelTableViewCell
+    let level = levels[(indexPath as NSIndexPath).row]
     cell.levelName.text = level.name
-    if indexPath.row % 2 == 1 {
+    if (indexPath as NSIndexPath).row % 2 == 1 {
       cell.backgroundColor = UIColor(red: 90/255.0, green: 164/255.0, blue: 253/255.0, alpha: 1)
-      cell.levelName.textColor = UIColor.whiteColor()
+      cell.levelName.textColor = UIColor.white
     }else {
-      cell.backgroundColor = UIColor.whiteColor()
-      cell.levelName.textColor = UIColor.blackColor()
+      cell.backgroundColor = UIColor.white
+      cell.levelName.textColor = UIColor.black
 
     }
-    cell.contentView.backgroundColor = UIColor.clearColor()
+    cell.contentView.backgroundColor = UIColor.clear
     return cell
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let level = levels[indexPath.row]
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let level = levels[(indexPath as NSIndexPath).row]
     let nodes: [Dictionary<String, String>] = level.nodes!.map{ node in
 //      $0 as! Node
       let node = node as! Node
       return ["name": node.name!, "position": node.position!,
-        "zRotation": String(node.zRotation!), "type": node.type!]
+        "zRotation": String(describing: node.zRotation!), "type": node.type!]
     }
     let scene = LevelEditPlayScene.editSceneFromNodesData(nodes, sceneType: .selfPlay(level.name, levelObjectId: "\(level.objectID)"))
-    scene!.scaleMode = .AspectFill
+    scene!.scaleMode = .aspectFill
     SceneManager.sharedInstance.presentingView.presentScene(scene)
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
   
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
   
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == UITableViewCellEditingStyle.Delete {
-      let levelToMove = levels[indexPath.row]
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == UITableViewCellEditingStyle.delete {
+      let levelToMove = levels[(indexPath as NSIndexPath).row]
       levels = levels.filter{ $0 != levelToMove }
-      SceneManager.sharedInstance.managedContext.deleteObject(levelToMove)
+      SceneManager.sharedInstance.managedContext.delete(levelToMove)
       do {
         try SceneManager.sharedInstance.managedContext.save()
       }catch let error as NSError {
         print("Could not save: \(error)")
       }
     }
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
   
-  @IBAction func doneButton(sender: UIBarButtonItem) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func doneButton(_ sender: UIBarButtonItem) {
+    self.dismiss(animated: true, completion: nil)
   }
   
-  func configureCell(cell: DIYLevelTableViewCell, indexPath: NSIndexPath) {
-    let level = fetchedResultsController.objectAtIndexPath(indexPath) as! Level
+  func configureCell(_ cell: DIYLevelTableViewCell, indexPath: IndexPath) {
+    let level = fetchedResultsController.object(at: indexPath) as! Level
     cell.levelName.text = level.name
   }
 }

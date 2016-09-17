@@ -26,7 +26,7 @@ class GameViewController: UIViewController {
       skView.ignoresSiblingOrder = true
       
       /* Set the scale mode to scale to fit the window */
-      scene.scaleMode = .AspectFill
+      scene.scaleMode = .aspectFill
       
       skView.presentScene(scene)
       
@@ -49,15 +49,15 @@ class GameViewController: UIViewController {
 //    
   }
   
-  override func shouldAutorotate() -> Bool {
+  override var shouldAutorotate : Bool {
     return true
   }
   
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-      return .AllButUpsideDown
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      return .allButUpsideDown
     } else {
-      return .All
+      return .all
     }
   }
   
@@ -66,18 +66,18 @@ class GameViewController: UIViewController {
     // Release any cached data, images, etc that aren't in use.
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
 }
 
 extension GameViewController: StartSceneDelegate {
-  func didSelectMyDiysButton(scene: StartScene) {
+  func didSelectMyDiysButton(_ scene: StartScene) {
 //    print("in view controller")
-    performSegueWithIdentifier("presentdiyviewcontroller", sender: nil)
+    performSegue(withIdentifier: "presentdiyviewcontroller", sender: nil)
   }
   
-  func didSelectMoreButton(scene: StartScene, buttonCenterPosition: CGPoint) {
+  func didSelectMoreButton(_ scene: StartScene, buttonCenterPosition: CGPoint) {
     let floatMenuController = FloatingMenuController(fromPosition: buttonCenterPosition)
     floatMenuController.delegate = self
     let bgMusicImageName = SceneManager.sharedInstance.backgroundMusicEabled() ? "bgmusic" : "bgmusic_disabled"
@@ -94,33 +94,33 @@ extension GameViewController: StartSceneDelegate {
 //      "Rate",
       "GameCenter",
     ]
-    presentViewController(floatMenuController, animated: true, completion: nil)
+    present(floatMenuController, animated: true, completion: nil)
   }
 }
 
 extension GameViewController: FloatingMenueControllerDelegate {
-  func floatingMenuController(controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index:Int) {
+  func floatingMenuController(_ controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index:Int) {
     switch index {
     case 0: // BackgroundMusci
       if SceneManager.sharedInstance.backgroundMusicEabled() {
-        button.setImage(UIImage(named: "bgmusic_disabled"), forState: .Normal)
+        button.setImage(UIImage(named: "bgmusic_disabled"), for: UIControlState())
         SceneManager.sharedInstance.setBackgroundMuscicEabled(false)
       }else {
-        button.setImage(UIImage(named: "bgmusic"), forState: .Normal)
+        button.setImage(UIImage(named: "bgmusic"), for: UIControlState())
         SceneManager.sharedInstance.setBackgroundMuscicEabled(true)
         SKTAudio.sharedInstance().playBackgroundMusic("background_music.wav")
       }
     case 1: // SoundEffert
       if SceneManager.sharedInstance.soundEffertMusicEabled() {
-        button.setImage(UIImage(named: "sound_effert_disabled"), forState: .Normal)
+        button.setImage(UIImage(named: "sound_effert_disabled"), for: UIControlState())
         SceneManager.sharedInstance.setSoundEffertEabled(false)
       }else {
-        button.setImage(UIImage(named: "sound_effert"), forState: .Normal)
+        button.setImage(UIImage(named: "sound_effert"), for: UIControlState())
         SceneManager.sharedInstance.setSoundEffertEabled(true)
       }
     case 2: //Gamecenter
 //      controller.delegate
-      controller.dismissViewControllerAnimated(true) {
+      controller.dismiss(animated: true) {
         GameKitHelper.shareInstance.showGKGameCenterViewController(self)
       }
     default:

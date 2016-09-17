@@ -30,15 +30,15 @@ final class SceneManager {
   
   // Scene logic method
   
-  func showLevelScene(level: Int) {
+  func showLevelScene(_ level: Int) {
     let levelScene = LevelScene.level(level)
-    levelScene?.scaleMode = .AspectFill
+    levelScene?.scaleMode = .aspectFill
     presentingView.presentScene(levelScene)
   }
   
-  func showLevelScene(theme: ThemeType, level: Int) {
+  func showLevelScene(_ theme: ThemeType, level: Int) {
     let levelScene = LevelScene.themeLevel(theme, levelNum: level)
-    levelScene?.scaleMode = .AspectFill
+    levelScene?.scaleMode = .aspectFill
     presentingView.presentScene(levelScene)
   }
   
@@ -48,7 +48,7 @@ final class SceneManager {
   
   // 
   
-  func addRotateCountNodes(toNode: SKSpriteNode, rotateCount: Int) -> [SKSpriteNode] {
+  func addRotateCountNodes(_ toNode: SKSpriteNode, rotateCount: Int) -> [SKSpriteNode] {
     var rotateCountNodes = [SKSpriteNode]()
     rotateCountNodes.reserveCapacity(rotateCount)
     var zRotation: CGFloat = 90
@@ -65,7 +65,7 @@ final class SceneManager {
     return rotateCountNodes
   }
   
-  func addBubbles(toNode: SKSpriteNode, rotatableRodCount: Int) {
+  func addBubbles(_ toNode: SKSpriteNode, rotatableRodCount: Int) {
     var zRotateion:CGFloat = 90
     if rotatableRodCount == 3 {
       zRotateion = 120
@@ -82,44 +82,44 @@ final class SceneManager {
     }
   }
   
-  func animationBubble(inNode: SKSpriteNode, isClockwise: Bool) {
-    let animationDuration: NSTimeInterval = 1
+  func animationBubble(_ inNode: SKSpriteNode, isClockwise: Bool) {
+    let animationDuration: TimeInterval = 1
     
     let bubbles = inNode.children.filter{ $0.name == "bubble" }
-    for (index, bubble) in bubbles.enumerate() {
+    for (index, bubble) in bubbles.enumerated() {
       //      let path = UIBezierPath(ovalInRect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 32, height: 32)))
       let path = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: GameplayConfiguration.bubbleOrbitRadius, startAngle: CGFloat(0).degreesToRadians(), endAngle: CGFloat(360).degreesToRadians(), clockwise: false)
       //      path.applyTransform(CGAffineTransformMakeRotation(90))
       bubble.position = CGPoint(x: GameplayConfiguration.bubbleOrbitRadius, y: 0)
       // this is the colckwise animation
-      let rotateAction = SKAction.followPath(path.CGPath, asOffset: false, orientToPath: false, duration: animationDuration)
-      var foreverRotation = SKAction.repeatActionForever(rotateAction)
+      let rotateAction = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, duration: animationDuration)
+      var foreverRotation = SKAction.repeatForever(rotateAction)
       if !isClockwise {
-        foreverRotation = SKAction.repeatActionForever(rotateAction.reversedAction())
+        foreverRotation = SKAction.repeatForever(rotateAction.reversed())
       }
       
-      let waitDuration = animationDuration/NSTimeInterval(bubbles.count)*NSTimeInterval(index)
-      let waitAction = SKAction.waitForDuration(waitDuration)
-      bubble.runAction(SKAction.sequence([waitAction, foreverRotation]))
+      let waitDuration = animationDuration/TimeInterval(bubbles.count)*TimeInterval(index)
+      let waitAction = SKAction.wait(forDuration: waitDuration)
+      bubble.run(SKAction.sequence([waitAction, foreverRotation]))
     }
   }
   
-  func saveLevelData(nodes: [SKNode], levelName: String?) -> String {
+  func saveLevelData(_ nodes: [SKNode], levelName: String?) -> String {
     let nodesSet = NSMutableSet(capacity: nodes.count)
-    let nodeEntity = NSEntityDescription.entityForName("Node", inManagedObjectContext: managedContext)
+    let nodeEntity = NSEntityDescription.entity(forEntityName: "Node", in: managedContext)
     
     for node in nodes {
-      let nodeData = Node(entity: nodeEntity!, insertIntoManagedObjectContext: managedContext)
+      let nodeData = Node(entity: nodeEntity!, insertInto: managedContext)
       nodeData.name = node.name
       nodeData.type = NodeType(nodeName: node.name).rawValue
       nodeData.position = NSStringFromCGPoint(node.position)
-      nodeData.zRotation = NSNumber(double: Double(node.zRotation))
-      nodesSet.addObject(nodeData)
+      nodeData.zRotation = NSNumber(value: Double(node.zRotation) as Double)
+      nodesSet.add(nodeData)
     }
     
-    let levelEntity = NSEntityDescription.entityForName("Level", inManagedObjectContext: managedContext)
-    let levelData = Level(entity: levelEntity!, insertIntoManagedObjectContext: managedContext)
-    levelData.date = NSDate()
+    let levelEntity = NSEntityDescription.entity(forEntityName: "Level", in: managedContext)
+    let levelData = Level(entity: levelEntity!, insertInto: managedContext)
+    levelData.date = Date()
     levelData.name = levelName
     levelData.nodes = nodesSet
     
@@ -137,7 +137,7 @@ final class SceneManager {
   func fetchFirstLevel() -> [Node] {
     let levelFetch = NSFetchRequest(entityName: "Level")
     do {
-      let levels = try managedContext.executeFetchRequest(levelFetch) as! [Level]
+      let levels = try managedContext.fetch(levelFetch) as! [Level]
       let nodes = levels.first!.nodes!.map{
         $0 as! Node
       }
@@ -151,7 +151,7 @@ final class SceneManager {
   func fetchAllLevels() -> [Level] {
     let levelFetch = NSFetchRequest(entityName: "Level")
     do {
-      let levels = try managedContext.executeFetchRequest(levelFetch) as! [Level]
+      let levels = try managedContext.fetch(levelFetch) as! [Level]
       return levels
     }catch let error as NSError {
       print("Error: \(error)")
@@ -165,57 +165,57 @@ final class SceneManager {
   
   // TODO: Change it
   
-  func getLevelDate(nodes: [SKNode], levelName: String?) -> Dictionary<String, AnyObject> {
+  func getLevelDate(_ nodes: [SKNode], levelName: String?) -> Dictionary<String, AnyObject> {
     let levelName = levelName == nil ? "DIY" : levelName!
     let nodesInfo: [Dictionary<String, AnyObject>] = nodes.map { node in
-      let dic:Dictionary<String, AnyObject> = ["name": node.name!, "position": NSStringFromCGPoint(node.position), "zRotation": NSNumber(double: Double(node.zRotation)), "nodeType": NodeType(nodeName: node.name).rawValue]
+      let dic:Dictionary<String, AnyObject> = ["name": node.name! as AnyObject, "position": NSStringFromCGPoint(node.position) as AnyObject, "zRotation": NSNumber(value: Double(node.zRotation) as Double), "nodeType": NodeType(nodeName: node.name).rawValue as AnyObject]
       return dic
     }
     return ["level": ["name": levelName], "nodes": nodesInfo]
   }
   
-  func shareLevel(nodes: [SKNode], levelName: String?) {
+  func shareLevel(_ nodes: [SKNode], levelName: String?) {
 //    let urlString = "http://localhost:8080/newLevel/"
     let urlString = "https://rodot.me/newLevel/"
-    let url = NSURL(string: urlString)
-    let session = NSURLSession.sharedSession()
-    let request = NSMutableURLRequest(URL: url!)
-    request.HTTPMethod = "POST"
+    let url = URL(string: urlString)
+    let session = URLSession.shared
+    let request = NSMutableURLRequest(url: url!)
+    request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
     
     let parmas = getLevelDate(nodes, levelName: levelName)
     do {
       
-      request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parmas, options: [])
+      request.httpBody = try JSONSerialization.data(withJSONObject: parmas, options: [])
     }catch let error as NSError {
       print("error:\(error)")
     }
     
-    let task = session.dataTaskWithRequest(request) { data, response, error in
+    let task = session.dataTask(with: request, completionHandler: { data, response, error in
 //      print("123")
 //      print("313")
       let json = JSON(data: data!)
       let levelid = json["levelid"].int
-      print((response as? NSHTTPURLResponse)?.statusCode)
+      print((response as? HTTPURLResponse)?.statusCode)
       print(levelid)
-      let result = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+      let result = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments)
       print(result as! NSDictionary)
-    }
+    }) 
     task.resume()
   }
   
   func getLevelFromWebServer(){
     let levelId = 1
     let urlString = "http://localhost:8080/level/" + "\(levelId)"
-    let url = NSURL(string: urlString)
-    let session = NSURLSession.sharedSession()
-    let request = NSMutableURLRequest(URL: url!)
-    request.HTTPMethod = "GET"
+    let url = URL(string: urlString)
+    let session = URLSession.shared
+    let request = NSMutableURLRequest(url: url!)
+    request.httpMethod = "GET"
     //    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
     
-    let task = session.dataTaskWithRequest(request) { data, response, error in
+    let task = session.dataTask(with: request, completionHandler: { data, response, error in
       
       let json = JSON(data: data!)
       
@@ -229,31 +229,31 @@ final class SceneManager {
       }
       //        print(nodesData)
       let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay(levelId))
-      scene?.scaleMode = .AspectFill
+      scene?.scaleMode = .aspectFill
       SceneManager.sharedInstance.presentingView.presentScene(scene)
-    }
+    }) 
     task.resume()
   }
   
   func backgroundMusicEabled() -> Bool {
-    return NSUserDefaults.standardUserDefaults().boolForKey(BackgroundMusicEabledKey)
+    return UserDefaults.standard.bool(forKey: BackgroundMusicEabledKey)
   }
   
   func soundEffertMusicEabled() -> Bool {
-    return NSUserDefaults.standardUserDefaults().boolForKey(SoundEffertEabledKey)
+    return UserDefaults.standard.bool(forKey: SoundEffertEabledKey)
   }
   
-  func setBackgroundMuscicEabled(eabled: Bool) {
+  func setBackgroundMuscicEabled(_ eabled: Bool) {
     if eabled {
       SKTAudio.sharedInstance().resumeBackgroundMusic()
     }else {
       SKTAudio.sharedInstance().pauseBackgroundMusic()
     }
-    NSUserDefaults.standardUserDefaults().setBool(eabled, forKey: BackgroundMusicEabledKey)
+    UserDefaults.standard.set(eabled, forKey: BackgroundMusicEabledKey)
   }
   
-  func setSoundEffertEabled(eabled: Bool) {
-    NSUserDefaults.standardUserDefaults().setBool(eabled, forKey: SoundEffertEabledKey)
+  func setSoundEffertEabled(_ eabled: Bool) {
+    UserDefaults.standard.set(eabled, forKey: SoundEffertEabledKey)
   }
   
 }

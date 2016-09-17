@@ -13,7 +13,7 @@ class TransferNode: SKSpriteNode, CustomNodeEvents {
   func didMoveToScene() {
     physicsBody = SKPhysicsBody(circleOfRadius: size.width/10)
     
-    physicsBody!.dynamic = false
+    physicsBody!.isDynamic = false
     physicsBody!.categoryBitMask = PhysicsCategory.Transfer
     physicsBody!.collisionBitMask = PhysicsCategory.None
     physicsBody!.contactTestBitMask = PhysicsCategory.Ball

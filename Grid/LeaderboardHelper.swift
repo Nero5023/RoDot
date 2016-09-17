@@ -13,12 +13,12 @@ class LeaderboardHelper {
   static let MostRotateTimesLeaderboardId = "com.nero.rodot.mostrotatetimes"
   
   class func reportMostShareTimesLeaderboard() {
-    let shareTimes = NSUserDefaults.standardUserDefaults().integerForKey(ShareCountKey)
+    let shareTimes = UserDefaults.standard.integer(forKey: ShareCountKey)
     GameKitHelper.shareInstance.reportScore(Int64(shareTimes), forLeaderBoardId: LeaderboardHelper.MostShareTimesLeaderboardId)
   }
   
   class func reportMostRotateTimesToLeaderboard() {
-    let rotateTimes = NSUserDefaults.standardUserDefaults().integerForKey(RotateCountKey)
+    let rotateTimes = UserDefaults.standard.integer(forKey: RotateCountKey)
     GameKitHelper.shareInstance.reportScore(Int64(rotateTimes), forLeaderBoardId: LeaderboardHelper.MostRotateTimesLeaderboardId)
   }
 }

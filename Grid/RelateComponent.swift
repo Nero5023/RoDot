@@ -20,7 +20,7 @@ class RelateComponent: GKComponent {
   var compound: SKSpriteNode?
   
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("A RelateComponent's entity must have a RenderComponent")
     }
     return renderComponent
@@ -35,7 +35,7 @@ class RelateComponent: GKComponent {
     let allDirections = MoveDirection.allDirections
     for direction in allDirections {
       if let relateNode = detectNode(renderNode, inDirection: direction, detectDistance: detectDistance) as? EntityNode {
-        if relateNode.entity.componentForClass(RelateComponent.self) != nil {
+        if relateNode.entity.component(ofType: RelateComponent.self) != nil {
           relateNodes.insert(relateNode)
         }
       }
@@ -49,17 +49,17 @@ class RelateComponent: GKComponent {
     let allDirections = MoveDirection.allDirections
     for direction in allDirections {
       if let relateNode = detectNode(renderComponent.node, inDirection: direction, detectDistance: detectDistance) as? EntityNode {
-        if  let stateMachine = relateNode.entity.componentForClass(IntelligenceComponent.self)?.stateMachine {
-          stateMachine.enterState(PointCheckingState)
+        if  let stateMachine = relateNode.entity.component(ofType: IntelligenceComponent.self)?.stateMachine {
+          stateMachine.enter(PointCheckingState)
         }
       }
     }
     for entityNode in relateNodes {
-      entityNode.entity.componentForClass(RelateComponent.self)?.updateRelatedNodes()
-      entityNode.entity.componentForClass(OrientationComponent.self)?.zRotation = entityNode.zRotation
-      entityNode.physicsBody!.dynamic = false
+      entityNode.entity.component(ofType: RelateComponent.self)?.updateRelatedNodes()
+      entityNode.entity.component(ofType: OrientationComponent.self)?.zRotation = entityNode.zRotation
+      entityNode.physicsBody!.isDynamic = false
     }
-    entity?.componentForClass(IntelligenceComponent.self)?.stateMachine.enterState(PointUnlockedState)
+    entity?.component(ofType: IntelligenceComponent.self)?.stateMachine.enter(PointUnlockedState)
   }
   
   // This method is for Point entity
@@ -77,11 +77,11 @@ class RelateComponent: GKComponent {
       node.removeFromParent()
       node.physicsBody = nil
       compound.addChild(node)
-      if let orientationComponent = node.entity.componentForClass(OrientationComponent.self) {
+      if let orientationComponent = node.entity.component(ofType: OrientationComponent.self) {
         if orientationComponent.direction == .vertical {
-          bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: GameplayConfiguration.Rod.physizeBodyWidth, height: node.size.height - 8), center: node.position))
+          bodies.append(SKPhysicsBody(rectangleOf: CGSize(width: GameplayConfiguration.Rod.physizeBodyWidth, height: node.size.height - 8), center: node.position))
         }else {
-          bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: node.size.height - 8, height: GameplayConfiguration.Rod.physizeBodyWidth), center: node.position))
+          bodies.append(SKPhysicsBody(rectangleOf: CGSize(width: node.size.height - 8, height: GameplayConfiguration.Rod.physizeBodyWidth), center: node.position))
         }
       }
     }
@@ -93,10 +93,10 @@ class RelateComponent: GKComponent {
     compound.physicsBody!.collisionBitMask = PhysicsCategory.Ball
     spritesLayer.addChild(compound)
     
-    let pinJoint = SKPhysicsJointPin.jointWithBodyA(compound.physicsBody!, bodyB: compound.scene!.physicsBody!, anchor: centerPosition)
+    let pinJoint = SKPhysicsJointPin.joint(withBodyA: compound.physicsBody!, bodyB: compound.scene!.physicsBody!, anchor: centerPosition)
     pinJoint.frictionTorque = GameplayConfiguration.PhysicsFactors.pinJointFrictionTorque
     pinJoint.rotationSpeed =  GameplayConfiguration.PhysicsFactors.pinJointRotationSpeed
-    compound.scene!.physicsWorld.addJoint(pinJoint)
+    compound.scene!.physicsWorld.add(pinJoint)
     self.compound = compound
     
     return (compound, centerPosition)
@@ -114,19 +114,19 @@ class RelateComponent: GKComponent {
     for node in compound.children {
       if let node = node as? EntityNode {
         node.removeFromParent()
-        node.position = compound.convertPoint(node.position, toNode: spritesLayer)
+        node.position = compound.convert(node.position, to: spritesLayer)
         node.zRotation += compoundZRotation
         spritesLayer.addChild(node)
       }
     }
     compound.removeFromParent()
     self.compound = nil
-    renderComponent.node.physicsBody = entity?.componentForClass(PhysicsComponent.self)?.physicsBody
+    renderComponent.node.physicsBody = entity?.component(ofType: PhysicsComponent.self)?.physicsBody
     for node in relateNodes {
-      node.physicsBody = node.entity.componentForClass(PhysicsComponent.self)?.physicsBody
-      let fixJoint = SKPhysicsJointFixed.jointWithBodyA(node.physicsBody!, bodyB: renderComponent.node.physicsBody!, anchor: node.scene!.convertPoint(renderComponent.node.position, fromNode: node.parent!))
-      node.physicsBody!.dynamic = true
-      node.scene!.physicsWorld.addJoint(fixJoint)
+      node.physicsBody = node.entity.component(ofType: PhysicsComponent.self)?.physicsBody
+      let fixJoint = SKPhysicsJointFixed.joint(withBodyA: node.physicsBody!, bodyB: renderComponent.node.physicsBody!, anchor: node.scene!.convert(renderComponent.node.position, from: node.parent!))
+      node.physicsBody!.isDynamic = true
+      node.scene!.physicsWorld.add(fixJoint)
     }
   }
   

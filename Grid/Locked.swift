@@ -17,11 +17,11 @@ class Locked: GKState {
     super.init()
   }
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is Checking.Type
   }
   

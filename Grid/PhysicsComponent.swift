@@ -23,6 +23,10 @@ class PhysicsComponent: GKComponent {
     physicsBody.collisionBitMask = colliderType.collisionBitMask
     physicsBody.contactTestBitMask = colliderType.contactTestBitMask
   }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
   
 }
 

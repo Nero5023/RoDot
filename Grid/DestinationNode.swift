@@ -14,7 +14,7 @@ class DestinationNode: SKSpriteNode, CustomNodeEvents {
   func didMoveToScene() {
     physicsBody = SKPhysicsBody(circleOfRadius: size.width/6.0)
     
-    physicsBody!.dynamic = false
+    physicsBody!.isDynamic = false
     physicsBody!.categoryBitMask = PhysicsCategory.Distance
     physicsBody!.collisionBitMask = PhysicsCategory.None
     physicsBody!.contactTestBitMask = PhysicsCategory.Ball
@@ -22,6 +22,6 @@ class DestinationNode: SKSpriteNode, CustomNodeEvents {
     zPosition = 0
 
     alpha = 0
-    runAction(SKAction.sequence([SKAction.waitForDuration(2), SKAction.fadeInWithDuration(0.66)]))
+    run(SKAction.sequence([SKAction.wait(forDuration: 2), SKAction.fadeIn(withDuration: 0.66)]))
   }
 }

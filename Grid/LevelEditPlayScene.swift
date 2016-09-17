@@ -29,7 +29,7 @@ class LevelEditPlayScene: LevelScene {
   
   var sceneType: LevelEditPlaySceneType?
   
-  var getLevelPlaySessionTask: NSURLSessionTask?
+  var getLevelPlaySessionTask: URLSessionTask?
   
   lazy var restartButton: SKButtonNode = {
     let restartButton = SKButtonNode(imageNameNormal: "restartbutton", selected: nil)
@@ -79,7 +79,7 @@ class LevelEditPlayScene: LevelScene {
       SKTAudio.sharedInstance().playSoundEffect("menu_click.wav")
       self.showEnterLevelNameAlert("Save") { levelName in
         SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: levelName)
-        HUD.flash(.Success, delay: 1.3) { isFinished in
+        HUD.flash(.success, delay: 1.3) { isFinished in
           SceneManager.sharedInstance.backToStartScene()
         }
       }
@@ -103,9 +103,9 @@ class LevelEditPlayScene: LevelScene {
         Client.sharedInstance.likeLevel(levelId) {
           print("like")
         }
-        if var likedLevelIds = NSUserDefaults.standardUserDefaults().arrayForKey(LikedLevelIdsKey) as? [Int] {
+        if var likedLevelIds = UserDefaults.standard.array(forKey: LikedLevelIdsKey) as? [Int] {
           likedLevelIds.append(levelId)
-          NSUserDefaults.standardUserDefaults().setObject(likedLevelIds, forKey: LikedLevelIdsKey)
+          UserDefaults.standard.set(likedLevelIds, forKey: LikedLevelIdsKey)
         }
       default:
         break
@@ -116,10 +116,10 @@ class LevelEditPlayScene: LevelScene {
   }()
   
   // MARK: Class Methods
-  class func editScene(rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode, transfers: [SKSpriteNode]) -> LevelEditPlayScene? {
+  class func editScene(_ rods: [SKSpriteNode], points: [PointButton], ball: SKSpriteNode, destination: SKSpriteNode, transfers: [SKSpriteNode]) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEdirorScene")
     
-    guard let sprites = scene?.childNodeWithName("Sprites") else {
+    guard let sprites = scene?.childNode(withName: "Sprites") else {
       fatalError("The LevelEditPlayScene must have a node named Sprites")
     }
 
@@ -173,9 +173,9 @@ class LevelEditPlayScene: LevelScene {
     return scene
   }
   
-  class func editSceneFromNodesData(nodesData: [Dictionary<String, String>], sceneType: LevelEditPlaySceneType) -> LevelEditPlayScene? {
+  class func editSceneFromNodesData(_ nodesData: [Dictionary<String, String>], sceneType: LevelEditPlaySceneType) -> LevelEditPlayScene? {
     let scene = LevelEditPlayScene(fileNamed: "LevelEmpty")
-    guard let sprites = scene?.childNodeWithName("Sprites") else {
+    guard let sprites = scene?.childNode(withName: "Sprites") else {
       fatalError("The LevelEditPlayScene must have a node named Sprites")
     }
     
@@ -202,10 +202,10 @@ class LevelEditPlayScene: LevelScene {
     
   }
   
-  func shareLevel(levelName: String?) {
+  func shareLevel(_ levelName: String?) {
     var levelName = levelName
     if levelName == nil { levelName = "DIY" }
-    HUD.show(.Progress)
+    HUD.show(.progress)
     let task = Client.sharedInstance.shareLevel(self.editPlayScene!.spritesNode.children, levelName: levelName) { levelid in
 //      let shareURLString = "https://rodot.me/level/" + "\(levelid)"
 //      let shareURL = NSURL(string: shareURLString)!
@@ -235,12 +235,12 @@ class LevelEditPlayScene: LevelScene {
     Client.sharedInstance.setTimeOutDuration(15, taskToCancel: task)
   }
   
-  func shareLevelDirectory(levelName: String, levelid: Int) {
+  func shareLevelDirectory(_ levelName: String, levelid: Int) {
     let shareURLString = "https://rodot.me/level/" + "\(levelid)"
-    let shareURL = NSURL(string: shareURLString)!
+    let shareURL = URL(string: shareURLString)!
     let str = "This is the level I made named:\(levelName) by RoDot try this!"
     let activityViewController = UIActivityViewController(activityItems: [str, shareURL], applicationActivities: nil)
-    activityViewController.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeOpenInIBooks]
+    activityViewController.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.openInIBooks]
     activityViewController.completionWithItemsHandler = { _, isCompleted, _, _ in
       if isCompleted {
         GameKitHelper.shareInstance.reportAchievements(AchievementsHelper.shareAchievements())
@@ -259,15 +259,15 @@ class LevelEditPlayScene: LevelScene {
         self.backButtonTouchUpInsideActon()
       }
     }
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       
       HUD.hide()
-      SceneManager.sharedInstance.presentingController.navigationController?.presentViewController(activityViewController, animated: true, completion: nil)
+      SceneManager.sharedInstance.presentingController.navigationController?.present(activityViewController, animated: true, completion: nil)
     }
   }
   
-  func checkLevelIsAlreadyShared(objectId: String) -> Int? {
-    guard let dic = NSUserDefaults.standardUserDefaults().dictionaryForKey(SharedLevlsDicKey) as? [String: Int] else { return nil }
+  func checkLevelIsAlreadyShared(_ objectId: String) -> Int? {
+    guard let dic = UserDefaults.standard.dictionary(forKey: SharedLevlsDicKey) as? [String: Int] else { return nil }
     if let levelid = dic[objectId] {
       return levelid
     }else {
@@ -275,23 +275,23 @@ class LevelEditPlayScene: LevelScene {
     }
   }
   
-  func saveObjectIdLevlIdToNSUserDefalut(objectidStr: String, levelId: Int) {
-    guard var dic = NSUserDefaults.standardUserDefaults().dictionaryForKey(SharedLevlsDicKey) as? [String: Int] else { return }
+  func saveObjectIdLevlIdToNSUserDefalut(_ objectidStr: String, levelId: Int) {
+    guard var dic = UserDefaults.standard.dictionary(forKey: SharedLevlsDicKey) as? [String: Int] else { return }
     dic[objectidStr] = levelId
-    NSUserDefaults.standardUserDefaults().setObject(dic, forKey: SharedLevlsDicKey)
+    UserDefaults.standard.set(dic, forKey: SharedLevlsDicKey)
   }
   
   
   
   // MARK: Scene Life Cycle
   
-  override func didMoveToView(view: SKView) {
-    super.didMoveToView(view)
+  override func didMove(to view: SKView) {
+    super.didMove(to: view)
     addSmallShareButton()
     
     addTopLevelDetilsLabels()
     
-    guard let editNode = scene?.childNodeWithName("Overlay")?.childNodeWithName("editButton") as? SKSpriteNode else {
+    guard let editNode = scene?.childNode(withName: "Overlay")?.childNode(withName: "editButton") as? SKSpriteNode else {
       return
     }
     let editButton = copyNode(editNode, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: nil)
@@ -317,23 +317,23 @@ class LevelEditPlayScene: LevelScene {
     view?.presentScene(newScene)
   }
   
-  func animationWinOrLoseTiemsLabel(isWin: Bool) {
-    let label = isWin ? overlayNode.childNodeWithName("win") : overlayNode.childNodeWithName("lose")
+  func animationWinOrLoseTiemsLabel(_ isWin: Bool) {
+    let label = isWin ? overlayNode.childNode(withName: "win") : overlayNode.childNode(withName: "lose")
     guard let titleLabel = label as? SKLabelNode else { return }
-    guard let timesLabel = titleLabel.childNodeWithName("label") as? SKLabelNode else { return }
+    guard let timesLabel = titleLabel.childNode(withName: "label") as? SKLabelNode else { return }
     let dx: CGFloat = 20
-    let moveUpAction = SKAction.moveByX(dx, y: 0, duration: 0.33)
-    let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
+    let moveUpAction = SKAction.moveBy(x: dx, y: 0, duration: 0.33)
+    let fadeOutAction = SKAction.fadeOut(withDuration: 0.33)
     let groupAction0 = SKAction.group([moveUpAction, fadeOutAction])
-    let runblock = SKAction.runBlock {
+    let runblock = SKAction.run {
       if let times = Int(timesLabel.text!) {
         timesLabel.text = (times+1).stringify()
       }
       timesLabel.position.x = timesLabel.position.x - 2*dx
     }
-    let fadeInAction = SKAction.fadeInWithDuration(0.33)
+    let fadeInAction = SKAction.fadeIn(withDuration: 0.33)
     let groupAction1 = SKAction.group([moveUpAction, fadeInAction])
-    timesLabel.runAction(SKAction.sequence([groupAction0, runblock, groupAction1]))
+    timesLabel.run(SKAction.sequence([groupAction0, runblock, groupAction1]))
     
   }
   
@@ -355,23 +355,23 @@ class LevelEditPlayScene: LevelScene {
     
     for entity in entities {
       if let entity = entity as? Rod {
-        afterDelay(NSTimeInterval(0), runBlock: {
-          let node = entity.componentForClass(RenderComponent.self)!.node
-          let action = SKAction.scaleTo(0, duration: 0.5)
-          action.timingMode = SKActionTimingMode.EaseInEaseOut
-          node.runAction(action)
+        afterDelay(TimeInterval(0), runBlock: {
+          let node = entity.component(ofType: RenderComponent.self)!.node
+          let action = SKAction.scale(to: 0, duration: 0.5)
+          action.timingMode = SKActionTimingMode.easeInEaseOut
+          node.run(action)
         })
       }
       if let entity = entity as? BasePointEntity {
-        entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0.01, duration: 0.8))
+        entity.component(ofType: RenderComponent.self)!.node.run(SKAction.scale(to: 0.01, duration: 0.8))
       }
       if let entity = entity as? Transfer {
-        entity.componentForClass(RenderComponent.self)!.node.runAction(SKAction.scaleTo(0, duration: 0.8))
+        entity.component(ofType: RenderComponent.self)!.node.run(SKAction.scale(to: 0, duration: 0.8))
       }
     }
     afterDelay(1) { [unowned self] in
       self.overlayNode.addChild(self.restartButton)
-      (self.overlayNode.childNodeWithName("restart") as? SKButtonNode)?.isEnabled = true
+      (self.overlayNode.childNode(withName: "restart") as? SKButtonNode)?.isEnabled = true
       self.playable = true
       guard let sceneType = self.sceneType else { return }
       switch sceneType {
@@ -413,7 +413,7 @@ class LevelEditPlayScene: LevelScene {
       overlayNode.addChild(smallShreButton)
       smallShreButton.actionTouchUpInside = self.shareButton.actionTouchUpInside
       smallShreButton.alpha = 0
-      smallShreButton.runAction(SKAction.fadeInWithDuration(0.66))
+      smallShreButton.run(SKAction.fadeIn(withDuration: 0.66))
     default:
       return
     }
@@ -457,9 +457,9 @@ class LevelEditPlayScene: LevelScene {
     }
   }
   
-  func loadTopPlayInfo(levelid: Int) {
+  func loadTopPlayInfo(_ levelid: Int) {
     getLevelPlaySessionTask = Client.sharedInstance.getPlayLevelInfo(levelid) { playInfo in
-      guard let likeCount = playInfo[Client.JSONBodyKeys.LevelLikesCount], winTimes = playInfo[Client.JSONBodyKeys.LevelWinTimes], loseTimes = playInfo[Client.JSONBodyKeys.LevelLoseTimes] else { return }
+      guard let likeCount = playInfo[Client.JSONBodyKeys.LevelLikesCount], let winTimes = playInfo[Client.JSONBodyKeys.LevelWinTimes], let loseTimes = playInfo[Client.JSONBodyKeys.LevelLoseTimes] else { return }
       
       let likeIcon = SKSpriteNode(imageNamed: "likescount")
       let margin: CGFloat = 120 + 120
@@ -469,8 +469,8 @@ class LevelEditPlayScene: LevelScene {
       self.overlayNode.addChild(likeIcon)
       let label = SKLabelNode(text: likeCount.stringify())
       label.position = CGPoint(x: -likeIcon.size.width/2-15, y: 0)
-      label.verticalAlignmentMode = .Center
-      label.horizontalAlignmentMode = .Right
+      label.verticalAlignmentMode = .center
+      label.horizontalAlignmentMode = .right
       label.zPosition = likeIcon.zPosition + 10
       label.fontName = "ArialRoundedMTBold"
       //        print(label.colorBlendFactor)
@@ -500,16 +500,16 @@ class LevelEditPlayScene: LevelScene {
       loseimesLabel.zPosition -= 10
       loseLabel.addChild(loseimesLabel)
       loseLabel.alpha = 0
-      dispatch_async(dispatch_get_main_queue()) {
-        likeIcon.runAction(SKAction.fadeInWithDuration(0.66))
-        winLabel.runAction(SKAction.fadeInWithDuration(0.66))
-        loseLabel.runAction(SKAction.fadeInWithDuration(0.55))
+      DispatchQueue.main.async {
+        likeIcon.run(SKAction.fadeIn(withDuration: 0.66))
+        winLabel.run(SKAction.fadeIn(withDuration: 0.66))
+        loseLabel.run(SKAction.fadeIn(withDuration: 0.55))
       }
       self.getLevelPlaySessionTask = nil
     }
   }
   
-  func loadLoseAndWinLabels(levelid: Int) {
+  func loadLoseAndWinLabels(_ levelid: Int) {
     Client.sharedInstance.getLevelWinTimes(levelid) { times in
       let winColor = UIColor(red: 100/255.0, green: 221/255.0, blue: 23/255.0, alpha: 1)
       let winLabel = self.setUpWinOrLostLabel("Win:", fontColor: winColor, labelName: "win", position: CGPoint(x: self.xMargin + 108 + 90, y: 1980))
@@ -519,8 +519,8 @@ class LevelEditPlayScene: LevelScene {
       winTimesLabel.zPosition -= 10
       winLabel.addChild(winTimesLabel)
       winLabel.alpha = 0
-      dispatch_async(dispatch_get_main_queue()) {
-        winLabel.runAction(SKAction.fadeInWithDuration(0.55))
+      DispatchQueue.main.async {
+        winLabel.run(SKAction.fadeIn(withDuration: 0.55))
       }
     }
     
@@ -533,13 +533,13 @@ class LevelEditPlayScene: LevelScene {
       loseimesLabel.zPosition -= 10
       loseLabel.addChild(loseimesLabel)
       loseLabel.alpha = 0
-      dispatch_async(dispatch_get_main_queue()) {
-        loseLabel.runAction(SKAction.fadeInWithDuration(0.55))
+      DispatchQueue.main.async {
+        loseLabel.run(SKAction.fadeIn(withDuration: 0.55))
       }
     }
   }
   
-  func setUpWinOrLostLabel(text: String, fontColor: UIColor, labelName: String, position: CGPoint) -> SKLabelNode {
+  func setUpWinOrLostLabel(_ text: String, fontColor: UIColor, labelName: String, position: CGPoint) -> SKLabelNode {
     let fontSize: CGFloat = 60
     let fontName = "ArialRoundedMTBold"
     
@@ -548,8 +548,8 @@ class LevelEditPlayScene: LevelScene {
     label.zPosition = self.overlayNode.zPosition
     label.fontColor = fontColor
     label.fontSize = fontSize
-    label.horizontalAlignmentMode = .Left
-    label.verticalAlignmentMode = .Center
+    label.horizontalAlignmentMode = .left
+    label.verticalAlignmentMode = .center
     label.fontName = fontName
     label.name = labelName
     
@@ -557,25 +557,25 @@ class LevelEditPlayScene: LevelScene {
   }
   
   func animationLikeIcon() {
-    guard let label = overlayNode.childNodeWithName("likeIcon")?.childNodeWithName("label") as? SKLabelNode else { return }
+    guard let label = overlayNode.childNode(withName: "likeIcon")?.childNode(withName: "label") as? SKLabelNode else { return }
     let dy: CGFloat = 20
-    let moveUpAction = SKAction.moveByX(0, y: dy, duration: 0.33)
-    let fadeOutAction = SKAction.fadeOutWithDuration(0.33)
+    let moveUpAction = SKAction.moveBy(x: 0, y: dy, duration: 0.33)
+    let fadeOutAction = SKAction.fadeOut(withDuration: 0.33)
     let groupAction0 = SKAction.group([moveUpAction, fadeOutAction])
-    let runblock = SKAction.runBlock {
+    let runblock = SKAction.run {
       if let likesCount = Int(label.text!) {
         label.text = (likesCount+1).stringify()
       }
       label.position.y = -dy
     }
-    let fadeInAction = SKAction.fadeInWithDuration(0.33)
+    let fadeInAction = SKAction.fadeIn(withDuration: 0.33)
     let groupAction1 = SKAction.group([moveUpAction, fadeInAction])
-    label.runAction(SKAction.sequence([groupAction0, runblock, groupAction1]))
+    label.run(SKAction.sequence([groupAction0, runblock, groupAction1]))
     
   }
   
-  func checkIsLikeLevel(levelId: Int) -> Bool {
-    guard let likedLevelIds = NSUserDefaults.standardUserDefaults().objectForKey(LikedLevelIdsKey) as? [Int]
+  func checkIsLikeLevel(_ levelId: Int) -> Bool {
+    guard let likedLevelIds = UserDefaults.standard.object(forKey: LikedLevelIdsKey) as? [Int]
       else { return  false }
     if likedLevelIds.contains(levelId) {
       return true
@@ -595,11 +595,11 @@ class LevelEditPlayScene: LevelScene {
     }
   }
   
-  func showEnterLevelNameAlert(actionName:String ,completionHandler:(String?)->()) {
-    let alertController = UIAlertController(title: "Level Name", message: "Plese enter the level name.", preferredStyle: .Alert)
+  func showEnterLevelNameAlert(_ actionName:String ,completionHandler:@escaping (String?)->()) {
+    let alertController = UIAlertController(title: "Level Name", message: "Plese enter the level name.", preferredStyle: .alert)
     
-    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { _ in }
-    let saveAction = UIAlertAction(title: actionName, style: .Default) { action in
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+    let saveAction = UIAlertAction(title: actionName, style: .default) { action in
       let levelNameTextField = alertController.textFields![0] as UITextField
       completionHandler(levelNameTextField.text)
 //      SceneManager.sharedInstance.saveLevelData(self.editPlayScene!.spritesNode.children, levelName: loginTextField.text)
@@ -608,19 +608,19 @@ class LevelEditPlayScene: LevelScene {
 //      }
       
     }
-    saveAction.enabled = false
+    saveAction.isEnabled = false
     alertController.addAction(cancelAction)
     alertController.addAction(saveAction)
     
-    alertController.addTextFieldWithConfigurationHandler { textField in
+    alertController.addTextField { textField in
       textField.placeholder = "Name"
-      NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) {
+      NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) {
         nofitication in
-        saveAction.enabled = textField.text != nil
+        saveAction.isEnabled = textField.text != nil
       }
       
     }
-    SceneManager.sharedInstance.presentingController.presentViewController(alertController, animated: true, completion: nil)
+    SceneManager.sharedInstance.presentingController.present(alertController, animated: true, completion: nil)
 
   }
   
@@ -629,7 +629,7 @@ class LevelEditPlayScene: LevelScene {
 
 // MARK: Help Functions
 
-private func copyNode(node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSpriteNode {
+private func copyNode(_ node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSpriteNode {
   let copyNode = Type.init(texture: node.texture)
   copyNode.size = node.size
   copyNode.position = node.position
@@ -638,7 +638,7 @@ private func copyNode(node:SKSpriteNode, toType Type: SKSpriteNode.Type) -> SKSp
   return copyNode
 }
 
-private func calculate(inout minPoint: CGPoint, inout maxPoint: CGPoint, withNode node: SKSpriteNode) {
+private func calculate(_ minPoint: inout CGPoint, maxPoint: inout CGPoint, withNode node: SKSpriteNode) {
   minPoint.x = min(minPoint.x, node.position.x)
   minPoint.y = min(minPoint.y, node.position.y)
   maxPoint.x = max(maxPoint.x, node.position.x)

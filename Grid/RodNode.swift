@@ -25,9 +25,9 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   var pointNodes = Set<RotationPointNode>() {
     didSet {
       if pointNodes.count == 0 {
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
       }else {
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
       }
     }
   }
@@ -40,16 +40,16 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   
   var isRotating = false
   
-  private var upOrLeftNode: RotationPointNode?
-  private var downOrRightNode: RotationPointNode?
+  fileprivate var upOrLeftNode: RotationPointNode?
+  fileprivate var downOrRightNode: RotationPointNode?
   
 
   
 //  MARK:CustomNodeEvents methods
   func didMoveToScene() {
-    physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 22, height: size.height-8))
+    physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 22, height: size.height-8))
     physicsBody!.affectedByGravity = false
-    physicsBody!.dynamic = false
+    physicsBody!.isDynamic = false
     isRotating = false
     
     physicsBody!.categoryBitMask = PhysicsCategory.Rod
@@ -59,19 +59,19 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   
   
 //MARK:  Touch events (Useless now)
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
     setUpRotation(touches, withEvent: event)
   }
   
   // Set up rotation 
   // Return if has set up rotation
-  func setUpRotation(touches: Set<UITouch>, withEvent event: UIEvent?) -> Bool {
+  func setUpRotation(_ touches: Set<UITouch>, withEvent event: UIEvent?) -> Bool {
     print("Touched RodNode's pointNodes count \(pointNodes.count)")
     
     guard pointNodes.count != 0 && touches.count == 1 else { return false }
     
-    firstTouchPoint = touches.first!.locationInNode(self.parent!)
+    firstTouchPoint = touches.first!.location(in: self.parent!)
     // Judge the direction of pointNode reference to the rodNode
     // The jude the location of pointNode according to the rodNode
     if abs(position.x - pointNodes.first!.position.x) < pointNodes.first!.size.width {
@@ -96,28 +96,28 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
     return true
   }
   
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     
   }
   
   // Touch move event
   // Check which rotating direction of the node
-  func checkRotation(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    guard let firstTouchPoint = firstTouchPoint, direction = direction else { return }
+  func checkRotation(_ touches: Set<UITouch>, withEvent event: UIEvent?) {
+    guard let firstTouchPoint = firstTouchPoint, let direction = direction else { return }
     if !isRotating {
-      let vector = touches.first!.locationInNode(self.parent!) - firstTouchPoint
+      let vector = touches.first!.location(in: self.parent!) - firstTouchPoint
       if abs(vector.x) > MIN_MOVE_DISTANCE && abs(vector.y) > MIN_MOVE_DISTANCE {
         if direction == .vertical {
           if vector.y > 0 {
-            upOrLeftNode?.state.enterState(Rotating)
+            upOrLeftNode?.state.enter(Rotating)
           }else {
-            downOrRightNode?.state.enterState(Rotating)
+            downOrRightNode?.state.enter(Rotating)
           }
         }else {
           if vector.x < 0 {
-            upOrLeftNode?.state.enterState(Rotating)
+            upOrLeftNode?.state.enter(Rotating)
           }else {
-            downOrRightNode?.state.enterState(Rotating)
+            downOrRightNode?.state.enter(Rotating)
           }
         }
         isRotating = true
@@ -138,16 +138,16 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   }
   
   
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 //    resetRotation()
   }
   
   
-  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 //    resetRotation()
   }
   
-  override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
+  override func touchesEstimatedPropertiesUpdated(_ touches: Set<UITouch>) {
     
   }
 
@@ -161,7 +161,7 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
   }
   
   
-  func angleWith(lastVector: CGVector, vector: CGVector) -> CGFloat {
+  func angleWith(_ lastVector: CGVector, vector: CGVector) -> CGFloat {
     let oldAngle = atan2(lastVector.dy, lastVector.dx) - π/2
     let newAngle = atan2(vector.dy, vector.dx) - π/2
     return shortestAngleBetween(oldAngle, angle2: newAngle)
@@ -176,11 +176,11 @@ class RodNode: SKSpriteNode, CustomNodeEvents {
       let targetPosition = CGPoint(
         x: rotatingNode.position.x + CGFloat(tag.0)*distance,
         y: rotatingNode.position.y + CGFloat(tag.1)*distance)
-      if let pointNode = rotatingNode.parent!.nodeAtPoint(targetPosition) as? RotationPointNode {
-        pointNode.state.enterState(Checking)
+      if let pointNode = rotatingNode.parent!.atPoint(targetPosition) as? RotationPointNode {
+        pointNode.state.enter(Checking)
       }
     }
-    rotatingNode.state.enterState(Checking)
+    rotatingNode.state.enter(Checking)
     // In the game scene file didSimulatePhysics I set the rotatingNode to nil
     //self.rotatingNode = nil
   }

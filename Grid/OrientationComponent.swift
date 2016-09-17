@@ -34,7 +34,7 @@ class OrientationComponent: GKComponent {
   
   var zRotation: CGFloat = 0 {
     didSet {
-      zRotation = (zRotation + 2*π) % (2*π)
+      zRotation = (zRotation + 2*π).truncatingRemainder(dividingBy: (2*π))
     }
   }
   

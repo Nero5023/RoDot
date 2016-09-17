@@ -7,6 +7,26 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 enum ThemeType: String {
   case Theme1 = "theme1"
@@ -63,7 +83,7 @@ class LevelManager {
   
   var themesInfo: [String: [String: Int]] {
     didSet {
-      NSUserDefaults.standardUserDefaults().setObject(themesInfo, forKey: LevelManager.Constants.ThemeLevelDic)
+      UserDefaults.standard.set(themesInfo, forKey: LevelManager.Constants.ThemeLevelDic)
     }
   }
   
@@ -85,8 +105,8 @@ class LevelManager {
     return [1: self.theme1, 2: self.theme2, 3: self.theme3]
   }()
   
-  private init() {
-    if let info = NSUserDefaults.standardUserDefaults().dictionaryForKey(LevelManager.Constants.ThemeLevelDic) as? [String: [String: Int]]{
+  fileprivate init() {
+    if let info = UserDefaults.standard.dictionary(forKey: LevelManager.Constants.ThemeLevelDic) as? [String: [String: Int]]{
       self.themesInfo = info
     }else {
       var themesInfo: [String: [String: Int]] = [:]
@@ -106,7 +126,7 @@ class LevelManager {
     }
   }
   
-  func passLevel(theme theme: ThemeType, level: Int) {
+  func passLevel(theme: ThemeType, level: Int) {
     guard  level > 0 && level <= themesInfo[theme.rawValue]![LevelManager.Constants.TotalLevels] else { return }
     if level == themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]! {
       themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = level+1
@@ -124,15 +144,15 @@ class LevelManager {
     return themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels]!
   }
   
-  func unLockTheme(theme: ThemeType) {
+  func unLockTheme(_ theme: ThemeType) {
     guard getUnlockLevels(themeType: theme) == 0 else { return }
     themesInfo[theme.rawValue]![LevelManager.Constants.UnlockedLevels] = 1
     delay(2) {
-      HUD.flash(.Label("You just have unlocked \(theme.rawValue)"), delay: 1.5)
+      HUD.flash(.label("You just have unlocked \(theme.rawValue)"), delay: 1.5)
     }
   }
   
-  func themeEabled(theme: ThemeType) -> Bool {
+  func themeEabled(_ theme: ThemeType) -> Bool {
     return getUnlockLevels(themeType: theme) != 0
   }
   

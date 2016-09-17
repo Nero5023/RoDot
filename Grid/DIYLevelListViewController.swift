@@ -13,11 +13,11 @@ class DIYLevelListViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
   
-  var fetchedResultsController: NSFetchedResultsController!
+  var fetchedResultsController: NSFetchedResultsController<AnyObject>!
   let CellIdentifier = "Cell"
   
   override func viewDidLoad() {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     self.tableView.tableFooterView = UIView()
     
     let levelFetchRequset = NSFetchRequest(entityName: "Level")
@@ -33,26 +33,26 @@ class DIYLevelListViewController: UIViewController {
     
   }
   
-  func configureCell(cell: DIYLevelTableViewCell, indexPath: NSIndexPath) {
-    let level = fetchedResultsController.objectAtIndexPath(indexPath) as! Level
+  func configureCell(_ cell: DIYLevelTableViewCell, indexPath: IndexPath) {
+    let level = fetchedResultsController.object(at: indexPath) as! Level
     cell.levelName.text = level.name
-    if indexPath.row % 2 == 1 {
+    if (indexPath as NSIndexPath).row % 2 == 1 {
       cell.backgroundColor = UIColor(red: 90/255.0, green: 164/255.0, blue: 253/255.0, alpha: 1)
-      cell.levelName.textColor = UIColor.whiteColor()
+      cell.levelName.textColor = UIColor.white
     }else {
-      cell.backgroundColor = UIColor.whiteColor()
-      cell.levelName.textColor = UIColor.blackColor()
+      cell.backgroundColor = UIColor.white
+      cell.levelName.textColor = UIColor.black
       
     }
-    cell.contentView.backgroundColor = UIColor.clearColor()
+    cell.contentView.backgroundColor = UIColor.clear
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
   
-  @IBAction func close(sender: UIBarButtonItem) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func close(_ sender: UIBarButtonItem) {
+    self.dismiss(animated: true, completion: nil)
   }
 }
 
@@ -60,7 +60,7 @@ class DIYLevelListViewController: UIViewController {
 
 extension DIYLevelListViewController: UITableViewDataSource {
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     if fetchedResultsController == nil {
       return 0
     }
@@ -72,7 +72,7 @@ extension DIYLevelListViewController: UITableViewDataSource {
   }
   
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //    let sectionInfo =
 //      fetchedResultsController.sections![section]
     if fetchedResultsController == nil {
@@ -85,13 +85,13 @@ extension DIYLevelListViewController: UITableViewDataSource {
     }
   }
   
-  func tableView(tableView: UITableView,
-                 cellForRowAtIndexPath indexPath: NSIndexPath)
+  func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath)
     -> UITableViewCell {
       
       let cell =
-        tableView.dequeueReusableCellWithIdentifier(
-          CellIdentifier, forIndexPath: indexPath)
+        tableView.dequeueReusableCell(
+          withIdentifier: CellIdentifier, for: indexPath)
           as! DIYLevelTableViewCell
       
       configureCell(cell, indexPath: indexPath)
@@ -113,8 +113,8 @@ extension DIYLevelListViewController: UITableViewDataSource {
 
 extension DIYLevelListViewController: UITableViewDelegate {
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let level = fetchedResultsController.objectAtIndexPath(indexPath) as! Level
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let level = fetchedResultsController.object(at: indexPath) as! Level
     let nodes: [Dictionary<String, String>] = level.nodes!.map{ node in
       //      $0 as! Node
       let node = node as! Node
@@ -122,18 +122,18 @@ extension DIYLevelListViewController: UITableViewDelegate {
         "zRotation": String(node.zRotation!), "type": node.type!]
     }
     let scene = LevelEditPlayScene.editSceneFromNodesData(nodes, sceneType: .selfPlay(level.name, levelObjectId: "\(level.objectID)"))
-    scene!.scaleMode = .AspectFill
+    scene!.scaleMode = .aspectFill
     SceneManager.sharedInstance.presentingView.presentScene(scene)
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
-  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
   
-  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == UITableViewCellEditingStyle.Delete {
-      let levelToMove = fetchedResultsController.objectAtIndexPath(indexPath) as! Level
-      SceneManager.sharedInstance.managedContext.deleteObject(levelToMove)
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == UITableViewCellEditingStyle.delete {
+      let levelToMove = fetchedResultsController.object(at: indexPath) as! Level
+      SceneManager.sharedInstance.managedContext.delete(levelToMove)
       do {
         try SceneManager.sharedInstance.managedContext.save()
       }catch let error as NSError {
@@ -149,48 +149,48 @@ extension DIYLevelListViewController: UITableViewDelegate {
 
 extension DIYLevelListViewController: NSFetchedResultsControllerDelegate {
   
-  func controllerWillChangeContent(controller:
-    NSFetchedResultsController) {
+  func controllerWillChangeContent(_ controller:
+    NSFetchedResultsController<NSFetchRequestResult>) {
     tableView.beginUpdates()
   }
   
-  func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     
     switch type {
-    case .Insert:
-      tableView.insertRowsAtIndexPaths([newIndexPath!],
-                                       withRowAnimation: .Automatic)
-    case .Delete:
-      tableView.deleteRowsAtIndexPaths([indexPath!],
-                                       withRowAnimation: .Automatic)
-    case .Update:
-      let cell = tableView.cellForRowAtIndexPath(indexPath!)
+    case .insert:
+      tableView.insertRows(at: [newIndexPath!],
+                                       with: .automatic)
+    case .delete:
+      tableView.deleteRows(at: [indexPath!],
+                                       with: .automatic)
+    case .update:
+      let cell = tableView.cellForRow(at: indexPath!)
         as! DIYLevelTableViewCell
       configureCell(cell, indexPath: indexPath!)
-    case .Move:
-      tableView.deleteRowsAtIndexPaths([indexPath!],
-                                       withRowAnimation: .Automatic)
-      tableView.insertRowsAtIndexPaths([newIndexPath!],
-                                       withRowAnimation: .Automatic)
+    case .move:
+      tableView.deleteRows(at: [indexPath!],
+                                       with: .automatic)
+      tableView.insertRows(at: [newIndexPath!],
+                                       with: .automatic)
     }
   }
   
-  func controllerDidChangeContent(controller:
-    NSFetchedResultsController) {
+  func controllerDidChangeContent(_ controller:
+    NSFetchedResultsController<NSFetchRequestResult>) {
     tableView.endUpdates()
   }
   
-  func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
     
-    let indexSet = NSIndexSet(index: sectionIndex)
+    let indexSet = IndexSet(integer: sectionIndex)
     
     switch type {
-    case .Insert:
+    case .insert:
       tableView.insertSections(indexSet,
-                               withRowAnimation: .Automatic)
-    case .Delete:
+                               with: .automatic)
+    case .delete:
       tableView.deleteSections(indexSet,
-                               withRowAnimation: .Automatic)
+                               with: .automatic)
     default :
       break
     }

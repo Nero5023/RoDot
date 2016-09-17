@@ -13,7 +13,7 @@ class RoDotNavigationController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RoDotNavigationController.showAuthenticationViewController), name: PresentAuthenticationViewController, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(RoDotNavigationController.showAuthenticationViewController), name: NSNotification.Name(rawValue: PresentAuthenticationViewController), object: nil)
     
     GameKitHelper.shareInstance.authenticateLocalPlayer()
   }
@@ -22,11 +22,11 @@ class RoDotNavigationController: UINavigationController {
     let gameKitHelper = GameKitHelper.shareInstance
     
     if let authenticationViewController = gameKitHelper.authenticationViewController {
-      topViewController?.presentViewController(authenticationViewController, animated: true, completion: nil)
+      topViewController?.present(authenticationViewController, animated: true, completion: nil)
     }
   }
   
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
 }

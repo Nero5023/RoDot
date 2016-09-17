@@ -22,9 +22,9 @@ class Rod: GKEntity {
     let renderComponent = RenderComponent(entity: self, renderNode: renderNode)
     addComponent(renderComponent)
     
-    let physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: GameplayConfiguration.Rod.physizeBodyWidth, height: renderComponent.node.size.height - 2))
+    let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: GameplayConfiguration.Rod.physizeBodyWidth, height: renderComponent.node.size.height - 2))
     physicsBody.affectedByGravity = false
-    physicsBody.dynamic = false
+    physicsBody.isDynamic = false
     
     let physicsComponent = PhysicsComponent(physicsBody:physicsBody, colliderType: GameplayConfiguration.Rod.collider)
     addComponent(physicsComponent)
@@ -48,6 +48,10 @@ class Rod: GKEntity {
     let moveComponent = MoveComponent()
     addComponent(moveComponent)
     
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
   }
   
 }

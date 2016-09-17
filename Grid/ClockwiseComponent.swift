@@ -17,7 +17,7 @@ class ClockwiseComponent: GKComponent {
   
   
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("The ClockwiseComponent's entity must have a RenderComponent")
     }
     return renderComponent
@@ -29,8 +29,12 @@ class ClockwiseComponent: GKComponent {
     self.isClockwise = isClockwise
     super.init()
   }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
   
-  func calculateAngularVelocity(angularVelocity: CGFloat) -> CGFloat {
+  func calculateAngularVelocity(_ angularVelocity: CGFloat) -> CGFloat {
     var aVelocity = angularVelocity
     if isClockwise {
       if angularVelocity > 0 || angularVelocity < -π/6*4{

@@ -30,8 +30,8 @@ class FloatingButton: UIButton {
   
   convenience init(image: UIImage?, backgroundColor: UIColor = UIColor.flatBlueColor) {
     self.init()
-    setImage(image, forState: .Normal)
-    setBackgroundImage(backgroundColor.pixelImage, forState: .Normal)
+    setImage(image, for: UIControlState())
+    setBackgroundImage(backgroundColor.pixelImage, for: UIControlState())
   }
   
   convenience init() {
@@ -39,9 +39,9 @@ class FloatingButton: UIButton {
   }
   
   func setup() {
-    tintColor = UIColor.whiteColor()
-    if backgroundImageForState(.Normal) == nil {
-      setBackgroundImage(UIColor.flatBlueColor.pixelImage , forState: .Normal)
+    tintColor = UIColor.white
+    if backgroundImage(for: UIControlState()) == nil {
+      setBackgroundImage(UIColor.flatBlueColor.pixelImage , for: UIControlState())
     }
     layer.cornerRadius = frame.width/2.0
     layer.masksToBounds = true

@@ -11,28 +11,28 @@ import Foundation
 
 
 @objc protocol FloatingMenueControllerDelegate: class {
-  optional func floatingMenuController(controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index:Int)
-  optional func floatingMenuControllerDidCancel(controller: FloatingMenuController)
+  @objc optional func floatingMenuController(_ controller: FloatingMenuController, didTapOnButton button: UIButton, atIndex index:Int)
+  @objc optional func floatingMenuControllerDidCancel(_ controller: FloatingMenuController)
 }
 
 
 class FloatingMenuController: UIViewController {
   
   enum Direction {
-    case Up
-    case Down
-    case Left
-    case Right
+    case up
+    case down
+    case left
+    case right
     
-    func offsetPoint(point: CGPoint, offset: CGFloat) -> CGPoint {
+    func offsetPoint(_ point: CGPoint, offset: CGFloat) -> CGPoint {
       switch self {
-      case .Up:
+      case .up:
         return CGPoint(x: point.x, y: point.y - offset)
-      case .Down:
+      case .down:
         return CGPoint(x: point.x, y: point.y + offset)
-      case .Left:
+      case .left:
         return CGPoint(x: point.x - offset, y: point.y)
-      case .Right:
+      case .right:
         return CGPoint(x: point.x + offset, y: point.y)
       }
     }
@@ -40,18 +40,18 @@ class FloatingMenuController: UIViewController {
   
   weak var delegate: FloatingMenueControllerDelegate?
 
-  var buttonDirection = Direction.Up
+  var buttonDirection = Direction.up
   var buttonPadding: CGFloat = 70
   var buttonItems = [UIButton]()
   
-  var labelDirection = Direction.Left
+  var labelDirection = Direction.left
   var labelTitles = [String]()
   var buttonLabels = [UILabel]()
   
 //  let fromView: UIView
   let fromPosition: CGPoint
   
-  let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+  let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
   
   let closeButon = FloatingButton(image: UIImage(named: "icon-close"), backgroundColor: UIColor.flatRedColor)
   
@@ -60,10 +60,10 @@ class FloatingMenuController: UIViewController {
     super.init(nibName: nil, bundle: nil)
     
     //present controller background doest disapper
-    modalPresentationStyle = .OverFullScreen
+    modalPresentationStyle = .overFullScreen
     
     //present effect
-    modalTransitionStyle = .CrossDissolve
+    modalTransitionStyle = .crossDissolve
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -80,7 +80,7 @@ class FloatingMenuController: UIViewController {
 //    }
 //  }
   
-  func configureButtons(initial: Bool) {
+  func configureButtons(_ initial: Bool) {
     _ = presentingViewController!
 //    let center = parentController.view.convertPoint(fromView.center, fromView: fromView.superview)
     let center = fromPosition
@@ -88,34 +88,34 @@ class FloatingMenuController: UIViewController {
     
     if initial {
       closeButon.alpha = 0
-      closeButon.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-      for (_, button) in buttonItems.enumerate() {
+      closeButon.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+      for (_, button) in buttonItems.enumerated() {
         button.center = center
         button.alpha = 0
-        button.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+        button.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
         
       }
       
-      for (index, label) in buttonLabels.enumerate() {
+      for (index, label) in buttonLabels.enumerated() {
         let buttonCenter = buttonDirection.offsetPoint(center, offset: buttonPadding * CGFloat(index + 1))
-        let labelSize = labelDirection == .Up || labelDirection == .Down ? label.bounds.height : label.bounds.width
+        let labelSize = labelDirection == .up || labelDirection == .down ? label.bounds.height : label.bounds.width
         let labelCenter = labelDirection.offsetPoint(buttonCenter, offset: buttonPadding/2.0 + labelSize)
         label.center = labelCenter
         label.alpha = 0
       }
     }else {
       closeButon.alpha = 1
-      closeButon.transform = CGAffineTransformIdentity
+      closeButon.transform = CGAffineTransform.identity
       
-      for (index, button) in buttonItems.enumerate() {
+      for (index, button) in buttonItems.enumerated() {
         button.center = buttonDirection.offsetPoint(center, offset: buttonPadding * CGFloat(index + 1))
         button.alpha = 1
-        button.transform = CGAffineTransformIdentity
+        button.transform = CGAffineTransform.identity
       }
       
-      for (index, label) in buttonLabels.enumerate() {
+      for (index, label) in buttonLabels.enumerated() {
         let buttonCenter = buttonDirection.offsetPoint(center, offset: buttonPadding * CGFloat(index + 1))
-        let labelSize = labelDirection == .Up || labelDirection == .Down ? label.bounds.height : label.bounds.width
+        let labelSize = labelDirection == .up || labelDirection == .down ? label.bounds.height : label.bounds.width
         let labelCenter = labelDirection.offsetPoint(buttonCenter, offset: buttonPadding/2.0 + labelSize/2.0)
         label.center = labelCenter
         label.alpha = 1
@@ -131,11 +131,11 @@ class FloatingMenuController: UIViewController {
     blurredView.frame = view.bounds
     view.addSubview(blurredView)
     
-    closeButon.addTarget(self, action: #selector(FloatingMenuController.handleCloseMenu(_:)), forControlEvents: .TouchUpInside)
+    closeButon.addTarget(self, action: #selector(FloatingMenuController.handleCloseMenu(_:)), for: .touchUpInside)
     view.addSubview(closeButon)
     
     for button in buttonItems {
-      button.addTarget(self, action: #selector(FloatingMenuController.handleMenuButton(_:)), forControlEvents: .TouchUpInside)
+      button.addTarget(self, action: #selector(FloatingMenuController.handleMenuButton(_:)), for: .touchUpInside)
       view.addSubview(button)
     }
     
@@ -143,7 +143,7 @@ class FloatingMenuController: UIViewController {
       let label = UILabel()
       label.text = title
       label.textColor = UIColor.flatBlackColor
-      label.textAlignment = .Center
+      label.textAlignment = .center
       label.font = UIFont(name: "HelveticaNeue-Light", size: 15)
       label.backgroundColor = UIColor.flatWhiteColor
       label.sizeToFit()
@@ -157,42 +157,42 @@ class FloatingMenuController: UIViewController {
     
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     animateButtons(true)
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     animateButtons(false)
   }
   
   
-  func handleCloseMenu(sender: AnyObject) {
+  func handleCloseMenu(_ sender: AnyObject) {
     delegate?.floatingMenuControllerDidCancel?(self)
     SKTAudio.sharedInstance().playSoundEffect("button_click_5.wav")
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
     
   }
   
-  func handleMenuButton(sender: AnyObject) {
+  func handleMenuButton(_ sender: AnyObject) {
     if let button = sender as? UIButton {
-      if let index = buttonItems.indexOf(button) {
+      if let index = buttonItems.index(of: button) {
         delegate?.floatingMenuController?(self, didTapOnButton: button, atIndex: index)
       }
     }
   }
   
-  func animateButtons(visible: Bool) {
+  func animateButtons(_ visible: Bool) {
     configureButtons(visible)
     
-    UIView.animateWithDuration(0.4 , delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [], animations: {
+    UIView.animate(withDuration: 0.4 , delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [], animations: {
       [unowned self] in
       self.configureButtons(!visible)
     }, completion: nil)
   }
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
   }
   

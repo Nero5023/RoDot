@@ -31,4 +31,8 @@ class RenderComponent: GKComponent {
     node.position = renderNode.position
     node.color = renderNode.color
   }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
 }

@@ -16,7 +16,7 @@ class PointCheckingState: GKState {
   unowned var entity: BasePointEntity
   
   var relateComponent: RelateComponent {
-    guard let relateComponent = entity.componentForClass(RelateComponent.self) else {
+    guard let relateComponent = entity.component(ofType: RelateComponent.self) else {
       fatalError("The PointCheckingState's entity must have a RelateComponent")
     }
     return relateComponent
@@ -30,27 +30,27 @@ class PointCheckingState: GKState {
   
   // MARK: GKState Life Cycle
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    super.didEnterWithPreviousState(previousState)
+  override func didEnter(from previousState: GKState?) {
+    super.didEnter(from: previousState)
     relateComponent.updateRelatedNodes()
         
-    if let rotatableRodCount = entity.componentForClass(RotatableRodCountComponent.self)?.rotatableRodCount {
+    if let rotatableRodCount = entity.component(ofType: RotatableRodCountComponent.self)?.rotatableRodCount {
       if relateComponent.relateNodes.count == rotatableRodCount {
-        stateMachine?.enterState(PointUnlockedState)
+        stateMachine?.enter(PointUnlockedState)
       }else {
-        stateMachine?.enterState(PointLockedState)
+        stateMachine?.enter(PointLockedState)
       }
     }else {
       if relateComponent.relateNodes.count == 4 {
-        stateMachine?.enterState(PointLockedState)
+        stateMachine?.enter(PointLockedState)
       }else {
-        stateMachine?.enterState(PointUnlockedState)
+        stateMachine?.enter(PointUnlockedState)
       }
     }
   }
   
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is PointLockedState.Type || stateClass is PointUnlockedState.Type
   }
   

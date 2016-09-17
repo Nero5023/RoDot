@@ -30,7 +30,7 @@ class SKButtonNode: SKSpriteNode {
   
   var isSelected: Bool = false {
     didSet {
-      if let _ = selectedTexture where isEnabled && !isHighlight {
+      if let _ = selectedTexture , isEnabled && !isHighlight {
         self.texture = isSelected ? selectedTexture : normalSKTexture
       }else if isHighlight {
         self.texture = highlightTexture
@@ -61,14 +61,14 @@ class SKButtonNode: SKSpriteNode {
   
   required init(textureNormal normal: SKTexture?, selected: SKTexture?, disabled: SKTexture?) {
     self.title = SKLabelNode(fontNamed: "Arial")
-    self.title.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-    self.title.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
-    super.init(texture: normal, color: UIColor.clearColor(), size: normal != nil ? normal!.size() : CGSize(width: 40, height: 40))
+    self.title.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+    self.title.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+    super.init(texture: normal, color: UIColor.clear, size: normal != nil ? normal!.size() : CGSize(width: 40, height: 40))
     self.normalSKTexture = normal
     self.selectedTexture = selected
     self.disabledTexture = disabled
     addChild(title)
-    self.userInteractionEnabled = true
+    self.isUserInteractionEnabled = true
   }
   
   convenience init(textureNormal normal: SKTexture?, selected: SKTexture?) {
@@ -102,8 +102,8 @@ class SKButtonNode: SKSpriteNode {
   
   // MARK: TouchEvent
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    if let actionTouchDown = actionTouchDown where isEnabled {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    if let actionTouchDown = actionTouchDown , isEnabled {
       actionTouchDown()
     }
     if isEnabled {
@@ -111,16 +111,16 @@ class SKButtonNode: SKSpriteNode {
     }
   }
   
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     guard isEnabled else { return }
-    let touchPoint = touches.first!.locationInNode(self.parent!)
-    isSelected = CGRectContainsPoint(self.frame, touchPoint) ? true : false
+    let touchPoint = touches.first!.location(in: self.parent!)
+    isSelected = self.frame.contains(touchPoint) ? true : false
   }
   
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     guard isEnabled else { return }
-    let touchPoint = touches.first!.locationInNode(self.parent!)
-    if CGRectContainsPoint(self.frame, touchPoint) {
+    let touchPoint = touches.first!.location(in: self.parent!)
+    if self.frame.contains(touchPoint) {
       if let actionTouchUpInside = actionTouchUpInside {
         actionTouchUpInside()
       }

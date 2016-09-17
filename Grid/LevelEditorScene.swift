@@ -53,8 +53,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   }
   
   func setUpPointDetail() {
-    let layerNode = overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!
-    let point = (layerNode.childNodeWithName("point") as! SKButtonNode)
+    let layerNode = overlayNode.childNode(withName: LayerType.nodeTypeLayer.rawValue)!
+    let point = (layerNode.childNode(withName: "point") as! SKButtonNode)
     for node in point.children { node.removeFromParent() }
     if let _ = typeLayerInfo[.nodeTypeLayer] {
       let pointTypeName = pointButtonTypeName()
@@ -80,12 +80,12 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   var transferNodes = Set<SKSpriteNode>() {
     didSet {
-      let componentButton = spritesNode.childNodeWithName("componentButton") as! SKButtonNode
+      let componentButton = spritesNode.childNode(withName: "componentButton") as! SKButtonNode
       componentButton.isEnabled = transferNodes.count % 2 == 0
       if transferNodes.count % 2 != 0 {
-        (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = false
+        (spritesNode.childNode(withName: "runButton") as? SKButtonNode)?.isEnabled = false
       }else {
-        (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
+        (spritesNode.childNode(withName: "runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
       }
 //      for nodeName in transferNodesNames {
 //        if GameplayConfiguration.transferTargetNames[nodeName] == nil {
@@ -99,12 +99,12 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   var isAddBall: Bool = false {
     didSet {
-      (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
+      (spritesNode.childNode(withName: "runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
     }
   }
   var isAddDestination: Bool = false {
     didSet {
-      (spritesNode.childNodeWithName("runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
+      (spritesNode.childNode(withName: "runButton") as? SKButtonNode)?.isEnabled = isAddBall && isAddDestination
     }
   }
   
@@ -114,19 +114,19 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   // MARK: Scene Life Cycle
   
-  override func didMoveToView(view: SKView) {
+  override func didMove(to view: SKView) {
     guard isFirstTime else { return }
     isFirstTime = false
     var pointNodes = [RotationPointNode]()
     var rods = [RodNode]()
-    enumerateChildNodesWithName("//*", usingBlock: { [unowned self] (node, _) -> () in
+    enumerateChildNodes(withName: "//*", using: { [unowned self] (node, _) -> () in
       if let node = node as? RodNode {
         rods.append(node)
       }
       if let node = node as? RotationPointNode {
         pointNodes.append(node)
       }
-      if let node = node as? SKSpriteNode where node.name == "componentButton" {
+      if let node = node as? SKSpriteNode , node.name == "componentButton" {
         
         let componentButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: SKTexture(imageNamed: "componentButton_disabled"))
         node.removeFromParent()
@@ -147,7 +147,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
         }
       }
       
-      if let node = node as? SKSpriteNode where node.name == "runButton" {
+      if let node = node as? SKSpriteNode , node.name == "runButton" {
         let runButton = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: nil, disabledTextue: SKTexture(imageNamed: "runButton_disabled"))
         node.removeFromParent()
         self.spritesNode.addChild(runButton)
@@ -217,9 +217,9 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     addDoneButton()
     showComponetLayer()
     
-    if let showInstructionCount =  NSUserDefaults.standardUserDefaults().objectForKey(ShowEditSceneInstructionCountKey) as? Int where showInstructionCount < 3 {
+    if let showInstructionCount =  UserDefaults.standard.object(forKey: ShowEditSceneInstructionCountKey) as? Int , showInstructionCount < 3 {
       addInstructionLabel()
-      NSUserDefaults.standardUserDefaults().setObject(showInstructionCount + 1, forKey: ShowEditSceneInstructionCountKey)
+      UserDefaults.standard.set(showInstructionCount + 1, forKey: ShowEditSceneInstructionCountKey)
     }
   }
   
@@ -231,7 +231,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     backButton.zPosition = overlayNode.zPosition
     overlayNode.addChild(backButton)
     backButton.alpha = 0
-    backButton.runAction(SKAction.sequence([SKAction.waitForDuration(0.33), SKAction.fadeInWithDuration(0.66)]))
+    backButton.run(SKAction.sequence([SKAction.wait(forDuration: 0.33), SKAction.fadeIn(withDuration: 0.66)]))
   }
   
   func addBackground() {
@@ -257,13 +257,13 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       self.showEditLayer()
     }
     doneButton.position = CGPoint(x: 500, y: -150)
-    overlayNode.childNodeWithName(LayerType.rotateCountLayer.rawValue)?.addChild(doneButton)
+    overlayNode.childNode(withName: LayerType.rotateCountLayer.rawValue)?.addChild(doneButton)
   }
   
   func configureOverlay() {
     let overlayScece = SKScene(fileNamed: "ComponentChoose")!
-    addChild(overlayScece.childNodeWithName("Overlay")!.copy() as! SKNode)
-    enumerateChildNodesWithName("/Overlay//*", usingBlock: { (node, _) -> () in
+    addChild(overlayScece.childNode(withName: "Overlay")!.copy() as! SKNode)
+    enumerateChildNodes(withName: "/Overlay//*", using: { (node, _) -> () in
       if let node = node as? SKSpriteNode {
         let button = copyNode(node, toButtonType: SKButtonNode.self, selectedTextue: SKTexture(imageNamed: "pointnode0"), disabledTextue: nil)
         for child in node.children {
@@ -286,8 +286,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   }
   
   
-  func setUpButtonsInLayer(layer: LayerType) {
-    let layerNode = overlayNode.childNodeWithName(layer.rawValue)!
+  func setUpButtonsInLayer(_ layer: LayerType) {
+    let layerNode = overlayNode.childNode(withName: layer.rawValue)!
     for node in layerNode.children {
       if let node = node as? SKButtonNode {
         
@@ -311,7 +311,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
             }
           }
           
-          for otherNode in self.overlayNode.childNodeWithName(layer.rawValue)!.children {
+          for otherNode in self.overlayNode.childNode(withName: layer.rawValue)!.children {
             if otherNode != node {
               (otherNode as? SKButtonNode)?.isHighlight = false
             }
@@ -320,12 +320,12 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       }
     }
     layerNode.alpha = 0
-    layerNode.runAction(SKAction.fadeInWithDuration(0.66))
+    layerNode.run(SKAction.fadeIn(withDuration: 0.66))
   }
   
   func setAllButtonsNotHighlight() {
     for layer in LayerType.allType {
-      for node in overlayNode.childNodeWithName(layer.rawValue)!.children {
+      for node in overlayNode.childNode(withName: layer.rawValue)!.children {
         if let node = node as? SKButtonNode {
           node.isHighlight = false
         }
@@ -335,7 +335,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   
   func generateNewScene() {
-    let scene = LevelEditPlayScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNodeWithName("ball")! as! SKSpriteNode, destination: self.spritesNode.childNodeWithName("destination")! as! SKSpriteNode, transfers: [SKSpriteNode](transferNodes))
+    let scene = LevelEditPlayScene.editScene(self.rodButtons, points: self.pointButtons, ball: self.spritesNode.childNode(withName: "ball")! as! SKSpriteNode, destination: self.spritesNode.childNode(withName: "destination")! as! SKSpriteNode, transfers: [SKSpriteNode](transferNodes))
     scene?.scaleMode = self.scaleMode
     scene?.editScene = self
     self.view?.presentScene(scene)
@@ -345,25 +345,25 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   func addInstructionLabel() {
     let label = SKLabelNode(text: "Tap the rod and dot to add or cancel.")
 //    Tap the empty space to add node
-    label.fontColor = UIColor.blackColor()
+    label.fontColor = UIColor.black
     label.fontSize = 50
     label.fontName = "ArialRoundedMTBold"
     label.position = CGPoint(x: size.width/2, y: size.height - 80)
     spritesNode.addChild(label)
-    let fadeInAction = SKAction.fadeInWithDuration(0.8)
-    let fadeOutActoin = SKAction.fadeOutWithDuration(1.3)
-    fadeInAction.timingMode = .EaseInEaseOut
-    fadeOutActoin.timingMode = .EaseInEaseOut
+    let fadeInAction = SKAction.fadeIn(withDuration: 0.8)
+    let fadeOutActoin = SKAction.fadeOut(withDuration: 1.3)
+    fadeInAction.timingMode = .easeInEaseOut
+    fadeOutActoin.timingMode = .easeInEaseOut
     
     let willShowTexts = ["Tap the empty space to add node.", "After adding a ball and a target, you can run it.", "Tap the rod and dot to add or cancel."]
     var index = 0
-    let runblock = SKAction.runBlock {
+    let runblock = SKAction.run {
       index = index % willShowTexts.count
       label.text = willShowTexts[index]
       index+=1
     }
-    let action = SKAction.sequence([fadeInAction, SKAction.waitForDuration(3), fadeOutActoin, SKAction.waitForDuration(0.1), runblock])
-    label.runAction(SKAction.repeatActionForever(action))
+    let action = SKAction.sequence([fadeInAction, SKAction.wait(forDuration: 3), fadeOutActoin, SKAction.wait(forDuration: 0.1), runblock])
+    label.run(SKAction.repeatForever(action))
     
   }
   
@@ -371,15 +371,15 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   // MARK: Help Methods
   
   func showComponetLayer() {
-    self.spritesNode.hidden = true
-    self.overlayNode.hidden = false
+    self.spritesNode.isHidden = true
+    self.overlayNode.isHidden = false
     hiddenPointDetailComponent()
     showOtherNodeType()
   }
   
   func showEditLayer() {
-    self.spritesNode.hidden = false
-    self.overlayNode.hidden = true
+    self.spritesNode.isHidden = false
+    self.overlayNode.isHidden = true
   }
   
   func showPointDetailComponent() {
@@ -390,14 +390,14 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     setHiddenForPointDetailComponent(true)
   }
   
-  func setHiddenForPointDetailComponent(hidden: Bool) {
+  func setHiddenForPointDetailComponent(_ hidden: Bool) {
     for layerType in LayerType.allType where layerType != .nodeTypeLayer {
-      let layerNode =  overlayNode.childNodeWithName(layerType.rawValue)!
+      let layerNode =  overlayNode.childNode(withName: layerType.rawValue)!
       layerNode.removeAllActions()
       if hidden {
-        layerNode.runAction(SKAction.fadeOutWithDuration(0.33))
+        layerNode.run(SKAction.fadeOut(withDuration: 0.33))
       }else {
-        layerNode.runAction(SKAction.fadeInWithDuration(0.33))
+        layerNode.run(SKAction.fadeIn(withDuration: 0.33))
       }
     }
   }
@@ -410,16 +410,16 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     setHiddenForOtherNodeType(false)
   }
   
-  func setHiddenForOtherNodeType(hidden: Bool) {
-    for node in overlayNode.childNodeWithName(LayerType.nodeTypeLayer.rawValue)!.children where node.name != "point" && node is SKButtonNode{
+  func setHiddenForOtherNodeType(_ hidden: Bool) {
+    for node in overlayNode.childNode(withName: LayerType.nodeTypeLayer.rawValue)!.children where node.name != "point" && node is SKButtonNode{
       let node = node as! SKButtonNode
       node.removeAllActions()
       if hidden {
         node.isEnabled = false
-        node.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.33)]))
+        node.run(SKAction.sequence([SKAction.fadeOut(withDuration: 0.33)]))
       }else {
         node.isEnabled = true
-        node.runAction(SKAction.sequence([SKAction.fadeInWithDuration(0.33)]))
+        node.run(SKAction.sequence([SKAction.fadeIn(withDuration: 0.33)]))
       }
 //      node.hidden = hidden
     }
@@ -428,10 +428,10 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   // MARK: Touch Event
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     // In spritesNode action
-    var touchPosition = touches.first!.locationInNode(spritesNode)
-    if spritesNode.nodeAtPoint(touchPosition) == spritesNode && overlayNode.hidden == true {
+    var touchPosition = touches.first!.location(in: spritesNode)
+    if spritesNode.atPoint(touchPosition) == spritesNode && overlayNode.isHidden == true {
       if let nodeType = typeLayerInfo[.nodeTypeLayer] {
         // Make sure it's not the point node
         if nodeType == "ball" || nodeType == "destination" {
@@ -460,8 +460,8 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
       }
     }
     // In overlayNode action
-    touchPosition = touches.first!.locationInNode(overlayNode)
-    if overlayNode.nodeAtPoint(touchPosition) == overlayNode && overlayNode.hidden == false {
+    touchPosition = touches.first!.location(in: overlayNode)
+    if overlayNode.atPoint(touchPosition) == overlayNode && overlayNode.isHidden == false {
       for button in pointButtons {
         let pointTypeName = pointButtonTypeName()
         if button.type == nil {
@@ -481,7 +481,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     return rotatableCount + clockwise + rotateCount
   }
   
-  func addTransfer(touchPosition: CGPoint) {
+  func addTransfer(_ touchPosition: CGPoint) {
     let nodeType = "transfer"
     if transferNodes.count == 2 {
       return
@@ -506,10 +506,10 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
   
   
   func backButtonAction() {
-    let alertController = UIAlertController(title: "Are you sure to exit?", message: nil, preferredStyle: .Alert)
+    let alertController = UIAlertController(title: "Are you sure to exit?", message: nil, preferredStyle: .alert)
     
-    let cancelAction = UIAlertAction(title: "No", style: .Cancel) { _ in }
-    let confirmAction = UIAlertAction(title: "Yes", style: .Default) { _ in
+    let cancelAction = UIAlertAction(title: "No", style: .cancel) { _ in }
+    let confirmAction = UIAlertAction(title: "Yes", style: .default) { _ in
       SKTAudio.sharedInstance().playSoundEffect("menu_back.wav")
       SceneManager.sharedInstance.backToStartScene()
     }
@@ -517,7 +517,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
     alertController.addAction(cancelAction)
     alertController.addAction(confirmAction)
     
-    SceneManager.sharedInstance.presentingController.presentViewController(alertController, animated: true, completion: nil)
+    SceneManager.sharedInstance.presentingController.present(alertController, animated: true, completion: nil)
   }
 
 }
@@ -525,7 +525,7 @@ class LevelEditorScene: SKScene, SceneLayerProtocol {
 
 
 // MARK: Help function
-func copyNode(node: SKSpriteNode, toButtonType ButtonType: SKButtonNode.Type, selectedTextue: SKTexture?, disabledTextue: SKTexture?) -> SKButtonNode {
+func copyNode(_ node: SKSpriteNode, toButtonType ButtonType: SKButtonNode.Type, selectedTextue: SKTexture?, disabledTextue: SKTexture?) -> SKButtonNode {
   let button = ButtonType.init(textureNormal: node.texture, selected: selectedTextue, disabled: disabledTextue)
   button.size = node.size
   button.name = node.name

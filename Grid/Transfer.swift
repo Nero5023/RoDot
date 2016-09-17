@@ -23,7 +23,7 @@ class Transfer: GKEntity, FreezableProtocol {
     
     let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.Transfer.phybodyRadius)
     physicsBody.affectedByGravity = false
-    physicsBody.dynamic = false
+    physicsBody.isDynamic = false
     
     let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: GameplayConfiguration.Transfer.collider)
     addComponent(physicsComponent)
@@ -37,5 +37,9 @@ class Transfer: GKEntity, FreezableProtocol {
     let freezableComponent = FreezableComponent()
     addComponent(freezableComponent)
     
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
   }
 }

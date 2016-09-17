@@ -1062,6 +1062,7 @@
 					CE7DB7CB1C68B64400AA358C = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = WLUW25LQLS;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 1;
@@ -1073,10 +1074,12 @@
 					};
 					CE7DB7E31C68B64400AA358C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = CE7DB7CB1C68B64400AA358C;
 					};
 					CE7DB7EE1C68B64400AA358C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = CE7DB7CB1C68B64400AA358C;
 					};
 				};
@@ -1513,6 +1516,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.rodot;
 				PRODUCT_NAME = RoDot;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "";
 			};
 			name = Debug;
 		};
@@ -1529,6 +1534,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.rodot;
 				PRODUCT_NAME = RoDot;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "";
 			};
 			name = Release;
 		};
@@ -1541,7 +1548,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.GridTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grid.app/Grid";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoDot.app/RoDot";
 			};
 			name = Debug;
 		};
@@ -1553,7 +1561,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.GridTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grid.app/Grid";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoDot.app/RoDot";
 			};
 			name = Release;
 		};
@@ -1565,6 +1574,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.GridUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Grid;
 				USES_XCTRUNNER = YES;
 			};
@@ -1577,6 +1587,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nero.GridUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Grid;
 				USES_XCTRUNNER = YES;
 			};

@@ -11,7 +11,7 @@ import SpriteKit
 
 extension Client {
   
-  func shareLevel(nodes: [SKNode], levelName: String?, completionHandler: (Int)->()) -> NSURLSessionTask {
+  func shareLevel(_ nodes: [SKNode], levelName: String?, completionHandler: @escaping (Int)->()) -> URLSessionTask {
     let task = taskForPostMethod(Client.Methods.ShareLevel, jsonBody: getLevelDate(nodes, levelName: levelName)) { data in
       let json = JSON(data: data)
       let levelId = json[JSONBodyKeys.LevelId].int!
@@ -21,17 +21,17 @@ extension Client {
   }
   
   
-  private func getLevelDate(nodes: [SKNode], levelName: String?) -> Dictionary<String, AnyObject> {
+  fileprivate func getLevelDate(_ nodes: [SKNode], levelName: String?) -> Dictionary<String, AnyObject> {
     let levelName = levelName == nil ? "DIY" : levelName!
     let nodesInfo: [Dictionary<String, AnyObject>] = nodes.map { node in
-      let dic:Dictionary<String, AnyObject> = [Client.JSONBodyKeys.NodeName: node.name!, "position": NSStringFromCGPoint(node.position), "zRotation": NSNumber(double: Double(node.zRotation)), "nodeType": NodeType(nodeName: node.name).rawValue]
+      let dic:Dictionary<String, AnyObject> = [Client.JSONBodyKeys.NodeName: node.name! as AnyObject, "position": NSStringFromCGPoint(node.position) as AnyObject, "zRotation": NSNumber(value: Double(node.zRotation) as Double), "nodeType": NodeType(nodeName: node.name).rawValue as AnyObject]
       return dic
     }
     return ["level": ["name": levelName], "nodes": nodesInfo]
   }
   
   
-  func getLevelDetail(levelid: Int, completionHandler:(sceen: SKScene)->()) -> NSURLSessionTask {
+  func getLevelDetail(_ levelid: Int, completionHandler:@escaping (_ sceen: SKScene)->()) -> URLSessionTask {
     let task = taskForGetMethod(Client.Methods.GetLevelDeail, parameters: [Client.ParameterKeys.LevelId: levelid]) { data in
       let json = JSON(data: data)
       let nodes = json[Client.JSONBodyKeys.Nodes]
@@ -41,16 +41,16 @@ extension Client {
           "zRotation": String(nodeInfo[Client.JSONBodyKeys.ZRotation].number!), "type": nodeInfo[Client.JSONBodyKeys.Type].string!]
       }
       let scene = LevelEditPlayScene.editSceneFromNodesData(nodesData, sceneType: .sharePlay(levelid))!
-      scene.scaleMode = .AspectFill
+      scene.scaleMode = .aspectFill
       completionHandler(sceen: scene)
     }
     return task
   }
   
-  func likeLevel(levelid: Int, completionHandler: ()->()) {
+  func likeLevel(_ levelid: Int, completionHandler: @escaping ()->()) {
     let _ = taskForPostMethod(Client.Methods.LikeLevel, jsonBody: [Client.JSONBodyKeys.LevelId: levelid]) { data in
       let json = JSON(data: data)
-      if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
+      if let result = json[Client.JSONBodyKeys.Result].string , result == Client.JSONBodyValues.Success {
         completionHandler()
       }else {
 //        HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
@@ -58,7 +58,7 @@ extension Client {
     }
   }
   
-  func getLvelLikeCount(levelid: Int, completionHandler: (Int)->()) {
+  func getLvelLikeCount(_ levelid: Int, completionHandler: @escaping (Int)->()) {
     let _ = taskForGetMethod(Client.Methods.LikeCount, parameters: ["levelid": levelid]) { data in
       let jsonBody = JSON(data: data)
       let likesCount = jsonBody[Client.JSONBodyKeys.LevelLikesCount].int!
@@ -66,25 +66,25 @@ extension Client {
     }
   }
   
-  func levelWin(levelid: Int, completionHandler: ()->()) {
+  func levelWin(_ levelid: Int, completionHandler: @escaping ()->()) {
     let _ = taskForPostMethod(Client.Methods.LevelWin, jsonBody: [Client.JSONBodyKeys.LevelId: levelid]) { data in
       let json = JSON(data)
-      if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
+      if let result = json[Client.JSONBodyKeys.Result].string , result == Client.JSONBodyValues.Success {
         completionHandler()
       }
     }
   }
   
-  func levelLose(levelid: Int, completionHandler: ()->()) {
+  func levelLose(_ levelid: Int, completionHandler: @escaping ()->()) {
     let _ = taskForPostMethod(Client.Methods.LevelLose, jsonBody: [Client.JSONBodyKeys.LevelId: levelid]) { data in
       let json = JSON(data)
-      if let result = json[Client.JSONBodyKeys.Result].string where result == Client.JSONBodyValues.Success {
+      if let result = json[Client.JSONBodyKeys.Result].string , result == Client.JSONBodyValues.Success {
         completionHandler()
       }
     }
   }
   
-  func getLevelWinTimes(levelid: Int, completionHandler: (Int)->()) {
+  func getLevelWinTimes(_ levelid: Int, completionHandler: @escaping (Int)->()) {
     let _ = taskForGetMethod(Client.Methods.GetLevelWinTimes, parameters: ["levelid": levelid]) { data in
       let jsonBody = JSON(data: data)
       let winTimes = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int!
@@ -92,7 +92,7 @@ extension Client {
     }
   }
   
-  func getLevelLoseTimes(levelid: Int, completionHandler: (Int)->()) {
+  func getLevelLoseTimes(_ levelid: Int, completionHandler: @escaping (Int)->()) {
     let _ = taskForGetMethod(Client.Methods.GetLevelLoseTimes, parameters: ["levelid": levelid]) { data in
       let jsonBody = JSON(data: data)
       let lostTimes = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int!
@@ -100,10 +100,10 @@ extension Client {
     }
   }
   
-  func getPlayLevelInfo(levelid: Int, completionHandler:([String: Int])->()) -> NSURLSessionTask{
+  func getPlayLevelInfo(_ levelid: Int, completionHandler:@escaping ([String: Int])->()) -> URLSessionTask{
     let task = taskForGetMethod(Client.Methods.GetLevelPlayInfo, parameters: ["levelid": levelid]) { data in
       let jsonBody = JSON(data: data)
-      if let winTimes = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int, lostTimes = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int, likesCount = jsonBody[Client.JSONBodyKeys.LevelLikesCount].int {
+      if let winTimes = jsonBody[Client.JSONBodyKeys.LevelWinTimes].int, let lostTimes = jsonBody[Client.JSONBodyKeys.LevelLoseTimes].int, let likesCount = jsonBody[Client.JSONBodyKeys.LevelLikesCount].int {
         let playInfo = [Client.JSONBodyKeys.LevelWinTimes: winTimes, Client.JSONBodyKeys.LevelLoseTimes: lostTimes, Client.JSONBodyKeys.LevelLikesCount: likesCount]
         completionHandler(playInfo)
       }

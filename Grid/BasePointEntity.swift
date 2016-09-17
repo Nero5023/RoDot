@@ -90,13 +90,17 @@ class BasePointEntity: GKEntity {
     
     let physicsBody = SKPhysicsBody(circleOfRadius: renderComponent.node.size.width/2.0 - 2)
     physicsBody.affectedByGravity = false
-    physicsBody.dynamic = false
+    physicsBody.isDynamic = false
     let physicsComponent = PhysicsComponent(physicsBody:physicsBody, colliderType: GameplayConfiguration.RotationPoint.collider)
     addComponent(physicsComponent)
     
     renderComponent.node.physicsBody = physicsComponent.physicsBody
     renderComponent.node.zPosition = GameplayConfiguration.RotationPoint.zPositon
     
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
   }
   
 }

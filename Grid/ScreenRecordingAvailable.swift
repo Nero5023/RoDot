@@ -15,7 +15,7 @@ protocol ScreenRecordingAvailable {
 
 extension ScreenRecordingAvailable {
   var screenRecordingAvailable: Bool {
-    return RPScreenRecorder.sharedRecorder().available
+    return RPScreenRecorder.shared().isAvailable
   }
 }
 
@@ -28,11 +28,11 @@ protocol IsRecordingProtocol {
 
 extension IsRecordingProtocol {
   var isRecording: Bool {
-    return NSUserDefaults.standardUserDefaults().boolForKey(IsRecordingKey)
+    return UserDefaults.standard.bool(forKey: IsRecordingKey)
   }
   
   func toggleRecord() {
-    let recording = NSUserDefaults.standardUserDefaults().boolForKey(IsRecordingKey)
-    NSUserDefaults.standardUserDefaults().setBool(!recording, forKey: IsRecordingKey)
+    let recording = UserDefaults.standard.bool(forKey: IsRecordingKey)
+    UserDefaults.standard.set(!recording, forKey: IsRecordingKey)
   }
 }

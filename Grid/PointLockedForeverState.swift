@@ -23,7 +23,7 @@ class PointLockedForeverState: GKState {
   
   // MARK: GKState Life Cycle
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return false
   }
 }

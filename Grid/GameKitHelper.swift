@@ -24,7 +24,7 @@ class GameKitHelper: NSObject {
       if viewController != nil {
         self.authenticationViewController = viewController
 
-        NSNotificationCenter.defaultCenter().postNotificationName(PresentAuthenticationViewController, object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: PresentAuthenticationViewController), object: self)
       }else if error == nil {
         self.gameCenterEnaled = true
       }
@@ -32,36 +32,36 @@ class GameKitHelper: NSObject {
     }
   }
   
-  func reportAchievements(achievements: [GKAchievement], errorHandler: ((NSError?)->Void)? = nil) {
+  func reportAchievements(_ achievements: [GKAchievement], errorHandler: ((NSError?)->Void)? = nil) {
     guard gameCenterEnaled else {
       return
     }
-    GKAchievement.reportAchievements(achievements, withCompletionHandler: errorHandler)
+    GKAchievement.report(achievements, withCompletionHandler: errorHandler as! ((Error?) -> Void)?)
   }
   
-  func reportScore(score: Int64, forLeaderBoardId leaderBoardId: String, errorHandler: ((NSError?)->Void)? = nil) {
+  func reportScore(_ score: Int64, forLeaderBoardId leaderBoardId: String, errorHandler: ((NSError?)->Void)? = nil) {
     guard gameCenterEnaled else { return }
     let gkSore = GKScore(leaderboardIdentifier: leaderBoardId)
     gkSore.value = score
-    GKScore.reportScores([gkSore], withCompletionHandler: errorHandler)
+    GKScore.report([gkSore], withCompletionHandler: errorHandler as! ((Error?) -> Void)?)
   }
   
 }
 
 extension GameKitHelper: GKGameCenterControllerDelegate {
-  func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-    gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+  func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+    gameCenterViewController.dismiss(animated: true, completion: nil)
   }
   
   
-  func showGKGameCenterViewController(viewController: UIViewController) {
+  func showGKGameCenterViewController(_ viewController: UIViewController) {
     guard gameCenterEnaled else { return }
     
     let gameCenterViewController = GKGameCenterViewController()
     
     gameCenterViewController.gameCenterDelegate = self
     
-    viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
+    viewController.present(gameCenterViewController, animated: true, completion: nil)
   }
 }
 

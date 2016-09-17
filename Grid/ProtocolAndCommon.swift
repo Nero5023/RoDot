@@ -23,15 +23,15 @@ protocol CustomNodeEvents {
   func didMoveToScene()
 }
 
-func detectNode(centerNode: SKNode, inDirection direction: MoveDirection, detectDistance:CGFloat) -> SKNode? {
+func detectNode(_ centerNode: SKNode, inDirection direction: MoveDirection, detectDistance:CGFloat) -> SKNode? {
   let targetPosition = CGPoint(
     x: centerNode.position.x + CGFloat(direction.tag.0)*detectDistance,
     y: centerNode.position.y + CGFloat(direction.tag.1)*detectDistance)
-  for node in centerNode.parent!.nodesAtPoint(targetPosition) {
+  for node in centerNode.parent!.nodes(at: targetPosition) {
     if let node = node as? EntityNode {
       return node
     }
   }
   // Maybe wrong
-  return centerNode.parent?.nodeAtPoint(targetPosition)
+  return centerNode.parent?.atPoint(targetPosition)
 }

@@ -23,17 +23,17 @@ class PointUnlockedState: GKState {
   
   // MARK: GKState Life Cycle
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     if let previousState = previousState {
       if previousState is PointRotatingState {
-        if let rotateCountComponent = entity.componentForClass(RotateCountComponent.self) {
+        if let rotateCountComponent = entity.component(ofType: RotateCountComponent.self) {
           rotateCountComponent.endRotating()
         }
       }
     }
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is PointCheckingState.Type || stateClass is PointRotatingState.Type || stateClass is PointLockedForeverState.Type || stateClass is PointTranslatingState.Type
   }
 }

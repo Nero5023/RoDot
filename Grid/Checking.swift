@@ -20,16 +20,16 @@ class Checking: GKState {
     super.init()
   }
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    node.userInteractionEnabled = false
-    NSNotificationCenter.defaultCenter().postNotificationName(kPointNodeCheckNotification, object: self.node)
+  override func didEnter(from previousState: GKState?) {
+    node.isUserInteractionEnabled = false
+    NotificationCenter.default.post(name: Notification.Name(rawValue: kPointNodeCheckNotification), object: self.node)
   }
   
-  override func willExitWithNextState(nextState: GKState) {
+  override func willExit(to nextState: GKState) {
     
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is Locked.Type || stateClass is Unlocked.Type
   }
   

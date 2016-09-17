@@ -23,12 +23,12 @@ class LevelSceneActiveState: GKState {
   
   // MARK: GKState Life Cycle
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    super.didEnterWithPreviousState(previousState)
+  override func didEnter(from previousState: GKState?) {
+    super.didEnter(from: previousState)
     
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     super.isValidNextState(stateClass)
     return stateClass is LevelSceneFailState.Type || stateClass is LevelSceneSuccessState.Type
   }

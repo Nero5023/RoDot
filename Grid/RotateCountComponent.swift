@@ -13,19 +13,19 @@ class RotateCountComponent: GKComponent {
   
   // MARK: Properties
   
-  private var rotateCount: Int
+  fileprivate var rotateCount: Int
   
-  private var rotateCountNodes = [SKSpriteNode]()
+  fileprivate var rotateCountNodes = [SKSpriteNode]()
   
   var intelligenceComponent: IntelligenceComponent {
-    guard let intelligenceComponent = entity?.componentForClass(IntelligenceComponent.self) else {
+    guard let intelligenceComponent = entity?.component(ofType: IntelligenceComponent.self) else {
       fatalError("The RotateCountComponent's entity must have a IntelligenceComponent")
     }
     return intelligenceComponent
   }
   
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("The RotateCountComponent's entity must have a RenderComponent")
     }
     return renderComponent
@@ -35,6 +35,10 @@ class RotateCountComponent: GKComponent {
   
   init(rotateCount: Int) {
     self.rotateCount = rotateCount
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
   }
   
   func addRotateCountNode() {
@@ -63,26 +67,26 @@ class RotateCountComponent: GKComponent {
       removeNode = self.rotateCountNodes.last!
       removeIndex = self.rotateCountNodes.count - 1
     }
-    removeNode.runAction(SKAction.sequence([
-      SKAction.scaleTo(0, duration: 0.5),
-      SKAction.runBlock({
+    removeNode.run(SKAction.sequence([
+      SKAction.scale(to: 0, duration: 0.5),
+      SKAction.run({
         removeNode.removeFromParent()
-        self.rotateCountNodes.removeAtIndex(removeIndex)
+        self.rotateCountNodes.remove(at: removeIndex)
       })
       ]))
     
     if rotateCount == 0 {
       
       for node in renderComponent.node.children where node.name == "bubble" {
-        node.runAction(SKAction.sequence([
-          SKAction.scaleTo(0, duration: 0.33),
-          SKAction.runBlock({node.removeFromParent()})
+        node.run(SKAction.sequence([
+          SKAction.scale(to: 0, duration: 0.33),
+          SKAction.run({node.removeFromParent()})
           ]))
       }
-      renderComponent.node.runAction(SKAction.colorizeWithColor(UIColor.blackColor(), colorBlendFactor: 1, duration: 0.33))
+      renderComponent.node.run(SKAction.colorize(with: UIColor.black, colorBlendFactor: 1, duration: 0.33))
       
       
-      intelligenceComponent.stateMachine.enterState(PointLockedForeverState.self)
+      intelligenceComponent.stateMachine.enter(PointLockedForeverState.self)
     }
   }
   

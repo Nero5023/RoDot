@@ -22,9 +22,9 @@ class  AchievementsHelper {
   static let ShareLevel50TimesAchievementId = "com.nero.rodot.sharelevel50times"
   static let ShareLevel100TimesAchievementId = "com.nero.rodot.sharelevel100times"
   
-  class func rotateAchievements(roateCount: Int) -> [GKAchievement] {
+  class func rotateAchievements(_ roateCount: Int) -> [GKAchievement] {
     var totalRotateCountBefore: Int = 0
-    if let count = NSUserDefaults.standardUserDefaults().objectForKey(RotateCountKey) as? Int {
+    if let count = UserDefaults.standard.object(forKey: RotateCountKey) as? Int {
       totalRotateCountBefore = count
     }
     let totalRotateCount = totalRotateCountBefore + roateCount
@@ -42,12 +42,12 @@ class  AchievementsHelper {
     if totalRotateCountBefore <= 500 {
       achievements.append(AchievementsHelper.getAchievement(totalRotateCount, targetCount: 500, identifier: AchievementsHelper.Rotate500TimesAchievementId))
     }
-    NSUserDefaults.standardUserDefaults().setObject(totalRotateCount, forKey: RotateCountKey)
+    UserDefaults.standard.set(totalRotateCount, forKey: RotateCountKey)
     return achievements
   }
   
   
-  private class func getAchievement(count: Int ,targetCount: Int, identifier: String) -> GKAchievement {
+  fileprivate class func getAchievement(_ count: Int ,targetCount: Int, identifier: String) -> GKAchievement {
     let percent = Double((Double(count)/Double(targetCount)) * 100)
     let achievement = GKAchievement(identifier: identifier, player: GKLocalPlayer())
     achievement.percentComplete = percent
@@ -58,7 +58,7 @@ class  AchievementsHelper {
   
   class func shareAchievements() -> [GKAchievement] {
     var totalShareCount = 0
-    if let count = NSUserDefaults.standardUserDefaults().objectForKey(ShareCountKey) as? Int {
+    if let count = UserDefaults.standard.object(forKey: ShareCountKey) as? Int {
       totalShareCount = count
     }
     totalShareCount += 1
@@ -76,7 +76,7 @@ class  AchievementsHelper {
       achievements.append(AchievementsHelper.getAchievement(totalShareCount, targetCount: 100, identifier: AchievementsHelper.ShareLevel100TimesAchievementId))
     }
     
-    NSUserDefaults.standardUserDefaults().setObject(totalShareCount, forKey: ShareCountKey)
+    UserDefaults.standard.set(totalShareCount, forKey: ShareCountKey)
     return achievements
   }
   

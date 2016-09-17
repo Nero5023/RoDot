@@ -17,13 +17,13 @@ class Rotating: GKState {
     super.init()
   }
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     if let _ = node.scene as? GameScene {
 //      scene.gridGraph.attachJointFixToPointNode(node, atScene: scene)
     }
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is Checking.Type || stateClass is Unlocked.Type
   }
   

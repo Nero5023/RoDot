@@ -23,11 +23,11 @@ class PointRotatingState: GKState {
   
   // MARK: GKState Life Cycle
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     SKTAudio.sharedInstance().playSoundEffect("open_lock_2.wav", withVolume: 0.33)
   }
   
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is PointCheckingState.Type || stateClass is PointUnlockedState.Type
   }
 

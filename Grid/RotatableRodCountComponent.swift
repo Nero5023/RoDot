@@ -16,7 +16,7 @@ class RotatableRodCountComponent: GKComponent {
   var rotatableRodCount: Int
   
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("The RotateCountComponent's entity must have a RenderComponent")
     }
     return renderComponent
@@ -26,6 +26,10 @@ class RotatableRodCountComponent: GKComponent {
   
   init(rotatableRodCount: Int) {
     self.rotatableRodCount = rotatableRodCount
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
   }
   
   func addBubbles() {

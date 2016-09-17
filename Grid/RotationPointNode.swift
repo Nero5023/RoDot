@@ -18,10 +18,10 @@ class RotationPointNode: SKSpriteNode, CustomNodeEvents {
     ])
   
   func didMoveToScene() {
-    state.enterState(Checking)
+    state.enter(Checking)
     physicsBody = SKPhysicsBody(circleOfRadius: size.width/4)
     physicsBody!.affectedByGravity = false
-    physicsBody!.dynamic = false
+    physicsBody!.isDynamic = false
     
     physicsBody!.categoryBitMask = PhysicsCategory.PointNode
     physicsBody!.collisionBitMask = PhysicsCategory.Ball

@@ -13,7 +13,7 @@ class TransferComponent: GKComponent {
   
   // MARK: Properties
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("A TransferComponent's entity must have a RenderComponent ")
     }
     return renderComponent
@@ -22,7 +22,7 @@ class TransferComponent: GKComponent {
   var targetNodeName: String
   
   var relatedNode: EntityNode {
-    guard let entityNode = renderComponent.node.parent?.childNodeWithName(targetNodeName) as? EntityNode else {
+    guard let entityNode = renderComponent.node.parent?.childNode(withName: targetNodeName) as? EntityNode else {
       fatalError("A TransferComponent's entity's renderComponent's parent must have a node named \(targetNodeName) ")
     }
     return entityNode
@@ -30,7 +30,7 @@ class TransferComponent: GKComponent {
   
   var allowTransfer: Bool = true {
     didSet {
-      relatedNode.entity.componentForClass(TransferComponent.self)!.allowTransfer = allowTransfer
+      relatedNode.entity.component(ofType: TransferComponent.self)!.allowTransfer = allowTransfer
     }
   }
   
@@ -44,19 +44,23 @@ class TransferComponent: GKComponent {
     self.targetNodeName = targetNodeName
     super.init()
   }
+
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
   
   // MARK: Action
   
-  func transferNode(node: SKSpriteNode) {
+  func transferNode(_ node: SKSpriteNode) {
     isContacting = true
-    if entity?.componentForClass(FreezableComponent.self)?.isFreezd == true { return }
+    if entity?.component(ofType: FreezableComponent.self)?.isFreezd == true { return }
     if allowTransfer {
       isContacting = false
-      relatedNode.entity.componentForClass(TransferComponent.self)?.getTransferNode(node)
+      relatedNode.entity.component(ofType: TransferComponent.self)?.getTransferNode(node)
     }
   }
   
-  func getTransferNode(node: SKSpriteNode) {
+  func getTransferNode(_ node: SKSpriteNode) {
     node.removeFromParent()
     node.position = renderComponent.node.position
     renderComponent.node.parent?.addChild(node)
@@ -66,8 +70,8 @@ class TransferComponent: GKComponent {
   
   func endTransfer() {
     isContacting = false
-    if entity?.componentForClass(FreezableComponent.self)?.isFreezd == true { return }
-    if !isContacting && !relatedNode.entity.componentForClass(TransferComponent.self)!.isContacting {
+    if entity?.component(ofType: FreezableComponent.self)?.isFreezd == true { return }
+    if !isContacting && !relatedNode.entity.component(ofType: TransferComponent.self)!.isContacting {
       allowTransfer = true
     }
   }

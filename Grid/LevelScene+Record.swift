@@ -31,16 +31,16 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
       }
     }
     recordButton.alpha = 0
-    recordButton.runAction(SKAction.fadeInWithDuration(0.66))
+    recordButton.run(SKAction.fadeIn(withDuration: 0.66))
   }
   
-  func startRecording(button: SKButtonNode) {
+  func startRecording(_ button: SKButtonNode) {
     guard screenRecordingAvailable else { return }
-    let sharedRecorder = RPScreenRecorder.sharedRecorder()
+    let sharedRecorder = RPScreenRecorder.shared()
     sharedRecorder.delegate = self
-    sharedRecorder.startRecordingWithMicrophoneEnabled(true) { error in
+    sharedRecorder.startRecording(withMicrophoneEnabled: true) { error in
       if let error = error {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
 //          HUD.flash(HUDContentType.LabeledError(title: "Error happened", subtitle: error.localizedDescription), delay: 1.3, completion: nil)
           print("sharedRecorder error: \(error.localizedDescription)")
           button.texture = SKTexture(imageNamed: "recordbutton")
@@ -55,12 +55,12 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
     }
   }
   
-  func stopRecording(button: SKButtonNode) {
-    let sharedRecorder = RPScreenRecorder.sharedRecorder()
-    sharedRecorder.stopRecordingWithHandler { previewViewController, error in
+  func stopRecording(_ button: SKButtonNode) {
+    let sharedRecorder = RPScreenRecorder.shared()
+    sharedRecorder.stopRecording { previewViewController, error in
       if let error = error {
-        dispatch_async(dispatch_get_main_queue()) {
-          HUD.flash(HUDContentType.LabeledError(title: "Error happened", subtitle: error.localizedDescription), delay: 1.3, completion: nil)
+        DispatchQueue.main.async {
+          HUD.flash(HUDContentType.labeledError(title: "Error happened", subtitle: error.localizedDescription), delay: 1.3, completion: nil)
           button.texture = SKTexture(imageNamed: "recordbutton")
         }
         return
@@ -69,7 +69,7 @@ extension LevelScene: ScreenRecordingAvailable, IsRecordingProtocol {
         previewViewController.previewControllerDelegate = self
         self.toggleRecord()
         button.texture = SKTexture(imageNamed: "recordbutton")
-        SceneManager.sharedInstance.presentingController.presentViewController(previewViewController, animated: true, completion: nil)
+        SceneManager.sharedInstance.presentingController.present(previewViewController, animated: true, completion: nil)
       }
     }
   }
@@ -80,9 +80,9 @@ extension LevelScene: RPScreenRecorderDelegate {
 }
 
 extension LevelScene: RPPreviewViewControllerDelegate {
-  func previewControllerDidFinish(previewController: RPPreviewViewController) {
-    dispatch_async(dispatch_get_main_queue()) {
-      SceneManager.sharedInstance.presentingController.dismissViewControllerAnimated(true, completion: self.stopRecordingCompletionHandler)
+  func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+    DispatchQueue.main.async {
+      SceneManager.sharedInstance.presentingController.dismiss(animated: true, completion: self.stopRecordingCompletionHandler)
     }
     
   }

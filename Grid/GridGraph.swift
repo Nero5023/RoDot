@@ -19,13 +19,13 @@ class GridGraph {
   
   static let sharedInstance = GridGraph()
   
-  private init() {
+  fileprivate init() {
     self.vertexs = [Vertex]()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GridGraph.checkPoint(_:)), name: kPointNodeCheckNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(GridGraph.checkPoint(_:)), name: NSNotification.Name(rawValue: kPointNodeCheckNotification), object: nil)
   }
   
   //NSNotification selector check the point node
-  @objc func checkPoint(notification: NSNotification) {
+  @objc func checkPoint(_ notification: Notification) {
     guard let pointNode = notification.object as? RotationPointNode else { return }
     
     if let index = indexOfNode(pointNode) { //If the vertexs has already had the vertex which contain pointNode
@@ -36,8 +36,8 @@ class GridGraph {
       
       updateVertexRodsWithIndex(index)
       let presentRods = vertexs[index].rods
-      let sameRods = presentRods.intersect(previousRods)
-      let changedRods = previousRods.subtract(sameRods)
+      let sameRods = presentRods.intersection(previousRods)
+      let changedRods = previousRods.subtracting(sameRods)
       if changedRods.count == 1 {
         changedRods.first!.pointNodes = Set(changedRods.first!.pointNodes.filter({$0 != pointNode}))
       }
@@ -55,9 +55,9 @@ class GridGraph {
   
   
   //Get the index of the node which in vertex in vertexs  O(n)
-  func indexOfNode(node: RotationPointNode) -> Int? {
+  func indexOfNode(_ node: RotationPointNode) -> Int? {
     var index: Int?
-    for (i, vertex) in vertexs.enumerate() {
+    for (i, vertex) in vertexs.enumerated() {
       if vertex.point == node {
         index = i
       }
@@ -67,14 +67,14 @@ class GridGraph {
   
   
   // Change the node state with rods count
-  func changePointNodeStateWithRods(rods: Set<RodNode>, node: RotationPointNode) {
+  func changePointNodeStateWithRods(_ rods: Set<RodNode>, node: RotationPointNode) {
     if rods.count == 4 {
-      node.state.enterState(Locked)
+      node.state.enter(Locked)
       for rod in rods {
         rod.pointNodes = Set(rod.pointNodes.filter({ $0 != node }))
       }
     }else {
-      node.state.enterState(Unlocked)
+      node.state.enter(Unlocked)
       for rod in rods {
         rod.pointNodes.insert(node)
       }
@@ -82,7 +82,7 @@ class GridGraph {
   }
   
   //According to the index, append the rods around the pointNode
-  func updateVertexRodsWithIndex(index: Int) {
+  func updateVertexRodsWithIndex(_ index: Int) {
     guard vertexs[index].rods.count == 0  && index >= 0 && index < vertexs.count else { return }
     let tags = [(1, 0), (0, 1), (0, -1), (-1, 0)]
     let pointNode = vertexs[index].point
@@ -90,14 +90,14 @@ class GridGraph {
       let targetPosition = CGPoint(
         x: pointNode.position.x + CGFloat(tag.0)*pointNode.size.width,
         y: pointNode.position.y + CGFloat(tag.1)*pointNode.size.width)
-      if let rodNode = pointNode.parent!.nodeAtPoint(targetPosition) as? RodNode {
+      if let rodNode = pointNode.parent!.atPoint(targetPosition) as? RodNode {
         vertexs[index].rods.insert(rodNode)
       }
     }
   }
   
   // Traverse the rods around the rotationPointNode
-  func traverseRelatedRodsWithRotationNode(rotationPointNode: RotationPointNode, block: RodNode -> Void) {
+  func traverseRelatedRodsWithRotationNode(_ rotationPointNode: RotationPointNode, block: (RodNode) -> Void) {
     if let index = indexOfNode(rotationPointNode) {
       for rod in vertexs[index].rods {
         block(rod)
@@ -106,20 +106,20 @@ class GridGraph {
   }
   
   //Attach the fixed joint to the rods and point
-  func attachJointFixToPointNode(node: RotationPointNode, atScene scene: SKScene) {
+  func attachJointFixToPointNode(_ node: RotationPointNode, atScene scene: SKScene) {
     guard let index = indexOfNode(node) else { return }
     print("vertexs[index].rods.count:\(vertexs[index].rods.count)")
     traverseRelatedRodsWithRotationNode(node, block: { rod in
-      let fixJoint = SKPhysicsJointFixed.jointWithBodyA(rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convertPoint(node.position, fromNode: node.parent!))
-      rod.physicsBody!.dynamic = true
-      scene.physicsWorld.addJoint(fixJoint)
+      let fixJoint = SKPhysicsJointFixed.joint(withBodyA: rod.physicsBody!, bodyB: node.physicsBody!, anchor: scene.convert(node.position, from: node.parent!))
+      rod.physicsBody!.isDynamic = true
+      scene.physicsWorld.add(fixJoint)
     })
   }
   
   // Like the method like above
-  func setAllRelatedRodsDynamicWithRotationNode(node: RotationPointNode) {
+  func setAllRelatedRodsDynamicWithRotationNode(_ node: RotationPointNode) {
     traverseRelatedRodsWithRotationNode(node, block: { rod in
-      rod.physicsBody?.dynamic = false
+      rod.physicsBody?.isDynamic = false
     })
   }
   
@@ -139,9 +139,9 @@ class GridGraph {
     var bodies = [SKPhysicsBody]()
     for rod in vertexs[index].rods {
       if abs(rod.zRotation) < 0.1 || abs(abs(rod.zRotation) - π) < 0.1 {
-        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: 22, height: rod.size.height-8), center: rod.position))
+        bodies.append(SKPhysicsBody(rectangleOf: CGSize(width: 22, height: rod.size.height-8), center: rod.position))
       }else {
-        bodies.append(SKPhysicsBody(rectangleOfSize: CGSize(width: rod.size.height-8, height: 22), center: rod.position))
+        bodies.append(SKPhysicsBody(rectangleOf: CGSize(width: rod.size.height-8, height: 22), center: rod.position))
       }
     }
     
@@ -162,7 +162,7 @@ class GridGraph {
 
   
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: kPointNodeCheckNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kPointNodeCheckNotification), object: nil)
   }
   
 }

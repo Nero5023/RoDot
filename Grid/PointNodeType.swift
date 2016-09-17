@@ -14,13 +14,13 @@ import GameplayKit
 // MARK: Regular Expressions
 
 protocol RegularExpressionMatchable {
-  func match(pattern: String, options: NSRegularExpressionOptions) -> Bool
+  func match(_ pattern: String, options: NSRegularExpression.Options) -> Bool
 }
 
 extension String: RegularExpressionMatchable {
-  func match(pattern: String, options: NSRegularExpressionOptions) -> Bool {
+  func match(_ pattern: String, options: NSRegularExpression.Options) -> Bool {
     let regex = try! NSRegularExpression(pattern: pattern, options: options)
-    return regex.numberOfMatchesInString(self, options: [], range: NSMakeRange(0, self.utf16.count)) != 0
+    return regex.numberOfMatches(in: self, options: [], range: NSMakeRange(0, self.utf16.count)) != 0
   }
 }
 
@@ -62,7 +62,7 @@ enum PointNodeType {
     self = .restrictedNode(nodeProperties.0, nodeProperties.1, nodeProperties.2)
   }
   
-  static func roteatableRodCountIsClockwiseRotateCount(nodeName: String) -> (Int?, Bool?, Int?) {
+  static func roteatableRodCountIsClockwiseRotateCount(_ nodeName: String) -> (Int?, Bool?, Int?) {
     var rotatableRodCount: Int? = nil
     var rotateCount: Int? = nil
     var isClockwise: Bool? = nil
@@ -95,7 +95,7 @@ enum PointNodeType {
     return (rotatableRodCount, isClockwise, rotateCount)
   }
   
-  func pointEntity(node: RotationPointNode) -> BasePointEntity {
+  func pointEntity(_ node: RotationPointNode) -> BasePointEntity {
     var entity: BasePointEntity?
     switch self {
     case .staticNode:
@@ -107,14 +107,14 @@ enum PointNodeType {
         entity = RotationPoint(renderNode: node, rotateCount: rotateCount)
         break
       }
-      if let rotateableRodCount = rotateableRodCount where isClockwise == nil {
+      if let rotateableRodCount = rotateableRodCount , isClockwise == nil {
         entity = RestrictedRotationPoint(renderNode: node, rotatableRodCount: rotateableRodCount, rotateCount: rotateCount)
         break
       }
-      if let isClockwise = isClockwise where rotateableRodCount == nil {
+      if let isClockwise = isClockwise , rotateableRodCount == nil {
         entity = ClockwiseRotationPoint(renderNode: node, isClockwise: isClockwise, rotateCount: rotateCount)
       }
-      if let isClockwise = isClockwise, rotateableRodCount = rotateableRodCount {
+      if let isClockwise = isClockwise, let rotateableRodCount = rotateableRodCount {
         entity = ClockwiseRescritedRPoint(renderNode: node, rotatableRodCount: rotateableRodCount, isClockwise: isClockwise, rotateCount: rotateCount)
       }
     }

@@ -31,7 +31,7 @@ enum MoveDirection {
     return CGPoint(x: self.tag.0, y: self.tag.1)
   }
   
-  func targetDistance(vector: CGPoint) -> CGFloat {
+  func targetDistance(_ vector: CGPoint) -> CGFloat {
     return CGFloat(self.tag.0)*vector.x + CGFloat(self.tag.1)*vector.y
   }
   
@@ -42,21 +42,21 @@ class DetectComponent: GKComponent {
   // MARK: Properties
   
   var relateComponent: RelateComponent {
-    guard let relateComponent = entity?.componentForClass(RelateComponent.self) else {
+    guard let relateComponent = entity?.component(ofType: RelateComponent.self) else {
       fatalError("A DetectComponent's entity must have a RelateComponent")
     }
     return relateComponent
   }
   
   var orientationComponent: OrientationComponent {
-    guard let orientationComponent = entity?.componentForClass(OrientationComponent.self) else {
+    guard let orientationComponent = entity?.component(ofType: OrientationComponent.self) else {
       fatalError("A DetctComponent's entity must have a OrientationComponent")
     }
     return orientationComponent
   }
   
   var renderComponent: RenderComponent {
-    guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+    guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
       fatalError("A DetctComponent's entity must have a RenderComponent")
     }
     return renderComponent
@@ -69,7 +69,7 @@ class DetectComponent: GKComponent {
     var results: [MoveDirection] = []
     let orientation = orientationComponent.direction
     for relateNode in relateComponent.relateNodes {
-      if relateNode.entity.componentForClass(IntelligenceComponent.self)?.stateMachine.currentState is PointUnlockedState {
+      if relateNode.entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState is PointUnlockedState {
         if orientation == HVDirection.horizontal {
           if relateNode.position.x < renderComponent.node.position.x {
             results.append(.left)

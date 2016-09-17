@@ -11,115 +11,111 @@ import Foundation
 class Client {
   // MARK: Properties
   
-  var session = NSURLSession.sharedSession()
+  var session = URLSession.shared
   
   static let sharedInstance = Client()
   
   // MARK: Initializers
   
-  private init() {}
+  fileprivate init() {}
   
   var timeOutHandler:(()->())?
   
   // MARK: GET
   
-  func taskForGetMethod(method: String, parameters: [String: AnyObject], completionHandler: (data: NSData)-> ()) -> NSURLSessionTask {
+  func taskForGetMethod(_ method: String, parameters: [String: AnyObject], completionHandler: @escaping (_ data: Data)-> ()) -> URLSessionTask {
     let url = urlFromParmaters(parameters, withMethod: method)
-    let request = NSMutableURLRequest(URL: url)
-    request.HTTPMethod = "GET"
+    let request = NSMutableURLRequest(url: url)
+    request.httpMethod = "GET"
     request.addValue("application/json", forHTTPHeaderField: "Accept")
-    let task = session.dataTaskWithRequest(request) { [unowned self] data, response, error in
+    let task = session.dataTask(with: request, completionHandler: { [unowned self] data, response, error in
       self.disableTimeoutHandler()
       guard error == nil else {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
           if error!.localizedDescription != "cancelled" {
-            HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+            HUD.flash(.labeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
           }
         }
         return
       }
-      guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-        dispatch_async(dispatch_get_main_queue()) {
-          HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+      guard let statusCode = (response as? HTTPURLResponse)?.statusCode , statusCode >= 200 && statusCode <= 299 else {
+        DispatchQueue.main.async {
+          HUD.flash(.labeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
         }
         return
       }
       completionHandler(data: data!)
-    }
+    }) 
     task.resume()
     return task
   }
 
   //MARK: POST
   
-  func taskForPostMethod(method: String, jsonBody: [String: AnyObject], completionHandler: (data: NSData)-> ()) -> NSURLSessionTask {
+  func taskForPostMethod(_ method: String, jsonBody: [String: AnyObject], completionHandler: @escaping (_ data: Data)-> ()) -> URLSessionTask {
     let url = urlFromParmaters([:], withMethod: method)
-    let request = NSMutableURLRequest(URL: url)
-    request.HTTPMethod = "POST"
+    let request = NSMutableURLRequest(url: url)
+    request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
     
     do {
-      request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+      request.httpBody = try JSONSerialization.data(withJSONObject: jsonBody, options: [])
     }catch let error as NSError {
       print("NSJSONSerialization error:\(error)")
     }
     
-    let task = session.dataTaskWithRequest(request) { [unowned self] data, response, error in
+    let task = session.dataTask(with: request, completionHandler: { [unowned self] data, response, error in
       self.disableTimeoutHandler()
       guard error == nil else {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
           print(error?.localizedDescription)
           if error!.localizedDescription != "cancelled" {
-            HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+            HUD.flash(.labeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
           }
         }
         return
       }
-      guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-        dispatch_async(dispatch_get_main_queue()) {
-          print((response as? NSHTTPURLResponse)?.statusCode)
-          HUD.flash(.LabeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
+      guard let statusCode = (response as? HTTPURLResponse)?.statusCode , statusCode >= 200 && statusCode <= 299 else {
+        DispatchQueue.main.async {
+          print((response as? HTTPURLResponse)?.statusCode)
+          HUD.flash(.labeledError(title: "Error Happened", subtitle: "Try again"), delay: 1.3)
         }
         return
       }
       
       completionHandler(data: data!)
-    }
+    }) 
     
     task.resume()
     return task
   }
   
   
-  private func urlFromParmaters(parameters: [String: AnyObject], withMethod method: String) -> NSURL {
-    let components = NSURLComponents()
+  fileprivate func urlFromParmaters(_ parameters: [String: AnyObject], withMethod method: String) -> URL {
+    var components = URLComponents()
     components.scheme = Client.Constants.Scheme
     components.host = Client.Constants.Host
     components.path = method
-    components.queryItems = parameters.count == 0 ? nil : [NSURLQueryItem]()
+    components.queryItems = parameters.count == 0 ? nil : [URLQueryItem]()
     
     for (key, value) in parameters {
-      components.queryItems!.append(NSURLQueryItem(name: key, value: "\(value)"))
+      components.queryItems!.append(URLQueryItem(name: key, value: "\(value)"))
     }
-    return components.URL!
+    return components.url!
   }
   
   
   
-  func delay(delay:Double, closure:()->()) {
-    dispatch_after(
-      dispatch_time(
-        DISPATCH_TIME_NOW,
-        Int64(delay * Double(NSEC_PER_SEC))
-      ),
-      dispatch_get_main_queue(), closure)
+  func delay(_ delay:Double, closure:@escaping ()->()) {
+    DispatchQueue.main.asyncAfter(
+      deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
   }
   
   //If Need tiemout hud, should call this
-  func setTimeOutDuration(delay:Double, taskToCancel: NSURLSessionTask) {
+  func setTimeOutDuration(_ delay: Double, taskToCancel: URLSessionTask) {
     self.timeOutHandler = {
-      HUD.flash(.LabeledError(title: "Timeout", subtitle: "Try again"), delay: 1.3)
+      HUD.flash(.labeledError(title: "Timeout", subtitle: "Try again"), delay: 1.3)
       SKTAudio.sharedInstance().playSoundEffect("timeout.wav")
     }
     self.delay(delay) { [unowned self] in

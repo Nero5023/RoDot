@@ -14,7 +14,7 @@ import CoreData
 
 extension Level {
 
-    @NSManaged var date: NSDate?
+    @NSManaged var date: Date?
     @NSManaged var name: String?
     @NSManaged var nodes: NSSet?
 
